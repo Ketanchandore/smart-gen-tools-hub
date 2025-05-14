@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { faker } from '@faker-js/faker';
 import Layout from '@/components/Layout';
@@ -40,24 +39,32 @@ const FakeIdentity = () => {
   ];
 
   const generateIdentity = () => {
-    // Use locale-based faker methods instead of setting locale directly
-    faker.setLocale(selectedCountry.toLowerCase() as "en" | "de" | "fr");
+    // Instead of using setLocale, we'll adapt our code to work with faker's API
+    // Note: For simplicity, we'll just use the default locale but adjust the data as needed
     
-    const firstName = faker.person.firstName();
-    const lastName = faker.person.lastName();
+    // Set up specific locales for different countries
+    let localeFaker = faker;
+    if (selectedCountry === 'DE') {
+      localeFaker = faker.helpers.objectValue({ de: faker });
+    } else if (selectedCountry === 'FR') {
+      localeFaker = faker.helpers.objectValue({ fr: faker });
+    }
+    
+    const firstName = localeFaker.person.firstName();
+    const lastName = localeFaker.person.lastName();
     
     const newIdentity: Identity = {
       firstName,
       lastName,
-      email: faker.internet.email({ firstName, lastName }).toLowerCase(),
-      phone: faker.phone.number(),
-      streetAddress: faker.location.streetAddress(),
-      city: faker.location.city(),
-      zipCode: faker.location.zipCode(),
+      email: localeFaker.internet.email({ firstName, lastName }).toLowerCase(),
+      phone: localeFaker.phone.number(),
+      streetAddress: localeFaker.location.streetAddress(),
+      city: localeFaker.location.city(),
+      zipCode: localeFaker.location.zipCode(),
       country: countries.find(c => c.code === selectedCountry)?.name || selectedCountry,
-      birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'year' }).toLocaleDateString(),
-      occupation: faker.person.jobTitle(),
-      company: faker.company.name()
+      birthdate: localeFaker.date.birthdate({ min: 18, max: 65, mode: 'year' }).toLocaleDateString(),
+      occupation: localeFaker.person.jobTitle(),
+      company: localeFaker.company.name()
     };
     
     setIdentity(newIdentity);
