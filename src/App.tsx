@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -5,6 +6,18 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+
+// Import Tool Pages
+import PasswordGenerator from "./pages/PasswordGenerator";
+import IFSCFinder from "./pages/IFSCFinder";
+import PINLocator from "./pages/PINLocator";
+import CreditCardGenerator from "./pages/CreditCardGenerator";
+import TempEmail from "./pages/TempEmail";
+import BarcodeGenerator from "./pages/BarcodeGenerator";
+import FakeIdentity from "./pages/FakeIdentity";
+import LoremIpsum from "./pages/LoremIpsum";
+import DateGenerator from "./pages/DateGenerator";
+import NumberPlate from "./pages/NumberPlate";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +29,19 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          
+          {/* Tool Routes */}
+          <Route path="/password-generator" element={<PasswordGenerator />} />
+          <Route path="/ifsc-finder" element={<IFSCFinder />} />
+          <Route path="/pin-locator" element={<PINLocator />} />
+          <Route path="/credit-card-generator" element={<CreditCardGenerator />} />
+          <Route path="/temp-email" element={<TempEmail />} />
+          <Route path="/barcode-generator" element={<BarcodeGenerator />} />
+          <Route path="/fake-identity" element={<FakeIdentity />} />
+          <Route path="/lorem-ipsum" element={<LoremIpsum />} />
+          <Route path="/date-generator" element={<DateGenerator />} />
+          <Route path="/number-plate" element={<NumberPlate />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
