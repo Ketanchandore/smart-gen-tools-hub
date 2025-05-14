@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { faker } from '@faker-js/faker';
 import Layout from '@/components/Layout';
@@ -40,23 +39,24 @@ const FakeIdentity = () => {
   ];
 
   const generateIdentity = () => {
-    faker.setLocale(selectedCountry.toLowerCase());
+    // Create a localized instance of faker instead of using setLocale
+    const localizedFaker = faker.localize(selectedCountry.toLowerCase());
     
-    const firstName = faker.person.firstName();
-    const lastName = faker.person.lastName();
+    const firstName = localizedFaker.person.firstName();
+    const lastName = localizedFaker.person.lastName();
     
     const newIdentity: Identity = {
       firstName,
       lastName,
-      email: faker.internet.email({ firstName, lastName }).toLowerCase(),
-      phone: faker.phone.number(),
-      streetAddress: faker.location.streetAddress(),
-      city: faker.location.city(),
-      zipCode: faker.location.zipCode(),
+      email: localizedFaker.internet.email({ firstName, lastName }).toLowerCase(),
+      phone: localizedFaker.phone.number(),
+      streetAddress: localizedFaker.location.streetAddress(),
+      city: localizedFaker.location.city(),
+      zipCode: localizedFaker.location.zipCode(),
       country: countries.find(c => c.code === selectedCountry)?.name || selectedCountry,
-      birthdate: faker.date.birthdate({ min: 18, max: 65, mode: 'year' }).toLocaleDateString(),
-      occupation: faker.person.jobTitle(),
-      company: faker.company.name()
+      birthdate: localizedFaker.date.birthdate({ min: 18, max: 65, mode: 'year' }).toLocaleDateString(),
+      occupation: localizedFaker.person.jobTitle(),
+      company: localizedFaker.company.name()
     };
     
     setIdentity(newIdentity);
