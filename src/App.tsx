@@ -19,6 +19,11 @@ import LoremIpsum from "./pages/LoremIpsum";
 import DateGenerator from "./pages/DateGenerator";
 import NumberPlate from "./pages/NumberPlate";
 
+// Import New Tool Pages
+import TextCaseConverter from "./pages/TextCaseConverter";
+import PdfToWord from "./pages/PdfToWord";
+import ImageCompressor from "./pages/ImageCompressor";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -30,7 +35,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           
-          {/* Tool Routes */}
+          {/* Original Tool Routes */}
           <Route path="/password-generator" element={<PasswordGenerator />} />
           <Route path="/ifsc-finder" element={<IFSCFinder />} />
           <Route path="/pin-locator" element={<PINLocator />} />
@@ -41,6 +46,11 @@ const App = () => (
           <Route path="/lorem-ipsum" element={<LoremIpsum />} />
           <Route path="/date-generator" element={<DateGenerator />} />
           <Route path="/number-plate" element={<NumberPlate />} />
+          
+          {/* New Tool Routes */}
+          <Route path="/text-case-converter" element={<TextCaseConverter />} />
+          <Route path="/pdf-to-word" element={<PdfToWord />} />
+          <Route path="/image-compressor" element={<ImageCompressor />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
