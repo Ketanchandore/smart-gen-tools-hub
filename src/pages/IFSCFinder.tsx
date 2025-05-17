@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Copy, Search, Building, Bank } from 'lucide-react';
+import { Copy, Search, Building } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 interface BankDetails {
