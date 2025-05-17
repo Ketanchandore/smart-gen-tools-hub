@@ -24,7 +24,16 @@ import TextCaseConverter from "./pages/TextCaseConverter";
 import PdfToWord from "./pages/PdfToWord";
 import ImageCompressor from "./pages/ImageCompressor";
 
-const queryClient = new QueryClient();
+// Configure the query client with proper settings for faster performance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 30000,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -51,6 +60,11 @@ const App = () => (
           <Route path="/text-case-converter" element={<TextCaseConverter />} />
           <Route path="/pdf-to-word" element={<PdfToWord />} />
           <Route path="/image-compressor" element={<ImageCompressor />} />
+          
+          {/* Word to PDF route - redirects to the future implementation */}
+          <Route path="/word-to-pdf" element={<NotFound />} />
+          <Route path="/pdf-split-merge" element={<NotFound />} />
+          <Route path="/image-converter" element={<NotFound />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

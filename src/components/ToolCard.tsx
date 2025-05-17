@@ -32,12 +32,12 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) 
   };
 
   return (
-    <div className="tool-card p-6 flex flex-col h-full card-hover">
-      <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/20 text-primary mb-5 mx-auto">
+    <div className="tool-card p-4 md:p-6 flex flex-col h-full rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/20 text-primary mb-4 mx-auto">
         {icon}
       </div>
-      <h3 className="text-xl font-semibold text-center mb-2">{title}</h3>
-      <p className="text-muted-foreground text-center mb-6 flex-grow">{description}</p>
+      <h3 className="text-lg md:text-xl font-semibold text-center mb-2">{title}</h3>
+      <p className="text-muted-foreground text-center text-sm md:text-base mb-4 md:mb-6 flex-grow">{description}</p>
       <div className="mt-auto">
         <Link to={route} className="w-full" onClick={handleToolClick}>
           <Button className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">

@@ -270,24 +270,30 @@ const Index = () => {
             </div>
           )}
 
-          {/* Category Tabs */}
+          {/* Category Tabs - Updated with consistent styling */}
           <Tabs 
             defaultValue="all" 
             value={selectedTab} 
             onValueChange={setSelectedTab}
             className="mb-8"
           >
-            <TabsList className="grid grid-cols-2 md:grid-cols-6 mb-6">
-              {categories.map(category => (
-                <TabsTrigger key={category.id} value={category.id}>
-                  {category.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            <div className="relative overflow-auto">
+              <TabsList className="inline-flex w-full md:w-auto mb-6 p-1 h-auto bg-secondary/50">
+                {categories.map(category => (
+                  <TabsTrigger 
+                    key={category.id} 
+                    value={category.id}
+                    className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md transition-all"
+                  >
+                    {category.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
             
             {/* All Tools */}
             <TabsContent value="all" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {filteredTools.map((tool) => (
                   <ToolCard
                     key={tool.id}
@@ -303,8 +309,8 @@ const Index = () => {
             {/* Category-specific Tabs */}
             {categories.slice(1).map(category => (
               <TabsContent key={category.id} value={category.id} className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredTools.map((tool) => (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                  {filteredTools.filter(tool => tool.category === category.id).map((tool) => (
                     <ToolCard
                       key={tool.id}
                       title={tool.title}
