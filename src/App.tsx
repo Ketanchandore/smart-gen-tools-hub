@@ -19,10 +19,17 @@ import LoremIpsum from "./pages/LoremIpsum";
 import DateGenerator from "./pages/DateGenerator";
 import NumberPlate from "./pages/NumberPlate";
 
-// Import New Tool Pages
+// Import Text Tools
 import TextCaseConverter from "./pages/TextCaseConverter";
+
+// Import PDF & Document Tools
 import PdfToWord from "./pages/PdfToWord";
+import WordToPdf from "./pages/WordToPdf";
+import PdfSplitMerge from "./pages/PdfSplitMerge";
+
+// Import Image Tools
 import ImageCompressor from "./pages/ImageCompressor";
+import ImageConverter from "./pages/ImageConverter";
 
 // Configure the query client with proper settings for faster performance
 const queryClient = new QueryClient({
@@ -31,6 +38,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       retry: 1,
       staleTime: 30000,
+      gcTime: 60000, // Garbage collection time
     },
   },
 });
@@ -56,15 +64,17 @@ const App = () => (
           <Route path="/date-generator" element={<DateGenerator />} />
           <Route path="/number-plate" element={<NumberPlate />} />
           
-          {/* New Tool Routes */}
+          {/* Text Tool Routes */}
           <Route path="/text-case-converter" element={<TextCaseConverter />} />
-          <Route path="/pdf-to-word" element={<PdfToWord />} />
-          <Route path="/image-compressor" element={<ImageCompressor />} />
           
-          {/* Word to PDF route - redirects to the future implementation */}
-          <Route path="/word-to-pdf" element={<NotFound />} />
-          <Route path="/pdf-split-merge" element={<NotFound />} />
-          <Route path="/image-converter" element={<NotFound />} />
+          {/* PDF & Document Tool Routes */}
+          <Route path="/pdf-to-word" element={<PdfToWord />} />
+          <Route path="/word-to-pdf" element={<WordToPdf />} />
+          <Route path="/pdf-split-merge" element={<PdfSplitMerge />} />
+          
+          {/* Image Tool Routes */}
+          <Route path="/image-compressor" element={<ImageCompressor />} />
+          <Route path="/image-converter" element={<ImageConverter />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

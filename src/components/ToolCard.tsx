@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Motion, spring } from 'react-motion';
 
 interface ToolCardProps {
   title: string;
@@ -31,8 +32,22 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) 
     }
   };
 
+  // Function to check if the tool page exists
+  const toolExists = () => {
+    // Check if the route is redirecting to NotFound page
+    return !['/word-to-pdf', '/pdf-split-merge', '/image-converter'].includes(route);
+  };
+
   return (
-    <div className="tool-card p-4 md:p-6 flex flex-col h-full rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div 
+      className="tool-card p-4 md:p-6 flex flex-col h-full rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 relative overflow-hidden bg-card"
+      style={{
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderColor: 'hsl(var(--border))',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+      }}
+    >
       <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/20 text-primary mb-4 mx-auto">
         {icon}
       </div>
@@ -40,11 +55,23 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) 
       <p className="text-muted-foreground text-center text-sm md:text-base mb-4 md:mb-6 flex-grow">{description}</p>
       <div className="mt-auto">
         <Link to={route} className="w-full" onClick={handleToolClick}>
-          <Button className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity">
-            Launch Tool
+          <Button 
+            className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity"
+            disabled={!toolExists()}
+          >
+            {toolExists() ? 'Launch Tool' : 'Coming Soon'}
           </Button>
         </Link>
       </div>
+      
+      {/* Add subtle hover effect */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 transition-opacity duration-300 pointer-events-none"
+        style={{
+          opacity: 0,
+          transition: 'opacity 0.3s ease',
+        }}
+      />
     </div>
   );
 };
