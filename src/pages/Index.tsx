@@ -1,337 +1,436 @@
 
-import React, { useState, useEffect } from 'react';
-import Layout from '@/components/Layout';
+import React, { useState } from 'react';
+import { 
+  Banknote, FileText, FilePlus, CreditCard, 
+  Calendar, User, Image, BarChart2, 
+  Search, TrendingUp, Hash, UserRound, 
+  Mic, FileVideo, Instagram, Twitter, 
+  Mail, FileUp, Briefcase, MessageSquare, 
+  Book, Zap, Lightbulb, Binary
+} from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import { Button } from '@/components/ui/button';
+import { TabsList, TabsTrigger, Tabs, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Lock, Code, CreditCard, Mail, Barcode, User, FileText, Calendar, Car, 
-  FileImage, FileText as FileTextIcon, Image, Pencil, FilePlus, PenLine } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 const Index = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedTab, setSelectedTab] = useState('all');
-  
-  // Load recently used tools from localStorage
-  const [recentTools, setRecentTools] = useState<number[]>([]);
-  
-  useEffect(() => {
-    const savedRecent = localStorage.getItem('recentTools');
-    if (savedRecent) {
-      try {
-        setRecentTools(JSON.parse(savedRecent));
-      } catch (e) {
-        console.error("Error parsing recent tools from localStorage", e);
-      }
-    }
-  }, []);
-  
-  // Tool categories configuration
+  const [searchQuery, setSearchQuery] = useState('');
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode !== null ? JSON.parse(savedMode) : true;
+  });
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    localStorage.setItem('darkMode', JSON.stringify(newMode));
+    document.documentElement.classList.toggle('dark', newMode);
+  };
+
+  // Tool categories
   const categories = [
-    { id: 'all', name: 'All Tools' },
-    { id: 'documents', name: 'PDF & Documents' },
-    { id: 'images', name: 'Images & Media' },
-    { id: 'text', name: 'Text & Content' },
-    { id: 'developer', name: 'Developer Tools' },
-    { id: 'utilities', name: 'Utilities' }
+    { id: 'all', label: 'All Tools' },
+    { id: 'documents', label: 'Document Tools' },
+    { id: 'content', label: 'Content Creation' },
+    { id: 'career', label: 'Career Tools' },
+    { id: 'learning', label: 'Learning Tools' },
+    { id: 'utilities', label: 'Utilities' },
   ];
   
-  // Define all tools with categories
-  const tools = [
-    // Original tools
-    {
-      id: 1,
-      title: 'Password Generator',
-      description: 'Generate secure passwords with customizable options',
-      icon: <Lock className="h-6 w-6" />,
-      route: '/password-generator',
-      tags: ['password', 'security', 'generate'],
-      category: 'utilities'
-    },
-    {
-      id: 2,
-      title: 'IFSC Code Finder',
-      description: 'Find Indian bank IFSC codes by bank name or branch',
-      icon: <Code className="h-6 w-6" />,
-      route: '/ifsc-finder',
-      tags: ['ifsc', 'bank', 'india', 'code'],
-      category: 'utilities'
-    },
-    {
-      id: 3,
-      title: 'PIN Code Locator',
-      description: 'Lookup postal PIN codes for any city or district in India',
-      icon: <Search className="h-6 w-6" />,
-      route: '/pin-locator',
-      tags: ['pin', 'postal', 'india', 'code'],
-      category: 'utilities'
-    },
-    {
-      id: 4,
-      title: 'Fake Credit Card',
-      description: 'Generate test credit card numbers with valid formats',
-      icon: <CreditCard className="h-6 w-6" />,
-      route: '/credit-card-generator',
-      tags: ['card', 'credit', 'test'],
-      category: 'developer'
-    },
-    {
-      id: 5,
-      title: 'Temporary Email',
-      description: 'Create disposable email addresses for temporary use',
-      icon: <Mail className="h-6 w-6" />,
-      route: '/temp-email',
-      tags: ['email', 'temporary', 'disposable'],
-      category: 'developer'
-    },
-    {
-      id: 6,
-      title: 'Barcode & QR Generator',
-      description: 'Generate QR codes and barcodes from any text or URL',
-      icon: <Barcode className="h-6 w-6" />,
-      route: '/barcode-generator',
-      tags: ['qr', 'barcode', 'code', 'scan'],
-      category: 'developer'
-    },
-    {
-      id: 7,
-      title: 'Fake Identity',
-      description: 'Generate random identities with names, addresses and more',
-      icon: <User className="h-6 w-6" />,
-      route: '/fake-identity',
-      tags: ['identity', 'fake', 'random', 'person'],
-      category: 'developer'
-    },
-    {
-      id: 8,
-      title: 'Lorem Ipsum Generator',
-      description: 'Generate placeholder text for your designs and mock-ups',
-      icon: <FileText className="h-6 w-6" />,
-      route: '/lorem-ipsum',
-      tags: ['lorem', 'text', 'placeholder', 'dummy'],
-      category: 'text'
-    },
-    {
-      id: 9,
-      title: 'Random Date/Time',
-      description: 'Generate random dates and times in various formats',
-      icon: <Calendar className="h-6 w-6" />,
-      route: '/date-generator',
-      tags: ['date', 'time', 'random', 'generator'],
-      category: 'utilities'
-    },
-    {
-      id: 10,
-      title: 'Vehicle Number Plate',
-      description: 'Generate vehicle license plates for different countries',
-      icon: <Car className="h-6 w-6" />,
-      route: '/number-plate',
-      tags: ['vehicle', 'license', 'plate', 'car'],
-      category: 'utilities'
-    },
-    
-    // New PDF & Document Tools
-    {
-      id: 11,
-      title: 'PDF to Word',
-      description: 'Convert PDF documents to editable Word files',
-      icon: <FileTextIcon className="h-6 w-6" />,
+  // All tools with their categories
+  const allTools = [
+    // Document Tools
+    { 
+      id: 'pdf-to-word', 
+      title: 'PDF to DOCX', 
+      description: 'Convert PDF documents to editable Word files', 
+      icon: <FileText />, 
       route: '/pdf-to-word',
-      tags: ['pdf', 'word', 'convert', 'document'],
-      category: 'documents'
+      category: 'documents',
+      isNew: false
     },
-    {
-      id: 12,
-      title: 'Word to PDF',
-      description: 'Convert Word documents to PDF format',
-      icon: <FilePlus className="h-6 w-6" />,
+    { 
+      id: 'word-to-pdf', 
+      title: 'Word to PDF', 
+      description: 'Convert Word documents to PDF format', 
+      icon: <FileUp />, 
       route: '/word-to-pdf',
-      tags: ['word', 'pdf', 'convert', 'document'],
-      category: 'documents'
+      category: 'documents',
+      isNew: false
     },
-    {
-      id: 13,
-      title: 'PDF Split & Merge',
-      description: 'Split PDF into multiple files or merge PDFs together',
-      icon: <FileText className="h-6 w-6" />,
+    { 
+      id: 'pdf-split-merge', 
+      title: 'PDF Split & Merge', 
+      description: 'Split or merge PDF files easily', 
+      icon: <FilePlus />, 
       route: '/pdf-split-merge',
-      tags: ['pdf', 'split', 'merge', 'document'],
-      category: 'documents'
+      category: 'documents',
+      isNew: false
+    },
+    { 
+      id: 'image-to-text', 
+      title: 'Image to Text', 
+      description: 'Extract text from images using OCR', 
+      icon: <Image />, 
+      route: '/image-to-text',
+      category: 'documents',
+      isNew: true
+    },
+    { 
+      id: 'document-summarizer', 
+      title: 'Document Summarizer', 
+      description: 'Generate concise summaries from documents', 
+      icon: <FileText />, 
+      route: '/document-summarizer',
+      category: 'documents',
+      isNew: true
+    },
+    { 
+      id: 'voice-to-notes', 
+      title: 'Voice to Notes', 
+      description: 'Convert speech to text and organized notes', 
+      icon: <Mic />, 
+      route: '/voice-to-notes',
+      category: 'documents',
+      isNew: true
     },
     
-    // New Image Tools
-    {
-      id: 14,
-      title: 'Image Compressor',
-      description: 'Compress JPG, PNG and WebP images with minimal quality loss',
-      icon: <Image className="h-6 w-6" />,
-      route: '/image-compressor',
-      tags: ['image', 'compress', 'optimize', 'photo'],
-      category: 'images'
+    // Content Creation
+    { 
+      id: 'blog-generator', 
+      title: 'Blog Generator', 
+      description: 'Generate full blog posts on any topic', 
+      icon: <FileText />, 
+      route: '/blog-generator',
+      category: 'content',
+      isNew: true
     },
-    {
-      id: 15,
-      title: 'Image Converter',
-      description: 'Convert between image formats (PNG, JPG, WebP, AVIF)',
-      icon: <Image className="h-6 w-6" />,
-      route: '/image-converter',
-      tags: ['image', 'convert', 'format', 'photo'],
-      category: 'images'
+    { 
+      id: 'youtube-script', 
+      title: 'YouTube Script', 
+      description: 'Create engaging scripts for videos', 
+      icon: <FileVideo />, 
+      route: '/youtube-script',
+      category: 'content',
+      isNew: true
     },
-    
-    // New Text Tool
-    {
-      id: 16,
-      title: 'Text Case Converter',
-      description: 'Convert text between different cases (UPPER, lower, Title Case)',
-      icon: <PenLine className="h-6 w-6" />,
+    { 
+      id: 'instagram-caption', 
+      title: 'Instagram Caption', 
+      description: 'Generate eye-catching captions', 
+      icon: <Instagram />, 
+      route: '/instagram-caption',
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'tweet-generator', 
+      title: 'Tweet Generator', 
+      description: 'Create engaging tweets in seconds', 
+      icon: <Twitter />, 
+      route: '/tweet-generator',
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'email-writer', 
+      title: 'Email Writer', 
+      description: 'Draft professional emails quickly', 
+      icon: <Mail />, 
+      route: '/email-writer',
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'lorem-ipsum', 
+      title: 'Lorem Ipsum', 
+      description: 'Generate placeholder text for your designs', 
+      icon: <FileText />, 
+      route: '/lorem-ipsum',
+      category: 'content',
+      isNew: false
+    },
+    { 
+      id: 'text-case-converter', 
+      title: 'Text Case Converter', 
+      description: 'Convert text between different cases', 
+      icon: <FileText />, 
       route: '/text-case-converter',
-      tags: ['text', 'case', 'convert', 'format'],
-      category: 'text'
+      category: 'content',
+      isNew: false
+    },
+    
+    // Career Tools
+    { 
+      id: 'resume-builder', 
+      title: 'Resume Builder', 
+      description: 'Create professional resumes in minutes', 
+      icon: <Briefcase />, 
+      route: '/resume-builder',
+      category: 'career',
+      isNew: true
+    },
+    { 
+      id: 'cover-letter', 
+      title: 'Cover Letter', 
+      description: 'Generate tailored cover letters', 
+      icon: <FileText />, 
+      route: '/cover-letter',
+      category: 'career',
+      isNew: true
+    },
+    { 
+      id: 'linkedin-bio', 
+      title: 'LinkedIn Bio', 
+      description: 'Optimize your LinkedIn profile', 
+      icon: <UserRound />, 
+      route: '/linkedin-bio',
+      category: 'career',
+      isNew: true
+    },
+    { 
+      id: 'interview-qa', 
+      title: 'Interview Q&A', 
+      description: 'Prepare for job interviews', 
+      icon: <MessageSquare />, 
+      route: '/interview-qa',
+      category: 'career',
+      isNew: true
+    },
+    
+    // Learning Tools
+    { 
+      id: 'flashcards', 
+      title: 'Text to Flashcards', 
+      description: 'Convert study material to flashcards', 
+      icon: <Book />, 
+      route: '/flashcards',
+      category: 'learning',
+      isNew: true
+    },
+    { 
+      id: 'mcq-generator', 
+      title: 'MCQ Generator', 
+      description: 'Create multiple choice questions', 
+      icon: <Zap />, 
+      route: '/mcq-generator',
+      category: 'learning',
+      isNew: true
+    },
+    { 
+      id: 'concept-explainer', 
+      title: 'Concept Explainer', 
+      description: 'Simplify complex topics with AI', 
+      icon: <Lightbulb />, 
+      route: '/concept-explainer',
+      category: 'learning',
+      isNew: true
+    },
+    { 
+      id: 'learn-with-image', 
+      title: 'Learn With Image', 
+      description: 'Upload diagrams for AI explanation', 
+      icon: <Image />, 
+      route: '/learn-with-image',
+      category: 'learning',
+      isNew: true
+    },
+    
+    // Utilities
+    { 
+      id: 'barcode-generator', 
+      title: 'Barcode Generator', 
+      description: 'Generate barcodes for various products', 
+      icon: <BarChart2 />, 
+      route: '/barcode-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'credit-card-generator', 
+      title: 'Credit Card Generator', 
+      description: 'Generate test credit card numbers', 
+      icon: <CreditCard />, 
+      route: '/credit-card-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'date-generator', 
+      title: 'Date Generator', 
+      description: 'Generate random dates for testing', 
+      icon: <Calendar />, 
+      route: '/date-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'fake-identity', 
+      title: 'Fake Identity', 
+      description: 'Generate realistic fake identities', 
+      icon: <User />, 
+      route: '/fake-identity',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'ifsc-finder', 
+      title: 'IFSC Finder', 
+      description: 'Find IFSC codes for Indian banks', 
+      icon: <Banknote />, 
+      route: '/ifsc-finder',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'image-compressor', 
+      title: 'Image Compressor', 
+      description: 'Compress your images without quality loss', 
+      icon: <Image />, 
+      route: '/image-compressor',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'image-converter', 
+      title: 'Image Converter', 
+      description: 'Convert images between different formats', 
+      icon: <Image />, 
+      route: '/image-converter',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'number-plate', 
+      title: 'Number Plate', 
+      description: 'Generate random vehicle number plates', 
+      icon: <Hash />, 
+      route: '/number-plate',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'password-generator', 
+      title: 'Password Generator', 
+      description: 'Generate secure passwords', 
+      icon: <Binary />, 
+      route: '/password-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'pin-locator', 
+      title: 'PIN Locator', 
+      description: 'Find PIN codes for locations in India', 
+      icon: <Search />, 
+      route: '/pin-locator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'temp-email', 
+      title: 'Temp Email', 
+      description: 'Generate temporary email addresses', 
+      icon: <Mail />, 
+      route: '/temp-email',
+      category: 'utilities',
+      isNew: false
     }
   ];
 
-  // Filter tools based on search term and selected category
-  const filteredTools = tools.filter(tool => {
-    // Handle search filtering
-    const matchesSearch = searchTerm === '' || 
-      tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      tool.description.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      tool.tags.some(tag => tag.includes(searchTerm.toLowerCase()));
-    
-    // Handle category filtering  
-    const matchesCategory = selectedTab === 'all' || tool.category === selectedTab;
-    
+  // Filter tools based on search query and selected category
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  
+  const filteredTools = allTools.filter(tool => {
+    const matchesSearch = tool.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                         tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-  
-  // Get recently used tools
-  const recentlyUsedTools = recentTools
-    .map(id => tools.find(tool => tool.id === id))
-    .filter(Boolean);
+
+  // Handle category change
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   return (
-    <Layout>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-background to-secondary/30 py-16 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              Smart Generator Tools Hub
-            </span>
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            A powerful collection of tools for developers, businesses, and everyday users
-          </p>
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all animate-bounce"
-            onClick={() => document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Explore Tools
-          </Button>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+        <h1 className="text-3xl font-bold">AI SmartHub</h1>
+        
+        <div className="flex items-center space-x-2">
+          <span className="text-sm font-medium">
+            {darkMode ? 'Dark Mode' : 'Light Mode'}
+          </span>
+          <Switch
+            checked={darkMode}
+            onCheckedChange={toggleDarkMode}
+          />
         </div>
-      </section>
+      </div>
+      
+      <div className="mb-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+          <Input
+            className="pl-10 w-full"
+            placeholder="Search for tools..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
 
-      {/* Tools Section */}
-      <section id="tools" className="py-16 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-2 text-center">Tools Collection</h2>
-          <p className="text-muted-foreground text-center mb-8">Find the perfect tool for your needs</p>
-          
-          <div className="max-w-lg mx-auto mb-10">
-            <div className="relative">
-              <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search for tools..."
-                className="pl-10"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-          </div>
-          
-          {/* Recently Used Tools */}
-          {recentlyUsedTools.length > 0 && (
-            <div className="mb-10">
-              <h3 className="text-xl font-semibold mb-4">Recently Used Tools</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {recentlyUsedTools.slice(0, 3).map((tool) => (
-                  tool && <ToolCard
-                    key={`recent-${tool.id}`}
-                    title={tool.title}
-                    description={tool.description}
-                    icon={tool.icon}
-                    route={tool.route}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Category Tabs - Updated with consistent styling */}
-          <Tabs 
-            defaultValue="all" 
-            value={selectedTab} 
-            onValueChange={setSelectedTab}
-            className="mb-8"
-          >
-            <div className="relative overflow-auto">
-              <TabsList className="inline-flex w-full md:w-auto mb-6 p-1 h-auto bg-secondary/50">
-                {categories.map(category => (
-                  <TabsTrigger 
-                    key={category.id} 
-                    value={category.id}
-                    className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md transition-all"
-                  >
-                    {category.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-            
-            {/* All Tools */}
-            <TabsContent value="all" className="mt-0">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                {filteredTools.map((tool) => (
-                  <ToolCard
-                    key={tool.id}
-                    title={tool.title}
-                    description={tool.description}
-                    icon={tool.icon}
-                    route={tool.route}
-                  />
-                ))}
-              </div>
-            </TabsContent>
-            
-            {/* Category-specific Tabs */}
-            {categories.slice(1).map(category => (
-              <TabsContent key={category.id} value={category.id} className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-                  {filteredTools.filter(tool => tool.category === category.id).map((tool) => (
-                    <ToolCard
-                      key={tool.id}
-                      title={tool.title}
-                      description={tool.description}
-                      icon={tool.icon}
-                      route={tool.route}
-                    />
-                  ))}
-                </div>
-              </TabsContent>
+      <Tabs defaultValue="all" className="w-full">
+        <div className="overflow-x-auto pb-2">
+          <TabsList className="mb-6 flex w-auto min-w-fit">
+            {categories.map(category => (
+              <TabsTrigger 
+                key={category.id} 
+                value={category.id}
+                onClick={() => handleCategoryChange(category.id)}
+                className="min-w-[100px] whitespace-nowrap"
+              >
+                {category.label}
+              </TabsTrigger>
             ))}
-          </Tabs>
-          
-          {filteredTools.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">No tools found. Try a different search term.</p>
-            </div>
-          )}
+          </TabsList>
         </div>
-      </section>
-    </Layout>
+
+        {categories.map(category => (
+          <TabsContent key={category.id} value={category.id}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredTools.filter(tool => 
+                category.id === 'all' || tool.category === category.id
+              ).map(tool => (
+                <ToolCard
+                  key={tool.id}
+                  title={tool.title}
+                  description={tool.description}
+                  icon={tool.icon}
+                  route={tool.route}
+                  category={tool.category === 'documents' ? 'Document Tools' : 
+                            tool.category === 'content' ? 'Content Creation' : 
+                            tool.category === 'career' ? 'Career Tools' :
+                            tool.category === 'learning' ? 'Learning Tools' : 'Utilities'}
+                  isNew={tool.isNew}
+                />
+              ))}
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+      
+      <div className="fixed bottom-6 right-6 z-10">
+        <Button className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90 shadow-lg">
+          <MessageSquare className="h-6 w-6" />
+          <span className="sr-only">Get AI Help</span>
+        </Button>
+      </div>
+    </div>
   );
 };
 

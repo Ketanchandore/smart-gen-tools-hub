@@ -8,9 +8,11 @@ interface ToolCardProps {
   description: string;
   icon: React.ReactNode;
   route: string;
+  category?: string;
+  isNew?: boolean;
 }
 
-const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) => {
+const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route, category, isNew = false }) => {
   // Track tool usage in localStorage when clicked
   const handleToolClick = () => {
     try {
@@ -34,7 +36,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) 
   // Function to check if the tool page exists
   const toolExists = () => {
     // Check if the route is redirecting to NotFound page
-    return !['/word-to-pdf', '/pdf-split-merge', '/image-converter'].includes(route);
+    return !['/word-to-pdf-wip', '/pdf-split-merge-wip', '/image-converter-wip'].includes(route);
   };
 
   return (
@@ -47,6 +49,16 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) 
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
       }}
     >
+      {isNew && (
+        <div className="absolute top-0 right-0">
+          <div className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded-bl-lg">NEW</div>
+        </div>
+      )}
+      
+      {category && (
+        <div className="text-xs text-muted-foreground mb-2">{category}</div>
+      )}
+      
       <div className="flex items-center justify-center h-12 w-12 rounded-md bg-primary/20 text-primary mb-4 mx-auto">
         {icon}
       </div>
@@ -63,9 +75,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route }) 
         </Link>
       </div>
       
-      {/* Add subtle hover effect */}
       <div 
-        className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 transition-opacity duration-300 pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 transition-opacity duration-300 pointer-events-none hover:opacity-100"
         style={{
           opacity: 0,
           transition: 'opacity 0.3s ease',
