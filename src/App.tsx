@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "./components/Layout";
 import Index from "./pages/Index";
@@ -40,7 +40,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout><Outlet /></Layout>}>
             <Route index element={<Index />} />
             <Route path="/barcode-generator" element={<BarcodeGenerator />} />
             <Route path="/credit-card-generator" element={<CreditCardGenerator />} />
