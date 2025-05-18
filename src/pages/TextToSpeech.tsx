@@ -4,7 +4,7 @@ import { ArrowLeft, Play, Square, Save, Copy, Volume2, VolumeX, Settings } from 
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
+import { Textarea as UITextarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -272,7 +272,7 @@ const TextToSpeech = () => {
           </TabsList>
           
           <TabsContent value="text">
-            <Textarea
+            <UITextarea
               placeholder="Enter text to convert to speech..."
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -457,19 +457,5 @@ const Input = React.forwardRef<
   );
 });
 Input.displayName = "Input";
-
-const Textarea = React.forwardRef<
-  HTMLTextAreaElement,
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>
->(({ className, ...props }, ref) => {
-  return (
-    <textarea
-      className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-      ref={ref}
-      {...props}
-    />
-  );
-});
-Textarea.displayName = "Textarea";
 
 export default TextToSpeech;
