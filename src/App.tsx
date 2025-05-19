@@ -1,9 +1,13 @@
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Profile from "./pages/Profile";
 import BarcodeGenerator from "./pages/BarcodeGenerator";
 import CreditCardGenerator from "./pages/CreditCardGenerator";
 import DateGenerator from "./pages/DateGenerator";
@@ -129,109 +133,118 @@ function App() {
   return (
     <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
       <QueryClientProvider client={queryClient}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout><Outlet /></Layout>}>
-              <Route index element={<Index />} />
-              
-              {/* Existing Tool Routes */}
-              <Route path="/barcode-generator" element={<BarcodeGenerator />} />
-              <Route path="/credit-card-generator" element={<CreditCardGenerator />} />
-              <Route path="/date-generator" element={<DateGenerator />} />
-              <Route path="/fake-identity" element={<FakeIdentity />} />
-              <Route path="/ifsc-finder" element={<IFSCFinder />} />
-              <Route path="/image-compressor" element={<ImageCompressor />} />
-              <Route path="/image-converter" element={<ImageConverter />} />
-              <Route path="/lorem-ipsum" element={<LoremIpsum />} />
-              <Route path="/number-plate" element={<NumberPlate />} />
-              <Route path="/password-generator" element={<PasswordGenerator />} />
-              <Route path="/pin-locator" element={<PINLocator />} />
-              <Route path="/text-case-converter" element={<TextCaseConverter />} />
-              <Route path="/temp-email" element={<TempEmail />} />
-              <Route path="/word-to-pdf" element={<WordToPdf />} />
-              <Route path="/pdf-to-word" element={<PdfToWord />} />
-              <Route path="/pdf-split-merge" element={<PdfSplitMerge />} />
-              
-              {/* Career Tool Routes */}
-              <Route path="/resume-builder" element={<ResumeBuilder />} />
-              <Route path="/cover-letter" element={<CoverLetter />} />
-              <Route path="/linkedin-bio" element={<LinkedInBio />} />
-              <Route path="/job-matcher" element={<JobMatcher />} />
-              <Route path="/interview-coach" element={<InterviewCoach />} />
-              <Route path="/resume-score" element={<ResumeScore />} />
-              
-              {/* Content Tool Routes */}
-              <Route path="/blog-writer" element={<BlogWriter />} />
-              <Route path="/blog-rewriter" element={<BlogRewriter />} />
-              <Route path="/twitter-thread" element={<TwitterThread />} />
-              <Route path="/content-detector" element={<ContentDetector />} />
-              <Route path="/blog-topics" element={<BlogTopics />} />
-              <Route path="/smart-copy" element={<SmartCopy />} />
-              <Route path="/email-writer" element={<EmailWriter />} />
-              <Route path="/product-description" element={<ProductDescription />} />
-              <Route path="/social-captions" element={<SocialCaptions />} />
-              <Route path="/script-presentation" element={<ScriptPresentation />} />
-              <Route path="/email-sequence" element={<EmailSequence />} />
-              <Route path="/article-social" element={<ArticleSocial />} />
-              <Route path="/name-generator" element={<NameGenerator />} />
-              <Route path="/tagline-generator" element={<TaglineGenerator />} />
-              <Route path="/testimonial-generator" element={<TestimonialGenerator />} />
-              
-              {/* Multimedia Tool Routes */}
-              <Route path="/video-summarizer" element={<VideoSummarizer />} />
-              <Route path="/youtube-summarizer" element={<YoutubeSummarizer />} />
-              <Route path="/blog-to-carousel" element={<BlogToCarousel />} />
-              <Route path="/blog-to-infographic" element={<BlogToInfographic />} />
-              <Route path="/youtube-shorts" element={<YoutubeShorts />} />
-              <Route path="/text-to-speech" element={<TextToSpeech />} />
-              <Route path="/voice-cloner" element={<VoiceCloner />} />
-              <Route path="/audio-enhancer" element={<AudioEnhancer />} />
-              <Route path="/chat-youtube" element={<ChatYoutube />} />
-              <Route path="/youtube-description" element={<YoutubeDescription />} />
-              <Route path="/pinterest-creator" element={<PinterestCreator />} />
-              <Route path="/tiktok-script" element={<TiktokScript />} />
-              
-              {/* Document Tool Routes */}
-              <Route path="/image-to-text" element={<ImageToText />} />
-              <Route path="/document-qa" element={<DocumentQA />} />
-              <Route path="/word-counter" element={<WordCounter />} />
-              
-              {/* Coding Tool Routes */}
-              <Route path="/code-generator" element={<CodeGenerator />} />
-              <Route path="/code-explainer" element={<CodeExplainer />} />
-              <Route path="/website-analyzer" element={<WebsiteAnalyzer />} />
-              <Route path="/chrome-extension" element={<ChromeExtension />} />
-              <Route path="/saas-name" element={<SaasName />} />
-              
-              {/* Learning Tool Routes */}
-              <Route path="/study-notes" element={<StudyNotes />} />
-              <Route path="/slide-generator" element={<SlideGenerator />} />
-              <Route path="/chat-website" element={<ChatWebsite />} />
-              <Route path="/mind-map" element={<MindMap />} />
-              <Route path="/flashcard-generator" element={<FlashcardGenerator />} />
-              <Route path="/ai-translator" element={<AiTranslator />} />
-              
-              {/* Marketing Tool Routes */}
-              <Route path="/business-plan" element={<BusinessPlan />} />
-              <Route path="/lead-magnet" element={<LeadMagnet />} />
-              <Route path="/survey-creator" element={<SurveyCreator />} />
-              
-              {/* Design Tool Routes */}
-              <Route path="/image-generator" element={<ImageGenerator />} />
-              <Route path="/avatar-generator" element={<AvatarGenerator />} />
-              <Route path="/chat-image" element={<ChatImage />} />
-              <Route path="/brandkit-organizer" element={<BrandkitOrganizer />} />
-              <Route path="/image-enhancer" element={<ImageEnhancer />} />
-              
-              {/* Utilities Tool Routes */}
-              <Route path="/qr-code" element={<QrCode />} />
-              
-              {/* Redirect all other routes to 404 */}
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </Router>
-        <Toaster />
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout><Outlet /></Layout>}>
+                <Route index element={<Index />} />
+                
+                {/* Auth Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                
+                {/* Protected Routes */}
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                
+                {/* Existing Tool Routes */}
+                <Route path="/barcode-generator" element={<BarcodeGenerator />} />
+                <Route path="/credit-card-generator" element={<CreditCardGenerator />} />
+                <Route path="/date-generator" element={<DateGenerator />} />
+                <Route path="/fake-identity" element={<FakeIdentity />} />
+                <Route path="/ifsc-finder" element={<IFSCFinder />} />
+                <Route path="/image-compressor" element={<ImageCompressor />} />
+                <Route path="/image-converter" element={<ImageConverter />} />
+                <Route path="/lorem-ipsum" element={<LoremIpsum />} />
+                <Route path="/number-plate" element={<NumberPlate />} />
+                <Route path="/password-generator" element={<PasswordGenerator />} />
+                <Route path="/pin-locator" element={<PINLocator />} />
+                <Route path="/text-case-converter" element={<TextCaseConverter />} />
+                <Route path="/temp-email" element={<TempEmail />} />
+                <Route path="/word-to-pdf" element={<WordToPdf />} />
+                <Route path="/pdf-to-word" element={<PdfToWord />} />
+                <Route path="/pdf-split-merge" element={<PdfSplitMerge />} />
+                
+                {/* Career Tool Routes */}
+                <Route path="/resume-builder" element={<ResumeBuilder />} />
+                <Route path="/cover-letter" element={<CoverLetter />} />
+                <Route path="/linkedin-bio" element={<LinkedInBio />} />
+                <Route path="/job-matcher" element={<JobMatcher />} />
+                <Route path="/interview-coach" element={<InterviewCoach />} />
+                <Route path="/resume-score" element={<ResumeScore />} />
+                
+                {/* Content Tool Routes */}
+                <Route path="/blog-writer" element={<BlogWriter />} />
+                <Route path="/blog-rewriter" element={<BlogRewriter />} />
+                <Route path="/twitter-thread" element={<TwitterThread />} />
+                <Route path="/content-detector" element={<ContentDetector />} />
+                <Route path="/blog-topics" element={<BlogTopics />} />
+                <Route path="/smart-copy" element={<SmartCopy />} />
+                <Route path="/email-writer" element={<EmailWriter />} />
+                <Route path="/product-description" element={<ProductDescription />} />
+                <Route path="/social-captions" element={<SocialCaptions />} />
+                <Route path="/script-presentation" element={<ScriptPresentation />} />
+                <Route path="/email-sequence" element={<EmailSequence />} />
+                <Route path="/article-social" element={<ArticleSocial />} />
+                <Route path="/name-generator" element={<NameGenerator />} />
+                <Route path="/tagline-generator" element={<TaglineGenerator />} />
+                <Route path="/testimonial-generator" element={<TestimonialGenerator />} />
+                
+                {/* Multimedia Tool Routes */}
+                <Route path="/video-summarizer" element={<VideoSummarizer />} />
+                <Route path="/youtube-summarizer" element={<YoutubeSummarizer />} />
+                <Route path="/blog-to-carousel" element={<BlogToCarousel />} />
+                <Route path="/blog-to-infographic" element={<BlogToInfographic />} />
+                <Route path="/youtube-shorts" element={<YoutubeShorts />} />
+                <Route path="/text-to-speech" element={<TextToSpeech />} />
+                <Route path="/voice-cloner" element={<VoiceCloner />} />
+                <Route path="/audio-enhancer" element={<AudioEnhancer />} />
+                <Route path="/chat-youtube" element={<ChatYoutube />} />
+                <Route path="/youtube-description" element={<YoutubeDescription />} />
+                <Route path="/pinterest-creator" element={<PinterestCreator />} />
+                <Route path="/tiktok-script" element={<TiktokScript />} />
+                
+                {/* Document Tool Routes */}
+                <Route path="/image-to-text" element={<ImageToText />} />
+                <Route path="/document-qa" element={<DocumentQA />} />
+                <Route path="/word-counter" element={<WordCounter />} />
+                
+                {/* Coding Tool Routes */}
+                <Route path="/code-generator" element={<CodeGenerator />} />
+                <Route path="/code-explainer" element={<CodeExplainer />} />
+                <Route path="/website-analyzer" element={<WebsiteAnalyzer />} />
+                <Route path="/chrome-extension" element={<ChromeExtension />} />
+                <Route path="/saas-name" element={<SaasName />} />
+                
+                {/* Learning Tool Routes */}
+                <Route path="/study-notes" element={<StudyNotes />} />
+                <Route path="/slide-generator" element={<SlideGenerator />} />
+                <Route path="/chat-website" element={<ChatWebsite />} />
+                <Route path="/mind-map" element={<MindMap />} />
+                <Route path="/flashcard-generator" element={<FlashcardGenerator />} />
+                <Route path="/ai-translator" element={<AiTranslator />} />
+                
+                {/* Marketing Tool Routes */}
+                <Route path="/business-plan" element={<BusinessPlan />} />
+                <Route path="/lead-magnet" element={<LeadMagnet />} />
+                <Route path="/survey-creator" element={<SurveyCreator />} />
+                
+                {/* Design Tool Routes */}
+                <Route path="/image-generator" element={<ImageGenerator />} />
+                <Route path="/avatar-generator" element={<AvatarGenerator />} />
+                <Route path="/chat-image" element={<ChatImage />} />
+                <Route path="/brandkit-organizer" element={<BrandkitOrganizer />} />
+                <Route path="/image-enhancer" element={<ImageEnhancer />} />
+                
+                {/* Utilities Tool Routes */}
+                <Route path="/qr-code" element={<QrCode />} />
+                
+                {/* Redirect all other routes to 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Router>
+          <Toaster />
+        </AuthProvider>
       </QueryClientProvider>
     </DarkModeContext.Provider>
   );

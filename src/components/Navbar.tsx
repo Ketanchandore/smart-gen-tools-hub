@@ -1,12 +1,34 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Github, Menu, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Github, Menu, User, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = () => {
+    logout();
+    toast({
+      title: "Logged out",
+      description: "You have been logged out successfully",
+    });
+    navigate('/');
+  };
 
   return (
     <nav className="sticky top-0 z-30 w-full bg-background/80 backdrop-blur-md border-b border-border">
@@ -31,7 +53,37 @@ const Navbar = () => {
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
             <Github size={20} />
           </a>
-          <Button size="sm" variant="default">Sign In</Button>
+          
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative">
+                  <User size={18} className="mr-2" />
+                  {user?.name || user?.email?.split('@')[0]}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/settings">Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button variant="ghost" onClick={() => navigate('/login')}>Sign In</Button>
+              <Button onClick={() => navigate('/signup')}>Sign Up</Button>
+            </>
+          )}
         </div>
         
         {/* Mobile Navigation */}
@@ -67,12 +119,54 @@ const Navbar = () => {
                   Blog
                 </Link>
                 <div className="pt-4 flex flex-col space-y-2">
-                  <Button variant="outline" onClick={() => setIsMenuOpen(false)}>
-                    Sign In
-                  </Button>
-                  <Button onClick={() => setIsMenuOpen(false)}>
-                    Sign Up
-                  </Button>
+                  {isAuthenticated ? (
+                    <>
+                      <div className="flex items-center space-x-2 px-2 py-1.5">
+                        <User size={16} />
+                        <span className="font-medium">{user?.name || user?.email?.split('@')[0]}</span>
+                      </div>
+                      <Link 
+                        to="/profile" 
+                        className="text-base font-medium hover:text-primary transition-colors px-2 py-1.5"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                      <Link 
+                        to="/settings" 
+                        className="text-base font-medium hover:text-primary transition-colors px-2 py-1.5"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Settings
+                      </Link>
+                      <Button 
+                        variant="destructive" 
+                        onClick={() => {
+                          handleLogout();
+                          setIsMenuOpen(false);
+                        }}
+                        className="mt-2"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Logout
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button variant="outline" onClick={() => {
+                        navigate('/login');
+                        setIsMenuOpen(false);
+                      }}>
+                        Sign In
+                      </Button>
+                      <Button onClick={() => {
+                        navigate('/signup');
+                        setIsMenuOpen(false);
+                      }}>
+                        Sign Up
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </SheetContent>
