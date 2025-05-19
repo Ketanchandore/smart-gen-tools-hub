@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "./components/Layout";
@@ -107,8 +108,10 @@ function App() {
     return savedMode !== null ? JSON.parse(savedMode) : true;
   });
 
-  // Set body class for dark/light mode
-  document.documentElement.classList.toggle("dark", darkMode);
+  // Set body class for dark/light mode when component mounts and when darkMode changes
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   return (
     <QueryClientProvider client={queryClient}>
