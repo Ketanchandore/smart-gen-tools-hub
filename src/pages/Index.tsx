@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { 
   Briefcase, FileText, FileUp, CreditCard, Calendar, User, 
   Image, BarChart2, Search, Binary, Mail, Mic, FileVideo, 
@@ -16,21 +15,11 @@ import { TabsList, TabsTrigger, Tabs, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { DarkModeContext } from '../App';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
-    return savedMode !== null ? JSON.parse(savedMode) : true;
-  });
-
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    localStorage.setItem('darkMode', JSON.stringify(newMode));
-    document.documentElement.classList.toggle('dark', newMode);
-  };
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   // Tool categories
   const categories = [
