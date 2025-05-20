@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Code2, ArrowLeft, RefreshCw, Copy, Download, Share2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -269,6 +268,19 @@ const CodeExplainer = () => {
     });
   };
 
+  const formatReadingTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    
+    if (minutes === 0) {
+      return `${remainingSeconds} sec`;
+    } else if (remainingSeconds === 0) {
+      return `${minutes} min`;
+    } else {
+      return `${minutes} min ${remainingSeconds} sec`;
+    }
+  };
+
   // Load example code for selected language
   const loadExample = () => {
     let exampleCode = '';
@@ -398,7 +410,7 @@ public class FactorialExample {
                 
                 <div>
                   <Label htmlFor="explain-type">Explanation Type</Label>
-                  <Select value={explainType} onValueChange={setExplainType} className="mt-1.5">
+                  <Select value={explainType} onValueChange={setExplainType}>
                     <SelectTrigger id="explain-type">
                       <SelectValue placeholder="Select explanation type" />
                     </SelectTrigger>
