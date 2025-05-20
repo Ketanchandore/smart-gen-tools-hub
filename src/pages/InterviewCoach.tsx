@@ -106,14 +106,14 @@ const InterviewCoach = () => {
       data: [
         { id: 'd1', text: 'Explain a complex data analysis project you worked on and the insights you uncovered.' },
         { id: 'd2', text: 'How do you ensure the accuracy of your data analyses?' },
-        { id: 'd3', text: 'Can you explain a machine learning model you've implemented?' },
+        { id: 'd3', text: "Can you explain a machine learning model you have implemented?" },
       ],
       // Add more categories as needed
     };
     
     const seniorQuestions = [
       { id: 'sr1', text: 'How do you approach mentoring junior team members?' },
-      { id: 'sr2', text: 'Describe how you've influenced strategic decisions in your previous roles.' },
+      { id: 'sr2', text: "Describe how you have influenced strategic decisions in your previous roles." },
       { id: 'sr3', text: 'How do you balance quality and deadlines when managing projects?' },
     ];
     
