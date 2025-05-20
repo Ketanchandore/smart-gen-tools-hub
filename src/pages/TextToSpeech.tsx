@@ -1,80 +1,83 @@
 
 import React, { useState, useRef } from 'react';
-import { Headphones, Volume2, Play, Pause, RotateCcw, Download, Settings } from 'lucide-react';
+import { Headphones, Play, Pause, Volume2, VolumeX, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Slider } from '@/components/ui/slider';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/components/ui/use-toast';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
+import { useToast } from '@/hooks/use-toast';
+
+type Voice = {
+  name: string;
+  gender: 'male' | 'female';
+  accent?: string;
+};
+
+const voices: Voice[] = [
+  { name: 'Matthew', gender: 'male', accent: 'American' },
+  { name: 'Joanna', gender: 'female', accent: 'American' },
+  { name: 'Emma', gender: 'female', accent: 'British' },
+  { name: 'Brian', gender: 'male', accent: 'British' },
+  { name: 'Aria', gender: 'female', accent: 'Australian' },
+  { name: 'Takumi', gender: 'male', accent: 'Japanese' },
+  { name: 'Lucia', gender: 'female', accent: 'Spanish' },
+];
 
 const TextToSpeech = () => {
-  const [text, setText] = useState('');
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [voice, setVoice] = useState('en-US-Standard-A');
-  const [rate, setRate] = useState([1]);
-  const [pitch, setPitch] = useState([1]);
-  const [volume, setVolume] = useState([1]);
-  const [availableVoices, setAvailableVoices] = useState([
-    { name: 'US English Female', value: 'en-US-Standard-A' },
-    { name: 'US English Male', value: 'en-US-Standard-B' },
-    { name: 'UK English Female', value: 'en-GB-Standard-A' },
-    { name: 'UK English Male', value: 'en-GB-Standard-B' },
-    { name: 'Indian English Female', value: 'en-IN-Standard-A' },
-    { name: 'Indian English Male', value: 'en-IN-Standard-B' },
-    { name: 'Australian Female', value: 'en-AU-Standard-A' }
-  ]);
-  
+  const [text, setText] = useState<string>('Hello! This is a demonstration of the text-to-speech capability. You can type any text here and listen to it being spoken by the selected voice.');
+  const [selectedVoice, setSelectedVoice] = useState<string>('Matthew');
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number[]>([80]);
+  const [rate, setRate] = useState<number[]>([1]);
+  const [pitch, setPitch] = useState<number[]>([1]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const speechSynthesisRef = useRef<SpeechSynthesisUtterance | null>(null);
   const { toast } = useToast();
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-  };
-
   const handlePlay = () => {
-    if (!text) {
-      toast({
-        title: "Empty Text",
-        description: "Please enter some text to convert to speech",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // In a real implementation, this would call a text-to-speech API
-    // For this demo, we'll use the browser's built-in speech synthesis API
     if ('speechSynthesis' in window) {
-      // Stop any ongoing speech
+      // If already speaking, cancel it first
       window.speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = rate[0];
-      utterance.pitch = pitch[0];
-      utterance.volume = volume[0];
+      speechSynthesisRef.current = utterance;
       
       // Get available voices
-      const voices = window.speechSynthesis.getVoices();
-      if (voices.length > 0) {
-        // Try to match the selected voice or use the first one
-        const selectedVoice = voices.find(v => v.name.includes(voice.split('-')[0]));
-        if (selectedVoice) utterance.voice = selectedVoice;
-      }
+      const availableVoices = window.speechSynthesis.getVoices();
       
+      // Try to find the requested voice, or use the default
+      utterance.voice = availableVoices.find(voice => 
+        voice.name.includes(selectedVoice)) || null;
+      
+      // Set speech parameters
+      utterance.volume = volume[0] / 100;
+      utterance.rate = rate[0];
+      utterance.pitch = pitch[0];
+      
+      // Handle speech events
+      utterance.onstart = () => setIsPlaying(true);
       utterance.onend = () => setIsPlaying(false);
+      utterance.onerror = (event) => {
+        console.error('Speech synthesis error:', event);
+        setIsPlaying(false);
+        toast({
+          title: "Error",
+          description: "There was a problem with speech synthesis",
+          variant: "destructive"
+        });
+      };
+      
+      // Start speaking
       window.speechSynthesis.speak(utterance);
       setIsPlaying(true);
     } else {
       toast({
         title: "Not Supported",
-        description: "Your browser doesn't support speech synthesis",
-        variant: "destructive",
+        description: "Speech synthesis is not supported in this browser",
+        variant: "destructive"
       });
     }
   };
@@ -86,177 +89,201 @@ const TextToSpeech = () => {
     }
   };
 
-  const handleReset = () => {
-    setText('');
-    setRate([1]);
-    setPitch([1]);
-    setVolume([1]);
-    setVoice('en-US-Standard-A');
+  const handleVolumeChange = (newVolume: number[]) => {
+    setVolume(newVolume);
+    if (speechSynthesisRef.current) {
+      speechSynthesisRef.current.volume = newVolume[0] / 100;
+    }
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    if (speechSynthesisRef.current) {
+      speechSynthesisRef.current.volume = !isMuted ? 0 : volume[0] / 100;
+    }
+  };
+
+  const handleVoiceChange = (value: string) => {
+    setSelectedVoice(value);
+    // If currently playing, restart with new voice
+    if (isPlaying) {
+      handleStop();
+      setTimeout(() => handlePlay(), 100);
+    }
+  };
+
+  // Make sure voices are loaded
+  React.useEffect(() => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-    setIsPlaying(false);
-  };
+      const loadVoices = () => {
+        window.speechSynthesis.getVoices();
+      };
 
-  const handleDownload = () => {
-    toast({
-      title: "Feature Coming Soon",
-      description: "The download feature will be available in the next update",
-    });
-  };
-
-  // For demo purposes - in a real app this would save the audio to a file
-  const handleSaveAudio = () => {
-    if (text) {
-      toast({
-        title: "Audio Saved",
-        description: "Your speech has been saved to your library",
-      });
-    } else {
-      toast({
-        title: "Error",
-        description: "Please generate speech first",
-        variant: "destructive",
-      });
+      loadVoices();
+      
+      // Chrome requires this event listener
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+      
+      return () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        if (isPlaying) {
+          window.speechSynthesis.cancel();
+        }
+      };
     }
-  };
+  }, [isPlaying]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Text to Speech Converter</h1>
-        <p className="text-muted-foreground">Convert your text to natural sounding speech with advanced AI voices</p>
+    <div className="container mx-auto py-8 px-4 md:px-6 max-w-5xl">
+      <div className="flex flex-col items-center mb-8 text-center">
+        <Headphones className="h-12 w-12 text-primary mb-4" />
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Text to Speech</h1>
+        <p className="text-muted-foreground max-w-2xl">
+          Convert your text into natural-sounding speech with our AI voice generator.
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Volume2 className="h-5 w-5 text-primary" />
-                Text Input
-              </CardTitle>
-              <CardDescription>
-                Enter the text you want to convert to speech
-              </CardDescription>
+              <CardTitle>Enter Text</CardTitle>
+              <CardDescription>Type or paste the text you want to convert to speech</CardDescription>
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="Type or paste your text here..."
-                className="min-h-[200px] mb-4"
+                className="min-h-[200px] md:min-h-[300px]"
+                placeholder="Enter your text here..."
                 value={text}
-                onChange={handleTextChange}
+                onChange={(e) => setText(e.target.value)}
               />
-              <div className="flex flex-wrap gap-2">
-                <Button 
-                  variant="default" 
-                  className="flex-1" 
-                  onClick={isPlaying ? handleStop : handlePlay}
+              
+              <div className="flex items-center justify-between mt-4">
+                <div className="flex items-center space-x-2">
+                  <Button 
+                    onClick={isPlaying ? handleStop : handlePlay}
+                    variant="default" 
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    {isPlaying ? (
+                      <>
+                        <Pause className="mr-2 h-4 w-4" /> Pause
+                      </>
+                    ) : (
+                      <>
+                        <Play className="mr-2 h-4 w-4" /> Play
+                      </>
+                    )}
+                  </Button>
+                  
+                  <Button
+                    onClick={toggleMute}
+                    variant="outline"
+                    size="icon"
+                  >
+                    {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                  </Button>
+                </div>
+                
+                <Button
+                  onClick={() => setText('')}
+                  variant="outline"
+                  size="sm"
                 >
-                  {isPlaying ? (
-                    <>
-                      <Pause className="mr-2 h-4 w-4" /> Pause
-                    </>
-                  ) : (
-                    <>
-                      <Play className="mr-2 h-4 w-4" /> Play
-                    </>
-                  )}
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={handleReset}
-                >
-                  <RotateCcw className="mr-2 h-4 w-4" /> Reset
-                </Button>
-                <Button 
-                  variant="secondary" 
-                  onClick={handleDownload}
-                >
-                  <Download className="mr-2 h-4 w-4" /> Download
+                  <RefreshCw className="mr-2 h-4 w-4" /> Clear
                 </Button>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <div>
+        <div className="lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="h-5 w-5 text-primary" />
-                Voice Settings
-              </CardTitle>
-              <CardDescription>
-                Customize how your text sounds
-              </CardDescription>
+              <CardTitle>Voice Settings</CardTitle>
+              <CardDescription>Customize your speech output</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="voice">Voice</Label>
-                <Select onValueChange={setVoice} defaultValue={voice}>
+                <Select 
+                  value={selectedVoice} 
+                  onValueChange={handleVoiceChange}
+                >
                   <SelectTrigger id="voice">
-                    <SelectValue placeholder="Select voice" />
+                    <SelectValue placeholder="Select a voice" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
-                      {availableVoices.map((v) => (
-                        <SelectItem key={v.value} value={v.value}>
-                          {v.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
+                    {voices.map((voice) => (
+                      <SelectItem key={voice.name} value={voice.name}>
+                        {voice.name} ({voice.gender}, {voice.accent})
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Speed: {rate[0]}x</Label>
-                  </div>
-                  <Slider
-                    value={rate}
-                    min={0.5}
-                    max={2}
-                    step={0.1}
-                    onValueChange={setRate}
-                  />
+              
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label>Volume: {volume[0]}%</Label>
                 </div>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Pitch: {pitch[0]}</Label>
-                  </div>
-                  <Slider
-                    value={pitch}
-                    min={0.5}
-                    max={2}
-                    step={0.1}
-                    onValueChange={setPitch}
-                  />
+                <Slider
+                  value={volume}
+                  onValueChange={handleVolumeChange}
+                  min={0}
+                  max={100}
+                  step={1}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label>Speed: {rate[0].toFixed(1)}x</Label>
                 </div>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Label>Volume: {Math.round(volume[0] * 100)}%</Label>
-                  </div>
-                  <Slider
-                    value={volume}
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    onValueChange={setVolume}
-                  />
+                <Slider
+                  value={rate}
+                  onValueChange={setRate}
+                  min={0.5}
+                  max={2}
+                  step={0.1}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <Label>Pitch: {pitch[0].toFixed(1)}</Label>
                 </div>
+                <Slider
+                  value={pitch}
+                  onValueChange={setPitch}
+                  min={0.5}
+                  max={2}
+                  step={0.1}
+                />
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
-
-      {/* Audio element for playing the generated speech */}
-      <audio ref={audioRef} className="hidden" />
+      
+      <div className="mt-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>About Text to Speech</CardTitle>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground space-y-4">
+            <p>
+              Our Text to Speech tool converts written text into natural-sounding spoken audio. 
+              This technology is useful for creating voiceovers, accessibility features, learning pronunciation, 
+              and many other applications.
+            </p>
+            <p>
+              You can adjust the voice, speed, pitch, and volume to customize the output to your preferences. 
+              This tool uses the Web Speech API which is supported in most modern browsers.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

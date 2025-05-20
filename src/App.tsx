@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
@@ -105,33 +106,9 @@ import QrCode from "./pages/QrCode";
 // Create a client
 const queryClient = new QueryClient();
 
-// Create a context for dark mode
-export const DarkModeContext = React.createContext({
-  darkMode: true,
-  toggleDarkMode: () => {}
-});
-
 function App() {
-  // Handle dark mode with proper state management
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem("darkMode");
-    return savedMode !== null ? JSON.parse(savedMode) : true;
-  });
-
-  // Toggle dark mode function
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    localStorage.setItem("darkMode", JSON.stringify(newMode));
-  };
-
-  // Set body class for dark/light mode when component mounts and when darkMode changes
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-  }, [darkMode]);
-
   return (
-    <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Router>
@@ -246,7 +223,7 @@ function App() {
           <Toaster />
         </AuthProvider>
       </QueryClientProvider>
-    </DarkModeContext.Provider>
+    </ThemeProvider>
   );
 }
 

@@ -15,11 +15,13 @@ import { TabsList, TabsTrigger, Tabs, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { DarkModeContext } from '../App';
+import { useTheme } from '../contexts/ThemeContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+  const { darkMode, toggleDarkMode } = useTheme();
+  const isMobile = useIsMobile();
 
   // Tool categories
   const categories = [
@@ -756,7 +758,7 @@ const Index = () => {
 
         {categories.map(category => (
           <TabsContent key={category.id} value={category.id}>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filteredTools.filter(tool => 
                 category.id === 'all' || tool.category === category.id
               ).map(tool => (

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface ToolCardProps {
   title: string;
@@ -13,30 +14,21 @@ interface ToolCardProps {
 }
 
 const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route, category, isNew = false }) => {
+  const { darkMode } = useTheme();
+
   // Track tool usage in localStorage when clicked
   const handleToolClick = () => {
     try {
       // Get current recent tools
       const recentToolsStr = localStorage.getItem('recentTools') || '[]';
-      let recentTools: number[] = JSON.parse(recentToolsStr);
-      
-      // Extract tool ID from route (e.g., '/pdf-to-word' -> extract numeric ID if available)
-      const toolId = parseInt(route.split('-').pop() || '0');
+      let recentTools: string[] = JSON.parse(recentToolsStr);
       
       // Add current tool to the beginning and remove duplicates
-      if (toolId) {
-        recentTools = [toolId, ...recentTools.filter(id => id !== toolId)].slice(0, 5);
-        localStorage.setItem('recentTools', JSON.stringify(recentTools));
-      }
+      recentTools = [route, ...recentTools.filter(item => item !== route)].slice(0, 5);
+      localStorage.setItem('recentTools', JSON.stringify(recentTools));
     } catch (e) {
       console.error("Error updating recent tools", e);
     }
-  };
-
-  // Function to check if the tool page exists
-  const toolExists = () => {
-    // Check if the route is redirecting to NotFound page
-    return !['/word-to-pdf-wip', '/pdf-split-merge-wip', '/image-converter-wip'].includes(route);
   };
 
   return (
@@ -73,19 +65,14 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route, ca
         <Link to={route} className="w-full" onClick={handleToolClick}>
           <Button 
             className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity text-xs md:text-sm py-1 md:py-2"
-            disabled={!toolExists()}
           >
-            {toolExists() ? 'Launch Tool' : 'Coming Soon'}
+            Launch Tool
           </Button>
         </Link>
       </div>
       
       <div 
-        className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 transition-opacity duration-300 pointer-events-none hover:opacity-100"
-        style={{
-          opacity: 0,
-          transition: 'opacity 0.3s ease',
-        }}
+        className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
       />
     </div>
   );
