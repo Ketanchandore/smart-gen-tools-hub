@@ -190,7 +190,7 @@ const SmartCopy = () => {
     usp: string,
     adjectives: string[],
     persuasion: number
-  ) => {
+  ): string => {
     const intro = [
       `Introducing ${product}: the ${getRandomElement(adjectives)} solution designed specifically for ${audience}.`,
       `Meet ${product} - ${getRandomElement(adjectives)} and designed with ${audience} in mind.`,
@@ -243,7 +243,7 @@ ${getRandomElement(ctaPhrases)}`;
     usp: string,
     adjectives: string[],
     persuasion: number
-  ) => {
+  ): string => {
     const subjects = [
       `Introducing ${product}: The ${getRandomElement(adjectives)} Solution for ${audience}`,
       `${getRandomElement(adjectives).charAt(0).toUpperCase() + getRandomElement(adjectives).slice(1)} News: ${product} is Here!`,
@@ -272,7 +272,7 @@ ${getRandomElement(ctaPhrases)}`;
     usp: string,
     adjectives: string[],
     persuasion: number
-  ) => {
+  ): string => {
     const openings = [
       `🚀 Exciting news! We've just launched ${product} for ${audience}!`,
       `✨ Introducing ${product}: The ${getRandomElement(adjectives)} way to ${usp.split(' ').slice(-5).join(' ')}.`,
@@ -314,7 +314,7 @@ ${hashtags}`;
     usp: string,
     adjectives: string[],
     persuasion: number
-  ) => {
+  ): string => {
     const headlines = [
       `${product}: The ${getRandomElement(adjectives)} Solution for ${audience}`,
       `Introducing ${product} - ${usp.split(' ').slice(0, 7).join(' ')}`,
@@ -340,7 +340,7 @@ ${hashtags}`;
     usp: string,
     adjectives: string[],
     persuasion: number
-  ) => {
+  ): string => {
     const lowPersuasion = [
       `Learn more about ${product}`,
       `Discover ${product}`,
