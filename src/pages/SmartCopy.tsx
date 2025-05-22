@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Copy, ArrowLeft, FileDown, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -390,12 +389,12 @@ ${hashtags}`;
     } else {
       // Need to lengthen
       const filler = [
-        'This innovative solution provides exceptional value.',
-        'You'll be amazed by the results.',
-        'Perfect for those who demand the best.',
-        'Designed with your needs in mind.',
-        'The smart choice for discerning customers.',
-        'Experience excellence like never before.'
+        "This innovative solution provides exceptional value.",
+        "You will be amazed by the results.",
+        "Perfect for those who demand the best.",
+        "Designed with your needs in mind.",
+        "The smart choice for discerning customers.",
+        "Experience excellence like never before."
       ];
       
       let result = text;

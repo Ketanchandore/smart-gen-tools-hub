@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { RefreshCw, ArrowLeft, FileDown, Copy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -124,8 +123,21 @@ const BlogRewriter = () => {
       metaTitle: 'Optimized Title with Primary Keyword | Brand Name',
       headings: [
         '# Primary Keyword: Main Title with Engaging Hook',
-        '## What You'll Learn About [Secondary Keyword]',
-        '## Why [Primary Keyword] Matters in Today's Context',
+        "## What You'll Learn About [Secondary Keyword]",
+        "## Why [Primary Keyword] Matters in Today's Context",
+        '## How to Implement [Primary Keyword] Strategies',
+        '## Key Takeaways About [Primary Keyword]'
+      ]
+    };
+    
+    // Fixed the headings with proper quotes
+    const fixedSeoFeatures = {
+      metaDescription: 'This is an optimized meta description that includes key focus words and stays under 160 characters to ensure it displays properly in search results.',
+      metaTitle: 'Optimized Title with Primary Keyword | Brand Name',
+      headings: [
+        '# Primary Keyword: Main Title with Engaging Hook',
+        "## What You'll Learn About [Secondary Keyword]",
+        "## Why [Primary Keyword] Matters in Today's Context",
         '## How to Implement [Primary Keyword] Strategies',
         '## Key Takeaways About [Primary Keyword]'
       ]
@@ -164,13 +176,13 @@ const BlogRewriter = () => {
     
     // Start with meta information if requested
     if (includeMeta) {
-      rewritten += `META TITLE:\n${seoFeatures.metaTitle}\n\nMETA DESCRIPTION:\n${seoFeatures.metaDescription}\n\n`;
+      rewritten += `META TITLE:\n${fixedSeoFeatures.metaTitle}\n\nMETA DESCRIPTION:\n${fixedSeoFeatures.metaDescription}\n\n`;
       seoScore += 5;
     }
     
     // Add optimized headings if requested
     if (includeHeadings) {
-      rewritten += `${seoFeatures.headings[0]}\n\n`;
+      rewritten += `${fixedSeoFeatures.headings[0]}\n\n`;
       seoScore += 5;
     }
     
@@ -211,12 +223,12 @@ const BlogRewriter = () => {
       if (includeHeadings) {
         const contentParts = processedContent.split('\n\n');
         if (contentParts.length > 2) {
-          contentParts.splice(2, 0, seoFeatures.headings[1]);
+          contentParts.splice(2, 0, fixedSeoFeatures.headings[1]);
           if (contentParts.length > 5) {
-            contentParts.splice(5, 0, seoFeatures.headings[2]);
+            contentParts.splice(5, 0, fixedSeoFeatures.headings[2]);
           }
           if (contentParts.length > 8) {
-            contentParts.splice(8, 0, seoFeatures.headings[3]);
+            contentParts.splice(8, 0, fixedSeoFeatures.headings[3]);
           }
           processedContent = contentParts.join('\n\n');
         }
