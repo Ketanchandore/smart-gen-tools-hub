@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Copy, ArrowLeft, FileDown, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -90,6 +91,10 @@ const SmartCopy = () => {
     });
   };
 
+  // Helper function to select a random element from an array
+  const getRandomElement = <T,>(arr: T[]): T => 
+    arr[Math.floor(Math.random() * arr.length)];
+
   type CopyParams = {
     product: string;
     audience: string;
@@ -114,10 +119,6 @@ const SmartCopy = () => {
     // Helper to generate random number within range
     const getRandomInt = (min: number, max: number): number => 
       Math.floor(Math.random() * (max - min + 1)) + min;
-      
-    // Helper to select random element from array
-    const getRandomElement = <T,>(arr: T[]): T => 
-      arr[Math.floor(Math.random() * arr.length)];
     
     // Define tone adjectives
     const toneAdjectives: Record<string, string[]> = {
