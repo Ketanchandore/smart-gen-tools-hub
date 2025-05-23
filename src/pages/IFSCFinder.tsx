@@ -1,66 +1,83 @@
 
 import { useState } from "react";
-import { ArrowLeft, Search, Building } from "lucide-react";
+import { ArrowLeft, Search, Building, Download, MapPin, Phone, Copy, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-
-// Sample banks for the dropdown
-const banks = [
-  "State Bank of India",
-  "HDFC Bank",
-  "ICICI Bank",
-  "Axis Bank",
-  "Punjab National Bank",
-  "Bank of Baroda",
-  "Canara Bank",
-  "Union Bank of India",
-  "Bank of India",
-  "Indian Bank"
-];
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/components/ui/use-toast";
+import { banksList, statesList, searchIFSC, BankBranch } from "@/data/ifscData";
 
 const IFSCFinder = () => {
   const [bank, setBank] = useState("");
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
+  const [city, setCity] = useState("");
   const [branch, setBranch] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [ifscCode, setIfscCode] = useState("");
+  const [results, setResults] = useState<BankBranch[]>([]);
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     setSearchPerformed(true);
     
-    // In a real application, you would search an API for IFSC codes
-    // This is just a demo with mock data
-    const mockResults = [
-      {
-        bank: "State Bank of India",
-        branch: "Main Branch",
-        address: "123 Main St, Central District, Mumbai, Maharashtra",
-        ifsc: "SBIN0000123",
-        micr: "400002123",
-        contact: "+91 22 1234 5678"
-      },
-      {
-        bank: "HDFC Bank",
-        branch: "City Center",
-        address: "456 Market Road, West District, Mumbai, Maharashtra",
-        ifsc: "HDFC0000456",
-        micr: "400059456",
-        contact: "+91 22 9876 5432"
-      }
-    ];
+    const searchQuery = {
+      bank: bank || undefined,
+      state: state || undefined,
+      district: district || undefined,
+      city: city || undefined,
+      branch: branch || undefined,
+      ifsc: ifscCode || undefined,
+    };
     
-    // Filter based on entered info
-    const filtered = mockResults.filter(item => {
-      if (bank && !item.bank.toLowerCase().includes(bank.toLowerCase())) return false;
-      if (branch && !item.branch.toLowerCase().includes(branch.toLowerCase())) return false;
-      return true;
+    setTimeout(() => {
+      const filtered = searchIFSC(searchQuery);
+      setResults(filtered);
+      setLoading(false);
+      
+      toast({
+        title: "Search Complete",
+        description: `Found ${filtered.length} matching branches`,
+      });
+    }, 500);
+  };
+
+  const handleCopy = (text: string, type: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(text);
+    setTimeout(() => setCopiedId(null), 2000);
+    toast({
+      title: "Copied!",
+      description: `${type} copied to clipboard`,
     });
+  };
+
+  const exportResults = () => {
+    const csv = [
+      "IFSC,Bank,Branch,Address,City,District,State,MICR,Contact",
+      ...results.map(r => `${r.ifsc},${r.bank},${r.branch},"${r.address}",${r.city},${r.district},${r.state},${r.micr || ''},${r.contact}`)
+    ].join('\n');
     
-    setResults(filtered);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ifsc_results.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Export Complete",
+      description: "Results exported to CSV file",
+    });
   };
 
   return (
@@ -78,121 +95,225 @@ const IFSCFinder = () => {
         <div className="inline-flex items-center justify-center p-4 mb-4 rounded-full bg-primary/10">
           <Building className="h-8 w-8 text-primary" />
         </div>
-        <h1 className="text-3xl font-bold">IFSC Code Finder</h1>
-        <p className="text-muted-foreground mt-2">Find IFSC codes for banks across India</p>
+        <h1 className="text-3xl font-bold">Advanced IFSC Code Finder</h1>
+        <p className="text-muted-foreground mt-2">Find IFSC codes for all Indian banks with comprehensive search</p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Search IFSC Codes</CardTitle>
-          <CardDescription>Enter bank details to find the IFSC code</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSearch} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="bank" className="block text-sm font-medium mb-1">
-                  Bank Name
-                </label>
-                <Input 
-                  id="bank"
-                  list="banks"
-                  placeholder="Select or type bank name"
-                  value={bank}
-                  onChange={(e) => setBank(e.target.value)}
-                />
-                <datalist id="banks">
-                  {banks.map((bank, index) => (
-                    <option key={index} value={bank} />
-                  ))}
-                </datalist>
-              </div>
-              
-              <div>
-                <label htmlFor="state" className="block text-sm font-medium mb-1">
-                  State (Optional)
-                </label>
-                <Input 
-                  id="state"
-                  placeholder="Enter state name"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                />
-              </div>
+      <Tabs defaultValue="search" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="search">Search IFSC</TabsTrigger>
+          <TabsTrigger value="verify">Verify IFSC</TabsTrigger>
+        </TabsList>
 
-              <div>
-                <label htmlFor="district" className="block text-sm font-medium mb-1">
-                  District (Optional)
-                </label>
-                <Input 
-                  id="district"
-                  placeholder="Enter district name"
-                  value={district}
-                  onChange={(e) => setDistrict(e.target.value)}
-                />
-              </div>
+        <TabsContent value="search">
+          <Card>
+            <CardHeader>
+              <CardTitle>Search IFSC Codes</CardTitle>
+              <CardDescription>Find IFSC codes using bank details</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSearch} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div>
+                    <label htmlFor="bank" className="block text-sm font-medium mb-2">
+                      Bank Name
+                    </label>
+                    <Select value={bank} onValueChange={setBank}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select bank" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {banksList.map((bankName) => (
+                          <SelectItem key={bankName} value={bankName}>
+                            {bankName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="state" className="block text-sm font-medium mb-2">
+                      State
+                    </label>
+                    <Select value={state} onValueChange={setState}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select state" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {statesList.map((stateName) => (
+                          <SelectItem key={stateName} value={stateName}>
+                            {stateName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-              <div>
-                <label htmlFor="branch" className="block text-sm font-medium mb-1">
-                  Branch (Optional)
-                </label>
-                <Input 
-                  id="branch"
-                  placeholder="Enter branch name"
-                  value={branch}
-                  onChange={(e) => setBranch(e.target.value)}
-                />
-              </div>
-            </div>
+                  <div>
+                    <label htmlFor="city" className="block text-sm font-medium mb-2">
+                      City
+                    </label>
+                    <Input 
+                      id="city"
+                      placeholder="Enter city name"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                    />
+                  </div>
 
-            <div className="flex justify-center mt-6">
-              <Button type="submit" className="flex items-center gap-2">
-                <Search className="h-4 w-4" />
-                Find IFSC Code
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+                  <div>
+                    <label htmlFor="district" className="block text-sm font-medium mb-2">
+                      District
+                    </label>
+                    <Input 
+                      id="district"
+                      placeholder="Enter district name"
+                      value={district}
+                      onChange={(e) => setDistrict(e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="branch" className="block text-sm font-medium mb-2">
+                      Branch
+                    </label>
+                    <Input 
+                      id="branch"
+                      placeholder="Enter branch name"
+                      value={branch}
+                      onChange={(e) => setBranch(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-center mt-6">
+                  <Button type="submit" className="flex items-center gap-2" disabled={loading}>
+                    <Search className="h-4 w-4" />
+                    {loading ? "Searching..." : "Find IFSC Code"}
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="verify">
+          <Card>
+            <CardHeader>
+              <CardTitle>Verify IFSC Code</CardTitle>
+              <CardDescription>Enter IFSC code to get bank details</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSearch} className="space-y-4">
+                <div>
+                  <label htmlFor="ifsc" className="block text-sm font-medium mb-2">
+                    IFSC Code
+                  </label>
+                  <Input 
+                    id="ifsc"
+                    placeholder="Enter IFSC code (e.g., SBIN0000001)"
+                    value={ifscCode}
+                    onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
+                    className="font-mono"
+                  />
+                </div>
+                <Button type="submit" className="flex items-center gap-2" disabled={loading}>
+                  <Search className="h-4 w-4" />
+                  {loading ? "Verifying..." : "Verify IFSC"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       {searchPerformed && (
         <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Search Results</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">
+              Search Results ({results.length} found)
+            </h2>
+            {results.length > 0 && (
+              <Button onClick={exportResults} variant="outline" size="sm">
+                <Download className="h-4 w-4 mr-2" />
+                Export CSV
+              </Button>
+            )}
+          </div>
+          
           {results.length > 0 ? (
             <div className="space-y-4">
               {results.map((result, index) => (
-                <Card key={index}>
+                <Card key={index} className="hover:shadow-md transition-shadow">
                   <CardContent className="p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h3 className="font-bold text-lg">{result.bank}</h3>
-                        <p className="text-muted-foreground">{result.branch}</p>
-                        <p className="mt-2 text-sm">{result.address}</p>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <div>
+                          <h3 className="font-bold text-lg text-primary">{result.bank}</h3>
+                          <p className="text-muted-foreground font-medium">{result.branch}</p>
+                        </div>
+                        
+                        <div className="flex items-start gap-2">
+                          <MapPin className="h-4 w-4 text-muted-foreground mt-1 flex-shrink-0" />
+                          <p className="text-sm">{result.address}</p>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Phone className="h-4 w-4 text-muted-foreground" />
+                          <p className="text-sm">{result.contact}</p>
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="secondary">{result.city}</Badge>
+                          <Badge variant="secondary">{result.district}</Badge>
+                          <Badge variant="outline">{result.state}</Badge>
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <div>
-                          <span className="text-sm text-muted-foreground">IFSC Code:</span>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono font-bold">{result.ifsc}</span>
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              onClick={() => {
-                                navigator.clipboard.writeText(result.ifsc);
-                                alert("IFSC code copied to clipboard!");
-                              }}
-                            >
-                              Copy
-                            </Button>
+                      
+                      <div className="space-y-3">
+                        <div className="p-4 bg-muted rounded-lg">
+                          <div className="space-y-3">
+                            <div>
+                              <span className="text-xs text-muted-foreground">IFSC Code</span>
+                              <div className="flex items-center gap-2">
+                                <span className="font-mono font-bold text-lg">{result.ifsc}</span>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm"
+                                  onClick={() => handleCopy(result.ifsc, "IFSC code")}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  {copiedId === result.ifsc ? (
+                                    <Check className="h-4 w-4 text-green-600" />
+                                  ) : (
+                                    <Copy className="h-4 w-4" />
+                                  )}
+                                </Button>
+                              </div>
+                            </div>
+                            
+                            {result.micr && (
+                              <div>
+                                <span className="text-xs text-muted-foreground">MICR Code</span>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-mono">{result.micr}</span>
+                                  <Button 
+                                    variant="ghost" 
+                                    size="sm"
+                                    onClick={() => handleCopy(result.micr!, "MICR code")}
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    {copiedId === result.micr ? (
+                                      <Check className="h-4 w-4 text-green-600" />
+                                    ) : (
+                                      <Copy className="h-4 w-4" />
+                                    )}
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
                           </div>
-                        </div>
-                        <div>
-                          <span className="text-sm text-muted-foreground">MICR Code:</span>
-                          <p className="font-mono">{result.micr}</p>
-                        </div>
-                        <div>
-                          <span className="text-sm text-muted-foreground">Contact:</span>
-                          <p>{result.contact}</p>
                         </div>
                       </div>
                     </div>
@@ -203,8 +324,9 @@ const IFSCFinder = () => {
           ) : (
             <Card>
               <CardContent className="p-6 text-center">
-                <p>No results found for your search criteria.</p>
-                <p className="text-muted-foreground mt-2">Try broadening your search.</p>
+                <Building className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <p className="text-lg font-medium">No results found</p>
+                <p className="text-muted-foreground mt-2">Try broadening your search criteria or check your spelling.</p>
               </CardContent>
             </Card>
           )}

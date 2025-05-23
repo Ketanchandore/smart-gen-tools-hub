@@ -1,522 +1,636 @@
 
 import React, { useState } from 'react';
-import { ClipboardList, Plus, Trash2, Copy, Download, ArrowDown, ArrowUp, Sparkles } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Edit, Eye, Save, Share2, BarChart3, Settings } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/components/ui/use-toast';
-import Layout from '@/components/Layout';
+import { Switch } from '@/components/ui/switch';
+import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Question {
   id: string;
-  type: string;
-  text: string;
+  type: 'text' | 'multiple-choice' | 'rating' | 'yes-no' | 'dropdown' | 'checkbox' | 'date' | 'email';
+  question: string;
+  options?: string[];
   required: boolean;
-  options: string[];
+  description?: string;
+}
+
+interface Survey {
+  id: string;
+  title: string;
+  description: string;
+  questions: Question[];
+  settings: {
+    anonymous: boolean;
+    multipleSubmissions: boolean;
+    deadline?: string;
+    thankYouMessage: string;
+  };
 }
 
 const SurveyCreator = () => {
+  const [currentSurvey, setCurrentSurvey] = useState<Survey>({
+    id: '1',
+    title: '',
+    description: '',
+    questions: [],
+    settings: {
+      anonymous: true,
+      multipleSubmissions: false,
+      thankYouMessage: 'Thank you for your response!'
+    }
+  });
+
+  const [savedSurveys, setSavedSurveys] = useState<Survey[]>([]);
+  const [editingQuestion, setEditingQuestion] = useState<string | null>(null);
+  const [newQuestion, setNewQuestion] = useState<Partial<Question>>({
+    type: 'text',
+    question: '',
+    required: false,
+    options: []
+  });
+
   const { toast } = useToast();
-  const [surveyTitle, setSurveyTitle] = useState('Customer Satisfaction Survey');
-  const [surveyDescription, setSurveyDescription] = useState('Help us improve our service by providing your feedback');
-  const [questions, setQuestions] = useState<Question[]>([
-    {
-      id: '1',
-      type: 'multiple_choice',
-      text: 'How satisfied are you with our service?',
-      required: true,
-      options: ['Very satisfied', 'Satisfied', 'Neutral', 'Dissatisfied', 'Very dissatisfied']
-    },
-    {
-      id: '2',
+
+  const questionTypes = [
+    { value: 'text', label: 'Short Text' },
+    { value: 'multiple-choice', label: 'Multiple Choice' },
+    { value: 'rating', label: 'Rating Scale' },
+    { value: 'yes-no', label: 'Yes/No' },
+    { value: 'dropdown', label: 'Dropdown' },
+    { value: 'checkbox', label: 'Checkboxes' },
+    { value: 'date', label: 'Date' },
+    { value: 'email', label: 'Email' }
+  ];
+
+  const addQuestion = () => {
+    if (!newQuestion.question?.trim()) {
+      toast({
+        title: "Question Required",
+        description: "Please enter a question text",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const question: Question = {
+      id: Date.now().toString(),
+      type: newQuestion.type as Question['type'],
+      question: newQuestion.question,
+      required: newQuestion.required || false,
+      description: newQuestion.description,
+      options: newQuestion.options
+    };
+
+    setCurrentSurvey(prev => ({
+      ...prev,
+      questions: [...prev.questions, question]
+    }));
+
+    setNewQuestion({
       type: 'text',
-      text: 'What aspects of our service could be improved?',
+      question: '',
       required: false,
       options: []
+    });
+
+    toast({
+      title: "Question Added",
+      description: "Question has been added to your survey"
+    });
+  };
+
+  const deleteQuestion = (questionId: string) => {
+    setCurrentSurvey(prev => ({
+      ...prev,
+      questions: prev.questions.filter(q => q.id !== questionId)
+    }));
+
+    toast({
+      title: "Question Deleted",
+      description: "Question has been removed from your survey"
+    });
+  };
+
+  const addOption = () => {
+    setNewQuestion(prev => ({
+      ...prev,
+      options: [...(prev.options || []), '']
+    }));
+  };
+
+  const updateOption = (index: number, value: string) => {
+    setNewQuestion(prev => ({
+      ...prev,
+      options: prev.options?.map((opt, i) => i === index ? value : opt)
+    }));
+  };
+
+  const removeOption = (index: number) => {
+    setNewQuestion(prev => ({
+      ...prev,
+      options: prev.options?.filter((_, i) => i !== index)
+    }));
+  };
+
+  const saveSurvey = () => {
+    if (!currentSurvey.title.trim()) {
+      toast({
+        title: "Title Required",
+        description: "Please enter a survey title",
+        variant: "destructive"
+      });
+      return;
     }
-  ]);
-  const [activeTab, setActiveTab] = useState('edit');
 
-  // Generate a unique ID for questions
-  const generateQuestionId = (): string => {
-    return Date.now().toString() + Math.random().toString(36).substr(2, 5);
-  };
+    if (currentSurvey.questions.length === 0) {
+      toast({
+        title: "Questions Required",
+        description: "Please add at least one question",
+        variant: "destructive"
+      });
+      return;
+    }
 
-  // Add a new question
-  const handleAddQuestion = () => {
-    const newQuestion: Question = {
-      id: generateQuestionId(),
-      type: 'multiple_choice',
-      text: 'New Question',
-      required: false,
-      options: ['Option 1', 'Option 2', 'Option 3']
+    const surveyToSave = {
+      ...currentSurvey,
+      id: Date.now().toString()
     };
-    
-    setQuestions([...questions, newQuestion]);
-    
+
+    setSavedSurveys(prev => [...prev, surveyToSave]);
+
     toast({
-      title: "Question added",
-      description: "A new question has been added to your survey.",
+      title: "Survey Saved",
+      description: "Your survey has been saved successfully"
     });
   };
 
-  // Remove a question
-  const handleRemoveQuestion = (id: string) => {
-    setQuestions(questions.filter(q => q.id !== id));
+  const generateSurveyLink = () => {
+    const link = `${window.location.origin}/survey/${currentSurvey.id}`;
+    navigator.clipboard.writeText(link);
     
     toast({
-      title: "Question removed",
-      description: "The question has been removed from your survey.",
+      title: "Link Copied",
+      description: "Survey link has been copied to clipboard"
     });
   };
 
-  // Update question properties
-  const handleUpdateQuestion = (id: string, field: keyof Question, value: any) => {
-    setQuestions(questions.map(q => 
-      q.id === id ? { ...q, [field]: value } : q
-    ));
-  };
-
-  // Add option to a question
-  const handleAddOption = (questionId: string) => {
-    setQuestions(questions.map(q => {
-      if (q.id === questionId) {
-        return {
-          ...q,
-          options: [...q.options, `Option ${q.options.length + 1}`]
-        };
-      }
-      return q;
-    }));
-  };
-
-  // Update option text
-  const handleUpdateOption = (questionId: string, optionIndex: number, value: string) => {
-    setQuestions(questions.map(q => {
-      if (q.id === questionId) {
-        const updatedOptions = [...q.options];
-        updatedOptions[optionIndex] = value;
-        return { ...q, options: updatedOptions };
-      }
-      return q;
-    }));
-  };
-
-  // Remove option
-  const handleRemoveOption = (questionId: string, optionIndex: number) => {
-    setQuestions(questions.map(q => {
-      if (q.id === questionId) {
-        const updatedOptions = q.options.filter((_, index) => index !== optionIndex);
-        return { ...q, options: updatedOptions };
-      }
-      return q;
-    }));
-  };
-
-  // Move question up
-  const handleMoveQuestionUp = (index: number) => {
-    if (index === 0) return;
-    const updatedQuestions = [...questions];
-    [updatedQuestions[index], updatedQuestions[index - 1]] = [updatedQuestions[index - 1], updatedQuestions[index]];
-    setQuestions(updatedQuestions);
-  };
-
-  // Move question down
-  const handleMoveQuestionDown = (index: number) => {
-    if (index === questions.length - 1) return;
-    const updatedQuestions = [...questions];
-    [updatedQuestions[index], updatedQuestions[index + 1]] = [updatedQuestions[index + 1], updatedQuestions[index]];
-    setQuestions(updatedQuestions);
-  };
-
-  // Generate a shareable survey link
-  const getSurveyLink = () => {
-    // In a real app, this would generate a unique link to the survey
-    return `https://yoursurveyapp.com/s/${btoa(surveyTitle.replace(/\s+/g, '-').toLowerCase())}`;
-  };
-
-  // Copy survey link to clipboard
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(getSurveyLink());
-    
-    toast({
-      title: "Link copied",
-      description: "Survey link has been copied to clipboard.",
-    });
-  };
-
-  // Export survey as JSON
-  const handleExportSurvey = () => {
-    const surveyData = {
-      title: surveyTitle,
-      description: surveyDescription,
-      questions
-    };
-    
-    const blob = new Blob([JSON.stringify(surveyData, null, 2)], { type: 'application/json' });
+  const exportSurvey = () => {
+    const surveyData = JSON.stringify(currentSurvey, null, 2);
+    const blob = new Blob([surveyData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${surveyTitle.replace(/\s+/g, '-').toLowerCase()}-survey.json`;
-    document.body.appendChild(a);
+    a.download = `survey-${currentSurvey.title.replace(/\s+/g, '-').toLowerCase()}.json`;
     a.click();
-    document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
+
     toast({
-      title: "Survey exported",
-      description: "Your survey has been exported as a JSON file.",
+      title: "Survey Exported",
+      description: "Survey has been downloaded as JSON file"
     });
   };
 
-  // Suggest AI improvements for the survey
-  const handleAIImprove = () => {
-    toast({
-      title: "AI improving survey...",
-      description: "Analyzing your survey to suggest improvements.",
-    });
-    
-    // Simulate AI processing
-    setTimeout(() => {
-      // In a real implementation, this would use an AI service
-      // For now, we'll just make some predefined improvements
-      
-      // Add a rating question if none exists
-      const hasRatingQuestion = questions.some(q => q.text.toLowerCase().includes('rate') || q.text.toLowerCase().includes('rating'));
-      
-      if (!hasRatingQuestion) {
-        setQuestions([
-          ...questions,
-          {
-            id: generateQuestionId(),
-            type: 'rating',
-            text: 'On a scale of 1-10, how likely are you to recommend us to others?',
-            required: true,
-            options: []
-          }
-        ]);
-      }
-      
-      // Improve the title if it's the default
-      if (surveyTitle === 'Customer Satisfaction Survey') {
-        setSurveyTitle('Help Us Serve You Better: Customer Experience Survey');
-      }
-      
-      // Enhance the description
-      setSurveyDescription('Your feedback is invaluable! Please take a moment to share your thoughts so we can continue to improve our products and services to meet your needs.');
-      
-      toast({
-        title: "Survey improved!",
-        description: "AI has enhanced your survey with improvements.",
-      });
-    }, 1500);
-  };
-
-  // Render the survey preview
-  const renderSurveyPreview = () => {
-    return (
-      <div className="space-y-6 bg-card p-6 rounded-lg border">
-        <div className="space-y-2">
-          <h3 className="text-2xl font-bold">{surveyTitle}</h3>
-          <p className="text-muted-foreground">{surveyDescription}</p>
-        </div>
-        
-        <div className="space-y-6">
-          {questions.map((question, index) => (
-            <div key={question.id} className="space-y-2 border-b pb-4 last:border-0 last:pb-0">
-              <p className="flex items-baseline">
-                <span className="font-medium">{index + 1}. {question.text} </span>
-                {question.required && <span className="text-red-500 ml-1">*</span>}
-              </p>
-              
-              {question.type === 'text' && (
-                <div className="pl-6">
-                  <Textarea placeholder="Enter your answer" disabled className="resize-none" />
-                </div>
-              )}
-              
-              {question.type === 'multiple_choice' && (
-                <div className="pl-6 space-y-2">
-                  {question.options.map((option, optIndex) => (
-                    <div key={optIndex} className="flex items-center space-x-2">
-                      <div className="h-4 w-4 rounded-full border border-input" />
-                      <span>{option}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              
-              {question.type === 'checkbox' && (
-                <div className="pl-6 space-y-2">
-                  {question.options.map((option, optIndex) => (
-                    <div key={optIndex} className="flex items-center space-x-2">
-                      <div className="h-4 w-4 rounded border border-input" />
-                      <span>{option}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              
-              {question.type === 'rating' && (
-                <div className="pl-6">
-                  <div className="flex space-x-2">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                      <div 
-                        key={num} 
-                        className="h-8 w-8 flex items-center justify-center border rounded cursor-pointer hover:bg-primary/10"
-                      >
-                        {num}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        
-        <div className="pt-4">
-          <Button className="w-full" disabled>Submit</Button>
-        </div>
-      </div>
-    );
+  const previewQuestion = (question: Question) => {
+    switch (question.type) {
+      case 'text':
+        return <Input placeholder="Your answer..." disabled />;
+      case 'multiple-choice':
+        return (
+          <div className="space-y-2">
+            {question.options?.map((option, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <input type="radio" disabled />
+                <label>{option}</label>
+              </div>
+            ))}
+          </div>
+        );
+      case 'checkbox':
+        return (
+          <div className="space-y-2">
+            {question.options?.map((option, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <input type="checkbox" disabled />
+                <label>{option}</label>
+              </div>
+            ))}
+          </div>
+        );
+      case 'rating':
+        return (
+          <div className="flex space-x-2">
+            {[1, 2, 3, 4, 5].map((num) => (
+              <Button key={num} variant="outline" size="sm" disabled>
+                {num}
+              </Button>
+            ))}
+          </div>
+        );
+      case 'yes-no':
+        return (
+          <div className="flex space-x-4">
+            <Button variant="outline" disabled>Yes</Button>
+            <Button variant="outline" disabled>No</Button>
+          </div>
+        );
+      case 'dropdown':
+        return (
+          <Select disabled>
+            <SelectTrigger>
+              <SelectValue placeholder="Select an option..." />
+            </SelectTrigger>
+          </Select>
+        );
+      case 'date':
+        return <Input type="date" disabled />;
+      case 'email':
+        return <Input type="email" placeholder="your.email@example.com" disabled />;
+      default:
+        return <Input disabled />;
+    }
   };
 
   return (
-    <Layout>
-      <div className="container max-w-5xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-2">AI Survey Creator</h1>
-        <p className="text-muted-foreground mb-8">Create effective surveys with AI assistance</p>
-        
-        <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="edit">Edit Survey</TabsTrigger>
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="edit" className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-2 space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Survey Details</CardTitle>
-                    <CardDescription>Set your survey title and description</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label htmlFor="survey-title">Title</Label>
-                      <Input
-                        id="survey-title"
-                        value={surveyTitle}
-                        onChange={(e) => setSurveyTitle(e.target.value)}
-                        placeholder="Enter survey title"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="survey-description">Description</Label>
-                      <Textarea
-                        id="survey-description"
-                        value={surveyDescription}
-                        onChange={(e) => setSurveyDescription(e.target.value)}
-                        placeholder="Enter survey description"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <div className="space-y-4">
-                  {questions.map((question, index) => (
-                    <Card key={question.id} className="border-l-4 border-l-primary">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="text-lg">Question {index + 1}</CardTitle>
-                          <div className="flex items-center space-x-2">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleMoveQuestionUp(index)}
-                              disabled={index === 0}
-                            >
-                              <ArrowUp className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleMoveQuestionDown(index)}
-                              disabled={index === questions.length - 1}
-                            >
-                              <ArrowDown className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleRemoveQuestion(question.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor={`question-${question.id}`}>Question Text</Label>
-                            <Input
-                              id={`question-${question.id}`}
-                              value={question.text}
-                              onChange={(e) => handleUpdateQuestion(question.id, 'text', e.target.value)}
-                              placeholder="Enter question text"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor={`question-type-${question.id}`}>Question Type</Label>
-                            <Select
-                              value={question.type}
-                              onValueChange={(value) => handleUpdateQuestion(question.id, 'type', value)}
-                            >
-                              <SelectTrigger id={`question-type-${question.id}`}>
-                                <SelectValue placeholder="Select type" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="text">Text Answer</SelectItem>
-                                <SelectItem value="multiple_choice">Multiple Choice</SelectItem>
-                                <SelectItem value="checkbox">Checkbox</SelectItem>
-                                <SelectItem value="rating">Rating Scale</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-2">
-                          <Label htmlFor={`required-${question.id}`} className="flex items-center cursor-pointer">
-                            <input
-                              id={`required-${question.id}`}
-                              type="checkbox"
-                              className="mr-2"
-                              checked={question.required}
-                              onChange={(e) => handleUpdateQuestion(question.id, 'required', e.target.checked)}
-                            />
-                            Required
-                          </Label>
-                        </div>
-                        
-                        {(question.type === 'multiple_choice' || question.type === 'checkbox') && (
-                          <div className="space-y-2">
-                            <Label>Options</Label>
-                            {question.options.map((option, optIndex) => (
-                              <div key={optIndex} className="flex items-center space-x-2">
-                                <Input
-                                  value={option}
-                                  onChange={(e) => handleUpdateOption(question.id, optIndex, e.target.value)}
-                                  placeholder={`Option ${optIndex + 1}`}
-                                />
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => handleRemoveOption(question.id, optIndex)}
-                                  disabled={question.options.length <= 1}
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            ))}
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleAddOption(question.id)}
-                              className="mt-2"
-                            >
-                              <Plus className="h-4 w-4 mr-1" /> Add Option
-                            </Button>
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ))}
-                  
-                  <Button
-                    variant="outline"
-                    onClick={handleAddQuestion}
-                    className="w-full"
+    <div className="container max-w-6xl mx-auto px-4 py-8">
+      <div className="mb-6">
+        <Link to="/">
+          <Button variant="ghost" size="sm" className="flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Tools
+          </Button>
+        </Link>
+      </div>
+
+      <div className="text-center mb-8">
+        <div className="inline-flex items-center justify-center p-4 mb-4 rounded-full bg-primary/10">
+          <BarChart3 className="h-8 w-8 text-primary" />
+        </div>
+        <h1 className="text-3xl font-bold">AI Survey Creator</h1>
+        <p className="text-muted-foreground mt-2">Create professional surveys with intelligent question suggestions</p>
+      </div>
+
+      <Tabs defaultValue="builder" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="builder">Builder</TabsTrigger>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
+          <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsTrigger value="saved">Saved Surveys</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="builder" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Survey Information</CardTitle>
+              <CardDescription>Set up your survey title and description</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label htmlFor="survey-title">Survey Title</Label>
+                <Input
+                  id="survey-title"
+                  value={currentSurvey.title}
+                  onChange={(e) => setCurrentSurvey(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder="Enter survey title..."
+                />
+              </div>
+              <div>
+                <Label htmlFor="survey-description">Description</Label>
+                <Textarea
+                  id="survey-description"
+                  value={currentSurvey.description}
+                  onChange={(e) => setCurrentSurvey(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Describe what this survey is about..."
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Add Question</CardTitle>
+              <CardDescription>Create a new question for your survey</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="question-type">Question Type</Label>
+                  <Select 
+                    value={newQuestion.type} 
+                    onValueChange={(value) => setNewQuestion(prev => ({ ...prev, type: value as Question['type'] }))}
                   >
-                    <Plus className="h-4 w-4 mr-1" /> Add Question
-                  </Button>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {questionTypes.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="required"
+                    checked={newQuestion.required}
+                    onCheckedChange={(checked) => setNewQuestion(prev => ({ ...prev, required: checked }))}
+                  />
+                  <Label htmlFor="required">Required</Label>
                 </div>
               </div>
-              
+
               <div>
-                <Card className="sticky top-6">
-                  <CardHeader>
-                    <CardTitle>Survey Actions</CardTitle>
-                    <CardDescription>Share and manage your survey</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label>Survey Link</Label>
-                      <div className="flex items-center space-x-2">
-                        <Input value={getSurveyLink()} readOnly />
-                        <Button variant="outline" size="icon" onClick={handleCopyLink}>
-                          <Copy className="h-4 w-4" />
+                <Label htmlFor="question-text">Question</Label>
+                <Input
+                  id="question-text"
+                  value={newQuestion.question}
+                  onChange={(e) => setNewQuestion(prev => ({ ...prev, question: e.target.value }))}
+                  placeholder="Enter your question..."
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="question-description">Description (Optional)</Label>
+                <Input
+                  id="question-description"
+                  value={newQuestion.description || ''}
+                  onChange={(e) => setNewQuestion(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Additional context or instructions..."
+                />
+              </div>
+
+              {(newQuestion.type === 'multiple-choice' || newQuestion.type === 'checkbox' || newQuestion.type === 'dropdown') && (
+                <div>
+                  <Label>Options</Label>
+                  <div className="space-y-2">
+                    {newQuestion.options?.map((option, index) => (
+                      <div key={index} className="flex gap-2">
+                        <Input
+                          value={option}
+                          onChange={(e) => updateOption(index, e.target.value)}
+                          placeholder={`Option ${index + 1}`}
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => removeOption(index)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={addOption}
+                      className="w-full"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Option
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              <Button onClick={addQuestion} className="w-full">
+                <Plus className="h-4 w-4 mr-2" />
+                Add Question
+              </Button>
+            </CardContent>
+          </Card>
+
+          {currentSurvey.questions.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Questions ({currentSurvey.questions.length})</CardTitle>
+                <CardDescription>Review and manage your survey questions</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {currentSurvey.questions.map((question, index) => (
+                  <div key={question.id} className="border rounded-lg p-4 space-y-2">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="secondary">{questionTypes.find(t => t.value === question.type)?.label}</Badge>
+                          {question.required && <Badge variant="destructive">Required</Badge>}
+                        </div>
+                        <p className="font-medium">{question.question}</p>
+                        {question.description && (
+                          <p className="text-sm text-muted-foreground">{question.description}</p>
+                        )}
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="ghost" size="sm">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => deleteQuestion(question.id)}>
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
-                    
-                    <div className="space-y-4 pt-2">
-                      <Button
-                        className="w-full"
-                        onClick={() => setActiveTab('preview')}
-                      >
-                        Preview Survey
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full"
-                        onClick={handleExportSurvey}
-                      >
-                        <Download className="h-4 w-4 mr-1" /> Export
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        className="w-full flex items-center gap-2"
-                        onClick={handleAIImprove}
-                      >
-                        <Sparkles className="h-4 w-4" /> AI Improve
-                      </Button>
+                    <div className="mt-3 opacity-60">
+                      {previewQuestion(question)}
                     </div>
-                  </CardContent>
-                  <CardFooter className="bg-secondary/20 flex flex-col items-start px-6">
-                    <p className="text-sm text-muted-foreground">
-                      <strong>Pro tip:</strong> Keep surveys short and focused to increase completion rates. Use clear, concise questions.
-                    </p>
-                  </CardFooter>
-                </Card>
-              </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="preview" className="pt-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Survey Preview</CardTitle>
-                  <Button variant="outline" onClick={() => setActiveTab('edit')}>
-                    Back to Editor
-                  </Button>
-                </div>
-                <CardDescription>Preview how your survey will appear to respondents</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {renderSurveyPreview()}
+                  </div>
+                ))}
               </CardContent>
             </Card>
-          </TabsContent>
-        </Tabs>
-      </div>
-    </Layout>
+          )}
+
+          <div className="flex gap-4">
+            <Button onClick={saveSurvey} className="flex-1">
+              <Save className="h-4 w-4 mr-2" />
+              Save Survey
+            </Button>
+            <Button onClick={generateSurveyLink} variant="outline" className="flex-1">
+              <Share2 className="h-4 w-4 mr-2" />
+              Share Survey
+            </Button>
+            <Button onClick={exportSurvey} variant="outline">
+              Export
+            </Button>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="preview" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Survey Preview</CardTitle>
+              <CardDescription>See how your survey will appear to respondents</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {currentSurvey.title && (
+                <div>
+                  <h2 className="text-2xl font-bold">{currentSurvey.title}</h2>
+                  {currentSurvey.description && (
+                    <p className="text-muted-foreground mt-2">{currentSurvey.description}</p>
+                  )}
+                </div>
+              )}
+              
+              {currentSurvey.questions.length > 0 ? (
+                <div className="space-y-6">
+                  {currentSurvey.questions.map((question, index) => (
+                    <div key={question.id} className="space-y-3">
+                      <div>
+                        <Label className="text-base">
+                          {index + 1}. {question.question}
+                          {question.required && <span className="text-red-500 ml-1">*</span>}
+                        </Label>
+                        {question.description && (
+                          <p className="text-sm text-muted-foreground mt-1">{question.description}</p>
+                        )}
+                      </div>
+                      {previewQuestion(question)}
+                    </div>
+                  ))}
+                  <Button className="w-full" disabled>
+                    Submit Survey
+                  </Button>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">No questions added yet. Go to the Builder tab to add questions.</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="settings" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Survey Settings</CardTitle>
+              <CardDescription>Configure how your survey behaves</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Anonymous Responses</Label>
+                  <p className="text-sm text-muted-foreground">Don't collect respondent information</p>
+                </div>
+                <Switch
+                  checked={currentSurvey.settings.anonymous}
+                  onCheckedChange={(checked) => 
+                    setCurrentSurvey(prev => ({
+                      ...prev,
+                      settings: { ...prev.settings, anonymous: checked }
+                    }))
+                  }
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Multiple Submissions</Label>
+                  <p className="text-sm text-muted-foreground">Allow users to submit multiple responses</p>
+                </div>
+                <Switch
+                  checked={currentSurvey.settings.multipleSubmissions}
+                  onCheckedChange={(checked) => 
+                    setCurrentSurvey(prev => ({
+                      ...prev,
+                      settings: { ...prev.settings, multipleSubmissions: checked }
+                    }))
+                  }
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="deadline">Response Deadline (Optional)</Label>
+                <Input
+                  id="deadline"
+                  type="datetime-local"
+                  value={currentSurvey.settings.deadline || ''}
+                  onChange={(e) => 
+                    setCurrentSurvey(prev => ({
+                      ...prev,
+                      settings: { ...prev.settings, deadline: e.target.value }
+                    }))
+                  }
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="thank-you">Thank You Message</Label>
+                <Textarea
+                  id="thank-you"
+                  value={currentSurvey.settings.thankYouMessage}
+                  onChange={(e) => 
+                    setCurrentSurvey(prev => ({
+                      ...prev,
+                      settings: { ...prev.settings, thankYouMessage: e.target.value }
+                    }))
+                  }
+                  placeholder="Message shown after submission..."
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="saved" className="space-y-6">
+          {savedSurveys.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {savedSurveys.map((survey) => (
+                <Card key={survey.id}>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{survey.title}</CardTitle>
+                    <CardDescription>{survey.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span>Questions:</span>
+                        <Badge variant="secondary">{survey.questions.length}</Badge>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm" className="flex-1">
+                          <Eye className="h-4 w-4 mr-2" />
+                          View
+                        </Button>
+                        <Button variant="outline" size="sm" className="flex-1">
+                          <Edit className="h-4 w-4 mr-2" />
+                          Edit
+                        </Button>
+                        <Button variant="outline" size="sm" className="flex-1">
+                          <Share2 className="h-4 w-4 mr-2" />
+                          Share
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card>
+              <CardContent className="p-12 text-center">
+                <BarChart3 className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">No Saved Surveys</h3>
+                <p className="text-muted-foreground mb-4">
+                  Create your first survey using the Builder tab
+                </p>
+                <Button onClick={() => document.querySelector('[value="builder"]')?.click()}>
+                  Create Survey
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 
