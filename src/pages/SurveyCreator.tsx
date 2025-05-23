@@ -622,7 +622,10 @@ const SurveyCreator = () => {
                 <p className="text-muted-foreground mb-4">
                   Create your first survey using the Builder tab
                 </p>
-                <Button onClick={() => document.querySelector('[value="builder"]')?.click()}>
+                <Button onClick={() => {
+                  const builderTab = document.querySelector('[value="builder"]') as HTMLElement;
+                  builderTab?.click();
+                }}>
                   Create Survey
                 </Button>
               </CardContent>

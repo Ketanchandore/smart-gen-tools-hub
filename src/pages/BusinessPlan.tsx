@@ -699,7 +699,10 @@ Timeline:
                 <p className="text-muted-foreground mb-4">
                   Complete the business setup and generate your plan to see it here
                 </p>
-                <Button onClick={() => document.querySelector('[value="setup"]')?.click()}>
+                <Button onClick={() => {
+                  const setupTab = document.querySelector('[value="setup"]') as HTMLElement;
+                  setupTab?.click();
+                }}>
                   Start Business Setup
                 </Button>
               </CardContent>

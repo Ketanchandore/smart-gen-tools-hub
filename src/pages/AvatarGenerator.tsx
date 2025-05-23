@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, User, Sparkles, Download, RefreshCw, Settings, Palette, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -399,7 +398,10 @@ const AvatarGenerator = () => {
                 <p className="text-muted-foreground mb-4">
                   Use the Text Prompt or Detailed Settings tabs to generate your first avatar
                 </p>
-                <Button onClick={() => document.querySelector('[value="prompt"]')?.click()}>
+                <Button onClick={() => {
+                  const promptTab = document.querySelector('[value="prompt"]') as HTMLElement;
+                  promptTab?.click();
+                }}>
                   Start Creating
                 </Button>
               </CardContent>
