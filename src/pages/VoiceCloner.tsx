@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Mic, Upload, Play, Pause, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -199,14 +200,13 @@ const VoiceCloner = () => {
             <div className="space-y-4">
               <div className="grid gap-2">
                 <Label htmlFor="text">Text</Label>
-                <Input
+                <Textarea
                   id="text"
                   placeholder="Type or paste the text you want to be spoken..."
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   className="min-h-[100px]"
                   rows={4}
-                  multiline
                 />
               </div>
             </div>
