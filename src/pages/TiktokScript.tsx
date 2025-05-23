@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FileText, Copy, Wand2, RefreshCw, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -173,175 +172,175 @@ const TiktokScript = () => {
         <h1 className="text-3xl font-bold mb-2">TikTok Script Writer</h1>
         <p className="text-muted-foreground mb-8">Create engaging scripts for your TikTok videos</p>
         
-        <Card>
-          <CardHeader>
-            <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
+        <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
+          <Card>
+            <CardHeader>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="editor">Editor</TabsTrigger>
                 <TabsTrigger value="result" disabled={!result}>Result</TabsTrigger>
               </TabsList>
-            </Tabs>
-          </CardHeader>
-          <CardContent>
-            <TabsContent value="editor" className="space-y-6 mt-0">
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="topic">Topic or Main Idea</Label>
-                  <Input
-                    id="topic"
-                    placeholder="e.g., productivity tips, cooking hacks, makeup tutorial"
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    What is your TikTok video about? Be specific for better results.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            </CardHeader>
+            <CardContent>
+              <TabsContent value="editor" className="space-y-6 mt-0">
+                <div className="space-y-4">
                   <div>
-                    <Label htmlFor="audience">Target Audience</Label>
-                    <Select value={audience} onValueChange={setAudience}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select audience" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="general">General Audience</SelectItem>
-                        <SelectItem value="teens">Teenagers</SelectItem>
-                        <SelectItem value="youngAdults">Young Adults</SelectItem>
-                        <SelectItem value="professionals">Professionals</SelectItem>
-                        <SelectItem value="parents">Parents</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="tone">Tone</Label>
-                    <Select value={toneValue} onValueChange={setToneValue}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select tone" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="casual">Casual & Conversational</SelectItem>
-                        <SelectItem value="professional">Professional</SelectItem>
-                        <SelectItem value="humorous">Humorous</SelectItem>
-                        <SelectItem value="educational">Educational</SelectItem>
-                        <SelectItem value="dramatic">Dramatic</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between">
-                    <Label>Script Duration: {scriptDuration[0]} seconds</Label>
-                  </div>
-                  <Slider
-                    min={15}
-                    max={60}
-                    step={5}
-                    value={scriptDuration}
-                    onValueChange={setScriptDuration}
-                    className="my-4"
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>15 sec</span>
-                    <span>30 sec</span>
-                    <span>60 sec</span>
-                  </div>
-                </div>
-
-                <div className="space-y-4 border-t pt-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <Label htmlFor="include-hook" className="text-base">Include Hook</Label>
-                      <p className="text-xs text-muted-foreground">
-                        Add an attention-grabbing hook to your script
-                      </p>
-                    </div>
-                    <Switch
-                      id="include-hook"
-                      checked={includeHook}
-                      onCheckedChange={setIncludeHook}
+                    <Label htmlFor="topic">Topic or Main Idea</Label>
+                    <Input
+                      id="topic"
+                      placeholder="e.g., productivity tips, cooking hacks, makeup tutorial"
+                      value={topic}
+                      onChange={(e) => setTopic(e.target.value)}
                     />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      What is your TikTok video about? Be specific for better results.
+                    </p>
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="include-cta" className="text-base">Include Call to Action</Label>
-                      <p className="text-xs text-muted-foreground">
-                        Add a call to action at the end of your script
-                      </p>
+                      <Label htmlFor="audience">Target Audience</Label>
+                      <Select value={audience} onValueChange={setAudience}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select audience" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="general">General Audience</SelectItem>
+                          <SelectItem value="teens">Teenagers</SelectItem>
+                          <SelectItem value="youngAdults">Young Adults</SelectItem>
+                          <SelectItem value="professionals">Professionals</SelectItem>
+                          <SelectItem value="parents">Parents</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
-                    <Switch
-                      id="include-cta"
-                      checked={includeCallToAction}
-                      onCheckedChange={setIncludeCallToAction}
-                    />
-                  </div>
-                </div>
 
-                <Button
-                  onClick={generateScript}
-                  disabled={generating || !topic.trim()}
-                  className="w-full bg-gradient-to-r from-primary to-accent flex items-center justify-center gap-2"
-                >
-                  {generating ? (
-                    <>
-                      <RefreshCw className="h-4 w-4 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Wand2 className="h-4 w-4" />
-                      Generate TikTok Script
-                    </>
-                  )}
-                </Button>
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="result" className="space-y-4 mt-0">
-              {result && (
-                <>
-                  <div>
-                    <Label className="text-muted-foreground text-sm">Title</Label>
-                    <h3 className="text-lg font-semibold">{result.title}</h3>
+                    <div>
+                      <Label htmlFor="tone">Tone</Label>
+                      <Select value={toneValue} onValueChange={setToneValue}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select tone" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="casual">Casual & Conversational</SelectItem>
+                          <SelectItem value="professional">Professional</SelectItem>
+                          <SelectItem value="humorous">Humorous</SelectItem>
+                          <SelectItem value="educational">Educational</SelectItem>
+                          <SelectItem value="dramatic">Dramatic</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-                  
+
                   <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <Label>Script</Label>
-                      <Button variant="outline" size="sm" onClick={copyToClipboard}>
-                        <Copy className="h-4 w-4 mr-1" /> Copy
+                    <div className="flex justify-between">
+                      <Label>Script Duration: {scriptDuration[0]} seconds</Label>
+                    </div>
+                    <Slider
+                      min={15}
+                      max={60}
+                      step={5}
+                      value={scriptDuration}
+                      onValueChange={setScriptDuration}
+                      className="my-4"
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>15 sec</span>
+                      <span>30 sec</span>
+                      <span>60 sec</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 border-t pt-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label htmlFor="include-hook" className="text-base">Include Hook</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Add an attention-grabbing hook to your script
+                        </p>
+                      </div>
+                      <Switch
+                        id="include-hook"
+                        checked={includeHook}
+                        onCheckedChange={setIncludeHook}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label htmlFor="include-cta" className="text-base">Include Call to Action</Label>
+                        <p className="text-xs text-muted-foreground">
+                          Add a call to action at the end of your script
+                        </p>
+                      </div>
+                      <Switch
+                        id="include-cta"
+                        checked={includeCallToAction}
+                        onCheckedChange={setIncludeCallToAction}
+                      />
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={generateScript}
+                    disabled={generating || !topic.trim()}
+                    className="w-full bg-gradient-to-r from-primary to-accent flex items-center justify-center gap-2"
+                  >
+                    {generating ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <Wand2 className="h-4 w-4" />
+                        Generate TikTok Script
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="result" className="space-y-4 mt-0">
+                {result && (
+                  <>
+                    <div>
+                      <Label className="text-muted-foreground text-sm">Title</Label>
+                      <h3 className="text-lg font-semibold">{result.title}</h3>
+                    </div>
+                    
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <Label>Script</Label>
+                        <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                          <Copy className="h-4 w-4 mr-1" /> Copy
+                        </Button>
+                      </div>
+                      <div className="bg-secondary/20 p-4 rounded-md min-h-[200px] whitespace-pre-wrap">
+                        {result.content}
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col md:flex-row gap-3 pt-4">
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => setActiveTab('editor')}
+                      >
+                        Edit Parameters
+                      </Button>
+                      <Button
+                        className="flex-1 flex items-center justify-center gap-2"
+                        onClick={regenerateScript}
+                      >
+                        <RefreshCw className="h-4 w-4" />
+                        Regenerate Script
                       </Button>
                     </div>
-                    <div className="bg-secondary/20 p-4 rounded-md min-h-[200px] whitespace-pre-wrap">
-                      {result.content}
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col md:flex-row gap-3 pt-4">
-                    <Button
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => setActiveTab('editor')}
-                    >
-                      Edit Parameters
-                    </Button>
-                    <Button
-                      className="flex-1 flex items-center justify-center gap-2"
-                      onClick={regenerateScript}
-                    >
-                      <RefreshCw className="h-4 w-4" />
-                      Regenerate Script
-                    </Button>
-                  </div>
-                </>
-              )}
-            </TabsContent>
-          </CardContent>
-        </Card>
+                  </>
+                )}
+              </TabsContent>
+            </CardContent>
+          </Card>
+        </Tabs>
 
         <Card className="mt-8">
           <CardHeader>
