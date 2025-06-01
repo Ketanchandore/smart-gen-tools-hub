@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
 import { FileTextIcon, Upload, Download, Plus, Minus, MoveHorizontal, FileText, Info } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { splitPDF, mergePDFs, downloadPdf } from '@/utils/pdfUtils';
 
 interface PDFFile {
   id: string;
@@ -41,7 +42,7 @@ const PdfSplitMerge = () => {
         return;
       }
       
-      if (selectedFile.size > 20 * 1024 * 1024) { // 20MB limit
+      if (selectedFile.size > 20 * 1024 * 1024) {
         toast({
           title: 'File too large',
           description: 'Please select a file smaller than 20MB',
@@ -120,7 +121,7 @@ const PdfSplitMerge = () => {
     }
   };
 
-  const handleSplitPdf = () => {
+  const handleSplitPdf = async () => {
     if (!splitFile) {
       toast({
         title: 'No file selected',
@@ -132,19 +133,28 @@ const PdfSplitMerge = () => {
 
     setSplitProcessing(true);
     
-    // Simulate processing
-    setTimeout(() => {
-      setSplitProcessing(false);
+    try {
+      const result = await splitPDF(splitFile, pageRange[0], pageRange[1]);
+      downloadPdf(result, `split-pages-${pageRange[0]}-${pageRange[1]}.pdf`);
       setSplitCompleted(true);
       
       toast({
         title: 'PDF split successful',
         description: `PDF has been split into pages ${pageRange[0]}-${pageRange[1]}`,
       });
-    }, 2000);
+    } catch (error) {
+      console.error('Split error:', error);
+      toast({
+        title: 'Split failed',
+        description: 'An error occurred while splitting the PDF',
+        variant: 'destructive',
+      });
+    } finally {
+      setSplitProcessing(false);
+    }
   };
   
-  const handleMergePdf = () => {
+  const handleMergePdf = async () => {
     if (mergeFiles.length < 2) {
       toast({
         title: 'Not enough files',
@@ -156,16 +166,26 @@ const PdfSplitMerge = () => {
 
     setMergeProcessing(true);
     
-    // Simulate processing
-    setTimeout(() => {
-      setMergeProcessing(false);
+    try {
+      const files = mergeFiles.map(f => f.file);
+      const result = await mergePDFs(files);
+      downloadPdf(result, 'merged-pdfs.pdf');
       setMergeCompleted(true);
       
       toast({
         title: 'PDFs merged successfully',
         description: `${mergeFiles.length} PDF files have been merged into one`,
       });
-    }, 2000);
+    } catch (error) {
+      console.error('Merge error:', error);
+      toast({
+        title: 'Merge failed',
+        description: 'An error occurred while merging the PDFs',
+        variant: 'destructive',
+      });
+    } finally {
+      setMergeProcessing(false);
+    }
   };
 
   return (
@@ -379,8 +399,8 @@ const PdfSplitMerge = () => {
             <div className="flex items-start gap-3">
               <Info className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
               <div className="text-sm text-muted-foreground">
-                <p className="mb-2"><strong>Note:</strong> This is a demo version of the tool. For full functionality, a backend PDF processing service would need to be implemented.</p>
-                <p>The actual PDF splitting and merging requires a server-side library that can manipulate PDF documents while preserving all content, formatting, and metadata.</p>
+                <p className="mb-2"><strong>Fully Functional:</strong> This tool now includes complete PDF processing capabilities.</p>
+                <p>Split and merge operations are performed using the pdf-lib library for reliable PDF manipulation.</p>
               </div>
             </div>
           </div>

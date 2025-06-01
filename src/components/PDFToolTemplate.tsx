@@ -1,49 +1,93 @@
 
-import React, { useState } from 'react';
-import { ArrowLeft, Upload, Download } from 'lucide-react';
+import React, { useState, useCallback } from 'react';
+import { ArrowLeft, Upload, Download, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
+import { downloadPdf } from '@/utils/pdfUtils';
 
 interface PDFToolTemplateProps {
   title: string;
   description: string;
   icon: React.ReactNode;
-  acceptFiles?: string;
-  multiple?: boolean;
-  processFunction: (files: File[], options?: any) => Promise<Uint8Array>;
+  acceptFiles: string;
+  multiple: boolean;
+  processFunction: (files: File[]) => Promise<Uint8Array>;
+  outputFilename: string;
   children?: React.ReactNode;
-  outputFilename?: string;
 }
 
 const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
   title,
   description,
   icon,
-  acceptFiles = ".pdf",
-  multiple = false,
+  acceptFiles,
+  multiple,
   processFunction,
-  children,
-  outputFilename = "processed.pdf"
+  outputFilename,
+  children
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [files, setFiles] = useState<File[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [processed, setProcessed] = useState(false);
-  const [result, setResult] = useState<Uint8Array | null>(null);
+  const [completed, setCompleted] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = e.target.files;
-    if (selectedFiles && selectedFiles.length > 0) {
-      const fileArray = Array.from(selectedFiles);
-      setFiles(fileArray);
-      setProcessed(false);
-      setResult(null);
+  const handleFileChange = useCallback((selectedFiles: FileList | null) => {
+    if (!selectedFiles) return;
+    
+    const fileArray = Array.from(selectedFiles);
+    const validFiles = fileArray.filter(file => {
+      if (acceptFiles.includes('.pdf') && file.type !== 'application/pdf') {
+        toast({
+          title: 'Invalid file type',
+          description: `${file.name} is not a PDF file`,
+          variant: 'destructive',
+        });
+        return false;
+      }
+      
+      if (file.size > 20 * 1024 * 1024) {
+        toast({
+          title: 'File too large',
+          description: `${file.name} is larger than 20MB`,
+          variant: 'destructive',
+        });
+        return false;
+      }
+      
+      return true;
+    });
+    
+    if (validFiles.length > 0) {
+      setFiles(multiple ? [...files, ...validFiles] : validFiles);
+      setCompleted(false);
     }
-  };
+  }, [acceptFiles, files, multiple, toast]);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    handleFileChange(e.dataTransfer.files);
+  }, [handleFileChange]);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+  }, []);
+
+  const removeFile = useCallback((index: number) => {
+    setFiles(files.filter((_, i) => i !== index));
+    setCompleted(false);
+  }, [files]);
 
   const handleProcess = async () => {
     if (files.length === 0) {
@@ -56,37 +100,25 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
     }
 
     setProcessing(true);
+
     try {
       const result = await processFunction(files);
-      setResult(result);
-      setProcessed(true);
+      downloadPdf(result, outputFilename);
+      setCompleted(true);
+      
       toast({
         title: 'Processing complete',
-        description: 'Your file has been processed successfully',
+        description: 'Your file has been processed and downloaded',
       });
     } catch (error) {
       console.error('Processing error:', error);
       toast({
         title: 'Processing failed',
-        description: 'An error occurred while processing your file',
+        description: 'An error occurred while processing your files',
         variant: 'destructive',
       });
     } finally {
       setProcessing(false);
-    }
-  };
-
-  const handleDownload = () => {
-    if (result) {
-      const blob = new Blob([result], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = outputFilename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
     }
   };
 
@@ -115,69 +147,103 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
       <Card className="mb-6">
         <CardHeader>
           <CardTitle>Upload Files</CardTitle>
-          <CardDescription>Select the files you want to process</CardDescription>
+          <CardDescription>
+            {multiple ? 'Select multiple files to process' : 'Select a file to process'}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-8 text-center cursor-pointer hover:border-muted-foreground/50 transition-colors">
+            <div 
+              className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                dragOver 
+                  ? 'border-primary bg-primary/5' 
+                  : 'border-muted-foreground/25 hover:border-muted-foreground/50'
+              }`}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+            >
               <input 
                 type="file" 
                 accept={acceptFiles}
                 multiple={multiple}
-                onChange={handleFileChange} 
+                onChange={(e) => handleFileChange(e.target.files)} 
                 className="hidden" 
                 id="file-upload"
               />
               <Label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center gap-2">
                 <Upload className="h-10 w-10 text-muted-foreground" />
                 <span className="text-lg font-medium">
-                  {files.length > 0 
-                    ? `${files.length} file(s) selected` 
-                    : `Click to select ${multiple ? 'files' : 'file'} or drop here`
-                  }
+                  Drop files here or click to select
                 </span>
-                {files.length > 0 && (
-                  <div className="text-sm text-muted-foreground">
-                    {files.map(file => file.name).join(', ')}
-                  </div>
-                )}
+                <span className="text-sm text-muted-foreground">
+                  {acceptFiles} files up to 20MB
+                </span>
               </Label>
             </div>
 
-            {children}
+            {children && (
+              <div className="space-y-4">
+                {children}
+              </div>
+            )}
+
+            {files.length > 0 && (
+              <div className="space-y-2">
+                <Label>Selected Files ({files.length})</Label>
+                {files.map((file, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-secondary/30 rounded-md">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">{file.name}</span>
+                      <span className="text-xs text-muted-foreground">
+                        ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                      </span>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => removeFile(index)}
+                      className="text-destructive hover:text-destructive"
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="flex justify-center">
               <Button 
                 onClick={handleProcess} 
                 disabled={files.length === 0 || processing} 
-                className="bg-primary flex items-center gap-2"
+                className="bg-primary flex items-center gap-2 min-w-[150px]"
               >
-                {processing ? 'Processing...' : 'Process Files'}
+                {processing ? (
+                  <>Processing...</>
+                ) : (
+                  <>
+                    <Download className="h-4 w-4" />
+                    Process Files
+                  </>
+                )}
               </Button>
             </div>
+
+            {completed && (
+              <div className="text-center p-4 bg-green-50 dark:bg-green-950 rounded-lg">
+                <CheckCircle className="h-8 w-8 text-green-500 mx-auto mb-2" />
+                <p className="font-medium text-green-700 dark:text-green-300">
+                  Processing completed successfully!
+                </p>
+                <p className="text-sm text-green-600 dark:text-green-400">
+                  Your file has been downloaded.
+                </p>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
-
-      {processed && result && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Processing Complete</CardTitle>
-            <CardDescription>Your file has been successfully processed</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center">
-              <Button 
-                onClick={handleDownload}
-                className="bg-primary flex items-center gap-2"
-              >
-                <Download className="h-4 w-4" />
-                Download Processed File
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 };

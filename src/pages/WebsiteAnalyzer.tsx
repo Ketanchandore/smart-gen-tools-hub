@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Globe, ArrowRight, SearchCheck, BarChart2, Shield, Gauge, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -411,111 +410,111 @@ const WebsiteAnalyzer = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader className="border-b pb-3">
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <Card>
+                <CardHeader className="border-b pb-3">
                   <TabsList className="grid grid-cols-2 md:grid-cols-4">
                     <TabsTrigger value="seo">SEO</TabsTrigger>
                     <TabsTrigger value="performance">Performance</TabsTrigger>
                     <TabsTrigger value="security">Security</TabsTrigger>
                     <TabsTrigger value="accessibility">Accessibility</TabsTrigger>
                   </TabsList>
-                </Tabs>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <TabsContent value="seo" className="mt-0">
-                  <div className="space-y-4">
-                    {result.seo.issues.map((issue, index) => (
-                      <div key={index} className="p-3 rounded-lg border">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className={`inline-block w-2 h-2 rounded-full ${issue.status === 'good' ? 'bg-green-500' : issue.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
-                            <h4 className="font-medium">{issue.label}</h4>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  <TabsContent value="seo" className="mt-0">
+                    <div className="space-y-4">
+                      {result.seo.issues.map((issue, index) => (
+                        <div key={index} className="p-3 rounded-lg border">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className={`inline-block w-2 h-2 rounded-full ${issue.status === 'good' ? 'bg-green-500' : issue.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
+                              <h4 className="font-medium">{issue.label}</h4>
+                            </div>
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(issue.status)}`}>
+                              {issue.status.charAt(0).toUpperCase() + issue.status.slice(1)}
+                            </span>
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(issue.status)}`}>
-                            {issue.status.charAt(0).toUpperCase() + issue.status.slice(1)}
-                          </span>
+                          {issue.recommendation && showDetails && (
+                            <p className="mt-2 text-sm text-muted-foreground">{issue.recommendation}</p>
+                          )}
                         </div>
-                        {issue.recommendation && showDetails && (
-                          <p className="mt-2 text-sm text-muted-foreground">{issue.recommendation}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="performance" className="mt-0">
-                  <div className="space-y-4">
-                    {result.performance.metrics.map((metric, index) => (
-                      <div key={index} className="p-3 rounded-lg border">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className={`inline-block w-2 h-2 rounded-full ${metric.status === 'good' ? 'bg-green-500' : metric.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
-                            <h4 className="font-medium">{metric.label}</h4>
+                      ))}
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="performance" className="mt-0">
+                    <div className="space-y-4">
+                      {result.performance.metrics.map((metric, index) => (
+                        <div key={index} className="p-3 rounded-lg border">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className={`inline-block w-2 h-2 rounded-full ${metric.status === 'good' ? 'bg-green-500' : metric.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
+                              <h4 className="font-medium">{metric.label}</h4>
+                            </div>
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(metric.status)}`}>
+                              {metric.status.charAt(0).toUpperCase() + metric.status.slice(1)}
+                            </span>
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(metric.status)}`}>
-                            {metric.status.charAt(0).toUpperCase() + metric.status.slice(1)}
-                          </span>
+                          {metric.recommendation && showDetails && (
+                            <p className="mt-2 text-sm text-muted-foreground">{metric.recommendation}</p>
+                          )}
                         </div>
-                        {metric.recommendation && showDetails && (
-                          <p className="mt-2 text-sm text-muted-foreground">{metric.recommendation}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="security" className="mt-0">
-                  <div className="space-y-4">
-                    {result.security.issues.map((issue, index) => (
-                      <div key={index} className="p-3 rounded-lg border">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className={`inline-block w-2 h-2 rounded-full ${issue.status === 'good' ? 'bg-green-500' : issue.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
-                            <h4 className="font-medium">{issue.label}</h4>
+                      ))}
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="security" className="mt-0">
+                    <div className="space-y-4">
+                      {result.security.issues.map((issue, index) => (
+                        <div key={index} className="p-3 rounded-lg border">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className={`inline-block w-2 h-2 rounded-full ${issue.status === 'good' ? 'bg-green-500' : issue.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
+                              <h4 className="font-medium">{issue.label}</h4>
+                            </div>
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(issue.status)}`}>
+                              {issue.status.charAt(0).toUpperCase() + issue.status.slice(1)}
+                            </span>
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(issue.status)}`}>
-                            {issue.status.charAt(0).toUpperCase() + issue.status.slice(1)}
-                          </span>
+                          {issue.recommendation && showDetails && (
+                            <p className="mt-2 text-sm text-muted-foreground">{issue.recommendation}</p>
+                          )}
                         </div>
-                        {issue.recommendation && showDetails && (
-                          <p className="mt-2 text-sm text-muted-foreground">{issue.recommendation}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="accessibility" className="mt-0">
-                  <div className="space-y-4">
-                    {result.accessibility.issues.map((issue, index) => (
-                      <div key={index} className="p-3 rounded-lg border">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className={`inline-block w-2 h-2 rounded-full ${issue.status === 'good' ? 'bg-green-500' : issue.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
-                            <h4 className="font-medium">{issue.label}</h4>
+                      ))}
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="accessibility" className="mt-0">
+                    <div className="space-y-4">
+                      {result.accessibility.issues.map((issue, index) => (
+                        <div key={index} className="p-3 rounded-lg border">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className={`inline-block w-2 h-2 rounded-full ${issue.status === 'good' ? 'bg-green-500' : issue.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
+                              <h4 className="font-medium">{issue.label}</h4>
+                            </div>
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(issue.status)}`}>
+                              {issue.status.charAt(0).toUpperCase() + issue.status.slice(1)}
+                            </span>
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${getStatusColor(issue.status)}`}>
-                            {issue.status.charAt(0).toUpperCase() + issue.status.slice(1)}
-                          </span>
+                          {issue.recommendation && showDetails && (
+                            <p className="mt-2 text-sm text-muted-foreground">{issue.recommendation}</p>
+                          )}
                         </div>
-                        {issue.recommendation && showDetails && (
-                          <p className="mt-2 text-sm text-muted-foreground">{issue.recommendation}</p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              </CardContent>
-              <CardFooter className="flex justify-between border-t pt-6">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowDetails(!showDetails)}
-                >
-                  {showDetails ? 'Hide Details' : 'Show Details'}
-                </Button>
-                <Button>
-                  Download Full Report
-                </Button>
-              </CardFooter>
-            </Card>
+                      ))}
+                    </div>
+                  </TabsContent>
+                </CardContent>
+                <CardFooter className="flex justify-between border-t pt-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowDetails(!showDetails)}
+                  >
+                    {showDetails ? 'Hide Details' : 'Show Details'}
+                  </Button>
+                  <Button>
+                    Download Full Report
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Tabs>
           </div>
         ) : (
           <Card className="text-center p-12">
