@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Presentation, FileText } from 'lucide-react';
+import { FilePowerPoint, FileText } from 'lucide-react';
 import BasicToolImplementation from '@/components/BasicToolImplementation';
 
 const PdfToPowerpoint = () => {
@@ -25,7 +25,7 @@ Download will start automatically...`;
     <BasicToolImplementation
       title="PDF to PowerPoint"
       description="Convert PDF files into editable PowerPoint presentations"
-      icon={<Presentation className="h-8 w-8 text-primary" />}
+      icon={<FilePowerPoint className="h-8 w-8 text-primary" />}
       inputPlaceholder="Upload your PDF file using the file browser above, then click convert..."
       buttonText="Convert to PowerPoint"
       processFunction={convertPdfToPowerpoint}
