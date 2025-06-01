@@ -7,7 +7,9 @@ import {
   PenTool, Layout, CheckCircle, Database, Headphones, 
   Filter, BrainCircuit, ArrowUpRight, Palette, AtSign,
   BadgeDollarSign, CircleUser, QrCode, Network, Layers,
-  Chrome, BookOpen, Send
+  Chrome, BookOpen, Send, Scissors, Minimize, FileSpreadsheet,
+  Presentation, Signature, Droplets, RotateCcw, Unlock, Shield,
+  Hash, ScanLine, FileSearch, Eye, Crop
 } from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import { Button } from '@/components/ui/button';
@@ -694,7 +696,234 @@ const Index = () => {
       route: '/temp-email',
       category: 'utilities',
       isNew: false
-    }
+    },
+    
+    // Comprehensive PDF Tools
+    { 
+      id: 'merge-pdf', 
+      title: 'Merge PDF', 
+      description: 'Combine multiple PDF files into a single document', 
+      icon: <FileText />, 
+      route: '/merge-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'split-pdf', 
+      title: 'Split PDF', 
+      description: 'Separate pages or extract specific pages from a PDF file', 
+      icon: <Scissors />, 
+      route: '/split-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'compress-pdf', 
+      title: 'Compress PDF', 
+      description: 'Reduce the file size of a PDF document while maintaining quality', 
+      icon: <Minimize />, 
+      route: '/compress-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-powerpoint', 
+      title: 'PDF to PowerPoint', 
+      description: 'Convert PDF files into editable PowerPoint presentations', 
+      icon: <Presentation />, 
+      route: '/pdf-to-powerpoint',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-excel', 
+      title: 'PDF to Excel', 
+      description: 'Convert PDF files into editable Excel spreadsheets', 
+      icon: <FileSpreadsheet />, 
+      route: '/pdf-to-excel',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'powerpoint-to-pdf', 
+      title: 'PowerPoint to PDF', 
+      description: 'Convert PowerPoint presentations into PDF files', 
+      icon: <Presentation />, 
+      route: '/powerpoint-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'excel-to-pdf', 
+      title: 'Excel to PDF', 
+      description: 'Convert Excel spreadsheets into PDF files', 
+      icon: <FileSpreadsheet />, 
+      route: '/excel-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'edit-pdf', 
+      title: 'Edit PDF', 
+      description: 'Add text, images, shapes, or make annotations to a PDF document', 
+      icon: <PenTool />, 
+      route: '/edit-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-jpg', 
+      title: 'PDF to JPG', 
+      description: 'Convert each page of a PDF file into JPG images', 
+      icon: <Image />, 
+      route: '/pdf-to-jpg',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'jpg-to-pdf', 
+      title: 'JPG to PDF', 
+      description: 'Convert JPG images into a PDF file with orientation options', 
+      icon: <Image />, 
+      route: '/jpg-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'sign-pdf', 
+      title: 'Sign PDF', 
+      description: 'Allow users to sign PDF documents electronically', 
+      icon: <Signature />, 
+      route: '/sign-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'watermark-pdf', 
+      title: 'Watermark PDF', 
+      description: 'Add text or image watermark to PDF with transparency options', 
+      icon: <Droplets />, 
+      route: '/watermark-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'rotate-pdf', 
+      title: 'Rotate PDF', 
+      description: 'Rotate pages within a PDF document individually or entirely', 
+      icon: <RotateCcw />, 
+      route: '/rotate-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'html-to-pdf', 
+      title: 'HTML to PDF', 
+      description: 'Convert web pages (HTML) into PDF files', 
+      icon: <Globe />, 
+      route: '/html-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'unlock-pdf', 
+      title: 'Unlock PDF', 
+      description: 'Remove password protection and restrictions from PDF files', 
+      icon: <Unlock />, 
+      route: '/unlock-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'protect-pdf', 
+      title: 'Protect PDF', 
+      description: 'Add password protection and set permissions for PDF files', 
+      icon: <Shield />, 
+      route: '/protect-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'organize-pdf', 
+      title: 'Organize PDF', 
+      description: 'Reorder, delete, or add pages within a PDF document', 
+      icon: <Layout />, 
+      route: '/organize-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-pdfa', 
+      title: 'PDF to PDF/A', 
+      description: 'Convert PDF files to the PDF/A archival format', 
+      icon: <FileCheck />, 
+      route: '/pdf-to-pdfa',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'repair-pdf', 
+      title: 'Repair PDF', 
+      description: 'Attempt to repair and recover data from corrupted PDF files', 
+      icon: <FileCheck />, 
+      route: '/repair-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'page-numbers-pdf', 
+      title: 'Add Page Numbers', 
+      description: 'Add page numbers to PDF with positioning and formatting options', 
+      icon: <Hash />, 
+      route: '/page-numbers-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'scan-to-pdf', 
+      title: 'Scan to PDF', 
+      description: 'Scan documents and save them directly as PDF files', 
+      icon: <ScanLine />, 
+      route: '/scan-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'ocr-pdf', 
+      title: 'OCR PDF', 
+      description: 'Perform OCR on scanned PDFs to make text searchable and editable', 
+      icon: <FileSearch />, 
+      route: '/ocr-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'compare-pdf', 
+      title: 'Compare PDF', 
+      description: 'Highlight the differences between two PDF files', 
+      icon: <Eye />, 
+      route: '/compare-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'redact-pdf', 
+      title: 'Redact PDF', 
+      description: 'Permanently remove sensitive text and graphics from PDF', 
+      icon: <Eye />, 
+      route: '/redact-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'crop-pdf', 
+      title: 'Crop PDF', 
+      description: 'Crop the margins or specific areas of pages in a PDF document', 
+      icon: <Crop />, 
+      route: '/crop-pdf',
+      category: 'document',
+      isNew: true
+    },
   ];
 
   // Filter tools based on search query and selected category
