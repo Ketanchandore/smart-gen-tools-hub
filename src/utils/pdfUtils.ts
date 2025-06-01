@@ -1,5 +1,5 @@
 
-import { PDFDocument, rgb, StandardFonts, PageSizes } from 'pdf-lib';
+import { PDFDocument, rgb, StandardFonts, PageSizes, degrees } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -77,7 +77,7 @@ export class PDFProcessor {
         font,
         color: rgb(0.5, 0.5, 0.5),
         opacity,
-        rotate: { angle: Math.PI / 4, xPos: width / 2, yPos: height / 2 },
+        rotate: degrees(45),
       });
     });
     
@@ -90,7 +90,7 @@ export class PDFProcessor {
     const pages = pdf.getPages();
     
     pages.forEach(page => {
-      page.setRotation({ angle: (rotation * Math.PI) / 180 });
+      page.setRotation(degrees(rotation));
     });
     
     return await pdf.save();
