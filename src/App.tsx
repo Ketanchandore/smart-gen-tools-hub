@@ -103,33 +103,6 @@ import ImageEnhancer from "./pages/ImageEnhancer";
 // Utilities
 import QrCode from "./pages/QrCode";
 
-// New PDF tool imports
-import MergePdf from "./pages/MergePdf";
-import SplitPdf from "./pages/SplitPdf";
-import CompressPdf from "./pages/CompressPdf";
-import PdfToPowerpoint from "./pages/PdfToPowerpoint";
-import PdfToExcel from "./pages/PdfToExcel";
-import PowerpointToPdf from "./pages/PowerpointToPdf";
-import ExcelToPdf from "./pages/ExcelToPdf";
-import EditPdf from "./pages/EditPdf";
-import PdfToJpg from "./pages/PdfToJpg";
-import JpgToPdf from "./pages/JpgToPdf";
-import SignPdf from "./pages/SignPdf";
-import WatermarkPdf from "./pages/WatermarkPdf";
-import RotatePdf from "./pages/RotatePdf";
-import HtmlToPdf from "./pages/HtmlToPdf";
-import UnlockPdf from "./pages/UnlockPdf";
-import ProtectPdf from "./pages/ProtectPdf";
-import OrganizePdf from "./pages/OrganizePdf";
-import PdfToPdfa from "./pages/PdfToPdfa";
-import RepairPdf from "./pages/RepairPdf";
-import PageNumbersPdf from "./pages/PageNumbersPdf";
-import ScanToPdf from "./pages/ScanToPdf";
-import OcrPdf from "./pages/OcrPdf";
-import ComparePdf from "./pages/ComparePdf";
-import RedactPdf from "./pages/RedactPdf";
-import CropPdf from "./pages/CropPdf";
-
 // Create a client
 const queryClient = new QueryClient();
 
@@ -241,33 +214,6 @@ function App() {
                 
                 {/* Utilities Tool Routes */}
                 <Route path="/qr-code" element={<QrCode />} />
-                
-                {/* New PDF Tool Routes */}
-                <Route path="/merge-pdf" element={<MergePdf />} />
-                <Route path="/split-pdf" element={<SplitPdf />} />
-                <Route path="/compress-pdf" element={<CompressPdf />} />
-                <Route path="/pdf-to-powerpoint" element={<PdfToPowerpoint />} />
-                <Route path="/pdf-to-excel" element={<PdfToExcel />} />
-                <Route path="/powerpoint-to-pdf" element={<PowerpointToPdf />} />
-                <Route path="/excel-to-pdf" element={<ExcelToPdf />} />
-                <Route path="/edit-pdf" element={<EditPdf />} />
-                <Route path="/pdf-to-jpg" element={<PdfToJpg />} />
-                <Route path="/jpg-to-pdf" element={<JpgToPdf />} />
-                <Route path="/sign-pdf" element={<SignPdf />} />
-                <Route path="/watermark-pdf" element={<WatermarkPdf />} />
-                <Route path="/rotate-pdf" element={<RotatePdf />} />
-                <Route path="/html-to-pdf" element={<HtmlToPdf />} />
-                <Route path="/unlock-pdf" element={<UnlockPdf />} />
-                <Route path="/protect-pdf" element={<ProtectPdf />} />
-                <Route path="/organize-pdf" element={<OrganizePdf />} />
-                <Route path="/pdf-to-pdfa" element={<PdfToPdfa />} />
-                <Route path="/repair-pdf" element={<RepairPdf />} />
-                <Route path="/page-numbers-pdf" element={<PageNumbersPdf />} />
-                <Route path="/scan-to-pdf" element={<ScanToPdf />} />
-                <Route path="/ocr-pdf" element={<OcrPdf />} />
-                <Route path="/compare-pdf" element={<ComparePdf />} />
-                <Route path="/redact-pdf" element={<RedactPdf />} />
-                <Route path="/crop-pdf" element={<CropPdf />} />
                 
                 {/* Redirect all other routes to 404 */}
                 <Route path="*" element={<NotFound />} />

@@ -19,7 +19,28 @@ const Slider = React.forwardRef<
     <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
       <SliderPrimitive.Range className="absolute h-full bg-primary" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+    <SliderPrimitive.Thumb 
+      className="block h-6 w-6 rounded-full border-2 border-primary bg-background shadow-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+      aria-label="Slider thumb"
+      // Add data-dragging attribute for improved styling on mobile
+      data-dragging={false}
+      onPointerDown={(e) => {
+        const thumb = e.target as HTMLElement;
+        thumb.setAttribute('data-dragging', 'true');
+        
+        // Ensure we capture pointer up anywhere in document
+        const handlePointerUp = () => {
+          thumb.setAttribute('data-dragging', 'false');
+          document.removeEventListener('pointerup', handlePointerUp);
+        };
+        
+        document.addEventListener('pointerup', handlePointerUp, { once: true });
+      }}
+      style={{
+        // Improve touch area for mobile
+        touchAction: 'none',
+      }}
+    />
   </SliderPrimitive.Root>
 ))
 Slider.displayName = SliderPrimitive.Root.displayName
