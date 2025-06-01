@@ -1,6 +1,6 @@
 
 import { PDFDocument, degrees, rgb, StandardFonts } from 'pdf-lib';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 export const mergePDFs = async (pdfFiles: File[]): Promise<Uint8Array> => {
