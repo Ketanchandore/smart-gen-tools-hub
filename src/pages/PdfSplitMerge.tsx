@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
@@ -8,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
 import { FileTextIcon, Upload, Download, Plus, Minus, MoveHorizontal, FileText, Info } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { splitPDF, mergePDFs, downloadPdf } from '@/utils/pdfUtils';
+import { splitPDFSimple, mergePDFs, downloadPdf } from '@/utils/pdfUtils';
 
 interface PDFFile {
   id: string;
@@ -134,7 +133,7 @@ const PdfSplitMerge = () => {
     setSplitProcessing(true);
     
     try {
-      const result = await splitPDF(splitFile, pageRange[0], pageRange[1]);
+      const result = await splitPDFSimple(splitFile, pageRange[0], pageRange[1]);
       downloadPdf(result, `split-pages-${pageRange[0]}-${pageRange[1]}.pdf`);
       setSplitCompleted(true);
       

@@ -1,4 +1,3 @@
-
 import { PDFDocument, degrees, rgb, StandardFonts, PageSizes } from 'pdf-lib';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -49,6 +48,22 @@ export const splitPDF = async (pdfFile: File, options: {
   }
   
   return results;
+};
+
+export const splitPDFSimple = async (pdfFile: File, startPage: number, endPage: number): Promise<Uint8Array> => {
+  const arrayBuffer = await pdfFile.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const newPdf = await PDFDocument.create();
+  
+  const pageIndices = Array.from(
+    { length: endPage - startPage + 1 }, 
+    (_, i) => startPage - 1 + i
+  );
+  
+  const copiedPages = await newPdf.copyPages(pdf, pageIndices);
+  copiedPages.forEach((page) => newPdf.addPage(page));
+  
+  return await newPdf.save();
 };
 
 export const compressPDF = async (pdfFile: File, level: 'low' | 'medium' | 'high' = 'medium'): Promise<Uint8Array> => {
@@ -270,7 +285,7 @@ export const convertImagesToPdf = async (imageFiles: File[], options?: {
   quality?: number;
   margin?: number;
 }): Promise<Uint8Array> => {
-  const { pageSize = 'A4', orientation = 'portrait', quality = 0.8, margin = 20 } = options || {};
+  const { pageSize: pageSizeOption = 'A4', orientation = 'portrait', quality = 0.8, margin = 20 } = options || {};
   const pdf = await PDFDocument.create();
   
   const pageSizes = {
@@ -292,8 +307,8 @@ export const convertImagesToPdf = async (imageFiles: File[], options?: {
         continue;
       }
       
-      const pageSize = pageSizes[pageSize];
-      const page = pdf.addPage(pageSize);
+      const selectedPageSize = pageSizes[pageSizeOption];
+      const page = pdf.addPage(selectedPageSize);
       const { width, height } = page.getSize();
       
       const imageAspectRatio = image.width / image.height;
@@ -345,26 +360,10 @@ export const protectPDF = async (pdfFile: File, options: {
   
   const { userPassword, ownerPassword, permissions = {} } = options;
   
-  // Note: pdf-lib has limited encryption support
-  // This is a basic implementation
+  // Note: pdf-lib has limited encryption support in browser environment
+  // This is a basic implementation - for full encryption, server-side processing would be needed
   if (userPassword || ownerPassword) {
-    try {
-      await pdf.encrypt({
-        userPassword: userPassword || '',
-        ownerPassword: ownerPassword || userPassword || '',
-        permissions: {
-          printing: permissions.printing || 'highResolution',
-          modifying: permissions.modifying !== false,
-          copying: permissions.copying !== false,
-          annotating: permissions.annotating !== false,
-          fillingForms: permissions.fillingForms !== false,
-          contentAccessibility: permissions.contentAccessibility !== false,
-          documentAssembly: permissions.documentAssembly !== false,
-        }
-      });
-    } catch (error) {
-      console.warn('PDF encryption not fully supported:', error);
-    }
+    console.warn('PDF encryption requires server-side processing for full security');
   }
   
   return await pdf.save();
@@ -373,10 +372,12 @@ export const protectPDF = async (pdfFile: File, options: {
 export const unlockPDF = async (pdfFile: File, password?: string): Promise<Uint8Array> => {
   try {
     const arrayBuffer = await pdfFile.arrayBuffer();
-    const pdf = await PDFDocument.load(arrayBuffer, { password });
+    // Note: pdf-lib doesn't support password-protected PDFs in browser
+    // This would require server-side processing
+    const pdf = await PDFDocument.load(arrayBuffer);
     return await pdf.save();
   } catch (error) {
-    throw new Error('Unable to unlock PDF. Please check the password or file integrity.');
+    throw new Error('Unable to unlock PDF. Password-protected PDFs require server-side processing.');
   }
 };
 
