@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Droplets, Upload, Info } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -58,8 +57,8 @@ const WatermarkPdf = () => {
         } : { r: 0.5, g: 0.5, b: 0.5 };
       };
 
-      // Parse custom pages if selected
-      let targetPages: number[] | 'all' | 'odd' | 'even' = pageSelection;
+      // Parse custom pages if selected and convert to the correct type
+      let targetPages: number[] | 'all' | 'odd' | 'even';
       if (pageSelection === 'custom') {
         const pages: number[] = [];
         const ranges = customPages.split(',').map(r => r.trim());
@@ -75,6 +74,8 @@ const WatermarkPdf = () => {
           }
         }
         targetPages = pages;
+      } else {
+        targetPages = pageSelection;
       }
 
       const finalWatermarkText = `${prefix}${watermarkText}${suffix}`;
