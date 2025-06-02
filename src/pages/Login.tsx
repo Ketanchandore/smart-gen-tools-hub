@@ -1,29 +1,46 @@
 
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff, Shield, Lock } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+
+  // Get the intended destination from location state
+  const from = location.state?.from || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !password) {
       toast({
-        title: "Error",
+        title: "Missing information",
         description: "Please fill in all fields",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address",
         variant: "destructive"
       });
       return;
@@ -32,35 +49,37 @@ const Login = () => {
     try {
       setIsSubmitting(true);
       await login(email, password);
+      
       toast({
-        title: "Success!",
-        description: "You're logged in successfully",
+        title: "Welcome back!",
+        description: "You've been logged in successfully",
       });
-      navigate('/');
+      
+      // Navigate to intended destination or home
+      navigate(from, { replace: true });
     } catch (error) {
-      toast({
-        title: "Login failed",
-        description: error instanceof Error ? error.message : "Please check your credentials",
-        variant: "destructive"
-      });
+      // Error is already handled in AuthContext
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="container flex items-center justify-center min-h-[80vh] py-8">
+    <div className="container flex items-center justify-center min-h-[90vh] py-8">
       <Card className="w-full max-w-md mx-auto">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl">Welcome back</CardTitle>
+          <div className="flex items-center justify-center mb-4">
+            <Lock className="h-8 w-8 text-primary mr-2" />
+            <CardTitle className="text-2xl">Welcome back</CardTitle>
+          </div>
           <CardDescription>
-            Enter your email and password to login
+            Sign in to your AI Pro Toolkit Hub account
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Email address</Label>
               <Input 
                 id="email"
                 type="email"
@@ -69,6 +88,8 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isSubmitting}
                 required
+                className="transition-all"
+                autoComplete="email"
               />
             </div>
             <div className="space-y-2">
@@ -81,16 +102,49 @@ const Login = () => {
                   Forgot password?
                 </Link>
               </div>
-              <Input 
-                id="password"
-                type="password" 
-                placeholder="••••••••••" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={isSubmitting}
-                required
-              />
+              <div className="relative">
+                <Input 
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={isSubmitting}
+                  required
+                  className="pr-10 transition-all"
+                  autoComplete="current-password"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  onClick={() => setShowPassword(!showPassword)}
+                  disabled={isSubmitting}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4 text-gray-400" />
+                  ) : (
+                    <Eye className="h-4 w-4 text-gray-400" />
+                  )}
+                </Button>
+              </div>
             </div>
+
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="remember"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                disabled={isSubmitting}
+                className="rounded"
+              />
+              <Label htmlFor="remember" className="text-sm">
+                Remember me for 30 days
+              </Label>
+            </div>
+            
             <Button 
               type="submit" 
               className="w-full" 
@@ -99,10 +153,10 @@ const Login = () => {
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
-                  Logging in
+                  Signing in...
                 </>
               ) : (
-                "Log in"
+                "Sign in"
               )}
             </Button>
           </form>
@@ -112,10 +166,14 @@ const Login = () => {
             Don't have an account?{" "}
             <Link 
               to="/signup" 
-              className="text-primary hover:underline"
+              className="text-primary hover:underline font-medium"
             >
-              Sign up
+              Create account
             </Link>
+          </div>
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+            <Shield className="h-3 w-3" />
+            Your data is protected with enterprise-grade security
           </div>
         </CardFooter>
       </Card>

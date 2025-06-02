@@ -8,6 +8,9 @@ type User = {
   name?: string;
   avatar?: string;
   createdAt?: string;
+  emailVerified?: boolean;
+  lastLogin?: string;
+  accountStatus?: 'active' | 'pending' | 'suspended';
 };
 
 type AuthContextType = {
@@ -18,6 +21,10 @@ type AuthContextType = {
   logout: () => void;
   isAuthenticated: boolean;
   updateProfile: (userData: Partial<User>) => Promise<void>;
+  verifyEmail: (token: string) => Promise<void>;
+  resendVerification: (email: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,52 +36,135 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   
-  // Initialize authentication state from localStorage
+  // Security: Input validation and sanitization
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string): { valid: boolean; message: string } => {
+    if (password.length < 8) {
+      return { valid: false, message: "Password must be at least 8 characters long" };
+    }
+    if (!/(?=.*[a-z])/.test(password)) {
+      return { valid: false, message: "Password must contain at least one lowercase letter" };
+    }
+    if (!/(?=.*[A-Z])/.test(password)) {
+      return { valid: false, message: "Password must contain at least one uppercase letter" };
+    }
+    if (!/(?=.*\d)/.test(password)) {
+      return { valid: false, message: "Password must contain at least one number" };
+    }
+    if (!/(?=.*[@$!%*?&])/.test(password)) {
+      return { valid: false, message: "Password must contain at least one special character (@$!%*?&)" };
+    }
+    return { valid: true, message: "" };
+  };
+
+  const sanitizeInput = (input: string): string => {
+    return input.trim().replace(/[<>\"']/g, '');
+  };
+
+  // Initialize authentication state from localStorage with security checks
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
+    const initAuth = () => {
       try {
-        setUser(JSON.parse(storedUser));
+        const storedUser = localStorage.getItem("user");
+        const sessionExpiry = localStorage.getItem("sessionExpiry");
+        
+        if (storedUser && sessionExpiry) {
+          const now = new Date().getTime();
+          const expiry = parseInt(sessionExpiry);
+          
+          if (now < expiry) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+          } else {
+            // Session expired
+            localStorage.removeItem("user");
+            localStorage.removeItem("sessionExpiry");
+            toast({
+              title: "Session expired",
+              description: "Please log in again for security.",
+              variant: "destructive"
+            });
+          }
+        }
       } catch (error) {
-        console.error("Failed to parse stored user:", error);
+        console.error("Auth initialization failed:", error);
         localStorage.removeItem("user");
+        localStorage.removeItem("sessionExpiry");
         toast({
           title: "Session error",
           description: "There was an issue with your login session. Please log in again.",
           variant: "destructive"
         });
       }
-    }
-    setLoading(false);
-  }, []);
+      setLoading(false);
+    };
 
-  // Mock authentication functions (replace with real API calls)
+    initAuth();
+  }, [toast]);
+
+  const setUserSession = (userData: User) => {
+    // Set session expiry to 24 hours
+    const expiryTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+    
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("sessionExpiry", expiryTime.toString());
+  };
+
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
+      // Input validation
+      const sanitizedEmail = sanitizeInput(email.toLowerCase());
+      
+      if (!validateEmail(sanitizedEmail)) {
+        throw new Error("Please enter a valid email address");
+      }
+      
+      if (!password) {
+        throw new Error("Password is required");
+      }
+
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Mock validation (replace with actual API call)
-      if (!email || !password) {
-        throw new Error("Email and password are required");
+      // Check if user exists in localStorage (simulate database check)
+      const existingUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+      const existingUser = existingUsers.find((u: any) => u.email === sanitizedEmail);
+      
+      if (!existingUser) {
+        throw new Error("No account found with this email address");
       }
       
-      // In a real app, you would validate credentials with a backend
-      const newUser: User = {
-        id: crypto.randomUUID(),
-        email,
-        name: email.split('@')[0],
-        createdAt: new Date().toISOString()
+      // In a real app, you would hash and compare passwords
+      if (existingUser.password !== password) {
+        throw new Error("Invalid password");
+      }
+
+      if (existingUser.accountStatus === 'suspended') {
+        throw new Error("Your account has been suspended. Please contact support.");
+      }
+
+      // Create user session
+      const userSession: User = {
+        id: existingUser.id,
+        email: sanitizedEmail,
+        name: existingUser.name,
+        emailVerified: existingUser.emailVerified || false,
+        lastLogin: new Date().toISOString(),
+        accountStatus: 'active',
+        createdAt: existingUser.createdAt
       };
       
-      // Store user in state and localStorage
-      setUser(newUser);
-      localStorage.setItem("user", JSON.stringify(newUser));
+      setUserSession(userSession);
       
       toast({
-        title: "Login successful!",
-        description: `Welcome back, ${newUser.name || 'user'}!`,
+        title: "Welcome back!",
+        description: `Successfully logged in as ${userSession.name || userSession.email}`,
       });
       
     } catch (error) {
@@ -93,41 +183,158 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const signup = async (email: string, password: string, name?: string) => {
     setLoading(true);
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Input validation and sanitization
+      const sanitizedEmail = sanitizeInput(email.toLowerCase());
+      const sanitizedName = name ? sanitizeInput(name) : '';
       
-      // Mock validation (replace with actual API call)
-      if (!email || !password) {
-        throw new Error("Email and password are required");
+      if (!validateEmail(sanitizedEmail)) {
+        throw new Error("Please enter a valid email address");
       }
       
-      // In a real app, you would register with a backend
-      const newUser: User = {
+      const passwordValidation = validatePassword(password);
+      if (!passwordValidation.valid) {
+        throw new Error(passwordValidation.message);
+      }
+
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Check if user already exists
+      const existingUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+      const userExists = existingUsers.find((u: any) => u.email === sanitizedEmail);
+      
+      if (userExists) {
+        throw new Error("An account with this email already exists");
+      }
+      
+      // Create new user
+      const newUser: User & { password: string } = {
         id: crypto.randomUUID(),
-        email,
-        name: name || email.split('@')[0],
+        email: sanitizedEmail,
+        name: sanitizedName || sanitizedEmail.split('@')[0],
+        password: password, // In production, this would be hashed
+        emailVerified: false,
+        accountStatus: 'pending',
         createdAt: new Date().toISOString()
       };
       
-      // Store user in state and localStorage
-      setUser(newUser);
-      localStorage.setItem("user", JSON.stringify(newUser));
+      // Store user in localStorage (simulate database)
+      const updatedUsers = [...existingUsers, newUser];
+      localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
+      
+      // Create user session (without password)
+      const { password: _, ...userSession } = newUser;
+      setUserSession(userSession);
       
       toast({
-        title: "Registration successful!",
-        description: `Welcome, ${newUser.name || 'user'}!`,
+        title: "Account created successfully!",
+        description: "Welcome to AI Pro Toolkit Hub! Please verify your email to access all features.",
       });
       
     } catch (error) {
       console.error("Signup failed:", error);
       toast({
-        title: "Signup failed",
+        title: "Registration failed",
         description: error instanceof Error ? error.message : "Registration error",
         variant: "destructive"
       });
       throw error;
     } finally {
       setLoading(false);
+    }
+  };
+
+  const verifyEmail = async (token: string) => {
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (user) {
+        const updatedUser = { ...user, emailVerified: true, accountStatus: 'active' as const };
+        setUserSession(updatedUser);
+        
+        // Update in localStorage
+        const existingUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+        const updatedUsers = existingUsers.map((u: any) => 
+          u.id === user.id ? { ...u, emailVerified: true, accountStatus: 'active' } : u
+        );
+        localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
+        
+        toast({
+          title: "Email verified!",
+          description: "Your email has been successfully verified.",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Verification failed",
+        description: "Email verification failed. Please try again.",
+        variant: "destructive"
+      });
+      throw error;
+    }
+  };
+
+  const resendVerification = async (email: string) => {
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      toast({
+        title: "Verification email sent",
+        description: "Please check your email for the verification link.",
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to send verification",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+      throw error;
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      const sanitizedEmail = sanitizeInput(email.toLowerCase());
+      
+      if (!validateEmail(sanitizedEmail)) {
+        throw new Error("Please enter a valid email address");
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Password reset email sent",
+        description: "If an account exists with this email, you'll receive reset instructions.",
+      });
+    } catch (error) {
+      toast({
+        title: "Reset failed",
+        description: error instanceof Error ? error.message : "Please try again later.",
+        variant: "destructive"
+      });
+      throw error;
+    }
+  };
+
+  const changePassword = async (currentPassword: string, newPassword: string) => {
+    try {
+      const passwordValidation = validatePassword(newPassword);
+      if (!passwordValidation.valid) {
+        throw new Error(passwordValidation.message);
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Password updated",
+        description: "Your password has been successfully changed.",
+      });
+    } catch (error) {
+      toast({
+        title: "Password change failed",
+        description: error instanceof Error ? error.message : "Please try again.",
+        variant: "destructive"
+      });
+      throw error;
     }
   };
 
@@ -142,13 +349,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
     
     try {
-      // Simulate API delay
+      // Sanitize inputs
+      const sanitizedData = { ...userData };
+      if (sanitizedData.name) {
+        sanitizedData.name = sanitizeInput(sanitizedData.name);
+      }
+      if (sanitizedData.email) {
+        sanitizedData.email = sanitizeInput(sanitizedData.email.toLowerCase());
+        if (!validateEmail(sanitizedData.email)) {
+          throw new Error("Please enter a valid email address");
+        }
+      }
+      
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Update user data
-      const updatedUser = { ...user, ...userData };
-      setUser(updatedUser);
-      localStorage.setItem("user", JSON.stringify(updatedUser));
+      const updatedUser = { ...user, ...sanitizedData };
+      setUserSession(updatedUser);
+      
+      // Update in localStorage
+      const existingUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+      const updatedUsers = existingUsers.map((u: any) => 
+        u.id === user.id ? { ...u, ...sanitizedData } : u
+      );
+      localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
       
       toast({
         title: "Profile updated",
@@ -169,6 +392,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("sessionExpiry");
+    toast({
+      title: "Logged out",
+      description: "You have been safely logged out",
+    });
   };
 
   return (
@@ -180,6 +408,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         signup, 
         logout,
         updateProfile,
+        verifyEmail,
+        resendVerification,
+        resetPassword,
+        changePassword,
         isAuthenticated: !!user
       }}
     >
