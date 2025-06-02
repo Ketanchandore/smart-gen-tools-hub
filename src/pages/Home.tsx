@@ -47,7 +47,7 @@ const Home = () => {
   }, []);
 
   const allTools = [
-    // Convert Tools
+    // Merge & Split Tools
     {
       title: 'Merge PDF',
       description: 'Combine multiple PDF files into a single document with advanced ordering options',
@@ -65,13 +65,23 @@ const Home = () => {
       keywords: ['split', 'separate', 'divide', 'extract']
     },
     {
-      title: 'Compress PDF',
-      description: 'Reduce PDF file size with intelligent compression while maintaining quality',
-      icon: <Minimize className="h-6 w-6" />,
-      route: '/compress-pdf',
-      category: 'optimize',
-      keywords: ['compress', 'reduce', 'optimize', 'size']
+      title: 'PDF Split & Merge',
+      description: 'Advanced split and merge operations in one tool',
+      icon: <LayoutIcon className="h-6 w-6" />,
+      route: '/pdf-split-merge',
+      category: 'merge',
+      keywords: ['split', 'merge', 'advanced', 'combine']
     },
+    {
+      title: 'Organize PDF',
+      description: 'Reorder, delete, duplicate, and rearrange pages with drag-and-drop interface',
+      icon: <LayoutIcon className="h-6 w-6" />,
+      route: '/organize-pdf',
+      category: 'edit',
+      keywords: ['organize', 'reorder', 'arrange', 'pages', 'sort']
+    },
+
+    // Convert Tools
     {
       title: 'JPG to PDF',
       description: 'Convert images (JPG, PNG, GIF) to PDF with custom layouts and quality settings',
@@ -87,6 +97,67 @@ const Home = () => {
       route: '/pdf-to-jpg',
       category: 'convert',
       keywords: ['extract', 'jpg', 'image', 'convert', 'pages']
+    },
+    {
+      title: 'Excel to PDF',
+      description: 'Convert Excel spreadsheets to PDF with formatting preservation and multiple sheets',
+      icon: <FileSpreadsheet className="h-6 w-6" />,
+      route: '/excel-to-pdf',
+      category: 'convert',
+      keywords: ['excel', 'spreadsheet', 'xls', 'xlsx', 'convert']
+    },
+    {
+      title: 'PDF to Excel',
+      description: 'Extract tables and data from PDF into editable Excel format with smart detection',
+      icon: <FileSpreadsheet className="h-6 w-6" />,
+      route: '/pdf-to-excel',
+      category: 'convert',
+      keywords: ['excel', 'extract', 'tables', 'data', 'convert']
+    },
+
+    // PowerPoint Tools
+    {
+      title: 'PowerPoint to PDF',
+      description: 'Convert presentations to PDF while preserving animations and slide transitions',
+      icon: <Presentation className="h-6 w-6" />,
+      route: '/powerpoint-to-pdf',
+      category: 'convert',
+      keywords: ['powerpoint', 'presentation', 'ppt', 'slides']
+    },
+    {
+      title: 'PDF to PowerPoint',
+      description: 'Convert PDF pages to editable PowerPoint slides with layout recognition',
+      icon: <Presentation className="h-6 w-6" />,
+      route: '/pdf-to-powerpoint',
+      category: 'convert',
+      keywords: ['powerpoint', 'slides', 'presentation', 'convert']
+    },
+    {
+      title: 'HTML to PDF',
+      description: 'Convert HTML content to professional PDF documents with advanced formatting',
+      icon: <FileText className="h-6 w-6" />,
+      route: '/html-to-pdf',
+      category: 'convert',
+      keywords: ['html', 'web', 'convert', 'formatting'],
+      isNew: true
+    },
+    {
+      title: 'OCR PDF',
+      description: 'Extract text from scanned PDFs with advanced OCR technology and multiple languages',
+      icon: <FileSearch className="h-6 w-6" />,
+      route: '/ocr-pdf',
+      category: 'convert',
+      keywords: ['ocr', 'scan', 'text', 'recognition', 'searchable']
+    },
+
+    // Edit Tools
+    {
+      title: 'Edit PDF',
+      description: 'Add text, images, shapes, and annotations with professional editing tools',
+      icon: <PenTool className="h-6 w-6" />,
+      route: '/edit-pdf',
+      category: 'edit',
+      keywords: ['edit', 'text', 'images', 'annotations', 'modify']
     },
     {
       title: 'Watermark PDF',
@@ -105,6 +176,16 @@ const Home = () => {
       category: 'edit',
       keywords: ['numbers', 'pagination', 'format', 'footer']
     },
+    {
+      title: 'Crop PDF',
+      description: 'Remove margins and crop specific areas with precision controls and batch processing',
+      icon: <Crop className="h-6 w-6" />,
+      route: '/crop-pdf',
+      category: 'edit',
+      keywords: ['crop', 'trim', 'margins', 'resize', 'cut']
+    },
+
+    // Security Tools
     {
       title: 'Protect PDF',
       description: 'Add password protection and set permissions for viewing, editing, and printing',
@@ -130,69 +211,15 @@ const Home = () => {
       keywords: ['rotate', 'turn', 'orientation', 'flip']
     },
     {
-      title: 'Excel to PDF',
-      description: 'Convert Excel spreadsheets to PDF with formatting preservation and multiple sheets',
-      icon: <FileSpreadsheet className="h-6 w-6" />,
-      route: '/excel-to-pdf',
-      category: 'convert',
-      keywords: ['excel', 'spreadsheet', 'xls', 'xlsx', 'convert']
+      title: 'Compress PDF',
+      description: 'Reduce PDF file size with intelligent compression while maintaining quality',
+      icon: <Minimize className="h-6 w-6" />,
+      route: '/compress-pdf',
+      category: 'optimize',
+      keywords: ['compress', 'reduce', 'optimize', 'size']
     },
-    {
-      title: 'PDF to Excel',
-      description: 'Extract tables and data from PDF into editable Excel format with smart detection',
-      icon: <FileSpreadsheet className="h-6 w-6" />,
-      route: '/pdf-to-excel',
-      category: 'convert',
-      keywords: ['excel', 'extract', 'tables', 'data', 'convert']
-    },
-    {
-      title: 'PowerPoint to PDF',
-      description: 'Convert presentations to PDF while preserving animations and slide transitions',
-      icon: <Presentation className="h-6 w-6" />,
-      route: '/powerpoint-to-pdf',
-      category: 'convert',
-      keywords: ['powerpoint', 'presentation', 'ppt', 'slides']
-    },
-    {
-      title: 'PDF to PowerPoint',
-      description: 'Convert PDF pages to editable PowerPoint slides with layout recognition',
-      icon: <Presentation className="h-6 w-6" />,
-      route: '/pdf-to-powerpoint',
-      category: 'convert',
-      keywords: ['powerpoint', 'slides', 'presentation', 'convert']
-    },
-    {
-      title: 'OCR PDF',
-      description: 'Extract text from scanned PDFs with advanced OCR technology and multiple languages',
-      icon: <FileSearch className="h-6 w-6" />,
-      route: '/ocr-pdf',
-      category: 'convert',
-      keywords: ['ocr', 'scan', 'text', 'recognition', 'searchable']
-    },
-    {
-      title: 'Edit PDF',
-      description: 'Add text, images, shapes, and annotations with professional editing tools',
-      icon: <PenTool className="h-6 w-6" />,
-      route: '/edit-pdf',
-      category: 'edit',
-      keywords: ['edit', 'text', 'images', 'annotations', 'modify']
-    },
-    {
-      title: 'Crop PDF',
-      description: 'Remove margins and crop specific areas with precision controls and batch processing',
-      icon: <Crop className="h-6 w-6" />,
-      route: '/crop-pdf',
-      category: 'edit',
-      keywords: ['crop', 'trim', 'margins', 'resize', 'cut']
-    },
-    {
-      title: 'Organize PDF',
-      description: 'Reorder, delete, duplicate, and rearrange pages with drag-and-drop interface',
-      icon: <LayoutIcon className="h-6 w-6" />,
-      route: '/organize-pdf',
-      category: 'edit',
-      keywords: ['organize', 'reorder', 'arrange', 'pages', 'sort']
-    },
+
+    // Analysis Tools
     {
       title: 'Compare PDF',
       description: 'Highlight differences between two PDF documents with detailed comparison reports',
@@ -346,7 +373,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Tools Grid - 4 columns like iLovePDF */}
+        {/* Tools Grid - 4 columns exactly like iLovePDF */}
         <section className="py-8 px-4">
           <div className="container mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">
@@ -354,7 +381,7 @@ const Home = () => {
             </h2>
             
             {filteredTools.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
                 {filteredTools.map((tool, index) => (
                   <ToolCard key={index} {...tool} />
                 ))}
