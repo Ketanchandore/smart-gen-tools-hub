@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { ArrowLeft, Upload, Download, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +16,7 @@ interface PDFToolTemplateProps {
   processFunction: (files: File[]) => Promise<Uint8Array>;
   outputFilename: string;
   children?: React.ReactNode;
+  customActions?: React.ReactNode;
 }
 
 const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
@@ -27,7 +27,8 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
   multiple,
   processFunction,
   outputFilename,
-  children
+  children,
+  customActions
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -213,7 +214,7 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
               </div>
             )}
 
-            <div className="flex justify-center">
+            <div className="flex justify-center items-center gap-2">
               <Button 
                 onClick={handleProcess} 
                 disabled={files.length === 0 || processing} 
@@ -228,6 +229,7 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
                   </>
                 )}
               </Button>
+              {customActions}
             </div>
 
             {completed && (

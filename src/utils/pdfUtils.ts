@@ -23,9 +23,9 @@ export const mergePDFs = async (pdfFiles: File[], options?: {
       
       // Skip blank pages if option is enabled
       if (removeBlankPages) {
-        // Simple blank page detection (can be enhanced)
-        const pageContent = await copiedPage.getTextContent?.() || '';
-        if (pageContent.trim().length < 10) continue;
+        // Simple blank page detection - check if page has minimal content
+        const { width, height } = copiedPage.getSize();
+        if (width < 50 || height < 50) continue;
       }
       
       mergedPdf.addPage(copiedPage);
@@ -144,7 +144,7 @@ export const compressPDF = async (pdfFile: File, options: {
       try {
         const annots = page.node.Annots;
         if (annots) {
-          page.node.delete('Annots');
+          page.node.delete(pdf.context.obj('Annots'));
         }
       } catch (error) {
         console.warn('Could not remove annotations:', error);
@@ -783,4 +783,56 @@ export const downloadMultipleFiles = (files: { data: Uint8Array; name: string }[
   files.forEach(file => {
     downloadPdf(file.data, file.name);
   });
+};
+
+export const convertHtmlToPdf = async (htmlContent: string): Promise<Uint8Array> => {
+  try {
+    // Create a temporary div element to render HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+    tempDiv.style.position = 'absolute';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.top = '-9999px';
+    tempDiv.style.width = '210mm'; // A4 width
+    tempDiv.style.padding = '20px';
+    tempDiv.style.fontFamily = 'Arial, sans-serif';
+    tempDiv.style.fontSize = '12px';
+    tempDiv.style.lineHeight = '1.4';
+    tempDiv.style.color = '#000';
+    tempDiv.style.backgroundColor = '#fff';
+    
+    document.body.appendChild(tempDiv);
+    
+    // Convert HTML to canvas
+    const canvas = await html2canvas(tempDiv, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      width: tempDiv.scrollWidth,
+      height: tempDiv.scrollHeight
+    });
+    
+    // Remove temporary element
+    document.body.removeChild(tempDiv);
+    
+    // Create PDF from canvas
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
+    const imgData = canvas.toDataURL('image/png');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    
+    // Convert jsPDF to Uint8Array
+    const pdfArrayBuffer = pdf.output('arraybuffer');
+    return new Uint8Array(pdfArrayBuffer);
+  } catch (error) {
+    console.error('HTML to PDF conversion error:', error);
+    throw new Error('Failed to convert HTML to PDF');
+  }
 };
