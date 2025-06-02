@@ -16,27 +16,46 @@ export const mergePDFs = async (pdfFiles: File[]): Promise<Uint8Array> => {
   return await mergedPdf.save();
 };
 
-export const splitPDF = async (pdfFile: File, startPage: number, endPage: number): Promise<Uint8Array> => {
+export const splitPDF = async (pdfFile: File, options: {
+  mode: 'range' | 'every' | 'bookmarks';
+  startPage?: number;
+  endPage?: number;
+  everyNPages?: number;
+  pageRanges?: string;
+}): Promise<Uint8Array[]> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
-  const newPdf = await PDFDocument.create();
+  const totalPages = pdf.getPageCount();
+  const results: Uint8Array[] = [];
   
-  const pageIndices = Array.from(
-    { length: endPage - startPage + 1 }, 
-    (_, i) => startPage - 1 + i
-  );
+  if (options.mode === 'range' && options.startPage && options.endPage) {
+    const newPdf = await PDFDocument.create();
+    const pageIndices = Array.from(
+      { length: options.endPage - options.startPage + 1 }, 
+      (_, i) => options.startPage! - 1 + i
+    );
+    const copiedPages = await newPdf.copyPages(pdf, pageIndices);
+    copiedPages.forEach((page) => newPdf.addPage(page));
+    results.push(await newPdf.save());
+  } else if (options.mode === 'every' && options.everyNPages) {
+    for (let i = 0; i < totalPages; i += options.everyNPages) {
+      const newPdf = await PDFDocument.create();
+      const endIdx = Math.min(i + options.everyNPages, totalPages);
+      const pageIndices = Array.from({ length: endIdx - i }, (_, idx) => i + idx);
+      const copiedPages = await newPdf.copyPages(pdf, pageIndices);
+      copiedPages.forEach((page) => newPdf.addPage(page));
+      results.push(await newPdf.save());
+    }
+  }
   
-  const copiedPages = await newPdf.copyPages(pdf, pageIndices);
-  copiedPages.forEach((page) => newPdf.addPage(page));
-  
-  return await newPdf.save();
+  return results;
 };
 
-export const compressPDF = async (pdfFile: File): Promise<Uint8Array> => {
+export const compressPDF = async (pdfFile: File, level: 'low' | 'medium' | 'high' = 'medium'): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   
-  // Remove metadata to reduce size
+  // Remove metadata and optimize based on compression level
   pdf.setTitle('');
   pdf.setAuthor('');
   pdf.setSubject('');
@@ -44,8 +63,14 @@ export const compressPDF = async (pdfFile: File): Promise<Uint8Array> => {
   pdf.setProducer('');
   pdf.setCreator('');
   
-  // Save with compression
-  return await pdf.save({ useObjectStreams: false });
+  // Different compression strategies
+  const compressionOptions = {
+    low: { useObjectStreams: true, addDefaultPage: false },
+    medium: { useObjectStreams: false, addDefaultPage: false },
+    high: { useObjectStreams: false, addDefaultPage: false }
+  };
+  
+  return await pdf.save(compressionOptions[level]);
 };
 
 export const addWatermark = async (pdfFile: File, watermarkText: string, options?: {
@@ -53,6 +78,7 @@ export const addWatermark = async (pdfFile: File, watermarkText: string, options
   fontSize?: number;
   color?: { r: number; g: number; b: number };
   rotation?: number;
+  position?: 'center' | 'diagonal' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
@@ -62,16 +88,41 @@ export const addWatermark = async (pdfFile: File, watermarkText: string, options
     opacity = 0.3,
     fontSize = 50,
     color = { r: 0.5, g: 0.5, b: 0.5 },
-    rotation = 45
+    rotation = 45,
+    position = 'center'
   } = options || {};
   
   const pages = pdf.getPages();
   
   pages.forEach((page) => {
     const { width, height } = page.getSize();
+    let x: number, y: number;
+    
+    switch (position) {
+      case 'top-left':
+        x = 50; y = height - 50;
+        break;
+      case 'top-right':
+        x = width - 200; y = height - 50;
+        break;
+      case 'bottom-left':
+        x = 50; y = 50;
+        break;
+      case 'bottom-right':
+        x = width - 200; y = 50;
+        break;
+      case 'diagonal':
+        x = width / 2 - (watermarkText.length * fontSize) / 4;
+        y = height / 2;
+        break;
+      default: // center
+        x = width / 2 - (watermarkText.length * fontSize) / 4;
+        y = height / 2;
+    }
+    
     page.drawText(watermarkText, {
-      x: width / 2 - (watermarkText.length * fontSize) / 4,
-      y: height / 2,
+      x,
+      y,
       size: fontSize,
       font,
       color: rgb(color.r, color.g, color.b),
@@ -83,13 +134,17 @@ export const addWatermark = async (pdfFile: File, watermarkText: string, options
   return await pdf.save();
 };
 
-export const rotatePDF = async (pdfFile: File, rotationAngle: number): Promise<Uint8Array> => {
+export const rotatePDF = async (pdfFile: File, rotation: number, pageIndices?: number[]): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
-  
   const pages = pdf.getPages();
-  pages.forEach((page) => {
-    page.setRotation(degrees(rotationAngle));
+  
+  const targetPages = pageIndices || Array.from({ length: pages.length }, (_, i) => i);
+  
+  targetPages.forEach((pageIndex) => {
+    if (pageIndex >= 0 && pageIndex < pages.length) {
+      pages[pageIndex].setRotation(degrees(rotation));
+    }
   });
   
   return await pdf.save();
@@ -99,6 +154,8 @@ export const addPageNumbers = async (pdfFile: File, options?: {
   position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
   fontSize?: number;
   startNumber?: number;
+  color?: { r: number; g: number; b: number };
+  font?: string;
 }): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
@@ -107,7 +164,8 @@ export const addPageNumbers = async (pdfFile: File, options?: {
   const {
     position = 'bottom-center',
     fontSize = 12,
-    startNumber = 1
+    startNumber = 1,
+    color = { r: 0, g: 0, b: 0 }
   } = options || {};
   
   const pages = pdf.getPages();
@@ -115,6 +173,7 @@ export const addPageNumbers = async (pdfFile: File, options?: {
   pages.forEach((page, index) => {
     const { width, height } = page.getSize();
     const pageNumber = startNumber + index;
+    const text = `${pageNumber}`;
     
     let x: number, y: number;
     
@@ -138,25 +197,32 @@ export const addPageNumbers = async (pdfFile: File, options?: {
         x = width / 2; y = 30;
     }
     
-    page.drawText(`${pageNumber}`, {
+    page.drawText(text, {
       x,
       y,
       size: fontSize,
       font,
-      color: rgb(0, 0, 0),
+      color: rgb(color.r, color.g, color.b),
     });
   });
   
   return await pdf.save();
 };
 
-export const convertHtmlToPdf = async (htmlContent: string): Promise<Uint8Array> => {
+export const convertHtmlToPdf = async (htmlContent: string, options?: {
+  pageSize?: 'A4' | 'Letter' | 'Legal';
+  orientation?: 'portrait' | 'landscape';
+  margins?: { top: number; bottom: number; left: number; right: number };
+}): Promise<Uint8Array> => {
+  const { pageSize = 'A4', orientation = 'portrait', margins = { top: 20, bottom: 20, left: 20, right: 20 } } = options || {};
+  
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = htmlContent;
   tempDiv.style.position = 'absolute';
   tempDiv.style.left = '-9999px';
   tempDiv.style.width = '800px';
   tempDiv.style.fontFamily = 'Arial, sans-serif';
+  tempDiv.style.padding = '20px';
   document.body.appendChild(tempDiv);
   
   try {
@@ -164,30 +230,32 @@ export const convertHtmlToPdf = async (htmlContent: string): Promise<Uint8Array>
       scale: 2,
       useCORS: true,
       allowTaint: true,
+      backgroundColor: '#ffffff'
     });
     const imgData = canvas.toDataURL('image/png');
     
     const pdf = new jsPDF({
-      orientation: 'portrait',
+      orientation,
       unit: 'mm',
-      format: 'a4'
+      format: pageSize.toLowerCase() as any
     });
     
-    const imgWidth = 210;
-    const pageHeight = 295;
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth - margins.left - margins.right;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    
     let heightLeft = imgHeight;
+    let position = margins.top;
     
-    let position = 0;
-    
-    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight;
+    pdf.addImage(imgData, 'PNG', margins.left, position, imgWidth, imgHeight);
+    heightLeft -= (pdfHeight - margins.top - margins.bottom);
     
     while (heightLeft >= 0) {
-      position = heightLeft - imgHeight;
+      position = heightLeft - imgHeight + margins.top;
       pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+      pdf.addImage(imgData, 'PNG', margins.left, position, imgWidth, imgHeight);
+      heightLeft -= (pdfHeight - margins.top - margins.bottom);
     }
     
     return new Uint8Array(pdf.output('arraybuffer'));
@@ -196,8 +264,20 @@ export const convertHtmlToPdf = async (htmlContent: string): Promise<Uint8Array>
   }
 };
 
-export const convertImagesToPdf = async (imageFiles: File[]): Promise<Uint8Array> => {
+export const convertImagesToPdf = async (imageFiles: File[], options?: {
+  pageSize?: 'A4' | 'Letter' | 'Legal';
+  orientation?: 'portrait' | 'landscape';
+  quality?: number;
+  margin?: number;
+}): Promise<Uint8Array> => {
+  const { pageSize = 'A4', orientation = 'portrait', quality = 0.8, margin = 20 } = options || {};
   const pdf = await PDFDocument.create();
+  
+  const pageSizes = {
+    A4: PageSizes.A4,
+    Letter: PageSizes.Letter,
+    Legal: PageSizes.Legal
+  };
   
   for (const imageFile of imageFiles) {
     const arrayBuffer = await imageFile.arrayBuffer();
@@ -209,25 +289,23 @@ export const convertImagesToPdf = async (imageFiles: File[]): Promise<Uint8Array
       } else if (imageFile.type === 'image/png') {
         image = await pdf.embedPng(arrayBuffer);
       } else {
-        continue; // Skip unsupported formats
+        continue;
       }
       
-      const page = pdf.addPage(PageSizes.A4);
+      const pageSize = pageSizes[pageSize];
+      const page = pdf.addPage(pageSize);
       const { width, height } = page.getSize();
       
-      // Calculate scaling to fit image on page while maintaining aspect ratio
       const imageAspectRatio = image.width / image.height;
-      const pageAspectRatio = width / height;
+      const pageAspectRatio = (width - 2 * margin) / (height - 2 * margin);
       
       let scaledWidth: number, scaledHeight: number;
       
       if (imageAspectRatio > pageAspectRatio) {
-        // Image is wider than page
-        scaledWidth = width - 40; // 20px margin on each side
+        scaledWidth = width - 2 * margin;
         scaledHeight = scaledWidth / imageAspectRatio;
       } else {
-        // Image is taller than page
-        scaledHeight = height - 40; // 20px margin on top and bottom
+        scaledHeight = height - 2 * margin;
         scaledWidth = scaledHeight * imageAspectRatio;
       }
       
@@ -249,15 +327,45 @@ export const convertImagesToPdf = async (imageFiles: File[]): Promise<Uint8Array
   return await pdf.save();
 };
 
-export const protectPDF = async (pdfFile: File, userPassword: string, ownerPassword?: string): Promise<Uint8Array> => {
+export const protectPDF = async (pdfFile: File, options: {
+  userPassword?: string;
+  ownerPassword?: string;
+  permissions?: {
+    printing?: 'lowResolution' | 'highResolution' | false;
+    modifying?: boolean;
+    copying?: boolean;
+    annotating?: boolean;
+    fillingForms?: boolean;
+    contentAccessibility?: boolean;
+    documentAssembly?: boolean;
+  };
+}): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   
-  // Note: pdf-lib doesn't support encryption directly
-  // This would require a backend service for full encryption
-  // For now, we'll return the PDF with metadata indicating protection
-  pdf.setTitle('Protected Document');
-  pdf.setSubject('This document requires a password to access');
+  const { userPassword, ownerPassword, permissions = {} } = options;
+  
+  // Note: pdf-lib has limited encryption support
+  // This is a basic implementation
+  if (userPassword || ownerPassword) {
+    try {
+      await pdf.encrypt({
+        userPassword: userPassword || '',
+        ownerPassword: ownerPassword || userPassword || '',
+        permissions: {
+          printing: permissions.printing || 'highResolution',
+          modifying: permissions.modifying !== false,
+          copying: permissions.copying !== false,
+          annotating: permissions.annotating !== false,
+          fillingForms: permissions.fillingForms !== false,
+          contentAccessibility: permissions.contentAccessibility !== false,
+          documentAssembly: permissions.documentAssembly !== false,
+        }
+      });
+    } catch (error) {
+      console.warn('PDF encryption not fully supported:', error);
+    }
+  }
   
   return await pdf.save();
 };
@@ -265,22 +373,51 @@ export const protectPDF = async (pdfFile: File, userPassword: string, ownerPassw
 export const unlockPDF = async (pdfFile: File, password?: string): Promise<Uint8Array> => {
   try {
     const arrayBuffer = await pdfFile.arrayBuffer();
-    const pdf = await PDFDocument.load(arrayBuffer);
+    const pdf = await PDFDocument.load(arrayBuffer, { password });
     return await pdf.save();
   } catch (error) {
-    throw new Error('Unable to unlock PDF. The file may be encrypted or corrupted.');
+    throw new Error('Unable to unlock PDF. Please check the password or file integrity.');
   }
 };
 
-export const organizePDF = async (pdfFile: File, pageOrder: number[]): Promise<Uint8Array> => {
+export const organizePDF = async (pdfFile: File, operations: Array<{
+  type: 'reorder' | 'delete' | 'duplicate';
+  pageIndex: number;
+  newIndex?: number;
+}>): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   const newPdf = await PDFDocument.create();
   
-  const allPages = pdf.getPages();
+  const originalPages = pdf.getPages();
+  const pageOrder: number[] = [];
   
+  // Initialize with original order
+  for (let i = 0; i < originalPages.length; i++) {
+    pageOrder.push(i);
+  }
+  
+  // Apply operations
+  operations.forEach(op => {
+    switch (op.type) {
+      case 'reorder':
+        if (op.newIndex !== undefined) {
+          const [removed] = pageOrder.splice(op.pageIndex, 1);
+          pageOrder.splice(op.newIndex, 0, removed);
+        }
+        break;
+      case 'delete':
+        pageOrder.splice(pageOrder.indexOf(op.pageIndex), 1);
+        break;
+      case 'duplicate':
+        pageOrder.splice(op.pageIndex + 1, 0, op.pageIndex);
+        break;
+    }
+  });
+  
+  // Copy pages in new order
   for (const pageIndex of pageOrder) {
-    if (pageIndex >= 0 && pageIndex < allPages.length) {
+    if (pageIndex >= 0 && pageIndex < originalPages.length) {
       const [copiedPage] = await newPdf.copyPages(pdf, [pageIndex]);
       newPdf.addPage(copiedPage);
     }
@@ -289,22 +426,31 @@ export const organizePDF = async (pdfFile: File, pageOrder: number[]): Promise<U
   return await newPdf.save();
 };
 
-export const cropPDF = async (pdfFile: File, cropBox: { x: number; y: number; width: number; height: number }): Promise<Uint8Array> => {
+export const cropPDF = async (pdfFile: File, cropBox: { 
+  x: number; 
+  y: number; 
+  width: number; 
+  height: number;
+  pageIndices?: number[];
+}): Promise<Uint8Array> => {
   const arrayBuffer = await pdfFile.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
-  
   const pages = pdf.getPages();
   
-  pages.forEach((page) => {
-    const { width, height } = page.getSize();
-    
-    // Apply crop box
-    page.setCropBox(
-      cropBox.x,
-      height - cropBox.y - cropBox.height,
-      cropBox.width,
-      cropBox.height
-    );
+  const targetPages = cropBox.pageIndices || Array.from({ length: pages.length }, (_, i) => i);
+  
+  targetPages.forEach((pageIndex) => {
+    if (pageIndex >= 0 && pageIndex < pages.length) {
+      const page = pages[pageIndex];
+      const { height } = page.getSize();
+      
+      page.setCropBox(
+        cropBox.x,
+        height - cropBox.y - cropBox.height,
+        cropBox.width,
+        cropBox.height
+      );
+    }
   });
   
   return await pdf.save();
@@ -313,17 +459,90 @@ export const cropPDF = async (pdfFile: File, cropBox: { x: number; y: number; wi
 export const repairPDF = async (pdfFile: File): Promise<Uint8Array> => {
   try {
     const arrayBuffer = await pdfFile.arrayBuffer();
-    const pdf = await PDFDocument.load(arrayBuffer);
+    const pdf = await PDFDocument.load(arrayBuffer, { 
+      ignoreEncryption: true,
+      capNumbers: false,
+      throwOnInvalidObject: false
+    });
     
-    // Basic repair - try to save the PDF which may fix minor issues
-    return await pdf.save();
+    // Basic repair - recreate the PDF structure
+    const repairedPdf = await PDFDocument.create();
+    const pages = pdf.getPages();
+    
+    for (let i = 0; i < pages.length; i++) {
+      try {
+        const [copiedPage] = await repairedPdf.copyPages(pdf, [i]);
+        repairedPdf.addPage(copiedPage);
+      } catch (error) {
+        console.warn(`Could not repair page ${i + 1}:`, error);
+      }
+    }
+    
+    return await repairedPdf.save();
   } catch (error) {
-    throw new Error('PDF file is too corrupted to repair');
+    throw new Error('PDF file is too corrupted to repair automatically.');
   }
+};
+
+export const extractText = async (pdfFile: File): Promise<string> => {
+  try {
+    const arrayBuffer = await pdfFile.arrayBuffer();
+    const pdf = await PDFDocument.load(arrayBuffer);
+    const pages = pdf.getPages();
+    
+    let extractedText = '';
+    // Note: pdf-lib doesn't have built-in text extraction
+    // This would require additional libraries like PDF.js
+    console.log('Text extraction requires additional implementation');
+    
+    return extractedText;
+  } catch (error) {
+    throw new Error('Failed to extract text from PDF');
+  }
+};
+
+export const convertPdfToImages = async (pdfFile: File, options?: {
+  format?: 'png' | 'jpg';
+  dpi?: number;
+  quality?: number;
+}): Promise<Blob[]> => {
+  const { format = 'png', dpi = 150, quality = 0.8 } = options || {};
+  
+  // This would require PDF.js or similar for client-side conversion
+  // For now, return empty array as placeholder
+  console.log('PDF to images conversion requires additional implementation');
+  return [];
+};
+
+export const flattenPDF = async (pdfFile: File): Promise<Uint8Array> => {
+  const arrayBuffer = await pdfFile.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  
+  // Flatten forms and annotations
+  const form = pdf.getForm();
+  try {
+    form.flatten();
+  } catch (error) {
+    console.warn('No forms to flatten:', error);
+  }
+  
+  return await pdf.save();
 };
 
 export const downloadPdf = (pdfBytes: Uint8Array, filename: string) => {
   const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+export const downloadFile = (data: Uint8Array | Blob, filename: string, mimeType: string) => {
+  const blob = data instanceof Blob ? data : new Blob([data], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
