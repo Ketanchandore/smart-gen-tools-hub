@@ -1,3 +1,4 @@
+
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -47,11 +48,38 @@ export const convertToGrayscale = async (file: File): Promise<Uint8Array> => {
   return new Uint8Array(arrayBuffer);
 };
 
-export const ocrPDF = async (file: File): Promise<string> => {
+export const ocrPDF = async (file: File, options?: {
+  language?: string;
+  outputFormat?: 'text' | 'json' | 'xml' | 'pdf' | 'docx';
+  recognitionMode?: 'fast' | 'accurate' | 'balanced';
+  pageRange?: string;
+  confidence?: number;
+  preprocessImage?: boolean;
+  enhanceContrast?: boolean;
+  removeNoise?: boolean;
+  deskew?: boolean;
+  autoRotate?: boolean;
+  detectTables?: boolean;
+  preserveLayout?: boolean;
+  extractImages?: boolean;
+  multilingual?: boolean;
+  customDictionary?: string[];
+}): Promise<{ text: string; confidence: number; metadata?: any }> => {
   // Simulate OCR processing
   await new Promise(resolve => setTimeout(resolve, 3000));
 
-  return 'This is a sample OCR-processed text from the PDF.';
+  console.log('OCR processing with options:', options);
+
+  return {
+    text: 'This is a sample OCR-processed text from the PDF with advanced recognition.',
+    confidence: 95.5,
+    metadata: {
+      language: options?.language || 'en',
+      pageCount: 1,
+      processingTime: '3.2s',
+      recognizedWords: 142
+    }
+  };
 };
 
 export const pdfToText = async (file: File): Promise<string> => {
@@ -270,7 +298,7 @@ export const addWatermark = async (file: File, text: string, options: {
   rotation?: number;
   position: 'center' | 'diagonal' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'custom';
   color: { r: number; g: number; b: number };
-  pages: number[] | 'all' | 'odd' | 'even';
+  pages: number[] | 'all' | 'odd' | 'even' | 'range' | 'specific';
   imageWatermark?: File;
   fontFamily?: string;
   fontWeight?: 'normal' | 'bold';
@@ -292,6 +320,8 @@ export const addWatermark = async (file: File, text: string, options: {
   repeat?: boolean;
   tiled?: boolean;
   preserveAspectRatio?: boolean;
+  pageRange?: string;
+  specificPages?: number[];
 }): Promise<Uint8Array> => {
   // Simulate advanced watermark addition
   await new Promise(resolve => setTimeout(resolve, 2000));
