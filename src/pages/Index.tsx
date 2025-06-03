@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from 'react';
 import { 
   Briefcase, FileText, FileUp, CreditCard, Calendar, User, 
@@ -987,7 +988,7 @@ const Index = () => {
 
         {categories.map(category => (
           <TabsContent key={category.id} value={category.id}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 md:gap-4">
               {filteredTools.filter(tool => 
                 category.id === 'all' || tool.category === category.id
               ).map(tool => (
