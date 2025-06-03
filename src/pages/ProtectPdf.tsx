@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shield, Lock, Key, Settings, Info, FileText } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -40,28 +39,21 @@ const ProtectPdf = () => {
         throw new Error('At least one password must be set');
       }
 
+      // Map to the correct permissions structure
       const permissions = {
-        print: allowPrinting,
-        printQuality: allowPrinting ? printQuality : 'none',
-        copy: allowCopying,
-        modify: allowModifying,
-        annotate: allowAnnotations,
-        fillForms: allowFormFilling,
-        extract: allowExtraction,
-        assemble: allowAssembly,
-        accessibility: allowAccessibility
+        printing: allowPrinting ? (printQuality === 'high' ? 'highResolution' as const : 'lowResolution' as const) : false as const,
+        modifying: allowModifying,
+        copying: allowCopying,
+        annotating: allowAnnotations,
+        fillingForms: allowFormFilling,
+        contentAccessibility: allowAccessibility,
+        documentAssembly: allowAssembly
       };
 
       const options = {
         userPassword: userPassword || undefined,
         ownerPassword: ownerPassword || undefined,
-        encryptionLevel,
-        permissions,
-        watermark: watermarkText || undefined,
-        addTimestamp,
-        expirationDate: expirationDate || undefined,
-        restrictDownload,
-        generateReport
+        permissions
       };
 
       toast({

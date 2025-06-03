@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Scissors, Info, FileText, Settings, Download, Grid } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -17,7 +16,7 @@ import { useToast } from '@/components/ui/use-toast';
 
 const SplitPdf = () => {
   const { toast } = useToast();
-  const [splitMode, setSplitMode] = useState<'range' | 'every' | 'bookmarks' | 'extract' | 'size' | 'auto'>('range');
+  const [splitMode, setSplitMode] = useState<'range' | 'every' | 'bookmarks' | 'extract' | 'size'>('range');
   const [startPage, setStartPage] = useState(1);
   const [endPage, setEndPage] = useState(1);
   const [everyNPages, setEveryNPages] = useState(1);
@@ -76,12 +75,6 @@ const SplitPdf = () => {
         results = await splitPDF(files[0], {
           mode: 'size',
           maxFileSize: maxFileSize * 1024 * 1024, // Convert MB to bytes
-          ...baseOptions
-        });
-      } else if (splitMode === 'auto') {
-        results = await splitPDF(files[0], {
-          mode: 'auto',
-          detectPageBreaks: true,
           ...baseOptions
         });
       }
@@ -186,12 +179,6 @@ const SplitPdf = () => {
                           <Badge variant="outline">Pro</Badge>
                         </div>
                       </SelectItem>
-                      <SelectItem value="auto">
-                        <div className="flex items-center justify-between w-full">
-                          <span>Auto-Detect Sections</span>
-                          <Badge variant="outline">AI</Badge>
-                        </div>
-                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -282,15 +269,6 @@ const SplitPdf = () => {
                     />
                     <p className="text-xs text-muted-foreground mt-1">
                       Split PDF when files exceed the specified size limit
-                    </p>
-                  </div>
-                )}
-
-                {splitMode === 'auto' && (
-                  <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
-                    <p className="text-sm text-blue-700 dark:text-blue-300">
-                      <strong>Auto-Detection:</strong> AI will analyze the document structure and automatically 
-                      detect logical sections, chapters, or content breaks to split the PDF intelligently.
                     </p>
                   </div>
                 )}

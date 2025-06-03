@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Unlock, Key, Shield, Info, FileText, AlertTriangle } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -33,18 +32,6 @@ const UnlockPdf = () => {
       setIsUnlocking(true);
       setAttemptProgress(0);
 
-      const options = {
-        password: unlockMode === 'password' ? password : undefined,
-        mode: unlockMode,
-        preserveQuality,
-        removeAllRestrictions,
-        removeUserPassword,
-        removeOwnerPassword,
-        bruteForceLength: unlockMode === 'brute-force' ? bruteForceLength : undefined,
-        dictionaryFile: unlockMode === 'dictionary' ? dictionaryFile : undefined,
-        onProgress: (progress: number) => setAttemptProgress(progress)
-      };
-
       toast({
         title: 'Unlock Started',
         description: `Attempting to unlock PDF using ${unlockMode} method...`,
@@ -58,7 +45,8 @@ const UnlockPdf = () => {
         }
       }
 
-      const result = await unlockPDF(files[0], options);
+      // Pass only the password string, not the options object
+      const result = await unlockPDF(files[0], password || '');
       
       toast({
         title: 'PDF Unlocked Successfully',

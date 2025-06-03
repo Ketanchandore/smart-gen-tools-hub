@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { RotateCcw, RotateCw, Info, Settings, FileText } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -33,14 +32,10 @@ const RotatePdf = () => {
 
   const handleRotate = async (files: File[]): Promise<Uint8Array> => {
     try {
+      // Map to the correct options structure
       const options = {
-        rotation,
-        mode: rotateMode,
-        pageRange: rotateMode === 'range' ? pageRange : undefined,
-        specificPages: rotateMode === 'specific' ? specificPages.split(',').map(p => parseInt(p.trim())) : undefined,
-        preserveOrientation,
-        autoDetect: autoDetectOrientation,
-        maintainAspectRatio
+        pageIndices: rotateMode === 'specific' ? specificPages.split(',').map(p => parseInt(p.trim()) - 1).filter(p => !isNaN(p)) : undefined,
+        rotateMode: rotateMode as "all" | "even" | "odd" | "specific"
       };
 
       toast({

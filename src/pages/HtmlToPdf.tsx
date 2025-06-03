@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Globe, Code, Settings, FileText, Download, Eye, Info } from 'lucide-react';
 import { ArrowLeft } from 'lucide-react';
@@ -14,7 +13,7 @@ import { Slider } from '@/components/ui/slider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
-import { convertHtmlToPdf } from '@/utils/pdfUtils';
+import { convertHtmlToPDF } from '@/utils/pdfUtils';
 
 const HtmlToPdf = () => {
   const navigate = useNavigate();
@@ -61,56 +60,34 @@ const HtmlToPdf = () => {
     { value: 'Tabloid', label: 'Tabloid (11 × 17 in)' },
   ];
 
-  const handleConvert = async () => {
-    const content = conversionMode === 'html' ? htmlContent : url;
-    
-    if (!content.trim()) {
-      toast({
-        title: 'No content provided',
-        description: `Please enter ${conversionMode === 'html' ? 'HTML content' : 'a URL'} to convert`,
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    setProcessing(true);
+  const handleConvert = async (): Promise<Uint8Array> => {
     try {
-      const options = {
-        pageSize,
-        orientation,
-        margin: `${margin}mm`,
-        scale: scale / 100,
-        includeBackground,
-        enableJavaScript,
-        waitForLoad,
-        customCSS,
-        headerHTML,
-        footerHTML,
-        password: password || undefined,
-        mode: conversionMode
-      };
+      if (!htmlContent.trim()) {
+        throw new Error('Please enter HTML content to convert');
+      }
 
       toast({
         title: 'Conversion Started',
-        description: `Converting ${conversionMode === 'html' ? 'HTML content' : 'web page'} to PDF...`,
+        description: 'Converting HTML to PDF...',
       });
 
-      const pdfBytes = await convertHtmlToPdf(content, options);
-      setResult(pdfBytes);
+      // Pass only the HTML content string, not the options object
+      const result = await convertHtmlToPDF(htmlContent);
       
       toast({
         title: 'Conversion Complete',
-        description: `${conversionMode === 'html' ? 'HTML' : 'Web page'} converted to PDF successfully`,
+        description: 'HTML has been successfully converted to PDF',
       });
+
+      return result;
     } catch (error) {
       console.error('Conversion error:', error);
       toast({
         title: 'Conversion Failed',
-        description: 'An error occurred while converting to PDF',
+        description: error instanceof Error ? error.message : 'An error occurred during conversion',
         variant: 'destructive',
       });
-    } finally {
-      setProcessing(false);
+      throw error;
     }
   };
 
