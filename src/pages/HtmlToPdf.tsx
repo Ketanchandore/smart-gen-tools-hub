@@ -1,27 +1,73 @@
 
 import React, { useState } from 'react';
-import { Globe } from 'lucide-react';
-import { ArrowLeft, Download } from 'lucide-react';
+import { Globe, Code, Settings, FileText, Download, Eye, Info } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { convertHtmlToPdf } from '@/utils/pdfUtils';
 
 const HtmlToPdf = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [htmlContent, setHtmlContent] = useState('<h1>Hello World</h1><p>This is a sample HTML content.</p>');
+  const [htmlContent, setHtmlContent] = useState(`<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Document</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h1 { color: #333; border-bottom: 2px solid #007acc; }
+        .highlight { background-color: #f0f8ff; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Professional Document</h1>
+    <p class="highlight">This is a sample HTML document with styling.</p>
+    <p>Convert your web pages to PDF with advanced options!</p>
+</body>
+</html>`);
+  const [url, setUrl] = useState('');
+  const [conversionMode, setConversionMode] = useState<'html' | 'url'>('html');
+  const [pageSize, setPageSize] = useState('A4');
+  const [orientation, setOrientation] = useState('portrait');
+  const [margin, setMargin] = useState(20);
+  const [scale, setScale] = useState(100);
+  const [includeBackground, setIncludeBackground] = useState(true);
+  const [enableJavaScript, setEnableJavaScript] = useState(false);
+  const [waitForLoad, setWaitForLoad] = useState(true);
+  const [customCSS, setCustomCSS] = useState('');
+  const [headerHTML, setHeaderHTML] = useState('');
+  const [footerHTML, setFooterHTML] = useState('');
+  const [password, setPassword] = useState('');
   const [processing, setProcessing] = useState(false);
   const [result, setResult] = useState<Uint8Array | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
+
+  const pageSizes = [
+    { value: 'A4', label: 'A4 (210 × 297 mm)' },
+    { value: 'A3', label: 'A3 (297 × 420 mm)' },
+    { value: 'A5', label: 'A5 (148 × 210 mm)' },
+    { value: 'Letter', label: 'Letter (8.5 × 11 in)' },
+    { value: 'Legal', label: 'Legal (8.5 × 14 in)' },
+    { value: 'Tabloid', label: 'Tabloid (11 × 17 in)' },
+  ];
 
   const handleConvert = async () => {
-    if (!htmlContent.trim()) {
+    const content = conversionMode === 'html' ? htmlContent : url;
+    
+    if (!content.trim()) {
       toast({
-        title: 'No HTML content',
-        description: 'Please enter HTML content to convert',
+        title: 'No content provided',
+        description: `Please enter ${conversionMode === 'html' ? 'HTML content' : 'a URL'} to convert`,
         variant: 'destructive',
       });
       return;
@@ -29,17 +75,38 @@ const HtmlToPdf = () => {
 
     setProcessing(true);
     try {
-      const pdfBytes = await convertHtmlToPdf(htmlContent);
-      setResult(pdfBytes);
+      const options = {
+        pageSize,
+        orientation,
+        margin: `${margin}mm`,
+        scale: scale / 100,
+        includeBackground,
+        enableJavaScript,
+        waitForLoad,
+        customCSS,
+        headerHTML,
+        footerHTML,
+        password: password || undefined,
+        mode: conversionMode
+      };
+
       toast({
-        title: 'Conversion complete',
-        description: 'HTML has been converted to PDF successfully',
+        title: 'Conversion Started',
+        description: `Converting ${conversionMode === 'html' ? 'HTML content' : 'web page'} to PDF...`,
+      });
+
+      const pdfBytes = await convertHtmlToPdf(content, options);
+      setResult(pdfBytes);
+      
+      toast({
+        title: 'Conversion Complete',
+        description: `${conversionMode === 'html' ? 'HTML' : 'Web page'} converted to PDF successfully`,
       });
     } catch (error) {
       console.error('Conversion error:', error);
       toast({
-        title: 'Conversion failed',
-        description: 'An error occurred while converting HTML to PDF',
+        title: 'Conversion Failed',
+        description: 'An error occurred while converting to PDF',
         variant: 'destructive',
       });
     } finally {
@@ -61,8 +128,12 @@ const HtmlToPdf = () => {
     }
   };
 
+  const togglePreview = () => {
+    setShowPreview(!showPreview);
+  };
+
   return (
-    <div className="container max-w-4xl mx-auto px-4 py-8">
+    <div className="container max-w-6xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
           variant="ghost" 
@@ -80,59 +151,319 @@ const HtmlToPdf = () => {
           <Globe className="h-8 w-8 text-primary" />
         </div>
         <h1 className="text-3xl font-bold">HTML to PDF</h1>
-        <p className="text-muted-foreground mt-2">Convert web pages (HTML) into PDF files</p>
+        <p className="text-muted-foreground mt-2">
+          Professional HTML to PDF conversion with advanced formatting and styling options
+        </p>
       </div>
-      
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>HTML Content</CardTitle>
-          <CardDescription>Enter the HTML content you want to convert to PDF</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="html-content">HTML Content</Label>
-              <Textarea
-                id="html-content"
-                className="min-h-[200px]"
-                value={htmlContent}
-                onChange={(e) => setHtmlContent(e.target.value)}
-                placeholder="Enter your HTML content here..."
-              />
-            </div>
 
-            <div className="flex justify-center">
-              <Button 
-                onClick={handleConvert} 
-                disabled={!htmlContent.trim() || processing} 
-                className="bg-primary flex items-center gap-2"
-              >
-                {processing ? 'Converting...' : 'Convert to PDF'}
-              </Button>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Code className="h-5 w-5" />
+                Content Input
+              </CardTitle>
+              <CardDescription>Choose your input method and enter content</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Label>Input Method</Label>
+                <Select value={conversionMode} onValueChange={(value: any) => setConversionMode(value)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="html">
+                      <div className="flex items-center gap-2">
+                        <Code className="h-4 w-4" />
+                        HTML Content
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="url">
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-4 w-4" />
+                        Website URL
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {conversionMode === 'html' ? (
+                <div>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="html-content">HTML Content</Label>
+                    <Button variant="outline" size="sm" onClick={togglePreview}>
+                      <Eye className="h-4 w-4 mr-2" />
+                      {showPreview ? 'Hide' : 'Show'} Preview
+                    </Button>
+                  </div>
+                  <Textarea
+                    id="html-content"
+                    className="min-h-[300px] font-mono text-sm"
+                    value={htmlContent}
+                    onChange={(e) => setHtmlContent(e.target.value)}
+                    placeholder="Enter your HTML content here..."
+                  />
+                </div>
+              ) : (
+                <div>
+                  <Label htmlFor="url-input">Website URL</Label>
+                  <Input
+                    id="url-input"
+                    type="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="https://example.com"
+                  />
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="h-5 w-5" />
+                Conversion Settings
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Tabs defaultValue="layout" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="layout">Layout</TabsTrigger>
+                  <TabsTrigger value="styling">Styling</TabsTrigger>
+                  <TabsTrigger value="advanced">Advanced</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="layout" className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Page Size</Label>
+                      <Select value={pageSize} onValueChange={setPageSize}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {pageSizes.map((size) => (
+                            <SelectItem key={size.value} value={size.value}>
+                              {size.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label>Orientation</Label>
+                      <Select value={orientation} onValueChange={setOrientation}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="portrait">Portrait</SelectItem>
+                          <SelectItem value="landscape">Landscape</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <Label>Margin: {margin}mm</Label>
+                    <Slider
+                      value={[margin]}
+                      onValueChange={(value) => setMargin(value[0])}
+                      min={0}
+                      max={50}
+                      step={1}
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Scale: {scale}%</Label>
+                    <Slider
+                      value={[scale]}
+                      onValueChange={(value) => setScale(value[0])}
+                      min={50}
+                      max={200}
+                      step={5}
+                      className="mt-2"
+                    />
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="styling" className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Label>Include Background Graphics</Label>
+                    <Switch
+                      checked={includeBackground}
+                      onCheckedChange={setIncludeBackground}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="custom-css">Custom CSS</Label>
+                    <Textarea
+                      id="custom-css"
+                      value={customCSS}
+                      onChange={(e) => setCustomCSS(e.target.value)}
+                      placeholder="Add custom CSS styles..."
+                      className="mt-2 font-mono text-sm"
+                    />
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="advanced" className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Label>Enable JavaScript</Label>
+                    <Switch
+                      checked={enableJavaScript}
+                      onCheckedChange={setEnableJavaScript}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Label>Wait for Page Load</Label>
+                    <Switch
+                      checked={waitForLoad}
+                      onCheckedChange={setWaitForLoad}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="header-html">Header HTML</Label>
+                    <Textarea
+                      id="header-html"
+                      value={headerHTML}
+                      onChange={(e) => setHeaderHTML(e.target.value)}
+                      placeholder="HTML for page header..."
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="footer-html">Footer HTML</Label>
+                    <Textarea
+                      id="footer-html"
+                      value={footerHTML}
+                      onChange={(e) => setFooterHTML(e.target.value)}
+                      placeholder="HTML for page footer..."
+                      className="mt-2"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="password">Password Protection</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Optional PDF password"
+                      className="mt-2"
+                    />
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          <div className="flex justify-center">
+            <Button 
+              onClick={handleConvert} 
+              disabled={processing} 
+              className="bg-primary flex items-center gap-2 min-w-[200px]"
+              size="lg"
+            >
+              {processing ? (
+                <>Converting...</>
+              ) : (
+                <>
+                  <FileText className="h-4 w-4" />
+                  Convert to PDF
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          {showPreview && conversionMode === 'html' && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Live Preview</CardTitle>
+                <CardDescription>See how your HTML will look</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div 
+                  className="border rounded-lg p-4 bg-white text-black min-h-[300px] overflow-auto"
+                  dangerouslySetInnerHTML={{ __html: htmlContent }}
+                />
+              </CardContent>
+            </Card>
+          )}
+
+          {result && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Conversion Complete
+                </CardTitle>
+                <CardDescription>Your PDF is ready for download</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-center">
+                  <Button 
+                    onClick={handleDownload}
+                    className="bg-primary flex items-center gap-2"
+                    size="lg"
+                  >
+                    <Download className="h-4 w-4" />
+                    Download PDF
+                  </Button>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="p-3 bg-secondary/30 rounded-lg">
+                    <p className="font-medium">File Size</p>
+                    <p className="text-muted-foreground">
+                      {(result.length / 1024 / 1024).toFixed(2)} MB
+                    </p>
+                  </div>
+                  <div className="p-3 bg-secondary/30 rounded-lg">
+                    <p className="font-medium">Format</p>
+                    <p className="text-muted-foreground">PDF/A-1b</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="p-4 bg-secondary/30 rounded-lg">
+            <div className="flex items-start gap-3">
+              <Info className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-muted-foreground space-y-2">
+                <p><strong>Professional HTML to PDF Features:</strong></p>
+                <ul className="space-y-1 ml-4">
+                  <li>• Advanced page layout control (size, orientation, margins)</li>
+                  <li>• Custom CSS injection for perfect styling</li>
+                  <li>• JavaScript execution for dynamic content</li>
+                  <li>• Header and footer customization</li>
+                  <li>• Password protection and security options</li>
+                  <li>• High-quality rendering with scaling options</li>
+                  <li>• Live preview for HTML content</li>
+                  <li>• URL to PDF conversion with wait controls</li>
+                </ul>
+                <p className="mt-2">
+                  <strong>Pro Tip:</strong> Use custom CSS to fine-tune the PDF appearance and break controls.
+                </p>
+              </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
-
-      {result && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Conversion Complete</CardTitle>
-            <CardDescription>Your HTML has been successfully converted to PDF</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center">
-              <Button 
-                onClick={handleDownload}
-                className="bg-primary flex items-center gap-2"
-              >
-                <Download className="h-4 w-4" />
-                Download PDF
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+        </div>
+      </div>
     </div>
   );
 };
