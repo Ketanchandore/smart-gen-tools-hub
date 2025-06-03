@@ -21,7 +21,7 @@ export const compressPDF = async (file: File, options: any): Promise<{ pdf: Uint
   };
 };
 
-export const mergePDFs = async (files: File[]): Promise<Uint8Array> => {
+export const mergePDFs = async (files: File[], options?: any): Promise<Uint8Array> => {
   // Simulate merging processing
   await new Promise(resolve => setTimeout(resolve, 2500));
 
@@ -188,6 +188,74 @@ export const convertHtmlToPDF = async (htmlContent: string): Promise<Uint8Array>
   const pdfHeader = "%PDF-1.4\n";
   const encoder = new TextEncoder();
   return encoder.encode(pdfHeader);
+};
+
+// Add missing functions
+export const downloadPdf = (data: Uint8Array, filename: string) => {
+  const blob = new Blob([data], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
+export const convertImagesToPdf = async (files: File[], options: {
+  pageSize: 'A4' | 'Letter' | 'Legal';
+  orientation: 'portrait' | 'landscape';
+  quality: number;
+  margin: number;
+}): Promise<Uint8Array> => {
+  // Simulate image to PDF conversion
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  // Create a simple PDF-like byte array (this is just a placeholder)
+  const pdfHeader = "%PDF-1.4\n";
+  const encoder = new TextEncoder();
+  return encoder.encode(pdfHeader);
+};
+
+export const addPageNumbers = async (file: File, options: {
+  position: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  fontSize: number;
+  startNumber: number;
+  color: { r: number; g: number; b: number };
+}): Promise<Uint8Array> => {
+  // Simulate page number addition
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  
+  // Return the original file content as Uint8Array for now
+  const arrayBuffer = await file.arrayBuffer();
+  return new Uint8Array(arrayBuffer);
+};
+
+export const splitPDFSimple = async (file: File, options: any): Promise<Uint8Array> => {
+  // Simulate simple PDF splitting
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  
+  // Return the original file content as Uint8Array for now
+  const arrayBuffer = await file.arrayBuffer();
+  return new Uint8Array(arrayBuffer);
+};
+
+export const addWatermark = async (file: File, text: string, options: {
+  opacity: number;
+  fontSize: number;
+  rotation: number;
+  position: 'center' | 'diagonal' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  color: { r: number; g: number; b: number };
+  pages: number[] | 'all' | 'odd' | 'even';
+  imageWatermark?: File;
+}): Promise<Uint8Array> => {
+  // Simulate watermark addition
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  // Return the original file content as Uint8Array for now
+  const arrayBuffer = await file.arrayBuffer();
+  return new Uint8Array(arrayBuffer);
 };
 
 // Add alias for backward compatibility
