@@ -1,4 +1,3 @@
-
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -232,7 +231,7 @@ export const addPageNumbers = async (file: File, options: {
   return new Uint8Array(arrayBuffer);
 };
 
-export const splitPDFSimple = async (file: File, options: any): Promise<Uint8Array> => {
+export const splitPDFSimple = async (file: File, startPage: number, endPage: number): Promise<Uint8Array> => {
   // Simulate simple PDF splitting
   await new Promise(resolve => setTimeout(resolve, 1500));
   
