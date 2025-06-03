@@ -50,20 +50,26 @@ export const convertToGrayscale = async (file: File): Promise<Uint8Array> => {
 
 export const ocrPDF = async (file: File, options?: {
   language?: string;
-  outputFormat?: 'text' | 'json' | 'xml' | 'pdf' | 'docx';
-  recognitionMode?: 'fast' | 'accurate' | 'balanced';
-  pageRange?: string;
-  confidence?: number;
-  preprocessImage?: boolean;
+  engine?: 'tesseract' | 'azure' | 'google' | 'amazon';
+  outputFormat?: 'searchable-pdf' | 'text-only' | 'both';
+  dpi?: number;
+  preprocessImages?: boolean;
   enhanceContrast?: boolean;
   removeNoise?: boolean;
-  deskew?: boolean;
   autoRotate?: boolean;
-  detectTables?: boolean;
+  detectOrientation?: boolean;
   preserveLayout?: boolean;
+  recognizeHandwriting?: boolean;
+  detectTables?: boolean;
   extractImages?: boolean;
-  multilingual?: boolean;
-  customDictionary?: string[];
+  confidenceThreshold?: number;
+  pageRange?: string;
+  specificPages?: string;
+  multiLanguage?: boolean;
+  customDictionary?: string;
+  postProcess?: boolean;
+  spellCheck?: boolean;
+  formatCorrection?: boolean;
 }): Promise<{ text: string; confidence: number; metadata?: any }> => {
   // Simulate OCR processing
   await new Promise(resolve => setTimeout(resolve, 3000));
