@@ -1,3 +1,4 @@
+
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -38,7 +39,7 @@ export const mergePDFs = async (files: File[]): Promise<Uint8Array> => {
   return mergedData;
 };
 
-export const convertTo Grayscale = async (file: File): Promise<Uint8Array> => {
+export const convertToGrayscale = async (file: File): Promise<Uint8Array> => {
   // Simulate grayscale conversion
   await new Promise(resolve => setTimeout(resolve, 1800));
 
@@ -188,3 +189,6 @@ export const convertHtmlToPDF = async (htmlContent: string): Promise<Uint8Array>
   const encoder = new TextEncoder();
   return encoder.encode(pdfHeader);
 };
+
+// Add alias for backward compatibility
+export const mergePDF = mergePDFs;
