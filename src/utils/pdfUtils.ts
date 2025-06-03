@@ -207,9 +207,26 @@ export const convertImagesToPdf = async (files: File[], options: {
   orientation: 'portrait' | 'landscape';
   quality: number;
   margin: number;
+  fitToPage?: boolean;
+  maintainAspectRatio?: boolean;
+  compression?: 'none' | 'low' | 'medium' | 'high';
+  backgroundColor?: string;
+  addBorder?: boolean;
+  borderWidth?: number;
+  borderColor?: string;
+  customDimensions?: { width: number; height: number };
+  imageLayout?: 'single' | 'grid' | 'collage';
+  imagesPerPage?: number;
+  addPageNumbers?: boolean;
+  addWatermark?: boolean;
+  watermarkText?: string;
+  mergeMode?: 'all-in-one' | 'separate-pages';
 }): Promise<Uint8Array> => {
-  // Simulate image to PDF conversion
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  // Simulate advanced image to PDF conversion
+  await new Promise(resolve => setTimeout(resolve, 2000 + files.length * 500));
+  
+  console.log('Converting images with options:', options);
+  console.log(`Processing ${files.length} images`);
   
   // Create a simple PDF-like byte array (this is just a placeholder)
   const pdfHeader = "%PDF-1.4\n";
@@ -222,9 +239,14 @@ export const addPageNumbers = async (file: File, options: {
   fontSize: number;
   startNumber: number;
   color: { r: number; g: number; b: number };
+  format?: 'number' | 'page-of-total' | 'roman';
+  fontFamily?: string;
+  fontWeight?: 'normal' | 'bold';
 }): Promise<Uint8Array> => {
-  // Simulate page number addition
+  // Simulate page number addition with advanced formatting
   await new Promise(resolve => setTimeout(resolve, 1500));
+  
+  console.log('Adding page numbers with options:', options);
   
   // Return the original file content as Uint8Array for now
   const arrayBuffer = await file.arrayBuffer();
@@ -235,6 +257,8 @@ export const splitPDFSimple = async (file: File, startPage: number, endPage: num
   // Simulate simple PDF splitting
   await new Promise(resolve => setTimeout(resolve, 1500));
   
+  console.log(`Splitting PDF from page ${startPage} to ${endPage}`);
+  
   // Return the original file content as Uint8Array for now
   const arrayBuffer = await file.arrayBuffer();
   return new Uint8Array(arrayBuffer);
@@ -242,15 +266,37 @@ export const splitPDFSimple = async (file: File, startPage: number, endPage: num
 
 export const addWatermark = async (file: File, text: string, options: {
   opacity: number;
-  fontSize: number;
-  rotation: number;
-  position: 'center' | 'diagonal' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  fontSize?: number;
+  rotation?: number;
+  position: 'center' | 'diagonal' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'custom';
   color: { r: number; g: number; b: number };
   pages: number[] | 'all' | 'odd' | 'even';
   imageWatermark?: File;
+  fontFamily?: string;
+  fontWeight?: 'normal' | 'bold';
+  fontStyle?: 'normal' | 'italic';
+  outline?: boolean;
+  outlineColor?: { r: number; g: number; b: number };
+  outlineWidth?: number;
+  shadow?: boolean;
+  shadowOffset?: number;
+  shadowBlur?: number;
+  shadowColor?: { r: number; g: number; b: number };
+  spacing?: number;
+  scale?: number;
+  blend?: 'normal' | 'multiply' | 'screen' | 'overlay';
+  background?: boolean;
+  backgroundColor?: { r: number; g: number; b: number };
+  backgroundOpacity?: number;
+  customPosition?: { x: number; y: number };
+  repeat?: boolean;
+  tiled?: boolean;
+  preserveAspectRatio?: boolean;
 }): Promise<Uint8Array> => {
-  // Simulate watermark addition
+  // Simulate advanced watermark addition
   await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  console.log('Adding watermark with advanced options:', { text, options });
   
   // Return the original file content as Uint8Array for now
   const arrayBuffer = await file.arrayBuffer();
