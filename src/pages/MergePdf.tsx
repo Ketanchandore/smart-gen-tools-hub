@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FileText, Info, ArrowUpDown, Grid, List, Settings } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -57,15 +56,9 @@ const MergePdf = () => {
       const orderedFiles = fileOrder.map(index => inputFiles[index]);
       
       const options = {
-        mode: mergeMode,
-        addBookmarks,
-        addPageNumbers,
-        preserveMetadata,
-        optimizeOutput,
-        pageRanges,
-        outputTitle,
-        insertBlankPages,
-        addHeaders
+        bookmarks: addBookmarks,
+        removeBlankPages: false,
+        customOrder: fileOrder
       };
 
       toast({
@@ -101,8 +94,14 @@ const MergePdf = () => {
       multiple={true}
       processFunction={handleMerge}
       outputFilename="merged.pdf"
-      onFilesSelected={handleFilesSelected}
     >
+      {/* Handle file selection internally */}
+      {files.length === 0 && (
+        <div className="hidden">
+          {/* This will be handled by PDFToolTemplate */}
+        </div>
+      )}
+      
       <div className="space-y-6">
         {files.length > 0 && (
           <Card>

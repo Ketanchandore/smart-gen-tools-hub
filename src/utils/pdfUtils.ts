@@ -836,3 +836,49 @@ export const convertHtmlToPdf = async (htmlContent: string): Promise<Uint8Array>
     throw new Error('Failed to convert HTML to PDF');
   }
 };
+
+export const editPDF = async (pdfFile: File, options: {
+  annotations: any[];
+  tool: string;
+  textProperties?: {
+    content: string;
+    fontSize: number;
+    fontFamily: string;
+    color: string;
+    backgroundColor: string;
+  };
+  shapeProperties?: {
+    type: string;
+    strokeWidth: number;
+    strokeColor: string;
+    fillColor: string;
+    opacity: number;
+  };
+}): Promise<Uint8Array> => {
+  const arrayBuffer = await pdfFile.arrayBuffer();
+  const pdf = await PDFDocument.load(arrayBuffer);
+  const font = await pdf.embedFont(StandardFonts.Helvetica);
+  
+  const pages = pdf.getPages();
+  const firstPage = pages[0];
+  
+  // Apply annotations
+  options.annotations.forEach((annotation) => {
+    const { type, properties } = annotation;
+    
+    if (type === 'text' && options.textProperties) {
+      firstPage.drawText(options.textProperties.content, {
+        x: properties.position?.x || 100,
+        y: properties.position?.y || 100,
+        size: options.textProperties.fontSize,
+        font,
+        color: rgb(0, 0, 0),
+      });
+    }
+  });
+  
+  return await pdf.save();
+};
+
+// Create alias for existing mergePDFs function
+export const mergePDF = mergePDFs;

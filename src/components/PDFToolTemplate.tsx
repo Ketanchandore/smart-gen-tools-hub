@@ -17,6 +17,7 @@ interface PDFToolTemplateProps {
   outputFilename: string;
   children?: React.ReactNode;
   customActions?: React.ReactNode;
+  onFilesSelected?: (files: File[]) => void;
 }
 
 const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
@@ -28,7 +29,8 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
   processFunction,
   outputFilename,
   children,
-  customActions
+  customActions,
+  onFilesSelected
 }) => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -64,10 +66,16 @@ const PDFToolTemplate: React.FC<PDFToolTemplateProps> = ({
     });
     
     if (validFiles.length > 0) {
-      setFiles(multiple ? [...files, ...validFiles] : validFiles);
+      const newFiles = multiple ? [...files, ...validFiles] : validFiles;
+      setFiles(newFiles);
       setCompleted(false);
+      
+      // Call the optional callback
+      if (onFilesSelected) {
+        onFilesSelected(newFiles);
+      }
     }
-  }, [acceptFiles, files, multiple, toast]);
+  }, [acceptFiles, files, multiple, toast, onFilesSelected]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FileDown, Info, Settings, Zap, Shield } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
@@ -38,15 +37,11 @@ const CompressPdf = () => {
   const handleCompress = async (files: File[]): Promise<Uint8Array> => {
     try {
       const options = {
-        quality: compressionLevel === 'custom' ? customQuality : compressionPresets[compressionLevel].quality,
-        optimizeImages,
-        removeDuplicates,
+        level: compressionLevel === 'custom' ? 'medium' : compressionLevel,
+        imageQuality: compressionLevel === 'custom' ? customQuality / 100 : compressionPresets[compressionLevel].quality / 100,
         removeMetadata,
-        convertToGrayscale,
-        downscaleImages,
-        imageResolution,
-        preserveBookmarks,
-        preserveForms
+        optimizeImages,
+        removeAnnotations: !preserveForms
       };
 
       toast({
@@ -61,7 +56,7 @@ const CompressPdf = () => {
         description: `PDF compressed successfully with ${compressionLevel} quality`,
       });
 
-      return result;
+      return result.pdf;
     } catch (error) {
       console.error('Compression error:', error);
       toast({
