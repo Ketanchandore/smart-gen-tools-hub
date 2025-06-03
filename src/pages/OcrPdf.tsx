@@ -101,12 +101,12 @@ const OcrPdf = () => {
         await new Promise(resolve => setTimeout(resolve, 200));
       }
 
-      const result = await ocrPDF(files[0]);
-      setOutputText(result);
+      const result = await ocrPDF(files[0], options);
+      setOutputText(result.text); // Extract just the text property
       
       toast({
         title: 'OCR Processing Complete',
-        description: `Text extracted successfully with ${confidenceThreshold}% confidence threshold`,
+        description: `Text extracted successfully with ${result.confidence}% confidence`,
       });
 
       // Return processed PDF
