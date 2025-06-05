@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ArrowLeft, Youtube, Clock, FileText, Download, Play, Pause, Volume2, ExternalLink, Hash, Users, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -667,7 +666,7 @@ const YoutubeSummarizer = () => {
                       </Badge>
                       <div className="flex-1">
                         <p>{timestamp.description}</p>
-                        <Badge size="sm" variant="secondary" className="mt-1">
+                        <Badge variant="secondary" className="mt-1 text-xs">
                           {timestamp.importance} priority
                         </Badge>
                       </div>
