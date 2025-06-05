@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowLeft, FileText, Search, TrendingUp, Clock, Target, Copy, Download, RefreshCw, BarChart3, PieChart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -176,10 +175,10 @@ const WordCounter = () => {
   const estimateAverageSyllables = (text: string): number => {
     if (!text) return 0;
     
-    const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
+    const words: string[] = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
     if (words.length === 0) return 0;
     
-    const totalSyllables = words.reduce((total, word) => {
+    const totalSyllables: number = words.reduce((total: number, word: string) => {
       return total + estimateSyllables(word);
     }, 0);
     
