@@ -1,28 +1,75 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/placeholder.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Generator Tools Hub</title>
-    <meta name="description" content="Collection of useful tools for developers, businesses and general users including IFSC code finder, PIN code locator, password generator and more" />
-    <meta name="author" content="Smart Generator Tools Hub" />
-    <meta name="keywords" content="IFSC code, PIN code finder, password generator, QR code generator, barcode generator, fake identity, lorem ipsum, credit card generator" />
-
-    <meta property="og:title" content="Smart Generator Tools Hub" />
-    <meta property="og:description" content="Collection of useful tools for developers, businesses and general users" />
+    <meta name="description" content="AI Pro Toolkit Hub - Professional PDF tools, generators, and productivity utilities. Free online tools for document processing, resume building, and more." />
+    <meta name="keywords" content="PDF tools, AI generators, online converters, productivity tools, document processing, resume builder, QR code generator" />
+    <meta name="author" content="AI Pro Toolkit Hub" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:title" content="AI Pro Toolkit Hub - Professional PDF Tools & Generators" />
+    <meta property="og:description" content="Comprehensive collection of AI-powered tools for productivity and efficiency." />
+    <meta property="og:image" content="/placeholder.svg" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="AI Pro Toolkit Hub - Professional PDF Tools & Generators" />
+    <meta property="twitter:description" content="Comprehensive collection of AI-powered tools for productivity and efficiency." />
+    <meta property="twitter:image" content="/placeholder.svg" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="msapplication-TileColor" content="#0f172a" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
+    <title>AI Pro Toolkit Hub - Professional PDF Tools & Generators</title>
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "AI Pro Toolkit Hub",
+      "description": "Professional PDF tools and AI-powered generators for productivity",
+      "url": "https://aiprotoolkithub.com",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
   </head>
-
-  <body class="dark">
+  <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Performance monitoring -->
+    <script>
+      // Basic performance monitoring
+      window.addEventListener('load', () => {
+        if ('performance' in window) {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          if (perfData) {
+            console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+          }
+        }
+      });
+    </script>
   </body>
 </html>
