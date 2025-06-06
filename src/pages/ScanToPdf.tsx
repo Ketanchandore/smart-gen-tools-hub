@@ -328,7 +328,7 @@ const ScanToPdf = () => {
                   <Checkbox
                     id="autoEnhance"
                     checked={autoEnhance}
-                    onCheckedChange={setAutoEnhance}
+                    onCheckedChange={(checked) => setAutoEnhance(checked === true)}
                   />
                   <Label htmlFor="autoEnhance">Auto Enhancement</Label>
                 </div>
@@ -337,7 +337,7 @@ const ScanToPdf = () => {
                   <Checkbox
                     id="autoCrop"
                     checked={autoCrop}
-                    onCheckedChange={setAutoCrop}
+                    onCheckedChange={(checked) => setAutoCrop(checked === true)}
                   />
                   <Label htmlFor="autoCrop">Auto Crop</Label>
                 </div>
@@ -346,7 +346,7 @@ const ScanToPdf = () => {
                   <Checkbox
                     id="autoRotate"
                     checked={autoRotate}
-                    onCheckedChange={setAutoRotate}
+                    onCheckedChange={(checked) => setAutoRotate(checked === true)}
                   />
                   <Label htmlFor="autoRotate">Auto Rotate</Label>
                 </div>
@@ -355,7 +355,7 @@ const ScanToPdf = () => {
                   <Checkbox
                     id="removeBackground"
                     checked={removeBackground}
-                    onCheckedChange={setRemoveBackground}
+                    onCheckedChange={(checked) => setRemoveBackground(checked === true)}
                   />
                   <Label htmlFor="removeBackground">Remove Background</Label>
                 </div>
@@ -364,7 +364,7 @@ const ScanToPdf = () => {
                   <Checkbox
                     id="enhanceText"
                     checked={enhanceText}
-                    onCheckedChange={setEnhanceText}
+                    onCheckedChange={(checked) => setEnhanceText(checked === true)}
                   />
                   <Label htmlFor="enhanceText">Enhance Text</Label>
                 </div>
@@ -424,7 +424,7 @@ const ScanToPdf = () => {
                 <Checkbox
                   id="ocrEnabled"
                   checked={ocrEnabled}
-                  onCheckedChange={setOcrEnabled}
+                  onCheckedChange={(checked) => setOcrEnabled(checked === true)}
                 />
                 <Label htmlFor="ocrEnabled">Enable OCR Text Recognition</Label>
               </div>
@@ -530,7 +530,7 @@ const ScanToPdf = () => {
                 <Checkbox
                   id="multiPage"
                   checked={multiPage}
-                  onCheckedChange={setMultiPage}
+                  onCheckedChange={(checked) => setMultiPage(checked === true)}
                 />
                 <Label htmlFor="multiPage">Combine into single multi-page PDF</Label>
               </div>

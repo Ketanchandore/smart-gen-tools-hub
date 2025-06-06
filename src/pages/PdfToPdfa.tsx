@@ -180,7 +180,7 @@ const PdfToPdfa = () => {
                   <Checkbox
                     id="embedFonts"
                     checked={embedFonts}
-                    onCheckedChange={setEmbedFonts}
+                    onCheckedChange={(checked) => setEmbedFonts(checked === true)}
                   />
                   <Label htmlFor="embedFonts">Embed All Fonts</Label>
                 </div>
@@ -189,7 +189,7 @@ const PdfToPdfa = () => {
                   <Checkbox
                     id="validateCompliance"
                     checked={validateCompliance}
-                    onCheckedChange={setValidateCompliance}
+                    onCheckedChange={(checked) => setValidateCompliance(checked === true)}
                   />
                   <Label htmlFor="validateCompliance">Validate Compliance</Label>
                 </div>
@@ -198,7 +198,7 @@ const PdfToPdfa = () => {
                   <Checkbox
                     id="preserveTransparency"
                     checked={preserveTransparency}
-                    onCheckedChange={setPreserveTransparency}
+                    onCheckedChange={(checked) => setPreserveTransparency(checked === true)}
                   />
                   <Label htmlFor="preserveTransparency">Preserve Transparency</Label>
                 </div>
@@ -207,7 +207,7 @@ const PdfToPdfa = () => {
                   <Checkbox
                     id="optimizeForPrint"
                     checked={optimizeForPrint}
-                    onCheckedChange={setOptimizeForPrint}
+                    onCheckedChange={(checked) => setOptimizeForPrint(checked === true)}
                   />
                   <Label htmlFor="optimizeForPrint">Optimize for Print</Label>
                 </div>
@@ -255,7 +255,7 @@ const PdfToPdfa = () => {
                 <Checkbox
                   id="includeMetadata"
                   checked={includeMetadata}
-                  onCheckedChange={setIncludeMetadata}
+                  onCheckedChange={(checked) => setIncludeMetadata(checked === true)}
                 />
                 <Label htmlFor="includeMetadata">Include Document Metadata</Label>
               </div>
@@ -361,7 +361,7 @@ const PdfToPdfa = () => {
                     <Checkbox
                       id="removeAnnotations"
                       checked={removeAnnotations}
-                      onCheckedChange={setRemoveAnnotations}
+                      onCheckedChange={(checked) => setRemoveAnnotations(checked === true)}
                     />
                     <Label htmlFor="removeAnnotations">Remove Annotations</Label>
                   </div>
@@ -370,7 +370,7 @@ const PdfToPdfa = () => {
                     <Checkbox
                       id="removeBookmarks"
                       checked={removeBookmarks}
-                      onCheckedChange={setRemoveBookmarks}
+                      onCheckedChange={(checked) => setRemoveBookmarks(checked === true)}
                     />
                     <Label htmlFor="removeBookmarks">Remove Bookmarks</Label>
                   </div>
@@ -379,7 +379,7 @@ const PdfToPdfa = () => {
                     <Checkbox
                       id="removeJavaScript"
                       checked={removeJavaScript}
-                      onCheckedChange={setRemoveJavaScript}
+                      onCheckedChange={(checked) => setRemoveJavaScript(checked === true)}
                     />
                     <Label htmlFor="removeJavaScript">Remove JavaScript</Label>
                   </div>
@@ -388,7 +388,7 @@ const PdfToPdfa = () => {
                     <Checkbox
                       id="removeFormFields"
                       checked={removeFormFields}
-                      onCheckedChange={setRemoveFormFields}
+                      onCheckedChange={(checked) => setRemoveFormFields(checked === true)}
                     />
                     <Label htmlFor="removeFormFields">Remove Form Fields</Label>
                   </div>
