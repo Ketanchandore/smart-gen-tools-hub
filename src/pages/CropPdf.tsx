@@ -334,7 +334,7 @@ const CropPdf = () => {
                     <Checkbox
                       id="autoCropWhitespace"
                       checked={autoCropWhitespace}
-                      onCheckedChange={setAutoCropWhitespace}
+                      onCheckedChange={(checked) => setAutoCropWhitespace(checked === true)}
                     />
                     <Label htmlFor="autoCropWhitespace">Remove White Space</Label>
                   </div>
@@ -348,7 +348,7 @@ const CropPdf = () => {
                     <Checkbox
                       id="applyToAllPages"
                       checked={applyToAllPages}
-                      onCheckedChange={setApplyToAllPages}
+                      onCheckedChange={(checked) => setApplyToAllPages(checked === true)}
                     />
                     <Label htmlFor="applyToAllPages">Apply to All Pages</Label>
                   </div>
@@ -491,7 +491,7 @@ const CropPdf = () => {
                   <Checkbox
                     id="preserveAspectRatio"
                     checked={preserveAspectRatio}
-                    onCheckedChange={setPreserveAspectRatio}
+                    onCheckedChange={(checked) => setPreserveAspectRatio(checked === true)}
                   />
                   <Label htmlFor="preserveAspectRatio">Preserve Aspect Ratio</Label>
                 </div>
@@ -500,7 +500,7 @@ const CropPdf = () => {
                   <Checkbox
                     id="removeBlankAreas"
                     checked={removeBlankAreas}
-                    onCheckedChange={setRemoveBlankAreas}
+                    onCheckedChange={(checked) => setRemoveBlankAreas(checked === true)}
                   />
                   <Label htmlFor="removeBlankAreas">Remove Blank Areas</Label>
                 </div>
@@ -509,7 +509,7 @@ const CropPdf = () => {
                   <Checkbox
                     id="centerContent"
                     checked={centerContent}
-                    onCheckedChange={setCenterContent}
+                    onCheckedChange={(checked) => setCenterContent(checked === true)}
                   />
                   <Label htmlFor="centerContent">Center Content</Label>
                 </div>
@@ -518,7 +518,7 @@ const CropPdf = () => {
                   <Checkbox
                     id="scaleAfterCrop"
                     checked={scaleAfterCrop}
-                    onCheckedChange={setScaleAfterCrop}
+                    onCheckedChange={(checked) => setScaleAfterCrop(checked === true)}
                   />
                   <Label htmlFor="scaleAfterCrop">Scale After Crop</Label>
                 </div>
@@ -527,7 +527,7 @@ const CropPdf = () => {
                   <Checkbox
                     id="previewMode"
                     checked={previewMode}
-                    onCheckedChange={setPreviewMode}
+                    onCheckedChange={(checked) => setPreviewMode(checked === true)}
                   />
                   <Label htmlFor="previewMode">Preview Mode</Label>
                 </div>

@@ -157,7 +157,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="fixStructure"
                       checked={fixStructure}
-                      onCheckedChange={setFixStructure}
+                      onCheckedChange={(checked) => setFixStructure(checked === true)}
                     />
                     <Label htmlFor="fixStructure">Fix Document Structure</Label>
                   </div>
@@ -166,7 +166,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="recoverContent"
                       checked={recoverContent}
-                      onCheckedChange={setRecoverContent}
+                      onCheckedChange={(checked) => setRecoverContent(checked === true)}
                     />
                     <Label htmlFor="recoverContent">Recover Lost Content</Label>
                   </div>
@@ -175,7 +175,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="rebuildXref"
                       checked={rebuildXref}
-                      onCheckedChange={setRebuildXref}
+                      onCheckedChange={(checked) => setRebuildXref(checked === true)}
                     />
                     <Label htmlFor="rebuildXref">Rebuild Cross-Reference</Label>
                   </div>
@@ -184,7 +184,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="fixFonts"
                       checked={fixFonts}
-                      onCheckedChange={setFixFonts}
+                      onCheckedChange={(checked) => setFixFonts(checked === true)}
                     />
                     <Label htmlFor="fixFonts">Repair Font Issues</Label>
                   </div>
@@ -193,7 +193,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="repairImages"
                       checked={repairImages}
-                      onCheckedChange={setRepairImages}
+                      onCheckedChange={(checked) => setRepairImages(checked === true)}
                     />
                     <Label htmlFor="repairImages">Repair Image Data</Label>
                   </div>
@@ -202,7 +202,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="repairAnnotations"
                       checked={repairAnnotations}
-                      onCheckedChange={setRepairAnnotations}
+                      onCheckedChange={(checked) => setRepairAnnotations(checked === true)}
                     />
                     <Label htmlFor="repairAnnotations">Repair Annotations</Label>
                   </div>
@@ -216,7 +216,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="validateAfterRepair"
                       checked={validateAfterRepair}
-                      onCheckedChange={setValidateAfterRepair}
+                      onCheckedChange={(checked) => setValidateAfterRepair(checked === true)}
                     />
                     <Label htmlFor="validateAfterRepair">Validate After Repair</Label>
                   </div>
@@ -225,7 +225,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="optimizeAfterRepair"
                       checked={optimizeAfterRepair}
-                      onCheckedChange={setOptimizeAfterRepair}
+                      onCheckedChange={(checked) => setOptimizeAfterRepair(checked === true)}
                     />
                     <Label htmlFor="optimizeAfterRepair">Optimize After Repair</Label>
                   </div>
@@ -234,7 +234,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="preserveOriginal"
                       checked={preserveOriginal}
-                      onCheckedChange={setPreserveOriginal}
+                      onCheckedChange={(checked) => setPreserveOriginal(checked === true)}
                     />
                     <Label htmlFor="preserveOriginal">Preserve Original Metadata</Label>
                   </div>
@@ -243,7 +243,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="backupCorrupted"
                       checked={backupCorrupted}
-                      onCheckedChange={setBackupCorrupted}
+                      onCheckedChange={(checked) => setBackupCorrupted(checked === true)}
                     />
                     <Label htmlFor="backupCorrupted">Backup Corrupted Parts</Label>
                   </div>
@@ -283,7 +283,7 @@ const RepairPdf = () => {
                 <Checkbox
                   id="deepScan"
                   checked={deepScan}
-                  onCheckedChange={setDeepScan}
+                  onCheckedChange={(checked) => setDeepScan(checked === true)}
                 />
                 <Label htmlFor="deepScan">Enable Deep Scan (slower but more thorough)</Label>
               </div>
@@ -342,7 +342,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="recoverMetadata"
                       checked={recoverMetadata}
-                      onCheckedChange={setRecoverMetadata}
+                      onCheckedChange={(checked) => setRecoverMetadata(checked === true)}
                     />
                     <Label htmlFor="recoverMetadata">Recover Metadata</Label>
                   </div>
@@ -351,7 +351,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="rebuildBookmarks"
                       checked={rebuildBookmarks}
-                      onCheckedChange={setRebuildBookmarks}
+                      onCheckedChange={(checked) => setRebuildBookmarks(checked === true)}
                     />
                     <Label htmlFor="rebuildBookmarks">Rebuild Bookmarks</Label>
                   </div>
@@ -360,7 +360,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="fixEncryption"
                       checked={fixEncryption}
-                      onCheckedChange={setFixEncryption}
+                      onCheckedChange={(checked) => setFixEncryption(checked === true)}
                     />
                     <Label htmlFor="fixEncryption">Fix Encryption Issues</Label>
                   </div>
@@ -369,7 +369,7 @@ const RepairPdf = () => {
                     <Checkbox
                       id="removeCorrupted"
                       checked={removeCorrupted}
-                      onCheckedChange={setRemoveCorrupted}
+                      onCheckedChange={(checked) => setRemoveCorrupted(checked === true)}
                     />
                     <Label htmlFor="removeCorrupted">Remove Corrupted Objects</Label>
                   </div>

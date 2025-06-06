@@ -287,7 +287,7 @@ const OrganizePdf = () => {
                   <Checkbox
                     id="addBookmarks"
                     checked={addBookmarks}
-                    onCheckedChange={setAddBookmarks}
+                    onCheckedChange={(checked) => setAddBookmarks(checked === true)}
                   />
                   <Label htmlFor="addBookmarks">Add Bookmarks</Label>
                 </div>
@@ -296,7 +296,7 @@ const OrganizePdf = () => {
                   <Checkbox
                     id="optimizeAfter"
                     checked={optimizeAfter}
-                    onCheckedChange={setOptimizeAfter}
+                    onCheckedChange={(checked) => setOptimizeAfter(checked === true)}
                   />
                   <Label htmlFor="optimizeAfter">Optimize After Organization</Label>
                 </div>
@@ -305,7 +305,7 @@ const OrganizePdf = () => {
                   <Checkbox
                     id="preserveMetadata"
                     checked={preserveMetadata}
-                    onCheckedChange={setPreserveMetadata}
+                    onCheckedChange={(checked) => setPreserveMetadata(checked === true)}
                   />
                   <Label htmlFor="preserveMetadata">Preserve Metadata</Label>
                 </div>
@@ -314,7 +314,7 @@ const OrganizePdf = () => {
                   <Checkbox
                     id="addPageNumbers"
                     checked={addPageNumbers}
-                    onCheckedChange={setAddPageNumbers}
+                    onCheckedChange={(checked) => setAddPageNumbers(checked === true)}
                   />
                   <Label htmlFor="addPageNumbers">Add Page Numbers</Label>
                 </div>
@@ -323,7 +323,7 @@ const OrganizePdf = () => {
                   <Checkbox
                     id="mergeDuplicates"
                     checked={mergeDuplicates}
-                    onCheckedChange={setMergeDuplicates}
+                    onCheckedChange={(checked) => setMergeDuplicates(checked === true)}
                   />
                   <Label htmlFor="mergeDuplicates">Merge Duplicate Pages</Label>
                 </div>
@@ -332,7 +332,7 @@ const OrganizePdf = () => {
                   <Checkbox
                     id="autoDetectSections"
                     checked={autoDetectSections}
-                    onCheckedChange={setAutoDetectSections}
+                    onCheckedChange={(checked) => setAutoDetectSections(checked === true)}
                   />
                   <Label htmlFor="autoDetectSections">Auto-detect Sections</Label>
                 </div>

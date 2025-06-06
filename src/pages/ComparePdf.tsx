@@ -214,7 +214,7 @@ const ComparePdf = () => {
                   <Checkbox
                     id="detectMoves"
                     checked={detectMoves}
-                    onCheckedChange={setDetectMoves}
+                    onCheckedChange={(checked) => setDetectMoves(checked === true)}
                   />
                   <Label htmlFor="detectMoves">Detect Moved Content</Label>
                 </div>
@@ -223,7 +223,7 @@ const ComparePdf = () => {
                   <Checkbox
                     id="generateSummary"
                     checked={generateSummary}
-                    onCheckedChange={setGenerateSummary}
+                    onCheckedChange={(checked) => setGenerateSummary(checked === true)}
                   />
                   <Label htmlFor="generateSummary">Generate Summary Report</Label>
                 </div>
@@ -232,7 +232,7 @@ const ComparePdf = () => {
                   <Checkbox
                     id="includeMetadata"
                     checked={includeMetadata}
-                    onCheckedChange={setIncludeMetadata}
+                    onCheckedChange={(checked) => setIncludeMetadata(checked === true)}
                   />
                   <Label htmlFor="includeMetadata">Compare Metadata</Label>
                 </div>
@@ -260,7 +260,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="wordLevel"
                       checked={wordLevel}
-                      onCheckedChange={setWordLevel}
+                      onCheckedChange={(checked) => setWordLevel(checked === true)}
                     />
                     <Label htmlFor="wordLevel">Word-level Comparison</Label>
                   </div>
@@ -269,7 +269,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="characterLevel"
                       checked={characterLevel}
-                      onCheckedChange={setCharacterLevel}
+                      onCheckedChange={(checked) => setCharacterLevel(checked === true)}
                     />
                     <Label htmlFor="characterLevel">Character-level Comparison</Label>
                   </div>
@@ -283,7 +283,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="ignoreFormatting"
                       checked={ignoreFormatting}
-                      onCheckedChange={setIgnoreFormatting}
+                      onCheckedChange={(checked) => setIgnoreFormatting(checked === true)}
                     />
                     <Label htmlFor="ignoreFormatting">Ignore Formatting</Label>
                   </div>
@@ -292,7 +292,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="ignoreWhitespace"
                       checked={ignoreWhitespace}
-                      onCheckedChange={setIgnoreWhitespace}
+                      onCheckedChange={(checked) => setIgnoreWhitespace(checked === true)}
                     />
                     <Label htmlFor="ignoreWhitespace">Ignore Whitespace</Label>
                   </div>
@@ -301,7 +301,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="ignoreImages"
                       checked={ignoreImages}
-                      onCheckedChange={setIgnoreImages}
+                      onCheckedChange={(checked) => setIgnoreImages(checked === true)}
                     />
                     <Label htmlFor="ignoreImages">Ignore Images</Label>
                   </div>
@@ -310,7 +310,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="ignoreAnnotations"
                       checked={ignoreAnnotations}
-                      onCheckedChange={setIgnoreAnnotations}
+                      onCheckedChange={(checked) => setIgnoreAnnotations(checked === true)}
                     />
                     <Label htmlFor="ignoreAnnotations">Ignore Annotations</Label>
                   </div>
@@ -379,7 +379,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="highlightDeletions"
                       checked={highlightDeletions}
-                      onCheckedChange={setHighlightDeletions}
+                      onCheckedChange={(checked) => setHighlightDeletions(checked === true)}
                     />
                     <Label htmlFor="highlightDeletions">Deletions</Label>
                   </div>
@@ -388,7 +388,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="highlightInsertions"
                       checked={highlightInsertions}
-                      onCheckedChange={setHighlightInsertions}
+                      onCheckedChange={(checked) => setHighlightInsertions(checked === true)}
                     />
                     <Label htmlFor="highlightInsertions">Insertions</Label>
                   </div>
@@ -397,7 +397,7 @@ const ComparePdf = () => {
                     <Checkbox
                       id="highlightChanges"
                       checked={highlightChanges}
-                      onCheckedChange={setHighlightChanges}
+                      onCheckedChange={(checked) => setHighlightChanges(checked === true)}
                     />
                     <Label htmlFor="highlightChanges">Modifications</Label>
                   </div>
@@ -409,7 +409,7 @@ const ComparePdf = () => {
                   <Checkbox
                     id="showLineNumbers"
                     checked={showLineNumbers}
-                    onCheckedChange={setShowLineNumbers}
+                    onCheckedChange={(checked) => setShowLineNumbers(checked === true)}
                   />
                   <Label htmlFor="showLineNumbers">Show Line Numbers</Label>
                 </div>
@@ -418,7 +418,7 @@ const ComparePdf = () => {
                   <Checkbox
                     id="sideBySide"
                     checked={sideBySide}
-                    onCheckedChange={setSideBySide}
+                    onCheckedChange={(checked) => setSideBySide(checked === true)}
                   />
                   <Label htmlFor="sideBySide">Side-by-Side View</Label>
                 </div>
