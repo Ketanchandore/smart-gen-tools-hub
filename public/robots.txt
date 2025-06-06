@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aiprotoolkithub.com/sitemap.xml
+Sitemap: https://pinetoolshub.com/sitemap.xml

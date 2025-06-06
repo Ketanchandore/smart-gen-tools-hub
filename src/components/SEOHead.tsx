@@ -10,11 +10,11 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "AI Pro Toolkit Hub - Professional PDF Tools & Generators",
+  title = "Pine Tools Hub - Professional PDF Tools & Generators",
   description = "Comprehensive collection of AI-powered tools including PDF converters, generators, and professional utilities. Free online tools for productivity and efficiency.",
   keywords = "PDF tools, AI generators, online converters, productivity tools, document processing, resume builder, QR code generator",
   image = "/placeholder.svg",
-  url = "https://aiprotoolkithub.com"
+  url = "https://pinetoolshub.com"
 }) => {
   useEffect(() => {
     // Update document title
@@ -42,7 +42,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
     updateMetaTag('robots', 'index, follow');
-    updateMetaTag('author', 'AI Pro Toolkit Hub');
+    updateMetaTag('author', 'Pine Tools Hub');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 
     // Open Graph meta tags
@@ -51,7 +51,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('', image, 'og:image');
     updateMetaTag('', url, 'og:url');
     updateMetaTag('', 'website', 'og:type');
-    updateMetaTag('', 'AI Pro Toolkit Hub', 'og:site_name');
+    updateMetaTag('', 'Pine Tools Hub', 'og:site_name');
 
     // Twitter meta tags
     updateMetaTag('twitter:card', 'summary_large_image');

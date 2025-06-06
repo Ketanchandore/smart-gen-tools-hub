@@ -1,7 +1,7 @@
 
 {
-  "name": "AI Pro Toolkit Hub",
-  "short_name": "AI Toolkit",
+  "name": "Pine Tools Hub",
+  "short_name": "Pine Tools",
   "description": "Professional PDF tools and AI-powered generators",
   "start_url": "/",
   "display": "standalone",

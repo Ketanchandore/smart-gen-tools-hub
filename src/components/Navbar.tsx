@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Github, Menu, User, LogOut } from 'lucide-react';
@@ -35,7 +34,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            AI Pro Toolkit <span className="hidden sm:inline text-foreground">Hub</span>
+            Pine Tools <span className="hidden sm:inline text-foreground">Hub</span>
           </span>
         </Link>
         
