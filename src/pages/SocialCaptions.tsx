@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Camera, ArrowLeft, Sparkles, Copy, Download, RefreshCw, Instagram, Twitter, Linkedin, Facebook, Youtube, TikTok } from 'lucide-react';
+import { Camera, ArrowLeft, Sparkles, Copy, Download, RefreshCw, Instagram, Twitter, Linkedin, Facebook, Youtube, Video } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -59,7 +58,7 @@ const SocialCaptions = () => {
     { id: 'linkedin', name: 'LinkedIn', icon: Linkedin, maxLength: 3000, color: 'bg-blue-600' },
     { id: 'facebook', name: 'Facebook', icon: Facebook, maxLength: 63206, color: 'bg-blue-700' },
     { id: 'youtube', name: 'YouTube', icon: Youtube, maxLength: 5000, color: 'bg-red-500' },
-    { id: 'tiktok', name: 'TikTok', icon: TikTok, maxLength: 300, color: 'bg-black' }
+    { id: 'tiktok', name: 'TikTok', icon: Video, maxLength: 300, color: 'bg-black' }
   ];
 
   const tones = [
