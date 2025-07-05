@@ -12,6 +12,9 @@ Allow: /pdf-tools/
 Allow: /ai-generators/
 Allow: /resume-builder/
 Allow: /qr-generator/
+Allow: /calculator/
+Allow: /color-picker/
+Allow: /productivity-tools/
 
 # Crawl delay (optional - remove if not needed)
 Crawl-delay: 1

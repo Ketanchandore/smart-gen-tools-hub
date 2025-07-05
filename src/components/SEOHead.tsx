@@ -10,9 +10,9 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "Pine Tools Hub - Professional PDF Tools & Generators",
+  title = "Pine Tools Hub - Professional PDF Tools & AI Generators",
   description = "Comprehensive collection of AI-powered tools including PDF converters, generators, and professional utilities. Free online tools for productivity and efficiency.",
-  keywords = "PDF tools, AI generators, online converters, productivity tools, document processing, resume builder, QR code generator",
+  keywords = "free resume builder, AI tools hub, smart online calculators, PDF tools, productivity tools, color picker, online generators",
   image = "/placeholder.svg",
   url = "https://pinetoolshub.com"
 }) => {
