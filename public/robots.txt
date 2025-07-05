@@ -2,21 +2,35 @@
 User-agent: *
 Allow: /
 
+# Important: Allow crawling of all AI tools and utilities
+Allow: /resume-builder/
+Allow: /pdf-to-word/
+Allow: /word-to-pdf/
+Allow: /pdf-tools/
+Allow: /ai-generators/
+Allow: /calculators/
+Allow: /color-picker/
+Allow: /qr-code/
+Allow: /password-generator/
+Allow: /social-captions/
+Allow: /blog-writer/
+
+# Allow important content pages
+Allow: /about
+Allow: /contact
+Allow: /faq
+Allow: /blog
+Allow: /privacy-policy
+Allow: /terms
+
 # Disallow admin/auth pages from search engines
 Disallow: /admin/
 Disallow: /profile/
 Disallow: /forgot-password/
+Disallow: /login/
+Disallow: /signup/
 
-# Allow important pages
-Allow: /pdf-tools/
-Allow: /ai-generators/
-Allow: /resume-builder/
-Allow: /about
-Allow: /contact
-Allow: /privacy-policy
-Allow: /terms
-
-# Crawl delay (optional)
+# Crawl delay for better server performance
 Crawl-delay: 1
 
 # Sitemap location
