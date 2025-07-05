@@ -201,7 +201,7 @@ const Contact = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Support Requests:</span>
-                    <span className="text-sm font-medium">< 24 hours</span>
+                    <span className="text-sm font-medium">&lt; 24 hours</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm">General Inquiries:</span>
