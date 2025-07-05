@@ -2,36 +2,23 @@
 User-agent: *
 Allow: /
 
-# Important: Allow crawling of all AI tools and utilities
-Allow: /resume-builder/
-Allow: /pdf-to-word/
-Allow: /word-to-pdf/
-Allow: /pdf-tools/
-Allow: /ai-generators/
-Allow: /calculators/
-Allow: /color-picker/
-Allow: /qr-code/
-Allow: /password-generator/
-Allow: /social-captions/
-Allow: /blog-writer/
-
-# Allow important content pages
-Allow: /about
-Allow: /contact
-Allow: /faq
-Allow: /blog
-Allow: /privacy-policy
-Allow: /terms
-
 # Disallow admin/auth pages from search engines
 Disallow: /admin/
 Disallow: /profile/
 Disallow: /forgot-password/
-Disallow: /login/
-Disallow: /signup/
 
-# Crawl delay for better server performance
+# Allow important pages
+Allow: /pdf-tools/
+Allow: /ai-generators/
+Allow: /resume-builder/
+Allow: /qr-generator/
+
+# Crawl delay (optional - remove if not needed)
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://smart-gen-tools-hub.lovable.app/sitemap.xml
+Sitemap: https://pinetoolshub.com/sitemap.xml
+
+# Additional sitemaps (if you add more later)
+# Sitemap: https://pinetoolshub.com/sitemap-tools.xml
+# Sitemap: https://pinetoolshub.com/sitemap-blog.xml

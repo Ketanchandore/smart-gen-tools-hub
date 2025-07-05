@@ -10,17 +10,17 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "Smart Gen Tools Hub - Free AI Resume Builder & PDF Tools",
-  description = "Create professional resumes, convert PDFs, use smart calculators, color pickers and 100+ AI-powered productivity tools. Free, fast, and no login required.",
-  keywords = "free resume builder, AI tools, PDF converter, smart calculator, color picker, productivity tools, online generators, resume creator, AI utilities, web tools, no login tools, mobile tools",
-  image = "/og-preview.png",
-  url = "https://smart-gen-tools-hub.lovable.app"
+  title = "Pine Tools Hub - Professional PDF Tools & Generators",
+  description = "Comprehensive collection of AI-powered tools including PDF converters, generators, and professional utilities. Free online tools for productivity and efficiency.",
+  keywords = "PDF tools, AI generators, online converters, productivity tools, document processing, resume builder, QR code generator",
+  image = "/placeholder.svg",
+  url = "https://pinetoolshub.com"
 }) => {
   useEffect(() => {
-    // Update document title with SEO-optimized format
+    // Update document title
     document.title = title;
 
-    // Update meta tags with SEO focus
+    // Update meta tags
     const updateMetaTag = (name: string, content: string, property?: string) => {
       const selector = property ? `meta[property="${property}"]` : `meta[name="${name}"]`;
       let meta = document.querySelector(selector) as HTMLMetaElement;
@@ -38,46 +38,30 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       meta.setAttribute('content', content);
     };
 
-    // SEO-optimized meta tags
+    // Basic meta tags
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
-    updateMetaTag('robots', 'index, follow, max-snippet:-1, max-image-preview:large');
-    updateMetaTag('author', 'Pineapple Technologies - Smart Gen Tools Hub');
+    updateMetaTag('robots', 'index, follow');
+    updateMetaTag('author', 'Pine Tools Hub');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 
-    // Enhanced Open Graph meta tags
+    // Open Graph meta tags
     updateMetaTag('', title, 'og:title');
     updateMetaTag('', description, 'og:description');
     updateMetaTag('', image, 'og:image');
     updateMetaTag('', url, 'og:url');
     updateMetaTag('', 'website', 'og:type');
-    updateMetaTag('', 'Smart Gen Tools Hub', 'og:site_name');
-    updateMetaTag('', '1200', 'og:image:width');
-    updateMetaTag('', '630', 'og:image:height');
+    updateMetaTag('', 'Pine Tools Hub', 'og:site_name');
 
-    // Enhanced Twitter meta tags
+    // Twitter meta tags
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', image);
-    updateMetaTag('twitter:creator', '@smartgentoolshub');
-    updateMetaTag('twitter:site', '@smartgentoolshub');
 
     // Additional SEO tags
     updateMetaTag('theme-color', '#0f172a');
     updateMetaTag('msapplication-TileColor', '#0f172a');
-    updateMetaTag('application-name', 'Smart Gen Tools Hub');
-    updateMetaTag('apple-mobile-web-app-title', 'Smart Gen Tools Hub');
-    
-    // Add canonical link
-    let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-    if (!canonicalLink) {
-      canonicalLink = document.createElement('link');
-      canonicalLink.rel = 'canonical';
-      document.head.appendChild(canonicalLink);
-    }
-    canonicalLink.href = url;
-
   }, [title, description, keywords, image, url]);
 
   return null;
