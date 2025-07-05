@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Index from './pages/Index';
 import ResumeBuilder from './pages/ResumeBuilder';
 import PdfToWord from './pages/PdfToWord';
@@ -18,7 +20,6 @@ import PINLocator from './pages/PINLocator';
 import TempEmail from './pages/TempEmail';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { Toaster } from "@/components/ui/toaster"
-import { QueryClient } from 'react-query';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -33,10 +34,13 @@ import PowerpointToPdf from './pages/PowerpointToPdf';
 import ExcelToPdf from './pages/ExcelToPdf';
 import PdfToJpg from './pages/PdfToJpg';
 import SignPdf from './pages/SignPdf';
+import Layout from './components/Layout';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClient>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <Router>
           <div className="min-h-screen bg-background text-foreground">
@@ -66,7 +70,7 @@ function App() {
               <Route path="/pdf-to-jpg" element={<PdfToJpg />} />
               <Route path="/sign-pdf" element={<SignPdf />} />
               
-              {/* New SEO and Legal Pages */}
+              {/* SEO and Legal Pages */}
               <Route path="/about" element={<Layout><About /></Layout>} />
               <Route path="/contact" element={<Layout><Contact /></Layout>} />
               <Route path="/privacy-policy" element={<Layout><PrivacyPolicy /></Layout>} />
@@ -81,39 +85,8 @@ function App() {
           </div>
         </Router>
       </ThemeProvider>
-    </QueryClient>
+    </QueryClientProvider>
   );
 }
 
 export default App;
-
-import React from 'react';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import SEOHead from './components/SEOHead';
-import CookieConsent from './components/CookieConsent';
-import WhatsAppShare from './components/WhatsAppShare';
-import { usePerformanceOptimization } from '@/hooks/usePerformanceOptimization';
-
-interface LayoutProps {
-  children: React.ReactNode;
-  title?: string;
-  description?: string;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
-  usePerformanceOptimization();
-
-  return (
-    <div className="flex flex-col min-h-screen">
-      <SEOHead title={title} description={description} />
-      <Navbar />
-      <main className="flex-grow">{children}</main>
-      <Footer />
-      <CookieConsent />
-      <WhatsAppShare />
-    </div>
-  );
-};
-
-export default Layout;
