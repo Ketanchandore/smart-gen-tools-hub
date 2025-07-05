@@ -1,0 +1,17 @@
+
+/* TEAM */
+    Developer: Pine Tools Hub Team
+    Site: https://pinetoolshub.com
+    Contact: info@pinetoolshub.com
+    Location: Worldwide
+
+/* SITE */
+    Last update: 2025/01/07
+    Language: English
+    Standards: HTML5, CSS3, ES6+
+    Components: React, TypeScript, Tailwind CSS
+    Software: Vite, Lovable
+    
+/* THANKS */
+    To all the developers and designers who make the web a better place.
+    Special thanks to the open-source community.

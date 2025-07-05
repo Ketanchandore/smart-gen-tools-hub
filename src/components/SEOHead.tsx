@@ -41,7 +41,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     // Basic meta tags
     updateMetaTag('description', description);
     updateMetaTag('keywords', keywords);
-    updateMetaTag('robots', 'index, follow');
+    updateMetaTag('robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
     updateMetaTag('author', 'Pine Tools Hub');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 
@@ -62,6 +62,40 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     // Additional SEO tags
     updateMetaTag('theme-color', '#0f172a');
     updateMetaTag('msapplication-TileColor', '#0f172a');
+
+    // Add JSON-LD structured data for page-specific content
+    const existingScript = document.querySelector('#page-structured-data');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.id = 'page-structured-data';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": title,
+      "description": description,
+      "url": url,
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Pine Tools Hub",
+        "url": "https://pinetoolshub.com"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pinetoolshub.com"
+          }
+        ]
+      }
+    });
+    document.head.appendChild(script);
   }, [title, description, keywords, image, url]);
 
   return null;

@@ -17,6 +17,8 @@
     <meta name="revisit-after" content="7 days" />
     <meta name="distribution" content="global" />
     <meta name="rating" content="general" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -67,11 +69,11 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="/src/index.css" as="style" />
     
-    <!-- Google Search Console Verification (add your verification code here when ready) -->
-    <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="REPLACE_WITH_YOUR_VERIFICATION_CODE" />
     
-    <!-- Bing Webmaster Tools (optional) -->
-    <!-- <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" /> -->
+    <!-- Bing Webmaster Tools -->
+    <meta name="msvalidate.01" content="REPLACE_WITH_YOUR_BING_VERIFICATION_CODE" />
     
     <!-- Enhanced Schema.org structured data -->
     <script type="application/ld+json">
@@ -194,6 +196,24 @@
         "No Signup Required",
         "Mobile Friendly"
       ]
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Pine Tools Hub",
+      "url": "https://pinetoolshub.com",
+      "logo": "https://pinetoolshub.com/placeholder.svg",
+      "description": "Pine Tools Hub provides free AI-powered productivity tools including resume builders, PDF converters, calculators, and design utilities.",
+      "foundingDate": "2024",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "availableLanguage": "English"
+      }
     }
     </script>
   </head>
