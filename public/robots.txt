@@ -11,14 +11,13 @@ Disallow: /forgot-password/
 Allow: /pdf-tools/
 Allow: /ai-generators/
 Allow: /resume-builder/
-Allow: /qr-generator/
+Allow: /about
+Allow: /contact
+Allow: /privacy-policy
+Allow: /terms
 
-# Crawl delay (optional - remove if not needed)
+# Crawl delay (optional)
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://pinetoolshub.com/sitemap.xml
-
-# Additional sitemaps (if you add more later)
-# Sitemap: https://pinetoolshub.com/sitemap-tools.xml
-# Sitemap: https://pinetoolshub.com/sitemap-blog.xml
+Sitemap: https://smart-gen-tools-hub.lovable.app/sitemap.xml
