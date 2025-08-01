@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Youtube } from 'lucide-react';
+import { Youtube, Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -34,17 +34,45 @@ const Footer = () => {
             </Link>
           </div>
           
-          {/* YouTube Link */}
-          <div className="flex items-center justify-center space-x-3 mb-4">
+          {/* Social Media Links */}
+          <div className="flex items-center justify-center space-x-6 mb-4">
+            {/* YouTube Link */}
             <a
               href="https://youtube.com/@user-iy2kz2ur7o?si=yAWjRDIZJ7MJ-k0d"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit our YouTube channel"
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-red-600 transition-colors group"
+              title="Pine Tools Hub YouTube Channel"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-red-600 transition-all duration-300 group"
             >
               <Youtube className="h-7 w-7 transition-transform group-hover:scale-110 text-red-500" />
-              <span className="text-base font-medium hidden sm:inline">Visit our YouTube Channel</span>
+              <span className="text-base font-medium hidden sm:inline">YouTube</span>
+            </a>
+
+            {/* LinkedIn Link */}
+            <a
+              href="https://www.linkedin.com/in/ketan-chandore-51a533254?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Connect with us on LinkedIn"
+              title="Pine Tools Hub LinkedIn Profile"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-blue-600 transition-all duration-300 group"
+            >
+              <Linkedin className="h-7 w-7 transition-transform group-hover:scale-110 text-blue-600" />
+              <span className="text-base font-medium hidden sm:inline">LinkedIn</span>
+            </a>
+
+            {/* Twitter Link */}
+            <a
+              href="https://x.com/pinepl_techai?s=09"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow us on Twitter"
+              title="Pine Tools Hub Twitter Profile"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-sky-500 transition-all duration-300 group"
+            >
+              <Twitter className="h-7 w-7 transition-transform group-hover:scale-110 text-sky-500" />
+              <span className="text-base font-medium hidden sm:inline">Twitter</span>
             </a>
           </div>
           
