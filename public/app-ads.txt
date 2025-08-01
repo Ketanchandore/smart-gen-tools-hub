@@ -1,0 +1,7 @@
+
+# App-ads.txt file for Pine Tools Hub
+# This file is for mobile app advertising verification
+# Add your mobile advertising partners here
+
+# Example format:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
