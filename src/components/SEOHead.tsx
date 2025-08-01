@@ -44,10 +44,6 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
     updateMetaTag('author', 'Pine Tools Hub');
     updateMetaTag('viewport', 'width=device-width, initial-scale=1.0');
-    updateMetaTag('language', 'English');
-    updateMetaTag('revisit-after', '7 days');
-    updateMetaTag('distribution', 'global');
-    updateMetaTag('rating', 'general');
 
     // Open Graph meta tags
     updateMetaTag('', title, 'og:title');
@@ -56,32 +52,16 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     updateMetaTag('', url, 'og:url');
     updateMetaTag('', 'website', 'og:type');
     updateMetaTag('', 'Pine Tools Hub', 'og:site_name');
-    updateMetaTag('', 'en_US', 'og:locale');
-    updateMetaTag('', '1200', 'og:image:width');
-    updateMetaTag('', '630', 'og:image:height');
 
     // Twitter meta tags
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', image);
-    updateMetaTag('twitter:creator', '@pinepl_techai');
-    updateMetaTag('twitter:site', '@pinepl_techai');
 
     // Additional SEO tags
     updateMetaTag('theme-color', '#0f172a');
     updateMetaTag('msapplication-TileColor', '#0f172a');
-    updateMetaTag('googlebot', 'index, follow');
-    updateMetaTag('bingbot', 'index, follow');
-
-    // Add canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', url);
 
     // Add JSON-LD structured data for page-specific content
     const existingScript = document.querySelector('#page-structured-data');
@@ -113,14 +93,6 @@ const SEOHead: React.FC<SEOHeadProps> = ({
             "item": "https://pinetoolshub.com"
           }
         ]
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Pine Tools Hub",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://pinetoolshub.com/placeholder.svg"
-        }
       }
     });
     document.head.appendChild(script);

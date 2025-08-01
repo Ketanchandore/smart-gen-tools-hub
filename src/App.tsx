@@ -1,88 +1,299 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Index from "./pages/Index";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import Profile from "./pages/Profile";
+import BarcodeGenerator from "./pages/BarcodeGenerator";
+import CreditCardGenerator from "./pages/CreditCardGenerator";
+import DateGenerator from "./pages/DateGenerator";
+import FakeIdentity from "./pages/FakeIdentity";
+import IFSCFinder from "./pages/IFSCFinder";
+import ImageCompressor from "./pages/ImageCompressor";
+import ImageConverter from "./pages/ImageConverter";
+import LoremIpsum from "./pages/LoremIpsum";
+import NotFound from "./pages/NotFound";
+import NumberPlate from "./pages/NumberPlate";
+import PasswordGenerator from "./pages/PasswordGenerator";
+import PINLocator from "./pages/PINLocator";
+import TextCaseConverter from "./pages/TextCaseConverter";
+import TempEmail from "./pages/TempEmail";
+import WordToPdf from "./pages/WordToPdf";
+import PdfToWord from "./pages/PdfToWord";
+import PdfSplitMerge from "./pages/PdfSplitMerge";
+import { Toaster } from "./components/ui/toaster";
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from "@/components/theme-provider"
-import { AuthProvider } from './contexts/AuthContext';
-import { Toaster } from "@/components/ui/toaster"
-import CookieConsent from './components/CookieConsent';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Profile from './pages/Profile';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-import Logout from './pages/Logout';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsConditions from './pages/TermsConditions';
-import Disclaimer from './pages/Disclaimer';
-import PdfToWord from './pages/PdfToWord';
-import BarcodeGenerator from './pages/BarcodeGenerator';
-import PlaceholderTool from './pages/PlaceholderTool';
-import { Rocket, Palette, Calculator, FileText, Image as ImageIcon } from 'lucide-react';
-import AdvancedSEO from '@/components/AdvancedSEO';
+// New imports for the new tools
+// Career tools
+import ResumeBuilder from "./pages/ResumeBuilder";
+import CoverLetter from "./pages/CoverLetter";
+import LinkedInBio from "./pages/LinkedInBio";
+import JobMatcher from "./pages/JobMatcher";
+import InterviewCoach from "./pages/InterviewCoach";
+import ResumeScore from "./pages/ResumeScore";
 
+// Content tools
+import BlogWriter from "./pages/BlogWriter";
+import BlogRewriter from "./pages/BlogRewriter";
+import TwitterThread from "./pages/TwitterThread";
+import ContentDetector from "./pages/ContentDetector";
+import BlogTopics from "./pages/BlogTopics";
+import SmartCopy from "./pages/SmartCopy";
+import EmailWriter from "./pages/EmailWriter";
+import ProductDescription from "./pages/ProductDescription";
+import SocialCaptions from "./pages/SocialCaptions";
+import ScriptPresentation from "./pages/ScriptPresentation";
+import EmailSequence from "./pages/EmailSequence";
+import ArticleSocial from "./pages/ArticleSocial";
+import NameGenerator from "./pages/NameGenerator";
+import TaglineGenerator from "./pages/TaglineGenerator";
+import TestimonialGenerator from "./pages/TestimonialGenerator";
+
+// Multimedia tools
+import VideoSummarizer from "./pages/VideoSummarizer";
+import YoutubeSummarizer from "./pages/YoutubeSummarizer";
+import BlogToCarousel from "./pages/BlogToCarousel";
+import BlogToInfographic from "./pages/BlogToInfographic";
+import YoutubeShorts from "./pages/YoutubeShorts";
+import TextToSpeech from "./pages/TextToSpeech";
+import VoiceCloner from "./pages/VoiceCloner";
+import AudioEnhancer from "./pages/AudioEnhancer";
+import ChatYoutube from "./pages/ChatYoutube";
+import YoutubeDescription from "./pages/YoutubeDescription";
+import PinterestCreator from "./pages/PinterestCreator";
+import TiktokScript from "./pages/TiktokScript";
+
+// Document tools
+import ImageToText from "./pages/ImageToText";
+import DocumentQA from "./pages/DocumentQA";
+import WordCounter from "./pages/WordCounter";
+
+// Coding tools
+import CodeGenerator from "./pages/CodeGenerator";
+import CodeExplainer from "./pages/CodeExplainer";
+import WebsiteAnalyzer from "./pages/WebsiteAnalyzer";
+import ChromeExtension from "./pages/ChromeExtension";
+import SaasName from "./pages/SaasName";
+
+// Learning tools
+import StudyNotes from "./pages/StudyNotes";
+import SlideGenerator from "./pages/SlideGenerator";
+import ChatWebsite from "./pages/ChatWebsite";
+import MindMap from "./pages/MindMap";
+import FlashcardGenerator from "./pages/FlashcardGenerator";
+import AiTranslator from "./pages/AiTranslator";
+
+// Marketing tools
+import BusinessPlan from "./pages/BusinessPlan";
+import LeadMagnet from "./pages/LeadMagnet";
+import SurveyCreator from "./pages/SurveyCreator";
+
+// Design tools
+import ImageGenerator from "./pages/ImageGenerator";
+import AvatarGenerator from "./pages/AvatarGenerator";
+import ChatImage from "./pages/ChatImage";
+import BrandkitOrganizer from "./pages/BrandkitOrganizer";
+import ImageEnhancer from "./pages/ImageEnhancer";
+
+// Utilities
+import QrCode from "./pages/QrCode";
+
+// Create a client
 const queryClient = new QueryClient();
+
+// New PDF Tool Routes
+import MergePdf from "./pages/MergePdf";
+import SplitPdf from "./pages/SplitPdf";
+import CompressPdf from "./pages/CompressPdf";
+import PdfToPowerpoint from "./pages/PdfToPowerpoint";
+import PdfToExcel from "./pages/PdfToExcel";
+import PowerpointToPdf from "./pages/PowerpointToPdf";
+import ExcelToPdf from "./pages/ExcelToPdf";
+import EditPdf from "./pages/EditPdf";
+import PdfToJpg from "./pages/PdfToJpg";
+import JpgToPdf from "./pages/JpgToPdf";
+import SignPdf from "./pages/SignPdf";
+import WatermarkPdf from "./pages/WatermarkPdf";
+import RotatePdf from "./pages/RotatePdf";
+import HtmlToPdf from "./pages/HtmlToPdf";
+import UnlockPdf from "./pages/UnlockPdf";
+import ProtectPdf from "./pages/ProtectPdf";
+import OrganizePdf from "./pages/OrganizePdf";
+import PdfToPdfa from "./pages/PdfToPdfa";
+import RepairPdf from "./pages/RepairPdf";
+import PageNumbersPdf from "./pages/PageNumbersPdf";
+import ScanToPdf from "./pages/ScanToPdf";
+import OcrPdf from "./pages/OcrPdf";
+import ComparePdf from "./pages/ComparePdf";
+import RedactPdf from "./pages/RedactPdf";
+import CropPdf from "./pages/CropPdf";
+
+// New imports for legal pages
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
+import Disclaimer from "./pages/Disclaimer";
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <div className="min-h-screen bg-background text-foreground">
-            <Router>
-              <AdvancedSEO />
-              <Routes>
-                <Route path="/" element={<Home />} />
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout><Outlet /></Layout>}>
+                <Route index element={<Index />} />
+                
+                {/* Auth Routes */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/profile" element={<Profile />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password/:token" element={<ResetPassword />} />
-                <Route path="/logout" element={<Logout />} />
+                
+                {/* Legal and Trust Pages */}
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-conditions" element={<TermsConditions />} />
                 <Route path="/disclaimer" element={<Disclaimer />} />
                 
-                {/* PDF Tools */}
-                <Route path="/pdf-to-word" element={<PdfToWord />} />
+                {/* Protected Routes */}
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                 
-                {/* AI Generator Tools */}
+                {/* Existing Tool Routes */}
                 <Route path="/barcode-generator" element={<BarcodeGenerator />} />
-
-                {/* Placeholder Pages */}
-                <Route 
-                  path="/ai-generators" 
-                  element={<PlaceholderTool title="AI Generators" description="Explore our suite of AI-powered tools to boost your creativity and productivity." icon={<Rocket />} />} 
-                />
-                <Route 
-                  path="/color-picker" 
-                  element={<PlaceholderTool title="Color Picker" description="Discover and generate color palettes for your next design project." icon={<Palette />} />} 
-                />
-                <Route 
-                  path="/calculator" 
-                  element={<PlaceholderTool title="Calculator" description="Smart online calculators for everyday needs." icon={<Calculator />} />} 
-                />
-                <Route 
-                  path="/pdf-tools" 
-                  element={<PlaceholderTool title="PDF Tools" description="Convert, merge, split, and compress PDFs with ease." icon={<FileText />} />} 
-                />
-                <Route 
-                  path="/image-generator" 
-                  element={<PlaceholderTool title="Image Generator" description="Create unique images with our AI-powered generator." icon={<ImageIcon />} />} 
-                />
-              </Routes>
-            </Router>
-            <Toaster />
-            <CookieConsent />
-          </div>
+                <Route path="/credit-card-generator" element={<CreditCardGenerator />} />
+                <Route path="/date-generator" element={<DateGenerator />} />
+                <Route path="/fake-identity" element={<FakeIdentity />} />
+                <Route path="/ifsc-finder" element={<IFSCFinder />} />
+                <Route path="/image-compressor" element={<ImageCompressor />} />
+                <Route path="/image-converter" element={<ImageConverter />} />
+                <Route path="/lorem-ipsum" element={<LoremIpsum />} />
+                <Route path="/number-plate" element={<NumberPlate />} />
+                <Route path="/password-generator" element={<PasswordGenerator />} />
+                <Route path="/pin-locator" element={<PINLocator />} />
+                <Route path="/text-case-converter" element={<TextCaseConverter />} />
+                <Route path="/temp-email" element={<TempEmail />} />
+                <Route path="/word-to-pdf" element={<WordToPdf />} />
+                <Route path="/pdf-to-word" element={<PdfToWord />} />
+                <Route path="/pdf-split-merge" element={<PdfSplitMerge />} />
+                
+                {/* Career Tool Routes */}
+                <Route path="/resume-builder" element={<ResumeBuilder />} />
+                <Route path="/cover-letter" element={<CoverLetter />} />
+                <Route path="/linkedin-bio" element={<LinkedInBio />} />
+                <Route path="/job-matcher" element={<JobMatcher />} />
+                <Route path="/interview-coach" element={<InterviewCoach />} />
+                <Route path="/resume-score" element={<ResumeScore />} />
+                
+                {/* Content Tool Routes */}
+                <Route path="/blog-writer" element={<BlogWriter />} />
+                <Route path="/blog-rewriter" element={<BlogRewriter />} />
+                <Route path="/twitter-thread" element={<TwitterThread />} />
+                <Route path="/content-detector" element={<ContentDetector />} />
+                <Route path="/blog-topics" element={<BlogTopics />} />
+                <Route path="/smart-copy" element={<SmartCopy />} />
+                <Route path="/email-writer" element={<EmailWriter />} />
+                <Route path="/product-description" element={<ProductDescription />} />
+                <Route path="/social-captions" element={<SocialCaptions />} />
+                <Route path="/script-presentation" element={<ScriptPresentation />} />
+                <Route path="/email-sequence" element={<EmailSequence />} />
+                <Route path="/article-social" element={<ArticleSocial />} />
+                <Route path="/name-generator" element={<NameGenerator />} />
+                <Route path="/tagline-generator" element={<TaglineGenerator />} />
+                <Route path="/testimonial-generator" element={<TestimonialGenerator />} />
+                
+                {/* Multimedia Tool Routes */}
+                <Route path="/video-summarizer" element={<VideoSummarizer />} />
+                <Route path="/youtube-summarizer" element={<YoutubeSummarizer />} />
+                <Route path="/blog-to-carousel" element={<BlogToCarousel />} />
+                <Route path="/blog-to-infographic" element={<BlogToInfographic />} />
+                <Route path="/youtube-shorts" element={<YoutubeShorts />} />
+                <Route path="/text-to-speech" element={<TextToSpeech />} />
+                <Route path="/voice-cloner" element={<VoiceCloner />} />
+                <Route path="/audio-enhancer" element={<AudioEnhancer />} />
+                <Route path="/chat-youtube" element={<ChatYoutube />} />
+                <Route path="/youtube-description" element={<YoutubeDescription />} />
+                <Route path="/pinterest-creator" element={<PinterestCreator />} />
+                <Route path="/tiktok-script" element={<TiktokScript />} />
+                
+                {/* Document Tool Routes */}
+                <Route path="/image-to-text" element={<ImageToText />} />
+                <Route path="/document-qa" element={<DocumentQA />} />
+                <Route path="/word-counter" element={<WordCounter />} />
+                
+                {/* Coding Tool Routes */}
+                <Route path="/code-generator" element={<CodeGenerator />} />
+                <Route path="/code-explainer" element={<CodeExplainer />} />
+                <Route path="/website-analyzer" element={<WebsiteAnalyzer />} />
+                <Route path="/chrome-extension" element={<ChromeExtension />} />
+                <Route path="/saas-name" element={<SaasName />} />
+                
+                {/* Learning Tool Routes */}
+                <Route path="/study-notes" element={<StudyNotes />} />
+                <Route path="/slide-generator" element={<SlideGenerator />} />
+                <Route path="/chat-website" element={<ChatWebsite />} />
+                <Route path="/mind-map" element={<MindMap />} />
+                <Route path="/flashcard-generator" element={<FlashcardGenerator />} />
+                <Route path="/ai-translator" element={<AiTranslator />} />
+                
+                {/* Marketing Tool Routes */}
+                <Route path="/business-plan" element={<BusinessPlan />} />
+                <Route path="/lead-magnet" element={<LeadMagnet />} />
+                <Route path="/survey-creator" element={<SurveyCreator />} />
+                
+                {/* Design Tool Routes */}
+                <Route path="/image-generator" element={<ImageGenerator />} />
+                <Route path="/avatar-generator" element={<AvatarGenerator />} />
+                <Route path="/chat-image" element={<ChatImage />} />
+                <Route path="/brandkit-organizer" element={<BrandkitOrganizer />} />
+                <Route path="/image-enhancer" element={<ImageEnhancer />} />
+                
+                {/* Utilities Tool Routes */}
+                <Route path="/qr-code" element={<QrCode />} />
+                
+                {/* New PDF Tool Routes */}
+                <Route path="/merge-pdf" element={<MergePdf />} />
+                <Route path="/split-pdf" element={<SplitPdf />} />
+                <Route path="/compress-pdf" element={<CompressPdf />} />
+                <Route path="/pdf-to-powerpoint" element={<PdfToPowerpoint />} />
+                <Route path="/pdf-to-excel" element={<PdfToExcel />} />
+                <Route path="/powerpoint-to-pdf" element={<PowerpointToPdf />} />
+                <Route path="/excel-to-pdf" element={<ExcelToPdf />} />
+                <Route path="/edit-pdf" element={<EditPdf />} />
+                <Route path="/pdf-to-jpg" element={<PdfToJpg />} />
+                <Route path="/jpg-to-pdf" element={<JpgToPdf />} />
+                <Route path="/sign-pdf" element={<SignPdf />} />
+                <Route path="/watermark-pdf" element={<WatermarkPdf />} />
+                <Route path="/rotate-pdf" element={<RotatePdf />} />
+                <Route path="/html-to-pdf" element={<HtmlToPdf />} />
+                <Route path="/unlock-pdf" element={<UnlockPdf />} />
+                <Route path="/protect-pdf" element={<ProtectPdf />} />
+                <Route path="/organize-pdf" element={<OrganizePdf />} />
+                <Route path="/pdf-to-pdfa" element={<PdfToPdfa />} />
+                <Route path="/repair-pdf" element={<RepairPdf />} />
+                <Route path="/page-numbers-pdf" element={<PageNumbersPdf />} />
+                <Route path="/scan-to-pdf" element={<ScanToPdf />} />
+                <Route path="/ocr-pdf" element={<OcrPdf />} />
+                <Route path="/compare-pdf" element={<ComparePdf />} />
+                <Route path="/redact-pdf" element={<RedactPdf />} />
+                <Route path="/crop-pdf" element={<CropPdf />} />
+                
+                {/* Redirect all other routes to 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Router>
+          <Toaster />
         </AuthProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
