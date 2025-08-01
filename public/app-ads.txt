@@ -1,0 +1,6 @@
+
+# app-ads.txt for pinetoolshub.com mobile apps
+# This file authorizes sellers for in-app advertising
+
+# When mobile apps are developed, add entries here
+# Format: domain, publisher_id, relationship, certification_authority_id

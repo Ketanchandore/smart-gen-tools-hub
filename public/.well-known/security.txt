@@ -6,3 +6,4 @@ Acknowledgments: https://pinetoolshub.com/security-acknowledgments
 Preferred-Languages: en
 Canonical: https://pinetoolshub.com/.well-known/security.txt
 Policy: https://pinetoolshub.com/security-policy
+Hiring: https://pinetoolshub.com/careers

@@ -1,0 +1,9 @@
+
+# ads.txt file for pinetoolshub.com
+# This file is used to authorize digital advertising sellers
+
+# Google AdSense (replace with your publisher ID when ready)
+# google.com, pub-XXXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+
+# For future ad networks, add entries here
+# Format: domain, publisher_id, relationship, certification_authority_id

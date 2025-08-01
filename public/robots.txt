@@ -2,26 +2,48 @@
 User-agent: *
 Allow: /
 
-# Disallow admin/auth pages from search engines
-Disallow: /admin/
-Disallow: /profile/
-Disallow: /forgot-password/
-
-# Allow important pages
+# Important pages for crawling
+Allow: /resume-builder/
 Allow: /pdf-tools/
 Allow: /ai-generators/
-Allow: /resume-builder/
-Allow: /qr-generator/
 Allow: /calculator/
 Allow: /color-picker/
-Allow: /productivity-tools/
+Allow: /qr-code/
 
-# Crawl delay (optional - remove if not needed)
+# Disallow admin and private pages
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /forgot-password/
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /search?
+Disallow: /tag/
+Disallow: /category/
+
+# Allow important static resources
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /icons/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.ico$
+
+# Crawl delay
 Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://pinetoolshub.com/sitemap.xml
+Sitemap: https://pinetoolshub.com/sitemap-tools.xml
+Sitemap: https://pinetoolshub.com/sitemap-blog.xml
 
-# Additional sitemaps (if you add more later)
-# Sitemap: https://pinetoolshub.com/sitemap-tools.xml
-# Sitemap: https://pinetoolshub.com/sitemap-blog.xml
+# Host directive
+Host: https://pinetoolshub.com
