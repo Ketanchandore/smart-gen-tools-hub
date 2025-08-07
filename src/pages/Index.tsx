@@ -943,84 +943,86 @@ const Index = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-        <h1 className="text-3xl font-bold">AI Pro Toolkit</h1>
+    <div className="min-h-screen w-full px-4 py-8">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+          <h1 className="text-3xl font-bold">AI Pro Toolkit</h1>
+          
+          <div className="flex items-center space-x-2">
+            <span className="text-sm font-medium">
+              {darkMode ? 'Dark Mode' : 'Light Mode'}
+            </span>
+            <Switch
+              checked={darkMode}
+              onCheckedChange={toggleDarkMode}
+            />
+          </div>
+        </div>
         
-        <div className="flex items-center space-x-2">
-          <span className="text-sm font-medium">
-            {darkMode ? 'Dark Mode' : 'Light Mode'}
-          </span>
-          <Switch
-            checked={darkMode}
-            onCheckedChange={toggleDarkMode}
-          />
-        </div>
-      </div>
-      
-      <div className="mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
-          <Input
-            className="pl-10 w-full"
-            placeholder="Search for tools..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <Tabs defaultValue="all" className="w-full">
-        <div className="overflow-x-auto pb-2">
-          <TabsList className="mb-6 flex w-auto min-w-fit">
-            {categories.map(category => (
-              <TabsTrigger 
-                key={category.id} 
-                value={category.id}
-                onClick={() => handleCategoryChange(category.id)}
-                className="min-w-[100px] whitespace-nowrap"
-              >
-                {category.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        <div className="mb-6 max-w-2xl mx-auto">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+            <Input
+              className="pl-10 w-full"
+              placeholder="Search for tools..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
         </div>
 
-        {categories.map(category => (
-          <TabsContent key={category.id} value={category.id}>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 md:gap-4">
-              {filteredTools.filter(tool => 
-                category.id === 'all' || tool.category === category.id
-              ).map(tool => (
-                <ToolCard
-                  key={tool.id}
-                  title={tool.title}
-                  description={tool.description}
-                  icon={tool.icon}
-                  route={tool.route}
-                  category={
-                    tool.category === 'career' ? 'Career Tools' : 
-                    tool.category === 'content' ? 'Content Creation' : 
-                    tool.category === 'multimedia' ? 'Multimedia' :
-                    tool.category === 'document' ? 'Document Tools' :
-                    tool.category === 'coding' ? 'Development' :
-                    tool.category === 'learning' ? 'Learning Tools' :
-                    tool.category === 'marketing' ? 'Marketing' :
-                    tool.category === 'design' ? 'Design Tools' : 'Utilities'
-                  }
-                  isNew={tool.isNew}
-                />
+        <Tabs defaultValue="all" className="w-full">
+          <div className="overflow-x-auto pb-2 mb-6">
+            <TabsList className="flex w-auto min-w-fit justify-center">
+              {categories.map(category => (
+                <TabsTrigger 
+                  key={category.id} 
+                  value={category.id}
+                  onClick={() => handleCategoryChange(category.id)}
+                  className="min-w-[100px] whitespace-nowrap"
+                >
+                  {category.label}
+                </TabsTrigger>
               ))}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
-      
-      <div className="fixed bottom-6 right-6 z-10">
-        <Button className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90 shadow-lg">
-          <MessageSquare className="h-6 w-6" />
-          <span className="sr-only">Get AI Help</span>
-        </Button>
+            </TabsList>
+          </div>
+
+          {categories.map(category => (
+            <TabsContent key={category.id} value={category.id}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-6">
+                {filteredTools.filter(tool => 
+                  category.id === 'all' || tool.category === category.id
+                ).map(tool => (
+                  <ToolCard
+                    key={tool.id}
+                    title={tool.title}
+                    description={tool.description}
+                    icon={tool.icon}
+                    route={tool.route}
+                    category={
+                      tool.category === 'career' ? 'Career Tools' : 
+                      tool.category === 'content' ? 'Content Creation' : 
+                      tool.category === 'multimedia' ? 'Multimedia' :
+                      tool.category === 'document' ? 'Document Tools' :
+                      tool.category === 'coding' ? 'Development' :
+                      tool.category === 'learning' ? 'Learning Tools' :
+                      tool.category === 'marketing' ? 'Marketing' :
+                      tool.category === 'design' ? 'Design Tools' : 'Utilities'
+                    }
+                    isNew={tool.isNew}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+        
+        <div className="fixed bottom-6 right-6 z-10">
+          <Button className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90 shadow-lg">
+            <MessageSquare className="h-6 w-6" />
+            <span className="sr-only">Get AI Help</span>
+          </Button>
+        </div>
       </div>
     </div>
   );
