@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
+import { HelmetProvider } from 'react-helmet-async'
 
 // Performance optimization
 if ('serviceWorker' in navigator) {
@@ -15,6 +16,8 @@ if ('serviceWorker' in navigator) {
 
 createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </ErrorBoundary>
 );
