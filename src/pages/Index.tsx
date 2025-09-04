@@ -20,6 +20,8 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useTheme } from '../contexts/ThemeContext';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -943,22 +945,45 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen w-full px-4 py-8">
-      <div className="max-w-[1600px] mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <h1 className="text-3xl font-bold">AI Pro Toolkit</h1>
-          
-          <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium">
-              {darkMode ? 'Dark Mode' : 'Light Mode'}
-            </span>
-            <Switch
-              checked={darkMode}
-              onCheckedChange={toggleDarkMode}
-            />
+    <>
+      <SEOHead 
+        title="Pine Tools Hub - Free AI Tools, PDF Converters & Productivity Utilities"
+        description="Access 100+ free online tools including AI resume builders, PDF converters, content generators, and productivity utilities. No registration required. Professional results instantly."
+        keywords="free online tools, AI tools, PDF converter, resume builder, content generator, productivity tools, free utilities, online converters"
+        url="https://pinetoolshub.com"
+      />
+      
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
+      <div className="container mx-auto px-4 py-12">
+        <div className="text-center space-y-6 mb-12">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-6">
+              Pine Tools Hub
+            </h1>
+            <p className="text-xl sm:text-2xl text-muted-foreground mb-6">
+              Your Complete Suite of Free AI-Powered Tools & Utilities
+            </p>
+            <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Access 100+ professional tools including AI resume builders, PDF converters, content generators, 
+              and productivity utilities. All completely free with no registration required.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to="/pricing">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 transition-opacity">
+                  <Zap className="mr-2 h-5 w-5" />
+                  Explore All Free Tools
+                </Button>
+              </Link>
+              <Link to="/blog">
+                <Button size="lg" variant="outline">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Read Success Stories
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
-        
+
         <div className="mb-6 max-w-2xl mx-auto">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
@@ -1017,14 +1042,22 @@ const Index = () => {
           ))}
         </Tabs>
         
-        <div className="fixed bottom-6 right-6 z-10">
-          <Button className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90 shadow-lg">
-            <MessageSquare className="h-6 w-6" />
-            <span className="sr-only">Get AI Help</span>
-          </Button>
+        {/* SEO Content & Internal Links */}
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-bold mb-4">100% Free Professional Tools</h2>
+          <p className="text-muted-foreground mb-6 max-w-3xl mx-auto">
+            All tools completely free forever. No subscriptions, no hidden costs, unlimited usage for personal and commercial projects.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link to="/resume-builder" className="text-primary hover:underline">Resume Builder</Link> • 
+            <Link to="/blog-writer" className="text-primary hover:underline">AI Blog Writer</Link> • 
+            <Link to="/word-to-pdf" className="text-primary hover:underline">PDF Converter</Link> • 
+            <Link to="/pricing" className="text-primary hover:underline">Why Free?</Link>
+          </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

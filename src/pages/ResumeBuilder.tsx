@@ -10,6 +10,9 @@ import { useToast } from '@/components/ui/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import Layout from '@/components/Layout';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
+import { Link } from 'react-router-dom';
 
 const ResumeBuilder = () => {
   const navigate = useNavigate();
@@ -129,6 +132,29 @@ Available upon request
   };
 
   return (
+    <>
+      <SEOHead 
+        title="Free AI Resume Builder | Create Professional Resumes Instantly"
+        description="Build ATS-friendly professional resumes with our free AI resume builder. Choose from modern templates, get AI suggestions, and download instantly. No registration required."
+        keywords="free resume builder, AI resume maker, professional resume creator, ATS-friendly resume, resume templates, job application resume"
+        url="https://pinetoolshub.com/resume-builder"
+      />
+      
+      <ToolStructuredData
+        name="AI Resume Builder"
+        description="Create professional, ATS-optimized resumes with AI assistance and modern templates"
+        url="https://pinetoolshub.com/resume-builder"
+        category="Career Development"
+        features={[
+          "AI-powered content suggestions",
+          "ATS-friendly templates", 
+          "Real-time formatting",
+          "Instant PDF download",
+          "Professional templates",
+          "Skills optimization"
+        ]}
+      />
+    
     <Layout>
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="mb-6">
@@ -290,8 +316,76 @@ Available upon request
             </CardContent>
           </Card>
         </div>
+        
+        {/* SEO Content Section */}
+        <div className="mt-16 max-w-4xl mx-auto">
+          <div className="bg-muted/30 rounded-lg p-8 mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Create Professional Resumes with AI Assistance
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Our free AI resume builder helps job seekers create professional, ATS-friendly resumes that get noticed by recruiters. 
+              With smart formatting, content suggestions, and industry-specific templates, you can build a standout resume in minutes.
+            </p>
+            <p className="text-muted-foreground mb-6">
+              Whether you're a recent graduate, career changer, or experienced professional, our resume builder adapts to your needs. 
+              Get AI-powered suggestions for skills, achievements, and keywords that match your target job descriptions.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold text-foreground mb-3">Key Features:</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• ATS-optimized templates that pass applicant tracking systems</li>
+                  <li>• AI-powered content suggestions for each section</li>
+                  <li>• Real-time formatting and layout optimization</li>
+                  <li>• Industry-specific keywords and phrases</li>
+                  <li>• Professional templates for all career levels</li>
+                  <li>• Instant PDF download with perfect formatting</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-3">Perfect For:</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Job seekers applying to competitive positions</li>
+                  <li>• Career changers entering new industries</li>
+                  <li>• Recent graduates with limited experience</li>
+                  <li>• Professionals updating their resumes</li>
+                  <li>• Anyone needing a quick, professional resume</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          {/* Related Tools */}
+          <div className="bg-background border border-border rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Complete Your Job Application</h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              <Link to="/cover-letter" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">Cover Letter Generator</h4>
+                <p className="text-sm text-muted-foreground">Create personalized cover letters</p>
+              </Link>
+              <Link to="/interview-coach" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">Interview Coach</h4>
+                <p className="text-sm text-muted-foreground">Practice with AI interview questions</p>
+              </Link>
+              <Link to="/linkedin-bio" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">LinkedIn Optimizer</h4>
+                <p className="text-sm text-muted-foreground">Optimize your LinkedIn profile</p>
+              </Link>
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-border">
+              <p className="text-sm text-muted-foreground text-center">
+                Boost your job search with our complete suite of career tools. All tools are 100% free with no registration required.
+                <Link to="/pricing" className="text-primary hover:underline ml-1">Learn why we're free →</Link>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
+    </>
   );
 };
 

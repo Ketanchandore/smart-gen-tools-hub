@@ -6,6 +6,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { FileIcon, Upload, Download, Info } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
+import { Link } from 'react-router-dom';
 
 const WordToPdf = () => {
   const { toast } = useToast();
@@ -65,6 +68,29 @@ const WordToPdf = () => {
   };
 
   return (
+    <>
+      <SEOHead 
+        title="Word to PDF Converter - Free Online DOCX to PDF Converter"
+        description="Convert Word documents to PDF instantly. Free online tool that preserves formatting, fonts, and images. Upload DOCX or DOC files and download PDF immediately."
+        keywords="word to pdf converter, docx to pdf, doc to pdf, convert word to pdf free, online pdf converter, document converter"
+        url="https://pinetoolshub.com/word-to-pdf"
+      />
+      
+      <ToolStructuredData
+        name="Word to PDF Converter"
+        description="Convert Microsoft Word documents to PDF format while preserving all formatting and elements"
+        url="https://pinetoolshub.com/word-to-pdf"
+        category="Document Conversion"
+        features={[
+          "Supports DOCX and DOC formats",
+          "Preserves original formatting",
+          "Maintains images and tables", 
+          "Fast online conversion",
+          "No file size limits",
+          "Secure file processing"
+        ]}
+      />
+    
     <Layout>
       <div className="container py-12">
         <div className="max-w-3xl mx-auto">
@@ -148,8 +174,81 @@ const WordToPdf = () => {
             </div>
           </div>
         </div>
+        
+        {/* SEO Content Section */}
+        <div className="mt-12 max-w-4xl mx-auto">
+          <div className="bg-muted/30 rounded-lg p-8 mb-8">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              Professional Word to PDF Conversion
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Convert your Microsoft Word documents to PDF format instantly with our free online converter. 
+              Perfect for sharing documents, submitting reports, or creating professional presentations that maintain their formatting across all devices.
+            </p>
+            <p className="text-muted-foreground mb-6">
+              Our Word to PDF converter preserves all elements including fonts, images, tables, headers, footers, and complex layouts. 
+              Whether you're converting resumes, business documents, or academic papers, the output maintains professional quality.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold text-foreground mb-3">Why Convert Word to PDF?</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Universal compatibility across all devices and platforms</li>
+                  <li>• Preserve document formatting and layout</li>
+                  <li>• Secure sharing with read-only protection</li>
+                  <li>• Professional appearance for business documents</li>
+                  <li>• Smaller file sizes for easier sharing</li>
+                  <li>• Print-ready format with consistent output</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-3">Supported Features:</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• DOCX and DOC file formats</li>
+                  <li>• Images, charts, and embedded objects</li>
+                  <li>• Tables and complex formatting</li>
+                  <li>• Headers, footers, and page numbering</li>
+                  <li>• Fonts and text styling preservation</li>
+                  <li>• Hyperlinks and bookmarks retention</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          {/* Related Tools */}
+          <div className="bg-background border border-border rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Related PDF Tools</h3>
+            <div className="grid md:grid-cols-4 gap-4">
+              <Link to="/pdf-to-word" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">PDF to Word</h4>
+                <p className="text-sm text-muted-foreground">Convert PDF back to Word</p>
+              </Link>
+              <Link to="/merge-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">Merge PDFs</h4>
+                <p className="text-sm text-muted-foreground">Combine multiple PDFs</p>
+              </Link>
+              <Link to="/compress-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">Compress PDF</h4>
+                <p className="text-sm text-muted-foreground">Reduce PDF file size</p>
+              </Link>
+              <Link to="/split-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+                <h4 className="font-medium text-foreground mb-1">Split PDF</h4>
+                <p className="text-sm text-muted-foreground">Extract PDF pages</p>
+              </Link>
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-border">
+              <p className="text-sm text-muted-foreground text-center">
+                Explore our complete suite of PDF tools for all your document needs. All tools are completely free to use.
+                <Link to="/blog" className="text-primary hover:underline ml-1">Read PDF tips & tutorials →</Link>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
+    </>
   );
 };
 

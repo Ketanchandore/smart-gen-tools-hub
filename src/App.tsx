@@ -134,12 +134,14 @@ import ComparePdf from "./pages/ComparePdf";
 import RedactPdf from "./pages/RedactPdf";
 import CropPdf from "./pages/CropPdf";
 
-// New imports for legal pages
+// New imports for legal pages and additional pages
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
 import Disclaimer from "./pages/Disclaimer";
+import Blog from "./pages/Blog";
+import Pricing from "./pages/Pricing";
 
 function App() {
   return (
@@ -162,6 +164,10 @@ function App() {
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-conditions" element={<TermsConditions />} />
                 <Route path="/disclaimer" element={<Disclaimer />} />
+                
+                {/* Additional Pages */}
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/pricing" element={<Pricing />} />
                 
                 {/* Protected Routes */}
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
