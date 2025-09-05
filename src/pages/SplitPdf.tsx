@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Scissors, Info, FileText, Settings, Download, Grid } from 'lucide-react';
+import { Scissors, Info, FileText, Settings, Download, Grid, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
 import { splitPDF, downloadMultipleFiles } from '@/utils/pdfUtils';
 import { Input } from '@/components/ui/input';
@@ -119,7 +122,70 @@ const SplitPdf = () => {
     }
   };
 
+  const faqData = [
+    {
+      question: "Can I split PDFs by page ranges?",
+      answer: "Yes! You can specify exact page ranges like '1-5, 8, 11-13' to create multiple PDF files from specific sections of your document."
+    },
+    {
+      question: "What's the difference between split modes?",
+      answer: "Page Range extracts a specific section, Every N Pages creates equal-sized chunks, Extract Pages pulls out individual pages, and Size-based splitting creates files under a size limit."
+    },
+    {
+      question: "Will splitting preserve document quality?",
+      answer: "Absolutely! Splitting PDFs maintains the original quality, formatting, and content. No compression or quality loss occurs during the split process."
+    },
+    {
+      question: "Can I split password-protected PDFs?",
+      answer: "Yes, you can split password-protected PDFs. Enter the password when uploading, and choose whether to maintain protection on the split files."
+    }
+  ];
+
   return (
+    <>
+      <SEOHead 
+        title="Free PDF Splitter - Divide PDF Pages Online | Pine Tools Hub"
+        description="Split PDF files online for free. Extract pages, divide by ranges, or split into equal parts. Advanced PDF splitting with custom naming and optimization."
+        keywords="PDF splitter, split PDF online, extract PDF pages, divide PDF, PDF separator, break PDF apart"
+        url="https://pinetoolshub.com/split-pdf"
+      />
+      <ToolStructuredData 
+        name="PDF Splitter"
+        description="Advanced PDF splitting tool with multiple modes for dividing PDF files by pages, ranges, or file size"
+        url="https://pinetoolshub.com/split-pdf"
+        category="PDF Tools"
+        features={["Multiple split modes", "Page range extraction", "Size-based splitting", "Custom file naming", "Batch download"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <Link 
+              to="/" 
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to Tools
+            </Link>
+            <h1 className="text-4xl font-bold mb-4">PDF Splitter - Divide PDF Files</h1>
+            <p className="text-xl text-muted-foreground mb-6">
+              Split PDF files using multiple methods: page ranges, equal parts, specific pages, or file size limits.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Merge PDF
+              </Link>
+              <Link to="/compress-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Compress PDF
+              </Link>
+              <Link to="/pdf-to-word" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                PDF to Word
+              </Link>
+              <Link to="/organize-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Organize PDF
+              </Link>
+            </div>
+          </div>
+        </div>
     <PDFToolTemplate
       title="Split PDF"
       description="Advanced PDF splitting with intelligent detection, custom naming, and optimization features"
@@ -368,8 +434,88 @@ const SplitPdf = () => {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {faqData.map((faq, index) => (
+              <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
+                <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Tools */}
+        <div className="mt-12 bg-secondary/30 rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Related PDF Tools</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link to="/merge-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <FileText className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Merge PDF</div>
+                <div className="text-sm text-muted-foreground">Combine multiple PDFs</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/compress-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Settings className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Compress PDF</div>
+                <div className="text-sm text-muted-foreground">Reduce file size</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/pdf-to-word" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Download className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">PDF to Word</div>
+                <div className="text-sm text-muted-foreground">Convert to DOCX</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/organize-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Grid className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Organize PDF</div>
+                <div className="text-sm text-muted-foreground">Arrange PDF pages</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+          </div>
+        </div>
+
+        {/* SEO Content */}
+        <div className="mt-12 prose prose-invert max-w-none">
+          <h2>Advanced PDF Splitting Tool</h2>
+          <p>
+            Our PDF splitter offers multiple methods to divide your PDF documents precisely as needed. Whether you need to 
+            extract specific pages, create equal-sized chunks, or split by file size for email attachments, our tool provides 
+            the flexibility and control you need.
+          </p>
+          
+          <h3>Split Modes Explained</h3>
+          <ul>
+            <li><strong>Page Range:</strong> Extract a continuous section (e.g., pages 5-15)</li>
+            <li><strong>Every N Pages:</strong> Create equal chunks (e.g., split every 10 pages)</li>
+            <li><strong>Extract Pages:</strong> Pull out specific individual pages</li>
+            <li><strong>Size-based:</strong> Split when files exceed a certain size limit</li>
+            <li><strong>Custom Ranges:</strong> Create multiple sections with different page ranges</li>
+          </ul>
+
+          <h3>Professional Features</h3>
+          <p>
+            Our PDF splitter includes advanced features like bookmark preservation, custom file naming with prefixes, 
+            blank page detection and removal, and output optimization. Perfect for document management, creating chapter 
+            divisions, or preparing files for specific size requirements.
+          </p>
+        </div>
       </div>
     </PDFToolTemplate>
+      </div>
+    </>
   );
 };
 

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { FileText, Info, ArrowUpDown, Grid, List, Settings } from 'lucide-react';
+import { FileText, Info, ArrowUpDown, Grid, List, Settings, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
 import { mergePDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -85,7 +88,70 @@ const MergePdf = () => {
     }
   };
 
+  const faqData = [
+    {
+      question: "Can I merge PDFs in a specific order?",
+      answer: "Yes! You can easily reorder your PDF files using our drag-and-drop interface or the up/down arrows. The final merged PDF will follow your specified order."
+    },
+    {
+      question: "Is there a limit to how many PDFs I can merge?",
+      answer: "You can merge up to 20 PDF files at once. For larger batches, consider merging in groups and then combining the results."
+    },
+    {
+      question: "Will merging PDFs affect the quality?",
+      answer: "No, merging PDFs preserves the original quality of all documents. The process combines files without recompression or quality loss."
+    },
+    {
+      question: "Can I merge specific pages from different PDFs?",
+      answer: "Absolutely! Use our page range feature to specify exactly which pages from each PDF should be included in the merged document."
+    }
+  ];
+
   return (
+    <>
+      <SEOHead 
+        title="Free PDF Merger - Combine Multiple PDFs Online | Pine Tools Hub"
+        description="Merge PDF files online for free. Combine multiple PDFs with custom ordering, page ranges, and bookmarks. Professional PDF merging tool."
+        keywords="PDF merger, combine PDF, merge PDF online, PDF joiner, PDF combiner, join PDFs"
+        url="https://pinetoolshub.com/merge-pdf"
+      />
+      <ToolStructuredData 
+        name="PDF Merger"
+        description="Professional PDF merging tool with advanced options for combining multiple PDF files with custom ordering and page selection"
+        url="https://pinetoolshub.com/merge-pdf"
+        category="PDF Tools"
+        features={["Custom file ordering", "Page range selection", "Bookmark generation", "Metadata preservation", "Batch processing"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <Link 
+              to="/" 
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to Tools
+            </Link>
+            <h1 className="text-4xl font-bold mb-4">PDF Merger - Combine Multiple PDFs</h1>
+            <p className="text-xl text-muted-foreground mb-6">
+              Combine multiple PDF files into one document with advanced ordering, page selection, and bookmark features.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <Link to="/compress-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Compress PDF
+              </Link>
+              <Link to="/split-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Split PDF
+              </Link>
+              <Link to="/pdf-to-jpg" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                PDF to JPG
+              </Link>
+              <Link to="/protect-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Protect PDF
+              </Link>
+            </div>
+          </div>
+        </div>
     <PDFToolTemplate
       title="Merge PDF"
       description="Combine multiple PDF files with advanced options for page ranges, bookmarks, and custom ordering"
@@ -279,8 +345,87 @@ const MergePdf = () => {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {faqData.map((faq, index) => (
+              <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
+                <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Tools */}
+        <div className="mt-12 bg-secondary/30 rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Related PDF Tools</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link to="/compress-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <FileText className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Compress PDF</div>
+                <div className="text-sm text-muted-foreground">Reduce PDF file size</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/split-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Settings className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Split PDF</div>
+                <div className="text-sm text-muted-foreground">Divide PDF into parts</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/pdf-to-jpg" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <ArrowUpDown className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">PDF to JPG</div>
+                <div className="text-sm text-muted-foreground">Convert PDF to images</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/protect-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Grid className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Protect PDF</div>
+                <div className="text-sm text-muted-foreground">Add password protection</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+          </div>
+        </div>
+
+        {/* SEO Content */}
+        <div className="mt-12 prose prose-invert max-w-none">
+          <h2>Professional PDF Merger Tool</h2>
+          <p>
+            Combine multiple PDF documents into a single, organized file with our advanced PDF merger. Perfect for combining 
+            reports, contracts, presentations, or any collection of PDF documents into one cohesive document.
+          </p>
+          
+          <h3>Advanced Merging Features</h3>
+          <ul>
+            <li><strong>Custom File Ordering:</strong> Drag and drop files to arrange them in your preferred order</li>
+            <li><strong>Page Range Selection:</strong> Choose specific pages from each PDF to include in the merge</li>
+            <li><strong>Automatic Bookmarks:</strong> Generate bookmarks for easy navigation through merged content</li>
+            <li><strong>Metadata Preservation:</strong> Maintain important document properties and information</li>
+            <li><strong>Quality Retention:</strong> No compression or quality loss during the merge process</li>
+          </ul>
+
+          <h3>Use Cases for PDF Merging</h3>
+          <p>
+            PDF merging is essential for document management, creating comprehensive reports, preparing legal documents, 
+            academic submissions, and business presentations. Combine invoices, merge chapters of documents, or create 
+            portfolio collections with professional results.
+          </p>
+        </div>
       </div>
     </PDFToolTemplate>
+      </div>
+    </>
   );
 };
 

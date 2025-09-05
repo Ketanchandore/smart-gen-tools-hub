@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
-import { Image, ArrowLeft, Upload, Download, Settings, FileImage } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Image, ArrowLeft, Upload, Download, Settings, FileImage, ExternalLink } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -134,7 +136,70 @@ const PdfToJpg = () => {
     }
   };
 
+  const faqData = [
+    {
+      question: "What image formats are supported for PDF conversion?",
+      answer: "Our tool converts PDF pages to JPG, PNG, TIFF, and BMP formats. JPG is best for photos, PNG for images with transparency, and TIFF for high-quality professional documents."
+    },
+    {
+      question: "Can I convert specific pages from a PDF?",
+      answer: "Yes! Use our custom page range feature to convert only the pages you need. Enter ranges like '1-5, 10, 15-20' to convert specific sections."
+    },
+    {
+      question: "What resolution should I choose?",
+      answer: "For web use, choose 72-150 DPI. For printing, use 300 DPI or higher. Higher DPI creates larger files but better quality images."
+    },
+    {
+      question: "Is there a file size limit?",
+      answer: "You can convert PDF files up to 100MB in size. For larger files, consider compressing the PDF first or splitting it into smaller parts."
+    }
+  ];
+
   return (
+    <>
+      <SEOHead 
+        title="Free PDF to JPG Converter - Convert PDF Pages to Images Online"
+        description="Convert PDF pages to high-quality JPG, PNG, TIFF images online. Advanced options for resolution, quality, and batch conversion. Free PDF to image converter."
+        keywords="PDF to JPG converter, PDF to image, convert PDF to JPG, PDF to PNG, extract images from PDF, PDF page converter"
+        url="https://pinetoolshub.com/pdf-to-jpg"
+      />
+      <ToolStructuredData 
+        name="PDF to JPG Converter"
+        description="Convert PDF pages to high-quality image formats with advanced customization options"
+        url="https://pinetoolshub.com/pdf-to-jpg"
+        category="PDF Tools"
+        features={["Multiple image formats", "Custom resolution control", "Quality settings", "Page range selection", "Batch processing", "Color mode options"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <Link 
+              to="/" 
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to Tools
+            </Link>
+            <h1 className="text-4xl font-bold mb-4">PDF to JPG Converter - Extract Images from PDF</h1>
+            <p className="text-xl text-muted-foreground mb-6">
+              Convert PDF pages to high-quality images with professional customization options and batch processing.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <Link to="/jpg-to-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                JPG to PDF
+              </Link>
+              <Link to="/compress-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Compress PDF
+              </Link>
+              <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Merge PDF
+              </Link>
+              <Link to="/split-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Split PDF
+              </Link>
+            </div>
+          </div>
+        </div>
     <div className="container max-w-4xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
@@ -395,7 +460,88 @@ const PdfToJpg = () => {
           )}
         </Button>
       </div>
+
+      {/* FAQ Section */}
+      <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+        <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+        <div className="space-y-6">
+          {faqData.map((faq, index) => (
+            <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
+              <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+              <p className="text-muted-foreground">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Related Tools */}
+      <div className="mt-12 bg-secondary/30 rounded-lg p-8">
+        <h2 className="text-2xl font-bold mb-6">Related PDF Tools</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link to="/jpg-to-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+            <Image className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">JPG to PDF</div>
+              <div className="text-sm text-muted-foreground">Convert images to PDF</div>
+            </div>
+            <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+          </Link>
+          <Link to="/compress-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+            <Settings className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Compress PDF</div>
+              <div className="text-sm text-muted-foreground">Reduce file size</div>
+            </div>
+            <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+          </Link>
+          <Link to="/merge-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+            <FileImage className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Merge PDF</div>
+              <div className="text-sm text-muted-foreground">Combine PDFs</div>
+            </div>
+            <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+          </Link>
+          <Link to="/split-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+            <Download className="h-5 w-5 text-primary" />
+            <div>
+              <div className="font-medium">Split PDF</div>
+              <div className="text-sm text-muted-foreground">Extract PDF pages</div>
+            </div>
+            <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+          </Link>
+        </div>
+      </div>
+
+      {/* SEO Content */}
+      <div className="mt-12 prose prose-invert max-w-none">
+        <h2>Professional PDF to Image Converter</h2>
+        <p>
+          Convert your PDF documents into high-quality images with our advanced PDF to JPG converter. Perfect for extracting 
+          diagrams, charts, presentations, or any visual content from PDF files. Our tool supports multiple image formats 
+          and provides professional-grade control over output quality and resolution.
+        </p>
+        
+        <h3>Advanced Conversion Features</h3>
+        <ul>
+          <li><strong>Multiple Formats:</strong> Convert to JPG, PNG, TIFF, or BMP formats</li>
+          <li><strong>Quality Control:</strong> Adjust image quality and resolution up to 600 DPI</li>
+          <li><strong>Page Selection:</strong> Convert all pages or specify custom page ranges</li>
+          <li><strong>Color Options:</strong> Full color, grayscale, or monochrome output</li>
+          <li><strong>Size Control:</strong> Original size, custom dimensions, or fit-to-size options</li>
+          <li><strong>Advanced Options:</strong> Whitespace trimming, anti-aliasing, custom backgrounds</li>
+        </ul>
+
+        <h3>Common Use Cases</h3>
+        <p>
+          PDF to image conversion is essential for web publishing, social media sharing, presentation creation, 
+          document archiving, and extracting visual elements for reuse. Convert research papers to images for 
+          easier sharing, extract charts and graphs for reports, or create thumbnails for document previews.
+        </p>
+      </div>
+      </div>
     </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { FileIcon, Upload, Download, Info } from 'lucide-react';
+import { FileIcon, Upload, Download, Info, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import SEOHead from '@/components/SEOHead';
 import { ToolStructuredData } from '@/components/StructuredData';
@@ -94,8 +94,30 @@ const WordToPdf = () => {
     <Layout>
       <div className="container py-12">
         <div className="max-w-3xl mx-auto">
+          <Link 
+            to="/" 
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 mr-1" />
+            Back to Tools
+          </Link>
           <h1 className="text-3xl font-bold mb-2">Word to PDF Converter</h1>
           <p className="text-muted-foreground mb-8">Convert Microsoft Word documents to PDF format</p>
+          
+          <div className="flex flex-wrap gap-2 mb-6">
+            <Link to="/pdf-to-word" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+              PDF to Word
+            </Link>
+            <Link to="/compress-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+              Compress PDF
+            </Link>
+            <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+              Merge PDF
+            </Link>
+            <Link to="/split-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+              Split PDF
+            </Link>
+          </div>
 
           <Card className="mb-6">
             <CardHeader>
@@ -170,6 +192,29 @@ const WordToPdf = () => {
               <div className="text-sm text-muted-foreground">
                 <p className="mb-2"><strong>Note:</strong> This is a demo version of the tool. For full functionality, the backend Word processing would need to be implemented.</p>
                 <p>The actual Word to PDF conversion requires a backend service that can convert the DOCX/DOC format to PDF format while preserving all formatting, images, and other elements.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* FAQ Section */}
+          <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+            <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              <div className="border-b border-border/30 pb-4">
+                <h3 className="text-lg font-semibold mb-2">Will my Word formatting be preserved?</h3>
+                <p className="text-muted-foreground">Yes, our converter maintains all formatting including fonts, images, tables, headers, footers, and complex layouts.</p>
+              </div>
+              <div className="border-b border-border/30 pb-4">
+                <h3 className="text-lg font-semibold mb-2">What Word formats are supported?</h3>
+                <p className="text-muted-foreground">We support both modern DOCX format and legacy DOC files from older versions of Microsoft Word.</p>
+              </div>
+              <div className="border-b border-border/30 pb-4">
+                <h3 className="text-lg font-semibold mb-2">Is there a file size limit?</h3>
+                <p className="text-muted-foreground">You can convert Word documents up to 10MB in size. For larger files, consider splitting them or removing large embedded images.</p>
+              </div>
+              <div className="border-b border-border/30 pb-4 last:border-b-0">
+                <h3 className="text-lg font-semibold mb-2">Are my documents secure during conversion?</h3>
+                <p className="text-muted-foreground">Absolutely. All files are processed securely and automatically deleted after conversion. We never store or access your document content.</p>
               </div>
             </div>
           </div>
