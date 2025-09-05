@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Github, Menu, User, LogOut } from 'lucide-react';
+import { Github, Menu, User, LogOut, Moon, Sun } from 'lucide-react';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useToast } from '@/hooks/use-toast';
 import { 
   DropdownMenu,
@@ -17,6 +18,7 @@ import {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
+  const { darkMode, toggleDarkMode } = useTheme();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -52,6 +54,16 @@ const Navbar = () => {
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
             <Github size={20} />
           </a>
+          
+          {/* Dark Mode Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleDarkMode}
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </Button>
           
           {isAuthenticated ? (
             <DropdownMenu>
@@ -117,6 +129,20 @@ const Navbar = () => {
                 >
                   Blog
                 </Link>
+                
+                {/* Dark Mode Toggle for Mobile */}
+                <div className="flex items-center justify-between py-2 px-2">
+                  <span className="text-base font-medium">Dark Mode</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={toggleDarkMode}
+                    className="h-8 w-8"
+                  >
+                    {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+                  </Button>
+                </div>
+                
                 <div className="pt-4 flex flex-col space-y-2">
                   {isAuthenticated ? (
                     <>
