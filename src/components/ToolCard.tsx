@@ -57,7 +57,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route, ca
         {React.cloneElement(icon as React.ReactElement, { size: 16 })}
       </div>
       
-      <h3 className="text-xs md:text-sm font-semibold text-center mb-1 line-clamp-2">{title}</h3>
+      <h3 className="text-sm md:text-base font-bold text-center mb-1 line-clamp-2">{title}</h3>
       
       <p className="text-muted-foreground text-center text-xs mb-2 flex-grow line-clamp-2">{description}</p>
       
