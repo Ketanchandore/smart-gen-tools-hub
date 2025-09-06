@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage and Main Pages -->
+  <url>
+    <loc>https://pinetoolshub.com/</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/blog</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/pricing</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Career Tools -->
+  <url>
+    <loc>https://pinetoolshub.com/resume-builder</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/cover-letter</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/linkedin-bio</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/job-matcher</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/interview-coach</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/resume-score</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- PDF Tools -->
+  <url>
+    <loc>https://pinetoolshub.com/merge-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/split-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/compress-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/pdf-to-word</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/word-to-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/pdf-to-jpg</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/jpg-to-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/excel-to-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/powerpoint-to-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/html-to-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/pdf-to-excel</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/pdf-to-powerpoint</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/protect-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/unlock-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/rotate-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/watermark-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/sign-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/page-numbers-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/crop-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/edit-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/organize-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/repair-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/redact-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/ocr-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/compare-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/pdf-to-pdfa</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/scan-to-pdf</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- AI & Content Tools -->
+  <url>
+    <loc>https://pinetoolshub.com/image-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/avatar-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/blog-writer</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/blog-rewriter</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/email-writer</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/product-description</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/social-captions</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/twitter-thread</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/content-detector</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/ai-translator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/smart-copy</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Utility Tools -->
+  <url>
+    <loc>https://pinetoolshub.com/password-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/qr-code</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/barcode-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/text-case-converter</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/word-counter</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/lorem-ipsum</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/image-compressor</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/image-converter</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/image-enhancer</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/image-to-text</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Learning & Business Tools -->
+  <url>
+    <loc>https://pinetoolshub.com/flashcard-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/study-notes</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/business-plan</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/survey-creator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/slide-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/mind-map</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Entertainment & Random Tools -->
+  <url>
+    <loc>https://pinetoolshub.com/fake-identity</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/name-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/temp-email</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/credit-card-generator</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://pinetoolshub.com/about</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/contact</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/privacy-policy</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/terms-conditions</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  
+  <url>
+    <loc>https://pinetoolshub.com/disclaimer</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

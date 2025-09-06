@@ -43,7 +43,7 @@ Crawl-delay: 1
 # Sitemap location
 Sitemap: https://pinetoolshub.com/sitemap.xml
 Sitemap: https://pinetoolshub.com/sitemap-tools.xml
-Sitemap: https://pinetoolshub.com/sitemap-blog.xml
+Sitemap: https://pinetoolshub.com/sitemap-complete.xml
 
 # Host directive
 Host: https://pinetoolshub.com
