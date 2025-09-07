@@ -10,7 +10,8 @@ import { useToast } from '@/components/ui/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import Layout from '@/components/Layout';
-import { AdvancedToolSEO } from '@/components/AdvancedToolSEO';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
 import { Link } from 'react-router-dom';
 
 const ResumeBuilder = () => {
@@ -132,31 +133,28 @@ Available upon request
 
   return (
     <>
-      <AdvancedToolSEO
-        toolName="AI Resume Builder"
-        category="Career Tools"
-        description="Create professional, ATS-friendly resumes with AI assistance"
+      <SEOHead 
+        title="Free AI Resume Builder | Create Professional Resumes Instantly"
+        description="Build ATS-friendly professional resumes with our free AI resume builder. Choose from modern templates, get AI suggestions, and download instantly. No registration required."
+        keywords="free resume builder, AI resume maker, professional resume creator, ATS-friendly resume, resume templates, job application resume"
+        url="https://pinetoolshub.com/resume-builder"
+      />
+      
+      <ToolStructuredData
+        name="AI Resume Builder"
+        description="Create professional, ATS-optimized resumes with AI assistance and modern templates"
+        url="https://pinetoolshub.com/resume-builder"
+        category="Career Development"
         features={[
-          'AI-powered content suggestions',
-          'ATS-optimized formatting',
-          'Professional templates',
-          'Instant download',
-          'Multiple format support'
-        ]}
-        useCases={[
-          'create professional resumes',
-          'optimize for ATS systems',
-          'get AI writing assistance',
-          'save time in job applications'
-        ]}
-        keywords={[
-          'resume builder',
-          'AI resume maker',
-          'professional resume',
-          'ATS resume',
-          'resume templates'
+          "AI-powered content suggestions",
+          "ATS-friendly templates", 
+          "Real-time formatting",
+          "Instant PDF download",
+          "Professional templates",
+          "Skills optimization"
         ]}
       />
+    
     <Layout>
       <div className="container max-w-6xl mx-auto px-4 py-8">
         <div className="mb-6">
