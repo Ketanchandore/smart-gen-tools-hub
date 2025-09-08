@@ -22,6 +22,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
+import AdvancedSEO from '@/components/AdvancedSEO';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -946,7 +947,7 @@ const Index = () => {
 
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="Pine Tools Hub - Free AI Tools, PDF Converters & Productivity Utilities"
         description="Access 100+ free online tools including AI resume builders, PDF converters, content generators, and productivity utilities. No registration required. Professional results instantly."
         keywords="free online tools, AI tools, PDF converter, resume builder, content generator, productivity tools, free utilities, online converters"

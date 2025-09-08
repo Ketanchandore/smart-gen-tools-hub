@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import Layout from '@/components/Layout';
 import SEOHead from '@/components/SEOHead';
 import { ToolStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Link } from 'react-router-dom';
 
 const ResumeBuilder = () => {
@@ -138,6 +139,45 @@ Available upon request
         description="Build ATS-friendly professional resumes with our free AI resume builder. Choose from modern templates, get AI suggestions, and download instantly. No registration required."
         keywords="free resume builder, AI resume maker, professional resume creator, ATS-friendly resume, resume templates, job application resume"
         url="https://pinetoolshub.com/resume-builder"
+      />
+      
+      <AdvancedToolSEO
+        toolName="AI Resume Builder"
+        description="Create professional, ATS-optimized resumes with AI assistance. Get tailored content suggestions, modern templates, and instant downloads. No registration required."
+        keywords={["free resume builder", "AI resume maker", "professional resume creator", "ATS-friendly resume", "resume templates", "job application resume", "career tools"]}
+        category="Career Development"
+        features={[
+          "AI-powered content suggestions",
+          "ATS-friendly templates", 
+          "Real-time formatting",
+          "Instant download",
+          "Professional templates",
+          "Skills optimization",
+          "Job-specific tailoring",
+          "No registration required"
+        ]}
+        useCases={[
+          "Job applications",
+          "Career changes", 
+          "Professional networking",
+          "Graduate applications",
+          "Internship applications"
+        ]}
+        faqs={[
+          {
+            question: "Is the AI resume builder really free?",
+            answer: "Yes, our AI resume builder is completely free with no registration required. You get unlimited access to all features including AI content suggestions, professional templates, and instant downloads."
+          },
+          {
+            question: "Are the resumes ATS-friendly?",
+            answer: "Absolutely! All our templates are designed to pass Applicant Tracking Systems (ATS) used by most companies. We use clean formatting and standard sections that ATS can easily parse."
+          },
+          {
+            question: "Can I customize the resume content?",
+            answer: "Yes, you have full control over all content. Our AI provides intelligent suggestions based on job descriptions, but you can edit every section to match your experience and preferences."
+          }
+        ]}
+        relatedTools={["Cover Letter Generator", "Interview Coach", "LinkedIn Optimizer"]}
       />
       
       <ToolStructuredData
