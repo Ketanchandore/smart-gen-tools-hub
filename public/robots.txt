@@ -41,9 +41,9 @@ Allow: /*.ico$
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://pinetoolshub.com/sitemap.xml
-Sitemap: https://pinetoolshub.com/sitemap-tools.xml
-Sitemap: https://pinetoolshub.com/sitemap-complete.xml
+Sitemap: https://www.pinetoolshub.com/sitemap.xml
+Sitemap: https://www.pinetoolshub.com/sitemap-tools.xml
+Sitemap: https://www.pinetoolshub.com/sitemap-complete.xml
 
 # Host directive
-Host: https://pinetoolshub.com
+Host: https://www.pinetoolshub.com

@@ -1,5 +1,5 @@
 
-# app-ads.txt for pinetoolshub.com mobile apps
+# app-ads.txt for www.pinetoolshub.com mobile apps
 # This file authorizes sellers for in-app advertising
 
 # When mobile apps are developed, add entries here

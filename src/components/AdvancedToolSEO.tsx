@@ -35,7 +35,7 @@ const AdvancedToolSEO: React.FC<AdvancedToolSEOProps> = ({
     enableInternalLinking: true
   });
 
-  const currentUrl = canonicalUrl || `https://pinetoolshub.com${location.pathname}`;
+  const currentUrl = canonicalUrl || `https://www.pinetoolshub.com${location.pathname}`;
   const breadcrumbs = generateBreadcrumbs(location.pathname);
 
   // Enhanced keywords with semantic variations
@@ -79,15 +79,15 @@ const AdvancedToolSEO: React.FC<AdvancedToolSEOProps> = ({
           "author": {
             "@type": "Organization",
             "name": "Pine Tools Hub",
-            "url": "https://pinetoolshub.com"
+            "url": "https://www.pinetoolshub.com"
           },
           "publisher": {
             "@type": "Organization",
             "name": "Pine Tools Hub",
-            "url": "https://pinetoolshub.com",
+            "url": "https://www.pinetoolshub.com",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://pinetoolshub.com/logo.png"
+              "url": "https://www.pinetoolshub.com/logo.png"
             }
           }
         },
@@ -109,7 +109,7 @@ const AdvancedToolSEO: React.FC<AdvancedToolSEOProps> = ({
           "isPartOf": {
             "@type": "WebSite",
             "name": "Pine Tools Hub",
-            "url": "https://pinetoolshub.com"
+            "url": "https://www.pinetoolshub.com"
           },
           "about": {
             "@type": "Thing",
@@ -187,13 +187,13 @@ const AdvancedToolSEO: React.FC<AdvancedToolSEOProps> = ({
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Pine Tools Hub" />
-      <meta property="og:image" content="https://pinetoolshub.com/og-image.png" />
+      <meta property="og:image" content="https://www.pinetoolshub.com/og-image.png" />
       
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={`${toolName} - Free Online Tool`} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://pinetoolshub.com/twitter-image.png" />
+      <meta name="twitter:image" content="https://www.pinetoolshub.com/twitter-image.png" />
       
       {/* Tool-specific meta */}
       <meta name="tool:category" content={category} />

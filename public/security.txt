@@ -1,7 +1,7 @@
 
 Contact: security@pinetoolshub.com
 Expires: 2025-12-31T23:59:59.000Z
-Encryption: https://pinetoolshub.com/pgp-key.txt
+Encryption: https://www.pinetoolshub.com/pgp-key.txt
 Preferred-Languages: en
-Canonical: https://pinetoolshub.com/.well-known/security.txt
-Policy: https://pinetoolshub.com/security-policy
+Canonical: https://www.pinetoolshub.com/.well-known/security.txt
+Policy: https://www.pinetoolshub.com/security-policy

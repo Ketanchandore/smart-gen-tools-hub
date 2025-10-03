@@ -17,7 +17,7 @@ declare global {
 window.dataLayer = window.dataLayer || [];
 window.gtag = function() { window.dataLayer.push(arguments); };
 window.gtag('js', new Date());
-window.gtag('config', 'G-XXXXXXXXXX', { // Replace with your actual GA4 ID
+window.gtag('config', 'G-MZ61E1T4YH', {
   page_title: document.title,
   page_location: window.location.href
 });
@@ -25,7 +25,7 @@ window.gtag('config', 'G-XXXXXXXXXX', { // Replace with your actual GA4 ID
 // Load Google Analytics script
 const gaScript = document.createElement('script');
 gaScript.async = true;
-gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'; // Replace with your actual GA4 ID
+gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-MZ61E1T4YH';
 document.head.appendChild(gaScript);
 
 // Advanced Performance Analytics

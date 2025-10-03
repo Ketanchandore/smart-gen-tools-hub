@@ -1,9 +1,9 @@
 
 Contact: mailto:security@pinetoolshub.com
 Expires: 2025-12-31T23:59:59.000Z
-Encryption: https://pinetoolshub.com/pgp-key.txt
-Acknowledgments: https://pinetoolshub.com/security-acknowledgments
+Encryption: https://www.pinetoolshub.com/pgp-key.txt
+Acknowledgments: https://www.pinetoolshub.com/security-acknowledgments
 Preferred-Languages: en
-Canonical: https://pinetoolshub.com/.well-known/security.txt
-Policy: https://pinetoolshub.com/security-policy
-Hiring: https://pinetoolshub.com/careers
+Canonical: https://www.pinetoolshub.com/.well-known/security.txt
+Policy: https://www.pinetoolshub.com/security-policy
+Hiring: https://www.pinetoolshub.com/careers
