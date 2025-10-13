@@ -33,47 +33,32 @@ const ToolCard: React.FC<ToolCardProps> = ({ title, description, icon, route, ca
 
   return (
     <div 
-      className="tool-card p-2 md:p-3 flex flex-col h-full rounded-lg shadow-lg transition-all duration-300 hover:-translate-y-1 relative overflow-hidden bg-card"
-      style={{
-        borderWidth: '1px',
-        borderStyle: 'solid',
-        borderColor: 'hsl(var(--border))',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
-      }}
+      className="tool-card p-4 md:p-6 flex flex-col h-full rounded-lg transition-all duration-200 hover:-translate-y-1 relative overflow-hidden bg-card"
     >
       {isNew && (
-        <div className="absolute top-0 right-0">
-          <div className="bg-accent text-accent-foreground text-xs font-semibold px-1.5 py-0.5 rounded-bl-lg">NEW</div>
+        <div className="absolute top-2 right-2">
+          <div className="bg-primary text-primary-foreground text-xs font-semibold px-2 py-1 rounded">NEW</div>
         </div>
       )}
       
-      {category && (
-        <div className="text-xs text-muted-foreground mb-1">
-          {category}
-        </div>
-      )}
-      
-      <div className="flex items-center justify-center h-8 w-8 md:h-10 md:w-10 rounded-md bg-primary/20 text-primary mb-2 mx-auto">
-        {React.cloneElement(icon as React.ReactElement, { size: 16 })}
+      <div className="flex items-center justify-center h-12 w-12 md:h-14 md:w-14 rounded-lg bg-primary/10 text-primary mb-4">
+        {React.cloneElement(icon as React.ReactElement, { size: 24 })}
       </div>
       
-      <h3 className="text-sm md:text-base font-bold text-center mb-1 line-clamp-2">{title}</h3>
+      <h3 className="text-base md:text-lg font-semibold mb-2 line-clamp-2">{title}</h3>
       
-      <p className="text-muted-foreground text-center text-xs mb-2 flex-grow line-clamp-2">{description}</p>
+      <p className="text-muted-foreground text-sm mb-4 flex-grow line-clamp-2">{description}</p>
       
       <div className="mt-auto">
         <Link to={route} className="w-full" onClick={handleToolClick}>
           <Button 
-            className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity text-xs py-1"
+            variant="ghost"
+            className="w-full text-primary hover:text-primary hover:bg-primary/10 text-sm py-2 font-medium"
           >
-            Launch
+            Select
           </Button>
         </Link>
       </div>
-      
-      <div 
-        className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-      />
     </div>
   );
 };
