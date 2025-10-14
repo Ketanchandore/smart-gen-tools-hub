@@ -88,6 +88,7 @@ import ChatWebsite from "./pages/ChatWebsite";
 import MindMap from "./pages/MindMap";
 import FlashcardGenerator from "./pages/FlashcardGenerator";
 import AiTranslator from "./pages/AiTranslator";
+import BlogPost from "./pages/BlogPost";
 
 // Marketing tools
 import BusinessPlan from "./pages/BusinessPlan";
@@ -166,7 +167,8 @@ function App() {
                 <Route path="/disclaimer" element={<Disclaimer />} />
                 
                 {/* Additional Pages */}
-                <Route path="/blog" element={<Blog />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/pricing" element={<Pricing />} />
                 
                 {/* Protected Routes */}

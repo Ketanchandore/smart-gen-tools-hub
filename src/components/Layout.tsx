@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Navbar from './Navbar';
+import EnhancedNavbar from './EnhancedNavbar';
 import Footer from './Footer';
 import SEOHead from './SEOHead';
 import CookieConsent from './CookieConsent';
@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, description }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <SEOHead title={title} description={description} />
-      <Navbar />
+      <EnhancedNavbar />
       <main className="flex-grow">{children}</main>
       <Footer />
       <CookieConsent />
