@@ -180,7 +180,7 @@ const Index = () => {
       id: 'organize-pdf', 
       title: 'Organize PDF', 
       description: 'Sort pages of your PDF file however you like.', 
-      icon: <Layout />, 
+      icon: <Layers />, 
       route: '/organize-pdf',
       category: 'pdf'
     },
@@ -851,8 +851,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </div>
-    </>
+    </Layout>
   );
 };
 
