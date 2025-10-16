@@ -113,20 +113,35 @@ export const usePerformanceOptimization = () => {
     optimizeFontLoading();
 
     // Defer non-critical scripts
-    requestIdleCallback(() => {
-      deferScripts();
-    }, { timeout: 2000 });
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(() => {
+        deferScripts();
+      });
+    } else {
+      setTimeout(deferScripts, 100);
+    }
 
     // Prefetch likely next routes
     const prefetchRoutes = ['/pricing', '/blog', '/tools'];
-    requestIdleCallback(() => {
-      prefetchRoutes.forEach(route => {
-        const link = document.createElement('link');
-        link.rel = 'prefetch';
-        link.href = route;
-        document.head.appendChild(link);
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(() => {
+        prefetchRoutes.forEach(route => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = route;
+          document.head.appendChild(link);
+        });
       });
-    }, { timeout: 3000 });
+    } else {
+      setTimeout(() => {
+        prefetchRoutes.forEach(route => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = route;
+          document.head.appendChild(link);
+        });
+      }, 300);
+    }
 
     // Prevent layout shift
     if (document.readyState === 'complete') {

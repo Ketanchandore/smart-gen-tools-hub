@@ -49,6 +49,8 @@ export const useWebVitals = (reportCallback?: (metric: WebVitalsMetric) => void)
       onLCP(handleMetric);
       onTTFB(handleMetric);
       onINP(handleMetric);
+    }).catch((error) => {
+      console.warn('Web Vitals could not be loaded:', error);
     });
   }, [reportCallback]);
 };
