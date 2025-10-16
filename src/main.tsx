@@ -28,7 +28,7 @@ gaScript.async = true;
 gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-MZ61E1T4YH';
 document.head.appendChild(gaScript);
 
-// Advanced Performance Analytics with Core Web Vitals
+// Advanced Performance Analytics
 const performanceObserver = new PerformanceObserver((list) => {
   list.getEntries().forEach((entry) => {
     if (entry.entryType === 'navigation') {
@@ -36,40 +36,12 @@ const performanceObserver = new PerformanceObserver((list) => {
       window.gtag('event', 'page_performance', {
         page_load_time: Math.round(navEntry.loadEventEnd - navEntry.fetchStart),
         dom_content_loaded: Math.round(navEntry.domContentLoadedEventEnd - navEntry.fetchStart),
-        first_byte: Math.round(navEntry.responseStart - navEntry.fetchStart),
-        first_paint: Math.round(navEntry.responseEnd - navEntry.fetchStart)
+        first_byte: Math.round(navEntry.responseStart - navEntry.fetchStart)
       });
     }
   });
 });
-
-try {
-  performanceObserver.observe({ entryTypes: ['navigation', 'paint', 'largest-contentful-paint'] });
-} catch (e) {
-  // Fallback for browsers that don't support all entry types
-  performanceObserver.observe({ entryTypes: ['navigation'] });
-}
-
-// Track resource loading performance
-const resourceObserver = new PerformanceObserver((list) => {
-  list.getEntries().forEach((entry) => {
-    if (entry.duration > 1000) {
-      // Track slow resources
-      window.gtag('event', 'slow_resource', {
-        resource_name: entry.name,
-        duration: Math.round(entry.duration),
-        event_category: 'Performance',
-        non_interaction: true
-      });
-    }
-  });
-});
-
-try {
-  resourceObserver.observe({ entryTypes: ['resource'] });
-} catch (e) {
-  console.warn('Resource performance monitoring not supported');
-}
+performanceObserver.observe({ entryTypes: ['navigation'] });
 
 // Performance optimization
 if ('serviceWorker' in navigator) {

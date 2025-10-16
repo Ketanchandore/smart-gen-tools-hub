@@ -143,9 +143,6 @@ import TermsConditions from "./pages/TermsConditions";
 import Disclaimer from "./pages/Disclaimer";
 import Blog from "./pages/Blog";
 import Pricing from "./pages/Pricing";
-import PercentageCalculator from "./pages/PercentageCalculator";
-import LoanCalculator from "./pages/LoanCalculator";
-import BMICalculator from "./pages/BMICalculator";
 
 function App() {
   return (
@@ -170,13 +167,8 @@ function App() {
                 <Route path="/disclaimer" element={<Disclaimer />} />
                 
                 {/* Additional Pages */}
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          
-          {/* Calculator Routes */}
-          <Route path="/percentage-calculator" element={<PercentageCalculator />} />
-          <Route path="/loan-calculator" element={<LoanCalculator />} />
-          <Route path="/bmi-calculator" element={<BMICalculator />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/pricing" element={<Pricing />} />
                 
                 {/* Protected Routes */}

@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
+import Layout from '@/components/Layout';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -653,10 +654,14 @@ const Index = () => {
   ].filter(Boolean) as typeof allTools;
 
   return (
-    <>
+    <Layout 
+      title="Pine Tools Hub - Free Online Tools for Every Need - 90+ Professional Tools"
+      description="Access 90+ free professional online tools including PDF converters, AI generators, calculators, and productivity utilities. Free to use, no registration required, instant results."
+    >
       <SEOHead
-        title="Pine Tools Hub - Free Online Tools for Every Need - 90+ Professional Tools"
+        title="Free Online Tools for Every Need - 90+ Professional Tools | Pine Tools Hub" 
         description="Access 90+ free professional online tools including PDF converters, AI generators, calculators, and productivity utilities. Free to use, no registration required, instant results."
+        keywords="free online tools, PDF tools, calculator tools, AI generators, text tools, image tools, productivity tools, no registration, instant results"
       />
       <div className="container py-8 md:py-16">
         {/* Hero Section */}
@@ -846,7 +851,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
