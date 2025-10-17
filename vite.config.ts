@@ -22,33 +22,15 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            if (id.includes('react-router-dom')) {
-              return 'vendor-router';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-            if (id.includes('@radix-ui')) {
-              return 'vendor-ui';
-            }
-            if (id.includes('pdf-lib') || id.includes('html2canvas')) {
-              return 'vendor-pdf';
-            }
-            return 'vendor-misc';
-          }
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['lucide-react', '@radix-ui/react-slot']
         }
       }
     },
     sourcemap: false,
-    minify: 'esbuild',
-    cssCodeSplit: true,
-    chunkSizeWarningLimit: 1000,
-    target: 'es2020'
+    minify: 'esbuild'
   },
   optimizeDeps: {
     include: [

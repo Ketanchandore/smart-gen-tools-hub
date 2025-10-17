@@ -2,12 +2,12 @@
   "name": "Pine Tools Hub - 150+ Professional AI Tools & PDF Converters",
   "short_name": "Pine Tools Hub",
   "description": "Complete toolkit with 150+ professional AI tools, PDF converters, resume builder, and productivity utilities. All free, no signup required.",
-  "start_url": "/?utm_source=pwa",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0f172a",
+  "background_color": "#8b5cf6",
+  "theme_color": "#8b5cf6",
   "orientation": "portrait-primary",
-  "categories": ["productivity", "utilities", "business", "education", "finance", "tools"],
+  "categories": ["productivity", "utilities", "business", "education"],
   "lang": "en-US",
   "dir": "ltr",
   "scope": "/",
@@ -39,23 +39,8 @@
       "description": "Convert PDF documents",
       "url": "/pdf-split-merge",
       "icons": [{ "src": "/placeholder.svg", "sizes": "96x96" }]
-    },
-    {
-      "name": "Calculators",
-      "short_name": "Calc",
-      "description": "Access calculator tools",
-      "url": "/percentage-calculator",
-      "icons": [{ "src": "/placeholder.svg", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],
-  "prefer_related_applications": false,
-  "screenshots": [
-    {
-      "src": "/placeholder.svg",
-      "sizes": "1280x720",
-      "type": "image/svg+xml",
-      "form_factor": "wide"
-    }
-  ]
+  "prefer_related_applications": false
 }
