@@ -8,8 +8,10 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { RefreshCw, Copy } from 'lucide-react';
+import { RefreshCw, Copy, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
+import ToolSEO from '@/components/ToolSEO';
 
 const DateGenerator = () => {
   const { toast } = useToast();
@@ -18,6 +20,25 @@ const DateGenerator = () => {
   const [includeTime, setIncludeTime] = useState(false);
   const [generatedDate, setGeneratedDate] = useState('');
   const [yearRange, setYearRange] = useState(10);
+
+  const faqData = [
+    {
+      question: "What is a random date generator used for?",
+      answer: "Random date generators are useful for testing software, creating sample data, generating fictional timelines, database testing, and creating placeholder dates for design mockups."
+    },
+    {
+      question: "Can I generate dates in different formats?",
+      answer: "Yes! Our generator supports multiple date formats including YYYY-MM-DD, MM/DD/YYYY, DD/MM/YYYY, and written formats like 'Month Day, Year' to match your specific needs."
+    },
+    {
+      question: "How does the year range work?",
+      answer: "The year range determines how far in the past or future the generator will create dates. For example, a range of 10 years will generate dates within 10 years from today."
+    },
+    {
+      question: "Can I include time with the date?",
+      answer: "Yes, toggle the 'Include Time' option to generate random timestamps along with dates, showing hours, minutes, and seconds in 24-hour format."
+    }
+  ];
 
   const formatList = [
     { value: 'YYYY-MM-DD', label: 'YYYY-MM-DD' },
@@ -126,10 +147,38 @@ const DateGenerator = () => {
   }, []);
 
   return (
-    <Layout>
-      <div className="container py-12">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6">Random Date & Time Generator</h1>
+    <>
+      <ToolSEO
+        title="Random Date Generator - Generate Random Dates & Times Online"
+        description="Free random date and time generator. Create past, future, or random dates in multiple formats. Perfect for testing, data generation, and development."
+        keywords="random date generator, date generator, random time generator, date picker, fake date generator, test data generator, random timestamp"
+        toolName="Random Date & Time Generator"
+        toolType="Generator"
+        category="Utility Tools"
+        features={[
+          "Generate past, future, or random dates",
+          "Multiple date format options",
+          "Optional time generation",
+          "Customizable year range",
+          "Instant date creation",
+          "Copy to clipboard"
+        ]}
+        faqSchema={faqData}
+      />
+      <Layout>
+        <div className="container py-12">
+          <div className="max-w-2xl mx-auto">
+            <Link 
+              to="/" 
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to Tools
+            </Link>
+            <h1 className="text-3xl font-bold mb-6">Random Date & Time Generator</h1>
+            <p className="text-muted-foreground mb-8">
+              Generate random dates and times for testing, data generation, and development projects.
+            </p>
           
           <Card className="mb-6">
             <CardHeader>
@@ -221,9 +270,43 @@ const DateGenerator = () => {
               </Button>
             </CardContent>
           </Card>
+
+          {/* SEO Content & FAQs */}
+          <section className="mt-8 prose prose-invert max-w-none">
+            <Card>
+              <CardHeader>
+                <CardTitle>About Random Date Generation</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 text-sm text-muted-foreground">
+                <p>
+                  Our random date generator creates realistic dates and times for various purposes including software testing, database population, educational projects, and creative writing. Generate dates in any format with optional timestamps.
+                </p>
+                <h3 className="text-lg font-bold text-foreground mt-4">Common Use Cases</h3>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li><strong>Software Testing:</strong> Create test data for date-dependent applications</li>
+                  <li><strong>Database Development:</strong> Populate databases with realistic sample dates</li>
+                  <li><strong>Creative Projects:</strong> Generate fictional timelines and historical dates</li>
+                  <li><strong>Form Testing:</strong> Test date pickers and validation logic</li>
+                </ul>
+
+                <div className="mt-6 bg-secondary/30 rounded-lg p-6">
+                  <h3 className="text-lg font-bold text-foreground mb-4">Frequently Asked Questions</h3>
+                  <div className="space-y-4">
+                    {faqData.map((faq, index) => (
+                      <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
+                        <h4 className="font-semibold text-foreground mb-2">{faq.question}</h4>
+                        <p className="text-sm">{faq.answer}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
         </div>
       </div>
     </Layout>
+    </>
   );
 };
 

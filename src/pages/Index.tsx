@@ -655,14 +655,63 @@ const Index = () => {
 
   return (
     <Layout 
-      title="Pine Tools Hub - Free Online Tools for Every Need - 90+ Professional Tools"
-      description="Access 90+ free professional online tools including PDF converters, AI generators, calculators, and productivity utilities. Free to use, no registration required, instant results."
+      title="Pine Tools Hub - Free Online Tools & Calculators - 90+ Professional Tools"
+      description="Free online tools and calculators for every need. PDF tools, calculators, AI generators, text converters, and more. No registration, instant results, 100% free."
     >
       <SEOHead
-        title="Free Online Tools for Every Need - 90+ Professional Tools | Pine Tools Hub" 
-        description="Access 90+ free professional online tools including PDF converters, AI generators, calculators, and productivity utilities. Free to use, no registration required, instant results."
-        keywords="free online tools, PDF tools, calculator tools, AI generators, text tools, image tools, productivity tools, no registration, instant results"
+        title="Free Online Calculators & Tools - 90+ Utilities | Pine Tools Hub" 
+        description="Access 90+ free online calculators, converters, and generators. PDF tools, word counter, password generator, QR codes, text tools, and more. No registration required."
+        keywords="online calculator, free calculator tools, word counter, password generator, qr code generator, pdf tools, text converter, online tools, free utilities, calculator online, percentage calculator"
       />
+      
+      {/* Structured Data for Tool Listing */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "name": "Pine Tools Hub",
+              "url": "https://pinetoolshub.com",
+              "description": "Free online calculators, converters, and tools for every need",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://pinetoolshub.com/?search={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "ItemList",
+              "name": "Online Tools and Calculators",
+              "description": "Collection of free online tools and calculators",
+              "numberOfItems": allTools.length,
+              "itemListElement": featuredTools.slice(0, 10).map((tool, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": tool.title,
+                  "url": `https://pinetoolshub.com${tool.route}`,
+                  "description": tool.description,
+                  "applicationCategory": "UtilityApplication",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  }
+                }
+              }))
+            },
+            {
+              "@type": "Organization",
+              "name": "Pine Tools Hub",
+              "url": "https://pinetoolshub.com",
+              "logo": "https://pinetoolshub.com/logo.png",
+              "description": "Free online tools and calculators for productivity and creativity"
+            }
+          ]
+        })}
+      </script>
       <div className="container py-8 md:py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
@@ -826,27 +875,49 @@ const Index = () => {
         {/* SEO Content */}
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="bg-card rounded-lg p-6 md:p-8 border border-border">
-            <h2 className="text-2xl font-bold mb-4">The easiest way to edit and manage your documents</h2>
+            <h2 className="text-2xl font-bold mb-4">Free Online Calculators and Tools for Every Need</h2>
             <p className="text-muted-foreground mb-4">
-              Pine Tools Hub provides a complete suite of tools for all your document and productivity needs. Whether you need PDF tools, AI content generators, career tools, or design utilities - we have everything in one place.
+              Pine Tools Hub offers 90+ free online calculators, converters, and generators for all your needs. From word counters and password generators to PDF tools and QR code makers - everything you need in one place.
             </p>
             <p className="text-muted-foreground mb-4">
-              All our tools are 100% free to use with no registration required. Process your files securely in your browser with professional-quality results instantly.
+              All our calculator tools are 100% free with no registration required. Process files securely in your browser, generate codes instantly, and get professional-quality results every time.
             </p>
             
             <div className="mt-8">
-              <h3 className="text-xl font-semibold mb-3">Popular Tools:</h3>
+              <h3 className="text-xl font-semibold mb-3">Popular Calculators & Tools:</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <Link to="/password-generator" className="text-primary hover:underline">Password Generator</Link>
+                <Link to="/qr-code" className="text-primary hover:underline">QR Code Generator</Link>
+                <Link to="/word-counter" className="text-primary hover:underline">Word Counter</Link>
+                <Link to="/barcode-generator" className="text-primary hover:underline">Barcode Generator</Link>
+                <Link to="/text-case-converter" className="text-primary hover:underline">Text Case Converter</Link>
+                <Link to="/lorem-ipsum" className="text-primary hover:underline">Lorem Ipsum Generator</Link>
                 <Link to="/merge-pdf" className="text-primary hover:underline">Merge PDF</Link>
-                <Link to="/split-pdf" className="text-primary hover:underline">Split PDF</Link>
                 <Link to="/compress-pdf" className="text-primary hover:underline">Compress PDF</Link>
-                <Link to="/pdf-to-word" className="text-primary hover:underline">PDF to Word</Link>
-                <Link to="/resume-builder" className="text-primary hover:underline">Resume Builder</Link>
-                <Link to="/blog-writer" className="text-primary hover:underline">Blog Writer</Link>
-                <Link to="/image-generator" className="text-primary hover:underline">Image Generator</Link>
-                <Link to="/code-generator" className="text-primary hover:underline">Code Generator</Link>
-                <Link to="/qr-code" className="text-primary hover:underline">QR Code</Link>
+                <Link to="/ifsc-finder" className="text-primary hover:underline">IFSC Finder</Link>
               </div>
+            </div>
+            
+            <div className="mt-8 bg-secondary/20 rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-3">Why Choose Our Calculator Tools?</h3>
+              <ul className="space-y-2 text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>No Registration:</strong> Use all tools instantly without creating an account</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>100% Free:</strong> All calculators and converters are completely free forever</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>Secure & Private:</strong> Your data is processed locally in your browser</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>Mobile-Friendly:</strong> Works perfectly on all devices and screen sizes</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
