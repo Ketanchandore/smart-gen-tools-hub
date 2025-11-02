@@ -18,7 +18,6 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
-import Layout from '@/components/Layout';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -654,10 +653,7 @@ const Index = () => {
   ].filter(Boolean) as typeof allTools;
 
   return (
-    <Layout 
-      title="Pine Tools Hub - Free Online Tools & Calculators - 90+ Professional Tools"
-      description="Free online tools and calculators for every need. PDF tools, calculators, AI generators, text converters, and more. No registration, instant results, 100% free."
-    >
+    <>
       <SEOHead
         title="Free Online Calculators & Tools - 90+ Utilities | Pine Tools Hub" 
         description="Access 90+ free online calculators, converters, and generators. PDF tools, word counter, password generator, QR codes, text tools, and more. No registration required."
@@ -922,7 +918,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 
