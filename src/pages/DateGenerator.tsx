@@ -163,7 +163,7 @@ const DateGenerator = () => {
           "Instant date creation",
           "Copy to clipboard"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container py-12">

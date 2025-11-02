@@ -2,9 +2,17 @@ import React, { useState } from 'react';
 import { FileDown, Info, Settings, Zap, Shield, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
+import ToolSEO from '@/components/ToolSEO';
 import { ToolStructuredData } from '@/components/StructuredData';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import PDFToolIntro from '@/components/PDFToolIntro';
+import PDFToolHowToUse from '@/components/PDFToolHowToUse';
+import PDFToolUseCases from '@/components/PDFToolUseCases';
+import PDFToolFAQ from '@/components/PDFToolFAQ';
+import PDFToolSEOContent from '@/components/PDFToolSEOContent';
+import PDFRelatedTools from '@/components/PDFRelatedTools';
 import { compressPDF } from '@/utils/pdfUtils';
+import { getPDFToolContent } from '@/data/pdfToolsContent';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -16,6 +24,8 @@ import { useToast } from '@/components/ui/use-toast';
 
 const CompressPdf = () => {
   const { toast } = useToast();
+  const toolContent = getPDFToolContent('compress-pdf');
+  
   const [compressionLevel, setCompressionLevel] = useState<'low' | 'medium' | 'high' | 'extreme' | 'custom'>('medium');
   const [customQuality, setCustomQuality] = useState(80);
   const [optimizeImages, setOptimizeImages] = useState(true);
@@ -92,10 +102,15 @@ const CompressPdf = () => {
 
   return (
     <>
-      <SEOHead 
-        title="Free PDF Compressor - Reduce PDF File Size Online | Pine Tools Hub"
-        description="Compress PDF files online for free. Reduce PDF size by up to 90% while maintaining quality. Professional PDF compression with advanced optimization settings."
-        keywords="PDF compressor, reduce PDF size, compress PDF online, PDF optimizer, shrink PDF, PDF file size reducer"
+      <ToolSEO 
+        title="Compress PDF Online Free - Reduce PDF File Size Up to 90% | Pine Tools Hub"
+        description="Free online PDF compressor reduces file size by up to 90% while maintaining quality. Compress PDF for email, web upload, and storage. No registration required."
+        keywords="compress pdf, reduce pdf size, pdf compressor online, shrink pdf, optimize pdf, pdf file size reducer, compress pdf online free"
+        toolName="PDF Compressor"
+        toolType="Tool"
+        category="PDF Tools"
+        features={toolContent?.seoContent.features || []}
+        faqs={toolContent?.faqs || []}
         url="https://pinetoolshub.com/compress-pdf"
       />
       <ToolStructuredData 
@@ -115,10 +130,17 @@ const CompressPdf = () => {
               <ArrowLeft className="h-4 w-4 mr-1" />
               Back to Tools
             </Link>
-            <h1 className="text-4xl font-bold mb-4">PDF Compressor - Reduce File Size</h1>
-            <p className="text-xl text-muted-foreground mb-6">
-              Compress PDF files with professional-grade optimization. Reduce file size by up to 90% while maintaining visual quality.
-            </p>
+            <h1 className="text-4xl font-bold mb-4">Compress PDF Online - Reduce PDF File Size</h1>
+            
+            {/* Tool Introduction */}
+            {toolContent && (
+              <PDFToolIntro
+                title="Compress PDF"
+                description={toolContent.intro.description}
+                benefits={toolContent.intro.benefits}
+                whyUse={toolContent.intro.whyUse}
+              />
+            )}
             <div className="flex flex-wrap gap-2 mb-6">
               <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
                 Merge PDF
@@ -348,83 +370,39 @@ const CompressPdf = () => {
           </div>
         </div>
         
+        {/* How to Use */}
+        {toolContent && (
+          <PDFToolHowToUse
+            steps={toolContent.howToUse.steps}
+            estimatedTime={toolContent.howToUse.estimatedTime}
+            tips={toolContent.howToUse.tips}
+          />
+        )}
+
+        {/* Use Cases */}
+        {toolContent && (
+          <PDFToolUseCases useCases={toolContent.useCases} />
+        )}
+
         {/* FAQ Section */}
-        <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
-          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {faqData.map((faq, index) => (
-              <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
-                <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        {toolContent && (
+          <PDFToolFAQ faqs={toolContent.faqs} />
+        )}
 
         {/* Related Tools */}
-        <div className="mt-12 bg-secondary/30 rounded-lg p-8">
-          <h2 className="text-2xl font-bold mb-6">Related PDF Tools</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/merge-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <FileDown className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Merge PDF</div>
-                <div className="text-sm text-muted-foreground">Combine multiple PDFs</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-            <Link to="/split-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <Shield className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Split PDF</div>
-                <div className="text-sm text-muted-foreground">Divide PDF into parts</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-            <Link to="/pdf-to-word" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <Settings className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">PDF to Word</div>
-                <div className="text-sm text-muted-foreground">Convert PDF to DOCX</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-            <Link to="/unlock-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <Zap className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Unlock PDF</div>
-                <div className="text-sm text-muted-foreground">Remove PDF passwords</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-          </div>
-        </div>
+        <PDFRelatedTools currentTool="compress-pdf" />
 
         {/* SEO Content */}
-        <div className="mt-12 prose prose-invert max-w-none">
-          <h2>Professional PDF Compression Tool</h2>
-          <p>
-            Our advanced PDF compressor uses industry-leading algorithms to significantly reduce file sizes while preserving document quality. 
-            Whether you need to compress PDFs for email attachments, web uploads, or storage optimization, our tool provides the perfect balance 
-            between file size and visual fidelity.
-          </p>
-          
-          <h3>Key Features</h3>
-          <ul>
-            <li><strong>Smart Compression:</strong> Intelligent algorithms analyze your PDF content to apply optimal compression</li>
-            <li><strong>Quality Control:</strong> Choose from preset compression levels or create custom settings</li>
-            <li><strong>Image Optimization:</strong> Advanced image compression with DPI control and format optimization</li>
-            <li><strong>Batch Processing:</strong> Compress multiple PDF files simultaneously</li>
-            <li><strong>Security Features:</strong> Password protection and metadata removal options</li>
-          </ul>
-
-          <h3>How PDF Compression Works</h3>
-          <p>
-            PDF compression reduces file size through several techniques: image optimization, duplicate content removal, 
-            font subsetting, and metadata cleanup. Our tool intelligently applies these methods based on your document 
-            content and quality preferences, ensuring maximum size reduction with minimal quality loss.
-          </p>
-        </div>
+        {toolContent && (
+          <PDFToolSEOContent
+            toolName={toolContent.seoContent.toolName}
+            whatIsIt={toolContent.seoContent.whatIsIt}
+            benefits={toolContent.seoContent.benefits}
+            features={toolContent.seoContent.features}
+            formats={toolContent.seoContent.formats}
+            security={toolContent.seoContent.security}
+          />
+        )}
       </div>
     </PDFToolTemplate>
       </div>

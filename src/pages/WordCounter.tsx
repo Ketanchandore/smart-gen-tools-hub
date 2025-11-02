@@ -322,7 +322,7 @@ ${text}`;
           "Sentence and paragraph counter",
           "Export analysis reports"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container max-w-7xl mx-auto px-4 py-8">

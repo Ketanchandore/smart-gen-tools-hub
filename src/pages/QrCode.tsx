@@ -111,7 +111,7 @@ const QrCode = () => {
           "No registration required",
           "Mobile-friendly interface"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container max-w-6xl mx-auto px-4 py-8">

@@ -111,7 +111,7 @@ const BarcodeGenerator = () => {
           "High-quality downloads",
           "Free to use commercially"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container py-12">

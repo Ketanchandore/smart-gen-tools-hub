@@ -139,7 +139,7 @@ const ImageCompressor = () => {
           "No quality loss visible",
           "Free unlimited use"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container py-12">

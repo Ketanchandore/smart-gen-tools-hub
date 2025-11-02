@@ -163,7 +163,7 @@ const LoremIpsum = () => {
           "Classic Lorem Ipsum text",
           "Perfect for design mockups"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container py-12">

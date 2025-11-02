@@ -8,7 +8,7 @@ interface ToolSEOProps {
   toolType?: 'Calculator' | 'Generator' | 'Converter' | 'Tool';
   category?: string;
   features?: string[];
-  faqSchema?: Array<{ question: string; answer: string }>;
+  faqs?: Array<{ question: string; answer: string }>;
   url?: string;
 }
 
@@ -20,7 +20,7 @@ const ToolSEO: React.FC<ToolSEOProps> = ({
   toolType = 'Tool',
   category = 'Productivity Tools',
   features = [],
-  faqSchema = [],
+  faqs = [],
   url = '',
 }) => {
   const fullUrl = url || `https://www.pinetoolshub.com${window.location.pathname}`;
@@ -90,10 +90,10 @@ const ToolSEO: React.FC<ToolSEOProps> = ({
   ];
 
   // Add FAQ schema if provided
-  if (faqSchema.length > 0) {
+  if (faqs.length > 0) {
     graphData.push({
       "@type": "FAQPage",
-      "mainEntity": faqSchema.map(faq => ({
+      "mainEntity": faqs.map(faq => ({
         "@type": "Question",
         "name": faq.question,
         "acceptedAnswer": {

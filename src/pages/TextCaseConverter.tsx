@@ -142,7 +142,7 @@ const TextCaseConverter = () => {
           "snake_case and kebab-case",
           "Instant conversion"
         ]}
-        faqSchema={faqData}
+        faqs={faqData}
       />
       <Layout>
         <div className="container py-12">
