@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
-import { FileDown, Info, Settings, Zap, Shield, ArrowLeft, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import SEOHead from '@/components/SEOHead';
+import { FileDown, Info, Settings, Zap } from 'lucide-react';
 import ToolSEO from '@/components/ToolSEO';
-import { ToolStructuredData } from '@/components/StructuredData';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
-import PDFToolIntro from '@/components/PDFToolIntro';
-import PDFToolHowToUse from '@/components/PDFToolHowToUse';
-import PDFToolUseCases from '@/components/PDFToolUseCases';
-import PDFToolFAQ from '@/components/PDFToolFAQ';
-import PDFToolSEOContent from '@/components/PDFToolSEOContent';
-import PDFRelatedTools from '@/components/PDFRelatedTools';
 import { compressPDF } from '@/utils/pdfUtils';
-import { getPDFToolContent } from '@/data/pdfToolsContent';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -24,7 +14,6 @@ import { useToast } from '@/components/ui/use-toast';
 
 const CompressPdf = () => {
   const { toast } = useToast();
-  const toolContent = getPDFToolContent('compress-pdf');
   
   const [compressionLevel, setCompressionLevel] = useState<'low' | 'medium' | 'high' | 'extreme' | 'custom'>('medium');
   const [customQuality, setCustomQuality] = useState(80);
@@ -109,63 +98,65 @@ const CompressPdf = () => {
         toolName="PDF Compressor"
         toolType="Tool"
         category="PDF Tools"
-        features={toolContent?.seoContent.features || []}
-        faqs={toolContent?.faqs || []}
+        features={["Advanced compression", "Quality control", "Batch processing", "Password protection", "Metadata removal"]}
+        faqs={faqData}
         url="https://pinetoolshub.com/compress-pdf"
       />
-      <ToolStructuredData 
-        name="PDF Compressor"
-        description="Professional online PDF compression tool with advanced optimization settings and quality control"
-        url="https://pinetoolshub.com/compress-pdf"
+
+      <PDFToolLayout
+        toolKey="compress-pdf"
+        toolName="Compress PDF"
         category="PDF Tools"
-        features={["Advanced compression algorithms", "Quality control settings", "Batch processing", "Password protection", "Metadata removal"]}
-      />
-      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-8">
-            <Link 
-              to="/" 
-              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Tools
-            </Link>
-            <h1 className="text-4xl font-bold mb-4">Compress PDF Online - Reduce PDF File Size</h1>
-            
-            {/* Tool Introduction */}
-            {toolContent && (
-              <PDFToolIntro
-                title="Compress PDF"
-                description={toolContent.intro.description}
-                benefits={toolContent.intro.benefits}
-                whyUse={toolContent.intro.whyUse}
-              />
-            )}
-            <div className="flex flex-wrap gap-2 mb-6">
-              <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                Merge PDF
-              </Link>
-              <Link to="/split-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                Split PDF
-              </Link>
-              <Link to="/pdf-to-word" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                PDF to Word
-              </Link>
-              <Link to="/unlock-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                Unlock PDF
-              </Link>
-            </div>
-          </div>
-        </div>
-    <PDFToolTemplate
-      title="Compress PDF"
-      description="Advanced PDF compression with professional-grade optimization options and batch processing"
-      icon={<FileDown className="h-8 w-8 text-primary" />}
-      acceptFiles=".pdf"
-      multiple={batchMode}
-      processFunction={handleCompress}
-      outputFilename="compressed.pdf"
-    >
+        categoryPath="/tools"
+        reverseTool={{
+          name: "Optimize PDF",
+          path: "/optimize-pdf",
+          description: "Already have a compressed PDF? Optimize it further for web or print."
+        }}
+        contextualTools={[
+          {
+            name: "Split PDF",
+            reason: "Large file? Split it first, then compress each part",
+            path: "/split-pdf"
+          },
+          {
+            name: "Merge PDF",
+            reason: "Combine compressed files into one document",
+            path: "/merge-pdf"
+          },
+          {
+            name: "PDF to JPG",
+            reason: "Convert to images for even smaller file sizes",
+            path: "/pdf-to-jpg"
+          }
+        ]}
+        whatsNextTools={[
+          {
+            name: "Protect PDF",
+            description: "Add password security to your compressed file",
+            path: "/protect-pdf",
+            icon: "protect"
+          },
+          {
+            name: "Merge PDF",
+            description: "Combine multiple compressed PDFs",
+            path: "/merge-pdf",
+            icon: "merge"
+          },
+          {
+            name: "Edit PDF",
+            description: "Make changes to your compressed document",
+            path: "/edit-pdf",
+            icon: "edit"
+          },
+          {
+            name: "Sign PDF",
+            description: "Add your signature digitally",
+            path: "/sign-pdf",
+            icon: "sign"
+          }
+        ]}
+      >
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -369,43 +360,8 @@ const CompressPdf = () => {
             </div>
           </div>
         </div>
-        
-        {/* How to Use */}
-        {toolContent && (
-          <PDFToolHowToUse
-            steps={toolContent.howToUse.steps}
-            estimatedTime={toolContent.howToUse.estimatedTime}
-            tips={toolContent.howToUse.tips}
-          />
-        )}
-
-        {/* Use Cases */}
-        {toolContent && (
-          <PDFToolUseCases useCases={toolContent.useCases} />
-        )}
-
-        {/* FAQ Section */}
-        {toolContent && (
-          <PDFToolFAQ faqs={toolContent.faqs} />
-        )}
-
-        {/* Related Tools */}
-        <PDFRelatedTools currentTool="compress-pdf" />
-
-        {/* SEO Content */}
-        {toolContent && (
-          <PDFToolSEOContent
-            toolName={toolContent.seoContent.toolName}
-            whatIsIt={toolContent.seoContent.whatIsIt}
-            benefits={toolContent.seoContent.benefits}
-            features={toolContent.seoContent.features}
-            formats={toolContent.seoContent.formats}
-            security={toolContent.seoContent.security}
-          />
-        )}
       </div>
-    </PDFToolTemplate>
-      </div>
+      </PDFToolLayout>
     </>
   );
 };

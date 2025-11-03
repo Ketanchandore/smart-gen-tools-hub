@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { FileText, Info, ArrowUpDown, Grid, List, Settings, ArrowLeft, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import SEOHead from '@/components/SEOHead';
-import { ToolStructuredData } from '@/components/StructuredData';
-import PDFToolTemplate from '@/components/PDFToolTemplate';
+import { FileText, Info, ArrowUpDown, Settings } from 'lucide-react';
+import ToolSEO from '@/components/ToolSEO';
+import PDFToolLayout from '@/components/PDFToolLayout';
 import { mergePDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -109,58 +107,46 @@ const MergePdf = () => {
 
   return (
     <>
-      <SEOHead 
+      <ToolSEO 
         title="Free PDF Merger - Combine Multiple PDFs Online | Pine Tools Hub"
         description="Merge PDF files online for free. Combine multiple PDFs with custom ordering, page ranges, and bookmarks. Professional PDF merging tool."
         keywords="PDF merger, combine PDF, merge PDF online, PDF joiner, PDF combiner, join PDFs"
-        url="https://pinetoolshub.com/merge-pdf"
-      />
-      <ToolStructuredData 
-        name="PDF Merger"
-        description="Professional PDF merging tool with advanced options for combining multiple PDF files with custom ordering and page selection"
-        url="https://pinetoolshub.com/merge-pdf"
+        toolName="PDF Merger"
+        toolType="Tool"
         category="PDF Tools"
-        features={["Custom file ordering", "Page range selection", "Bookmark generation", "Metadata preservation", "Batch processing"]}
+        features={["Custom file ordering", "Page range selection", "Bookmark generation", "Metadata preservation"]}
+        faqs={faqData}
+        url="https://pinetoolshub.com/merge-pdf"
       />
-      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-8">
-            <Link 
-              to="/" 
-              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Tools
-            </Link>
-            <h1 className="text-4xl font-bold mb-4">PDF Merger - Combine Multiple PDFs</h1>
-            <p className="text-xl text-muted-foreground mb-6">
-              Combine multiple PDF files into one document with advanced ordering, page selection, and bookmark features.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-6">
-              <Link to="/compress-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                Compress PDF
-              </Link>
-              <Link to="/split-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                Split PDF
-              </Link>
-              <Link to="/pdf-to-jpg" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                PDF to JPG
-              </Link>
-              <Link to="/protect-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
-                Protect PDF
-              </Link>
-            </div>
-          </div>
-        </div>
-    <PDFToolTemplate
-      title="Merge PDF"
-      description="Combine multiple PDF files with advanced options for page ranges, bookmarks, and custom ordering"
-      icon={<FileText className="h-8 w-8 text-primary" />}
-      acceptFiles=".pdf"
-      multiple={true}
-      processFunction={handleMerge}
-      outputFilename="merged.pdf"
-    >
+
+      <PDFToolLayout
+        toolKey="merge-pdf"
+        toolName="Merge PDF"
+        category="PDF Tools"
+        categoryPath="/tools"
+        reverseTool={{
+          name: "Split PDF",
+          path: "/split-pdf",
+          description: "Need to separate a merged PDF? Split it into individual files easily."
+        }}
+        contextualTools={[
+          {
+            name: "Compress PDF",
+            reason: "Reduce the size of your merged document",
+            path: "/compress-pdf"
+          },
+          {
+            name: "Organize PDF",
+            reason: "Reorder pages in your merged file",
+            path: "/organize-pdf"
+          },
+          {
+            name: "Protect PDF",
+            reason: "Secure your merged document with a password",
+            path: "/protect-pdf"
+          }
+        ]}
+      >
       {/* Handle file selection internally */}
       {files.length === 0 && (
         <div className="hidden">
@@ -346,57 +332,6 @@ const MergePdf = () => {
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
-          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {faqData.map((faq, index) => (
-              <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
-                <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Related Tools */}
-        <div className="mt-12 bg-secondary/30 rounded-lg p-8">
-          <h2 className="text-2xl font-bold mb-6">Related PDF Tools</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link to="/compress-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <FileText className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Compress PDF</div>
-                <div className="text-sm text-muted-foreground">Reduce PDF file size</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-            <Link to="/split-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <Settings className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Split PDF</div>
-                <div className="text-sm text-muted-foreground">Divide PDF into parts</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-            <Link to="/pdf-to-jpg" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <ArrowUpDown className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">PDF to JPG</div>
-                <div className="text-sm text-muted-foreground">Convert PDF to images</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-            <Link to="/protect-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
-              <Grid className="h-5 w-5 text-primary" />
-              <div>
-                <div className="font-medium">Protect PDF</div>
-                <div className="text-sm text-muted-foreground">Add password protection</div>
-              </div>
-              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
-            </Link>
-          </div>
-        </div>
 
         {/* SEO Content */}
         <div className="mt-12 prose prose-invert max-w-none">
@@ -423,8 +358,7 @@ const MergePdf = () => {
           </p>
         </div>
       </div>
-    </PDFToolTemplate>
-      </div>
+      </PDFToolLayout>
     </>
   );
 };
