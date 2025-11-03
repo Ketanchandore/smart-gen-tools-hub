@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { FileText, Info, ArrowUpDown, Settings } from 'lucide-react';
 import ToolSEO from '@/components/ToolSEO';
-import PDFToolLayout from '@/components/PDFToolLayout';
+import Layout from '@/components/Layout';
+import ToolBreadcrumb from '@/components/ToolBreadcrumb';
+import PopularToolsSidebar from '@/components/PopularToolsSidebar';
+import ReverseToolLink from '@/components/ReverseToolLink';
+import WhatsNextTools from '@/components/WhatsNextTools';
+import YouMightAlsoNeed from '@/components/YouMightAlsoNeed';
+import FileUploadArea from '@/components/FileUploadArea';
 import { mergePDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -119,246 +125,178 @@ const MergePdf = () => {
         url="https://pinetoolshub.com/merge-pdf"
       />
 
-      <PDFToolLayout
-        toolKey="merge-pdf"
-        toolName="Merge PDF"
-        category="PDF Tools"
-        categoryPath="/tools"
-        reverseTool={{
-          name: "Split PDF",
-          path: "/split-pdf",
-          description: "Need to separate a merged PDF? Split it into individual files easily."
-        }}
-        contextualTools={[
-          {
-            name: "Compress PDF",
-            reason: "Reduce the size of your merged document",
-            path: "/compress-pdf"
-          },
-          {
-            name: "Organize PDF",
-            reason: "Reorder pages in your merged file",
-            path: "/organize-pdf"
-          },
-          {
-            name: "Protect PDF",
-            reason: "Secure your merged document with a password",
-            path: "/protect-pdf"
-          }
-        ]}
-      >
-      {/* Handle file selection internally */}
-      {files.length === 0 && (
-        <div className="hidden">
-          {/* This will be handled by PDFToolTemplate */}
-        </div>
-      )}
-      
-      <div className="space-y-6">
-        {files.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ArrowUpDown className="h-5 w-5" />
-                File Order & Selection
-              </CardTitle>
-              <CardDescription>Drag to reorder files or specify page ranges</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {fileOrder.map((fileIndex, orderIndex) => (
-                  <div key={fileIndex} className="flex items-center gap-3 p-3 border rounded-lg">
-                    <div className="flex flex-col gap-1">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => moveFileUp(orderIndex)}
-                        disabled={orderIndex === 0}
-                      >
-                        ↑
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => moveFileDown(orderIndex)}
-                        disabled={orderIndex === fileOrder.length - 1}
-                      >
-                        ↓
-                      </Button>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline">{orderIndex + 1}</Badge>
-                        <span className="font-medium">{files[fileIndex]?.name}</span>
-                      </div>
-                      <Input
-                        placeholder="Page range (e.g., 1-5, 8, 10-15) - leave empty for all pages"
-                        value={pageRanges[fileIndex] || ''}
-                        onChange={(e) => setPageRange(fileIndex, e.target.value)}
-                        className="mt-2"
-                      />
-                    </div>
-                  </div>
-                ))}
+      <Layout>
+        <ToolBreadcrumb 
+          category="PDF Tools" 
+          categoryPath="/tools" 
+          toolName="Merge PDF" 
+        />
+        
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-3">
+              <div className="mb-8">
+                <h1 className="text-4xl font-bold mb-4">Merge PDF Files Online</h1>
+                <p className="text-lg text-muted-foreground">
+                  Combine multiple PDF documents into a single organized file. Easy drag-and-drop interface.
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Merge Options
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="basic" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="basic">Basic Settings</TabsTrigger>
-                <TabsTrigger value="advanced">Advanced Options</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="basic" className="space-y-4">
-                <div>
-                  <Label htmlFor="merge-mode">Merge Mode</Label>
-                  <Select value={mergeMode} onValueChange={(value: any) => setMergeMode(value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select merge mode" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="sequential">Sequential (one after another)</SelectItem>
-                      <SelectItem value="interleave">Interleave pages</SelectItem>
-                      <SelectItem value="custom">Custom page ranges</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="bg-primary/5 p-6 rounded-lg mb-8 border border-primary/20">
+                <h2 className="text-2xl font-bold mb-4">Why Merge PDFs?</h2>
+                <ul className="space-y-2">
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">✓</span> Organize related documents
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">✓</span> Easier file management
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">✓</span> Professional presentation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-primary">✓</span> Simplify sharing
+                  </li>
+                </ul>
+              </div>
 
-                <div>
-                  <Label htmlFor="output-title">Output Document Title</Label>
-                  <Input
-                    id="output-title"
-                    value={outputTitle}
-                    onChange={(e) => setOutputTitle(e.target.value)}
-                    placeholder="Enter document title"
-                  />
-                </div>
+              <FileUploadArea
+                acceptFiles=".pdf"
+                multiple={true}
+                processFunction={handleMerge}
+                outputFilename="merged.pdf"
+              />
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="add-bookmarks">Add Bookmarks</Label>
-                    <Switch
-                      id="add-bookmarks"
-                      checked={addBookmarks}
-                      onCheckedChange={setAddBookmarks}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="add-page-numbers">Add Page Numbers</Label>
-                    <Switch
-                      id="add-page-numbers"
-                      checked={addPageNumbers}
-                      onCheckedChange={setAddPageNumbers}
-                    />
-                  </div>
-                </div>
-              </TabsContent>
+              <div className="mt-8">
+                <ReverseToolLink 
+                  reverseTool={{
+                    name: "Split PDF",
+                    path: "/split-pdf",
+                    description: "Need to separate a merged PDF? Split it into individual files easily."
+                  }}
+                />
+              </div>
 
-              <TabsContent value="advanced" className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    <h4 className="font-medium">Document Structure</h4>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="preserve-metadata">Preserve Metadata</Label>
-                      <Switch
-                        id="preserve-metadata"
-                        checked={preserveMetadata}
-                        onCheckedChange={setPreserveMetadata}
-                      />
+              <div className="mt-12 bg-muted/30 p-8 rounded-lg">
+                <h2 className="text-2xl font-bold mb-4">How to Merge PDFs</h2>
+                <ol className="space-y-4">
+                  <li className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">1</span>
+                    <div>
+                      <h3 className="font-bold">Upload PDF Files</h3>
+                      <p className="text-muted-foreground">Select multiple PDF files to combine</p>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="insert-blank">Insert Blank Pages</Label>
-                      <Switch
-                        id="insert-blank"
-                        checked={insertBlankPages}
-                        onCheckedChange={setInsertBlankPages}
-                      />
+                  </li>
+                  <li className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">2</span>
+                    <div>
+                      <h3 className="font-bold">Arrange Order</h3>
+                      <p className="text-muted-foreground">Drag and drop to reorder files</p>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="add-headers">Add File Headers</Label>
-                      <Switch
-                        id="add-headers"
-                        checked={addHeaders}
-                        onCheckedChange={setAddHeaders}
-                      />
+                  </li>
+                  <li className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">3</span>
+                    <div>
+                      <h3 className="font-bold">Merge & Download</h3>
+                      <p className="text-muted-foreground">Combine files and download the result</p>
                     </div>
-                  </div>
+                  </li>
+                </ol>
+              </div>
 
-                  <div className="space-y-3">
-                    <h4 className="font-medium">Output Optimization</h4>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="optimize-output">Optimize Output</Label>
-                      <Switch
-                        id="optimize-output"
-                        checked={optimizeOutput}
-                        onCheckedChange={setOptimizeOutput}
-                      />
-                    </div>
-                  </div>
+              <div className="mt-12">
+                <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                <div className="space-y-4">
+                  {faqData.map((faq, index) => (
+                    <details key={index} className="bg-card p-4 rounded-lg cursor-pointer border">
+                      <summary className="font-bold text-lg">{faq.question}</summary>
+                      <p className="mt-2 text-muted-foreground">{faq.answer}</p>
+                    </details>
+                  ))}
                 </div>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+              </div>
 
-        <div className="p-4 bg-secondary/30 rounded-lg">
-          <div className="flex items-start gap-3">
-            <Info className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-muted-foreground space-y-2">
-              <p><strong>Advanced Merge Features:</strong></p>
-              <ul className="space-y-1 ml-4">
-                <li>• Smart file reordering with drag-and-drop interface</li>
-                <li>• Custom page range selection for each file</li>
-                <li>• Automatic bookmark generation with file names</li>
-                <li>• Metadata preservation and document title setting</li>
-                <li>• Interleaving pages for side-by-side comparison</li>
-                <li>• Blank page insertion between documents</li>
-                <li>• Output optimization for smaller file sizes</li>
-              </ul>
-              <p className="mt-2">
-                <strong>Pro Tip:</strong> Use page ranges like "1-5, 8, 10-15" to select specific pages from each file.
-              </p>
+              <YouMightAlsoNeed 
+                tools={[
+                  {
+                    name: "Compress PDF",
+                    reason: "Reduce the size of your merged document",
+                    path: "/compress-pdf"
+                  },
+                  {
+                    name: "Organize PDF",
+                    reason: "Reorder pages in your merged file",
+                    path: "/organize-pdf"
+                  },
+                  {
+                    name: "Protect PDF",
+                    reason: "Secure your merged document with a password",
+                    path: "/protect-pdf"
+                  }
+                ]}
+              />
+
+              <WhatsNextTools 
+                tools={[
+                  {
+                    name: "Compress PDF",
+                    description: "Reduce merged file size",
+                    path: "/compress-pdf",
+                    icon: "compress"
+                  },
+                  {
+                    name: "Split PDF",
+                    description: "Extract specific pages",
+                    path: "/split-pdf",
+                    icon: "split"
+                  },
+                  {
+                    name: "Organize PDF",
+                    description: "Reorder pages",
+                    path: "/organize-pdf",
+                    icon: "merge"
+                  },
+                  {
+                    name: "Protect PDF",
+                    description: "Add password security",
+                    path: "/protect-pdf",
+                    icon: "protect"
+                  }
+                ]}
+              />
+
+              <div className="mt-12 prose max-w-none">
+                <h2>What is PDF Merging?</h2>
+                <p>
+                  PDF merging combines multiple PDF documents into a single file while preserving the formatting, 
+                  layout, and quality of each original document. This is useful for organizing related documents, 
+                  creating comprehensive reports, or preparing professional presentations.
+                </p>
+                
+                <h3>Benefits of Merging PDFs</h3>
+                <ul>
+                  <li>Simplify document management and organization</li>
+                  <li>Easier sharing of related documents</li>
+                  <li>Professional presentation of information</li>
+                  <li>Reduced email attachments</li>
+                </ul>
+
+                <h3>Common Use Cases</h3>
+                <ul>
+                  <li>Combine invoice and receipt PDFs</li>
+                  <li>Merge contract documents and appendices</li>
+                  <li>Create comprehensive project reports</li>
+                  <li>Organize academic papers and references</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="lg:col-span-1">
+              <PopularToolsSidebar currentPath="/merge-pdf" />
             </div>
           </div>
         </div>
-
-
-        {/* SEO Content */}
-        <div className="mt-12 prose prose-invert max-w-none">
-          <h2>Professional PDF Merger Tool</h2>
-          <p>
-            Combine multiple PDF documents into a single, organized file with our advanced PDF merger. Perfect for combining 
-            reports, contracts, presentations, or any collection of PDF documents into one cohesive document.
-          </p>
-          
-          <h3>Advanced Merging Features</h3>
-          <ul>
-            <li><strong>Custom File Ordering:</strong> Drag and drop files to arrange them in your preferred order</li>
-            <li><strong>Page Range Selection:</strong> Choose specific pages from each PDF to include in the merge</li>
-            <li><strong>Automatic Bookmarks:</strong> Generate bookmarks for easy navigation through merged content</li>
-            <li><strong>Metadata Preservation:</strong> Maintain important document properties and information</li>
-            <li><strong>Quality Retention:</strong> No compression or quality loss during the merge process</li>
-          </ul>
-
-          <h3>Use Cases for PDF Merging</h3>
-          <p>
-            PDF merging is essential for document management, creating comprehensive reports, preparing legal documents, 
-            academic submissions, and business presentations. Combine invoices, merge chapters of documents, or create 
-            portfolio collections with professional results.
-          </p>
-        </div>
-      </div>
-      </PDFToolLayout>
+      </Layout>
     </>
   );
 };
