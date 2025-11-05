@@ -143,6 +143,7 @@ import TermsConditions from "./pages/TermsConditions";
 import Disclaimer from "./pages/Disclaimer";
 import Blog from "./pages/Blog";
 import Pricing from "./pages/Pricing";
+import Embed from "./pages/Embed";
 
 function App() {
   return (
@@ -170,6 +171,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/embed" element={<Embed />} />
                 
                 {/* Protected Routes */}
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

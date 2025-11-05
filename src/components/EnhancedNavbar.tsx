@@ -151,6 +151,9 @@ const EnhancedNavbar = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
+          <Link to="/embed" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
+            Embed
+          </Link>
           <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
             Blog
           </Link>
@@ -258,8 +261,15 @@ const EnhancedNavbar = () => {
                 ))}
                 
                 <Link 
-                  to="/blog" 
+                  to="/embed" 
                   className="text-base font-medium hover:text-primary transition-colors pt-2 border-t"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Embed Tools
+                </Link>
+                <Link 
+                  to="/blog" 
+                  className="text-base font-medium hover:text-primary transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Blog
