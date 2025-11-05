@@ -154,6 +154,9 @@ const EnhancedNavbar = () => {
           <Link to="/embed" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
             Embed
           </Link>
+          <Link to="/api" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
+            API
+          </Link>
           <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
             Blog
           </Link>
