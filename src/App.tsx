@@ -145,6 +145,7 @@ import Blog from "./pages/Blog";
 import Pricing from "./pages/Pricing";
 import Embed from "./pages/Embed";
 import ApiDocs from "./pages/ApiDocs";
+import WordPressPlugin from "./pages/WordPressPlugin";
 
 function App() {
   return (
@@ -172,8 +173,9 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/pricing" element={<Pricing />} />
-                <Route path="/embed" element={<Embed />} />
-                <Route path="/api" element={<ApiDocs />} />
+            <Route path="/embed" element={<Embed />} />
+            <Route path="/api" element={<ApiDocs />} />
+            <Route path="/wordpress-plugin" element={<WordPressPlugin />} />
                 
                 {/* Protected Routes */}
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

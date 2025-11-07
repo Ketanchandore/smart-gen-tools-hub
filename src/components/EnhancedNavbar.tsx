@@ -157,6 +157,9 @@ const EnhancedNavbar = () => {
           <Link to="/api" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
             API
           </Link>
+          <Link to="/wordpress-plugin" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
+            WordPress
+          </Link>
           <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-3 py-2 rounded-md hover:bg-accent">
             Blog
           </Link>
@@ -269,6 +272,20 @@ const EnhancedNavbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Embed Tools
+                </Link>
+                <Link 
+                  to="/api" 
+                  className="text-base font-medium hover:text-primary transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  API
+                </Link>
+                <Link 
+                  to="/wordpress-plugin" 
+                  className="text-base font-medium hover:text-primary transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  WordPress Plugin
                 </Link>
                 <Link 
                   to="/blog" 
