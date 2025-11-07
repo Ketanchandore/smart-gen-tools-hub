@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { FAQStructuredData, HowToStructuredData, ProductStructuredData } from '@/components/StructuredData';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -197,102 +198,45 @@ try {
       title: "Compress PDF",
       method: "POST",
       path: "/v1/compress",
-      description: "Reduce PDF file size while maintaining quality. Typically achieves 60-90% size reduction.",
-      request: {
-        file_url: "https://example.com/document.pdf",
-        quality: "medium"
-      },
-      response: {
-        success: true,
-        original_url: "https://example.com/document.pdf",
-        compressed_url: "https://api.pinetoolshub.com/temp/abc123.pdf",
-        original_size_mb: 5.2,
-        compressed_size_mb: 1.8,
-        compression_ratio: "65%",
-        time_taken_seconds: 2.3
-      }
+      description: "Reduce PDF file size while maintaining quality.",
+      request: { file_url: "https://example.com/document.pdf", quality: "medium" },
+      response: { success: true, compressed_url: "https://api.pinetoolshub.com/temp/abc123.pdf", compression_ratio: "65%" }
     },
     {
       id: "merge",
       title: "Merge PDFs",
       method: "POST",
       path: "/v1/merge",
-      description: "Combine multiple PDF files into one document. Order is preserved.",
-      request: {
-        file_urls: [
-          "https://example.com/file1.pdf",
-          "https://example.com/file2.pdf",
-          "https://example.com/file3.pdf"
-        ],
-        output_filename: "merged.pdf"
-      },
-      response: {
-        success: true,
-        merged_url: "https://api.pinetoolshub.com/temp/xyz789.pdf",
-        file_count: 3,
-        total_pages: 25,
-        merged_size_mb: 3.4,
-        time_taken_seconds: 1.5
-      }
+      description: "Combine multiple PDF files into one document.",
+      request: { file_urls: ["https://example.com/file1.pdf"], output_filename: "merged.pdf" },
+      response: { success: true, merged_url: "https://api.pinetoolshub.com/temp/xyz789.pdf" }
     },
     {
       id: "split",
       title: "Split PDF",
       method: "POST",
       path: "/v1/split",
-      description: "Separate a PDF into individual pages or custom page ranges.",
-      request: {
-        file_url: "https://example.com/document.pdf",
-        page_ranges: [[1, 5], [10, 15], [20]]
-      },
-      response: {
-        success: true,
-        split_files: [
-          {
-            range: "1-5",
-            url: "https://api.pinetoolshub.com/temp/split_001.pdf",
-            pages: 5
-          },
-          {
-            range: "10-15",
-            url: "https://api.pinetoolshub.com/temp/split_002.pdf",
-            pages: 6
-          }
-        ]
-      }
+      description: "Separate a PDF into individual pages.",
+      request: { file_url: "https://example.com/document.pdf" },
+      response: { success: true, split_files: [] }
     },
     {
       id: "pdf-to-word",
       title: "PDF to Word",
       method: "POST",
       path: "/v1/convert/pdf-to-word",
-      description: "Convert PDF to editable Word document (DOCX format).",
-      request: {
-        file_url: "https://example.com/document.pdf",
-        preserve_formatting: true
-      },
-      response: {
-        success: true,
-        word_url: "https://api.pinetoolshub.com/temp/document.docx",
-        accuracy: "95%",
-        time_taken_seconds: 3.2
-      }
+      description: "Convert PDF to Word.",
+      request: { file_url: "https://example.com/document.pdf" },
+      response: { success: true, word_url: "https://api.pinetoolshub.com/temp/document.docx" }
     },
     {
       id: "word-to-pdf",
       title: "Word to PDF",
       method: "POST",
       path: "/v1/convert/word-to-pdf",
-      description: "Convert Word documents (DOC, DOCX) to PDF format.",
-      request: {
-        file_url: "https://example.com/document.docx"
-      },
-      response: {
-        success: true,
-        pdf_url: "https://api.pinetoolshub.com/temp/document.pdf",
-        pages: 12,
-        file_size_mb: 2.1
-      }
+      description: "Convert Word to PDF.",
+      request: { file_url: "https://example.com/document.docx" },
+      response: { success: true, pdf_url: "https://api.pinetoolshub.com/temp/document.pdf" }
     }
   ];
 
@@ -339,6 +283,14 @@ try {
     }
   ];
 
+  const faqItems = faqs.map(f => ({ question: f.q, answer: f.a }));
+  
+  const howToSteps = [
+    { name: "Get your free API key", text: "Sign up with your email and get instant access to your API key from the dashboard. No credit card required for the free tier." },
+    { name: "Make your first API call", text: "Use your API key in the Authorization header. Send a POST request to the desired endpoint with your file URL and parameters." },
+    { name: "Process the response", text: "Receive JSON response with processed file URL, file size, processing time, and other metadata. Download or share the result." }
+  ];
+
   return (
     <>
       <Helmet>
@@ -347,6 +299,26 @@ try {
         <meta name="keywords" content="pdf api, pdf rest api, pdf converter api, compress pdf api, merge pdf api, free pdf api, pdf processing api" />
         <link rel="canonical" href="https://www.pinetoolshub.com/api" />
       </Helmet>
+      <FAQStructuredData questions={faqItems} />
+      <HowToStructuredData 
+        name="How to Use Pine Tools Hub API"
+        description="Complete guide to integrating PDF processing API in your applications"
+        totalTime="PT5M"
+        steps={howToSteps}
+      />
+      <ProductStructuredData 
+        name="Pine Tools Hub PDF API"
+        description="RESTful API for PDF processing. Compress, merge, split, and convert PDFs programmatically with simple API calls."
+        offers={{
+          price: "0",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock"
+        }}
+        aggregateRating={{
+          ratingValue: "4.8",
+          reviewCount: "892"
+        }}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}

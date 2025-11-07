@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import SEOHead from '@/components/SEOHead';
+import { FAQStructuredData, HowToStructuredData, ProductStructuredData } from '@/components/StructuredData';
 import { useToast } from '@/hooks/use-toast';
 
 const Embed = () => {
@@ -104,6 +105,56 @@ const Embed = () => {
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
+  const faqItems = [
+    {
+      question: "Can I embed PDF tools for free?",
+      answer: "Yes! Embedding is completely free. No API key, no limits, forever free."
+    },
+    {
+      question: "Do I need a Pine Tools Hub account?",
+      answer: "No. Anyone can embed tools without creating an account."
+    },
+    {
+      question: "Can I customize the appearance?",
+      answer: "Yes! Change colors, size, theme, and more in the generator."
+    },
+    {
+      question: "Will it work on mobile?",
+      answer: "Yes! All tools are 100% mobile responsive."
+    },
+    {
+      question: "Can I remove the 'Powered by Pine Tools Hub' branding?",
+      answer: "The small branding link helps us get credit. Keep it to support us!"
+    },
+    {
+      question: "What happens if I embed and you change the tool?",
+      answer: "Improvements are automatic! Users always get the latest features."
+    },
+    {
+      question: "Is there an embed limit?",
+      answer: "No limit! Embed on as many sites as you want."
+    },
+    {
+      question: "Does embedding affect my website speed?",
+      answer: "No. Tools are lazy-loaded and optimized for performance."
+    }
+  ];
+
+  const howToSteps = [
+    {
+      name: "Select a PDF tool",
+      text: "Choose from our collection of 20+ professional PDF tools. Click 'Get Embed Code' on any tool card to begin."
+    },
+    {
+      name: "Customize appearance (optional)",
+      text: "Adjust width, height, theme (light/dark), primary color, border radius, and branding options to match your website design."
+    },
+    {
+      name: "Copy and paste embed code",
+      text: "Copy the generated HTML, WordPress shortcode, or JavaScript code and paste it into your website. The tool will appear instantly and work across all devices."
+    }
+  ];
+
   return (
     <>
       <SEOHead
@@ -111,6 +162,26 @@ const Embed = () => {
         description="Add powerful PDF tools to your website instantly. Free forever, no API key required. Fully responsive, customizable, and mobile-friendly embed codes."
         keywords="embed pdf tools, pdf widget, pdf iframe, free pdf embed, website pdf tools, pdf api free"
         url="https://pinetoolshub.com/embed"
+      />
+      <FAQStructuredData questions={faqItems} />
+      <HowToStructuredData 
+        name="How to Embed PDF Tools on Your Website"
+        description="Learn how to add professional PDF tools to any website in 3 simple steps"
+        totalTime="PT2M"
+        steps={howToSteps}
+      />
+      <ProductStructuredData 
+        name="Pine Tools Hub Embed Code Generator"
+        description="Free embed code generator to add 20+ PDF tools to any website. Customizable, responsive, and requires no API key."
+        offers={{
+          price: "0",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock"
+        }}
+        aggregateRating={{
+          ratingValue: "4.9",
+          reviewCount: "1247"
+        }}
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12">

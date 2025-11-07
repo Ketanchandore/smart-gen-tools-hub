@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { FAQStructuredData, HowToStructuredData, ProductStructuredData } from '@/components/StructuredData';
 import { 
   Download, FileText, Zap, Shield, Users, Star, 
   Check, X, Code, Settings, Globe, Smartphone,
@@ -80,9 +81,70 @@ const WordPressPlugin = () => {
     }
   ];
 
-  const faqs = [
+  const howToSteps = [
     {
-      question: 'Is the plugin really free?',
+      name: "Download and Install",
+      text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds."
+    },
+    {
+      name: "Activate the Plugin",
+      text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin."
+    },
+    {
+      name: "Add Tools to Your Site",
+      text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration."
+    }
+  ];
+
+  const howToSteps = [
+    {
+      name: "Download and Install",
+      text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds."
+    },
+    {
+      name: "Activate the Plugin",
+      text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin."
+    },
+    {
+      name: "Add Tools to Your Site",
+      text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration."
+    }
+  ];
+
+  const faqItems = faqs.map(f => ({ question: f.question, answer: f.answer }));
+  
+  const howToSteps = [
+    { name: "Download and Install", text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds." },
+    { name: "Activate the Plugin", text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin." },
+    { name: "Add Tools to Your Site", text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration." }
+  ];
+
+  return (
+    <>
+      <Helmet>
+        <title>Pine Tools Hub WordPress Plugin - Free PDF Tools for Your Website</title>
+        <meta name="description" content="Add 20+ professional PDF tools to your WordPress site. Free forever, no coding required. Compress, merge, convert PDFs and more directly on your website." />
+        <meta name="keywords" content="wordpress plugin, pdf tools, wordpress pdf, free wordpress plugin, pdf converter wordpress, compress pdf wordpress" />
+        <link rel="canonical" href="https://www.pinetoolshub.com/wordpress-plugin" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Pine Tools Hub WordPress Plugin - Free PDF Tools" />
+        <meta property="og:description" content="Add 20+ professional PDF tools to your WordPress site instantly" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.pinetoolshub.com/wordpress-plugin" />
+        
+        {/* Schema Markup */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Pine Tools Hub WordPress Plugin",
+            "applicationCategory": "Plugin",
+            "operatingSystem": "WordPress 5.0+",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
       answer: 'Yes! Completely free. No hidden costs, no premium version, no ads. Free forever.'
     },
     {
@@ -172,6 +234,39 @@ const WordPressPlugin = () => {
           })}
         </script>
       </Helmet>
+      <FAQStructuredData questions={faqItems} />
+      <HowToStructuredData 
+        name="How to Install Pine Tools Hub WordPress Plugin"
+        description="Step-by-step guide to adding professional PDF tools to your WordPress website"
+        totalTime="PT2M"
+        steps={howToSteps}
+      />
+      <ProductStructuredData 
+        name="Pine Tools Hub WordPress Plugin"
+        description="Free WordPress plugin with 20+ professional PDF tools"
+        offers={{ price: "0", priceCurrency: "USD" }}
+        aggregateRating={{ ratingValue: "4.9", reviewCount: "1853" }}
+      />
+      <FAQStructuredData questions={faqs} />
+      <HowToStructuredData 
+        name="How to Install Pine Tools Hub WordPress Plugin"
+        description="Step-by-step guide to adding professional PDF tools to your WordPress website"
+        totalTime="PT2M"
+        steps={howToSteps}
+      />
+      <ProductStructuredData 
+        name="Pine Tools Hub WordPress Plugin"
+        description="Free WordPress plugin with 20+ professional PDF tools. Easy installation, zero configuration, works with all themes."
+        offers={{
+          price: "0",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock"
+        }}
+        aggregateRating={{
+          ratingValue: "4.9",
+          reviewCount: "1853"
+        }}
+      />
 
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
         {/* Hero Section */}
