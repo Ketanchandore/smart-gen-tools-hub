@@ -9,7 +9,7 @@ import {
   MessageSquare, Book, Lightbulb, Code, Youtube, Workflow,
   BarChart, CheckCircle, Database, Headphones, Filter, BrainCircuit,
   ArrowUpRight, Palette, AtSign, BadgeDollarSign, CircleUser, QrCode,
-  Network, Layers, Chrome, Send, FileUp
+  Network, Layers, Chrome, Send, FileUp, Smartphone, Lock
 } from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import { Button } from '@/components/ui/button';
@@ -749,32 +749,48 @@ const Index = () => {
 
         {/* Benefits Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
-          <Card className="text-center p-4 bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
-            <CardContent className="p-2">
-              <div className="text-3xl mb-2">🆓</div>
-              <h3 className="font-bold mb-1">Free to Use</h3>
-              <p className="text-xs text-muted-foreground">All tools completely free</p>
+          <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-primary/10">
+                  <BadgeDollarSign className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">Free to Use</h3>
+              <p className="text-sm text-muted-foreground">All tools completely free</p>
             </CardContent>
           </Card>
-          <Card className="text-center p-4 bg-gradient-to-br from-accent/10 to-transparent border-accent/20">
-            <CardContent className="p-2">
-              <div className="text-3xl mb-2">⚡</div>
-              <h3 className="font-bold mb-1">Instant Results</h3>
-              <p className="text-xs text-muted-foreground">Get results in seconds</p>
+          <Card className="text-center p-6 bg-gradient-to-br from-accent/10 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-accent/10">
+                  <Zap className="h-6 w-6 text-accent" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">Instant Results</h3>
+              <p className="text-sm text-muted-foreground">Get results in seconds</p>
             </CardContent>
           </Card>
-          <Card className="text-center p-4 bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
-            <CardContent className="p-2">
-              <div className="text-3xl mb-2">🔐</div>
-              <h3 className="font-bold mb-1">No Registration</h3>
-              <p className="text-xs text-muted-foreground">Use without signing up</p>
+          <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-primary/10">
+                  <Lock className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">No Registration</h3>
+              <p className="text-sm text-muted-foreground">Use without signing up</p>
             </CardContent>
           </Card>
-          <Card className="text-center p-4 bg-gradient-to-br from-accent/10 to-transparent border-accent/20">
-            <CardContent className="p-2">
-              <div className="text-3xl mb-2">📱</div>
-              <h3 className="font-bold mb-1">Mobile Friendly</h3>
-              <p className="text-xs text-muted-foreground">Works on all devices</p>
+          <Card className="text-center p-6 bg-gradient-to-br from-accent/10 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-accent/10">
+                  <Smartphone className="h-6 w-6 text-accent" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">Mobile Friendly</h3>
+              <p className="text-sm text-muted-foreground">Works on all devices</p>
             </CardContent>
           </Card>
         </div>
