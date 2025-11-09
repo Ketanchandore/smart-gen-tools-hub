@@ -816,57 +816,6 @@ const Index = () => {
             </div>
           </div>
         )}
-
-        {/* Search Bar */}
-        <div className="mb-8 max-w-xl mx-auto">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
-            <Input
-              className="pl-10 w-full h-12 text-base"
-              placeholder="Search tools..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
-          <div className="overflow-x-auto pb-2 mb-8">
-            <TabsList className="inline-flex w-auto min-w-full justify-start bg-muted/50">
-              {categories.map(category => (
-                <TabsTrigger 
-                  key={category.id} 
-                  value={category.id}
-                  className="min-w-[100px] whitespace-nowrap data-[state=active]:bg-background data-[state=active]:text-foreground"
-                >
-                  {category.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
-
-          {categories.map(category => (
-            <TabsContent key={category.id} value={category.id}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                {categoryTools.map(tool => (
-                  <ToolCard
-                    key={tool.id}
-                    title={tool.title}
-                    description={tool.description}
-                    icon={tool.icon}
-                    route={tool.route}
-                  />
-                ))}
-              </div>
-              
-              {categoryTools.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
-                  No tools found matching your search.
-                </div>
-              )}
-            </TabsContent>
-          ))}
-        </Tabs>
         
         {/* SEO Content */}
         <div className="mt-16 max-w-4xl mx-auto">
