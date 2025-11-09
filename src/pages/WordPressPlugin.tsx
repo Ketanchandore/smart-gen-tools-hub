@@ -81,70 +81,9 @@ const WordPressPlugin = () => {
     }
   ];
 
-  const howToSteps = [
+  const faqs = [
     {
-      name: "Download and Install",
-      text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds."
-    },
-    {
-      name: "Activate the Plugin",
-      text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin."
-    },
-    {
-      name: "Add Tools to Your Site",
-      text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration."
-    }
-  ];
-
-  const howToSteps = [
-    {
-      name: "Download and Install",
-      text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds."
-    },
-    {
-      name: "Activate the Plugin",
-      text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin."
-    },
-    {
-      name: "Add Tools to Your Site",
-      text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration."
-    }
-  ];
-
-  const faqItems = faqs.map(f => ({ question: f.question, answer: f.answer }));
-  
-  const howToSteps = [
-    { name: "Download and Install", text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds." },
-    { name: "Activate the Plugin", text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin." },
-    { name: "Add Tools to Your Site", text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration." }
-  ];
-
-  return (
-    <>
-      <Helmet>
-        <title>Pine Tools Hub WordPress Plugin - Free PDF Tools for Your Website</title>
-        <meta name="description" content="Add 20+ professional PDF tools to your WordPress site. Free forever, no coding required. Compress, merge, convert PDFs and more directly on your website." />
-        <meta name="keywords" content="wordpress plugin, pdf tools, wordpress pdf, free wordpress plugin, pdf converter wordpress, compress pdf wordpress" />
-        <link rel="canonical" href="https://www.pinetoolshub.com/wordpress-plugin" />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content="Pine Tools Hub WordPress Plugin - Free PDF Tools" />
-        <meta property="og:description" content="Add 20+ professional PDF tools to your WordPress site instantly" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.pinetoolshub.com/wordpress-plugin" />
-        
-        {/* Schema Markup */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Pine Tools Hub WordPress Plugin",
-            "applicationCategory": "Plugin",
-            "operatingSystem": "WordPress 5.0+",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
+      question: 'Is the plugin really free?',
       answer: 'Yes! Completely free. No hidden costs, no premium version, no ads. Free forever.'
     },
     {
@@ -193,6 +132,21 @@ const WordPressPlugin = () => {
     }
   ];
 
+  const howToSteps = [
+    {
+      name: "Download and Install",
+      text: "Go to your WordPress dashboard, click 'Plugins' → 'Add New', search for 'Pine Tools Hub', and click 'Install Now'. Takes less than 30 seconds."
+    },
+    {
+      name: "Activate the Plugin",
+      text: "Click the 'Activate' button after installation. The plugin is now active and automatically adds a new 'PDF Tools' menu item to your WordPress admin."
+    },
+    {
+      name: "Add Tools to Your Site",
+      text: "Use the shortcode [pinetoolshub] on any page or post to display all tools, or [pinetoolshub tool='compress-pdf'] for a specific tool. Tools work immediately with zero configuration."
+    }
+  ];
+
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     toast.success(`${label} copied to clipboard!`);
@@ -206,47 +160,12 @@ const WordPressPlugin = () => {
         <meta name="keywords" content="wordpress plugin, pdf tools, wordpress pdf, free wordpress plugin, pdf converter wordpress, compress pdf wordpress" />
         <link rel="canonical" href="https://www.pinetoolshub.com/wordpress-plugin" />
         
-        {/* Open Graph */}
         <meta property="og:title" content="Pine Tools Hub WordPress Plugin - Free PDF Tools" />
         <meta property="og:description" content="Add 20+ professional PDF tools to your WordPress site instantly" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.pinetoolshub.com/wordpress-plugin" />
-        
-        {/* Schema Markup */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Pine Tools Hub WordPress Plugin",
-            "applicationCategory": "Plugin",
-            "operatingSystem": "WordPress 5.0+",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "5",
-              "ratingCount": "156"
-            },
-            "description": "Free WordPress plugin that adds 20+ professional PDF tools to your website"
-          })}
-        </script>
       </Helmet>
-      <FAQStructuredData questions={faqItems} />
-      <HowToStructuredData 
-        name="How to Install Pine Tools Hub WordPress Plugin"
-        description="Step-by-step guide to adding professional PDF tools to your WordPress website"
-        totalTime="PT2M"
-        steps={howToSteps}
-      />
-      <ProductStructuredData 
-        name="Pine Tools Hub WordPress Plugin"
-        description="Free WordPress plugin with 20+ professional PDF tools"
-        offers={{ price: "0", priceCurrency: "USD" }}
-        aggregateRating={{ ratingValue: "4.9", reviewCount: "1853" }}
-      />
+
       <FAQStructuredData questions={faqs} />
       <HowToStructuredData 
         name="How to Install Pine Tools Hub WordPress Plugin"
@@ -377,7 +296,7 @@ const WordPressPlugin = () => {
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• Click "Activate" button</li>
                     <li>• Plugin automatically activated</li>
-                    <li>• No configuration needed</li>
+                    <li>• New menu item added</li>
                     <li>• Ready to use instantly</li>
                     <li className="text-primary font-semibold">⏱️ Time: 5 seconds</li>
                   </ul>
@@ -391,18 +310,18 @@ const WordPressPlugin = () => {
                   </div>
                   <h3 className="text-xl font-semibold mb-3 mt-4">Use</h3>
                   <ul className="space-y-2 text-muted-foreground">
-                    <li>• New menu "PDF Tools"</li>
-                    <li>• Shortcode [pinetoolshub]</li>
-                    <li>• Widget for sidebars</li>
-                    <li>• Custom page /pdf-tools</li>
-                    <li className="text-primary font-semibold">⏱️ Time: Automatic!</li>
+                    <li>• Automatically adds menu</li>
+                    <li>• Shortcode available</li>
+                    <li>• Widget ready</li>
+                    <li>• Custom page created</li>
+                    <li className="text-primary font-semibold">⏱️ Time: 0 seconds (automatic!)</li>
                   </ul>
                 </CardContent>
               </Card>
             </div>
             
             <div className="text-center mt-8">
-              <p className="text-2xl font-semibold text-primary">Total time: Less than 1 minute</p>
+              <p className="text-lg font-semibold text-primary">Total time: Less than 1 minute</p>
             </div>
           </div>
         </section>
@@ -410,13 +329,12 @@ const WordPressPlugin = () => {
         {/* Tools Showcase */}
         <section id="features" className="py-16 px-4 bg-card/50">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">What's Included in the Plugin</h2>
-            <p className="text-center text-muted-foreground mb-12">20+ professional PDF tools at your fingertips</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">What's Included in the Plugin</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.map((tool, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="pt-6">
+                  <CardContent className="pt-6 text-center">
                     <div className="text-4xl mb-3">{tool.icon}</div>
                     <h3 className="font-semibold mb-2">{tool.name}</h3>
                     <p className="text-sm text-muted-foreground">{tool.description}</p>
@@ -432,72 +350,56 @@ const WordPressPlugin = () => {
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Add Tools to Your WordPress Site in 4 Ways</h2>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <FileText className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Method 1: Dedicated Page</h3>
-                      <p className="text-muted-foreground mb-3">
-                        Create new page "PDF Tools", add shortcode [pinetoolshub], publish. Users access via menu.
-                      </p>
-                      <code className="bg-muted px-3 py-1 rounded text-sm">[pinetoolshub]</code>
-                    </div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-primary" />
+                    Method 1: Dedicated Page
+                  </h3>
+                  <div className="bg-muted p-4 rounded-lg mb-3">
+                    <code className="text-sm">[pinetoolshub]</code>
                   </div>
+                  <p className="text-muted-foreground">Create new page: "PDF Tools", add shortcode, publish. Users access via menu.</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <BookOpen className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Method 2: Blog Posts</h3>
-                      <p className="text-muted-foreground mb-3">
-                        Write tutorial, embed specific tool in article. Keep readers on your site.
-                      </p>
-                      <code className="bg-muted px-3 py-1 rounded text-sm">[pinetoolshub tool="compress-pdf"]</code>
-                    </div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <BookOpen className="w-5 h-5 text-primary" />
+                    Method 2: Blog Posts
+                  </h3>
+                  <div className="bg-muted p-4 rounded-lg mb-3">
+                    <code className="text-sm">[pinetoolshub tool="compress-pdf"]</code>
                   </div>
+                  <p className="text-muted-foreground">Write tutorial, embed specific tool in article. Keep readers on your site.</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Layers className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Method 3: Sidebar Widget</h3>
-                      <p className="text-muted-foreground mb-3">
-                        Drag "Pine Tools Hub" widget to sidebar. Shows tool selector. Quick access for visitors.
-                      </p>
-                      <Badge>Drag & Drop Widget</Badge>
-                    </div>
-                  </div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-primary" />
+                    Method 3: Sidebar Widget
+                  </h3>
+                  <p className="text-muted-foreground mb-3">Drag "Pine Tools Hub" widget to sidebar. Shows tool selector.</p>
+                  <Button size="sm" variant="outline" className="w-full">
+                    Configure Widget
+                  </Button>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Globe className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Method 4: Custom Pages</h3>
-                      <p className="text-muted-foreground mb-3">
-                        Create "Free Tools" page, add shortcode. Build traffic magnet with high SEO value.
-                      </p>
-                      <code className="bg-muted px-3 py-1 rounded text-sm">[pinetoolshub category="pdf"]</code>
-                    </div>
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Code className="w-5 h-5 text-primary" />
+                    Method 4: Custom Pages
+                  </h3>
+                  <div className="bg-muted p-4 rounded-lg mb-3">
+                    <code className="text-sm">[pinetoolshub category="pdf"]</code>
                   </div>
+                  <p className="text-muted-foreground">Create "Free Tools" page. Build traffic magnet. High SEO value.</p>
                 </CardContent>
               </Card>
             </div>
@@ -509,26 +411,17 @@ const WordPressPlugin = () => {
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Plugin Features</h2>
             
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card>
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4">
                     <Code className="w-8 h-8 text-primary flex-shrink-0" />
                     <div>
                       <h3 className="text-xl font-semibold mb-2">Easy Shortcode System</h3>
-                      <div className="space-y-2 text-sm">
-                        <div className="bg-muted p-2 rounded">
-                          <code>[pinetoolshub]</code>
-                          <span className="text-muted-foreground ml-2">// All tools</span>
-                        </div>
-                        <div className="bg-muted p-2 rounded">
-                          <code>[pinetoolshub tool="compress-pdf"]</code>
-                          <span className="text-muted-foreground ml-2">// Specific tool</span>
-                        </div>
-                        <div className="bg-muted p-2 rounded">
-                          <code>[pinetoolshub category="pdf"]</code>
-                          <span className="text-muted-foreground ml-2">// Category</span>
-                        </div>
+                      <div className="space-y-2 text-sm text-muted-foreground mb-3">
+                        <div className="bg-muted p-2 rounded"><code>[pinetoolshub]</code></div>
+                        <div className="bg-muted p-2 rounded"><code>[pinetoolshub tool="compress-pdf"]</code></div>
+                        <div className="bg-muted p-2 rounded"><code>[pinetoolshub category="pdf"]</code></div>
                       </div>
                     </div>
                   </div>
@@ -561,7 +454,7 @@ const WordPressPlugin = () => {
                       <h3 className="text-xl font-semibold mb-2">No Server Resources Used</h3>
                       <ul className="space-y-1 text-muted-foreground">
                         <li>• Tools run on our secure servers</li>
-                        <li>• Doesn't slow down WordPress</li>
+                        <li>• Doesn't slow down your WordPress</li>
                         <li>• No file uploads to your server</li>
                         <li>• Zero storage needed</li>
                         <li>• Zero performance impact</li>
@@ -955,24 +848,27 @@ const WordPressPlugin = () => {
               <Card>
                 <CardContent className="pt-6 text-center">
                   <BookOpen className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h3 className="font-semibold mb-2">Documentation</h3>
-                  <Button variant="link">Read Docs</Button>
+                  <h4 className="font-semibold mb-2">Documentation</h4>
+                  <p className="text-sm text-muted-foreground mb-3">Complete setup guides</p>
+                  <Button size="sm" variant="outline" className="w-full">View Docs</Button>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6 text-center">
                   <MessageCircle className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h3 className="font-semibold mb-2">Discord Community</h3>
-                  <Button variant="link">Join Discord</Button>
+                  <h4 className="font-semibold mb-2">Discord Community</h4>
+                  <p className="text-sm text-muted-foreground mb-3">Join 1000+ developers</p>
+                  <Button size="sm" variant="outline" className="w-full">Join Discord</Button>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6 text-center">
                   <Users className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <h3 className="font-semibold mb-2">Email Support</h3>
-                  <Button variant="link">Contact Us</Button>
+                  <h4 className="font-semibold mb-2">Support</h4>
+                  <p className="text-sm text-muted-foreground mb-3">24h email response</p>
+                  <Button size="sm" variant="outline" className="w-full">Get Help</Button>
                 </CardContent>
               </Card>
             </div>
@@ -982,108 +878,91 @@ const WordPressPlugin = () => {
         {/* Roadmap */}
         <section className="py-16 px-4 bg-card/50">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Coming Soon to the Plugin</h2>
-            <p className="text-center text-muted-foreground mb-12">We're constantly improving based on community feedback</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Coming Soon to the Plugin</h2>
             
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">OCR (Text Extraction)</h3>
-                      <p className="text-sm text-muted-foreground">Extract text from scanned PDFs</p>
-                    </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <h3 className="font-semibold">OCR Text Extraction</h3>
                   </div>
+                  <p className="text-sm text-muted-foreground">Extract text from scanned PDFs automatically</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Batch Processing</h3>
-                      <p className="text-sm text-muted-foreground">Process multiple files at once</p>
-                    </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <h3 className="font-semibold">Batch Processing</h3>
                   </div>
+                  <p className="text-sm text-muted-foreground">Process multiple files simultaneously</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Scheduling Features</h3>
-                      <p className="text-sm text-muted-foreground">Automate PDF processing tasks</p>
-                    </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <h3 className="font-semibold">Scheduling Features</h3>
                   </div>
+                  <p className="text-sm text-muted-foreground">Schedule document processing tasks</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Analytics Dashboard</h3>
-                      <p className="text-sm text-muted-foreground">Track tool usage and engagement</p>
-                    </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <h3 className="font-semibold">Analytics Dashboard</h3>
                   </div>
+                  <p className="text-sm text-muted-foreground">Track tool usage and performance</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Custom Branding</h3>
-                      <p className="text-sm text-muted-foreground">Add your own logo and colors</p>
-                    </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <h3 className="font-semibold">Custom Branding</h3>
                   </div>
+                  <p className="text-sm text-muted-foreground">Add your logo and colors to tools</p>
                 </CardContent>
               </Card>
               
               <Card>
                 <CardContent className="pt-6">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold mb-1">White-Label Version</h3>
-                      <p className="text-sm text-muted-foreground">Remove all Pine Tools branding</p>
-                    </div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <h3 className="font-semibold">White-Label Version</h3>
                   </div>
+                  <p className="text-sm text-muted-foreground">Remove all branding for agencies</p>
                 </CardContent>
               </Card>
             </div>
             
             <div className="text-center mt-8">
-              <p className="text-muted-foreground mb-4">Community voting on next features</p>
-              <Button variant="outline">Vote on Features</Button>
+              <p className="text-muted-foreground mb-4">Vote on which features to prioritize next</p>
+              <Button size="lg" variant="outline">
+                <CheckCircle className="mr-2 h-5 w-5" />
+                Vote on Features
+              </Button>
             </div>
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 px-4 bg-gradient-to-r from-primary/10 to-secondary/10">
+        <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Add Professional PDF Tools to Your WordPress Site?
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Add PDF Tools to Your WordPress Site?</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Join 1,000+ WordPress sites already using Pine Tools Hub
+              Join 1,000+ WordPress sites using Pine Tools Hub. Free forever, no credit card required.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                <Download className="mr-2 h-5 w-5" />
-                Download Plugin Now
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8">
-                View Documentation
-              </Button>
-            </div>
+            <Button size="lg" className="text-lg px-12" onClick={() => window.scrollTo({ top: document.getElementById('download')?.offsetTop || 0, behavior: 'smooth' })}>
+              <Download className="mr-2 h-6 w-6" />
+              Download Plugin Now
+            </Button>
           </div>
         </section>
       </div>
