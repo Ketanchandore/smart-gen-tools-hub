@@ -134,6 +134,12 @@ import OcrPdf from "./pages/OcrPdf";
 import ComparePdf from "./pages/ComparePdf";
 import RedactPdf from "./pages/RedactPdf";
 import CropPdf from "./pages/CropPdf";
+import PdfToText from "./pages/PdfToText";
+import PdfToImage from "./pages/PdfToImage";
+import ExtractPdfPages from "./pages/ExtractPdfPages";
+import ReorderPdfPages from "./pages/ReorderPdfPages";
+import RemovePdfPages from "./pages/RemovePdfPages";
+import PdfMetadata from "./pages/PdfMetadata";
 
 // New imports for legal pages and additional pages
 import About from "./pages/About";
@@ -298,6 +304,12 @@ function App() {
                 <Route path="/compare-pdf" element={<ComparePdf />} />
                 <Route path="/redact-pdf" element={<RedactPdf />} />
                 <Route path="/crop-pdf" element={<CropPdf />} />
+                <Route path="/pdf-to-text" element={<PdfToText />} />
+                <Route path="/pdf-to-image" element={<PdfToImage />} />
+                <Route path="/extract-pdf-pages" element={<ExtractPdfPages />} />
+                <Route path="/reorder-pdf-pages" element={<ReorderPdfPages />} />
+                <Route path="/remove-pdf-pages" element={<RemovePdfPages />} />
+                <Route path="/pdf-metadata" element={<PdfMetadata />} />
                 
                 {/* Redirect all other routes to 404 */}
                 <Route path="*" element={<NotFound />} />
