@@ -269,6 +269,7 @@ const RotatePdf = () => {
         </div>
       </div>
     </PDFToolTemplate>
+    </>
   );
 };
 
