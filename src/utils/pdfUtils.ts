@@ -1,42 +1,59 @@
-
+import { PDFDocument, rgb, StandardFonts, degrees, PDFPage } from 'pdf-lib';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 export const compressPDF = async (file: File, options: any): Promise<{ pdf: Uint8Array; sizeBefore: number; sizeAfter: number }> => {
-  // Simulate compression processing
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const sizeBefore = arrayBuffer.byteLength;
 
-  const arrayBuffer = await file.arrayBuffer();
-  const originalFile = new Uint8Array(arrayBuffer);
-  const sizeBefore = originalFile.length;
-  const sizeAfter = Math.round(sizeBefore * 0.7); // Simulate 30% compression
+    // Apply compression options
+    if (options.removeMetadata) {
+      pdfDoc.setTitle('');
+      pdfDoc.setAuthor('');
+      pdfDoc.setSubject('');
+      pdfDoc.setKeywords([]);
+      pdfDoc.setProducer('');
+      pdfDoc.setCreator('');
+    }
 
-  // Create a dummy compressed PDF (replace with actual compression logic)
-  const compressedData = originalFile.slice(0, sizeAfter);
+    // Save with compression
+    const compressedBytes = await pdfDoc.save({
+      useObjectStreams: true,
+      addDefaultPage: false,
+    });
 
-  return {
-    pdf: compressedData,
-    sizeBefore: sizeBefore,
-    sizeAfter: sizeAfter
-  };
+    const sizeAfter = compressedBytes.length;
+
+    return {
+      pdf: compressedBytes,
+      sizeBefore,
+      sizeAfter
+    };
+  } catch (error) {
+    console.error('PDF compression error:', error);
+    throw new Error('Failed to compress PDF. Please ensure the file is a valid PDF.');
+  }
 };
 
 export const mergePDFs = async (files: File[], options?: any): Promise<Uint8Array> => {
-  // Simulate merging processing
-  await new Promise(resolve => setTimeout(resolve, 2500));
+  try {
+    const mergedPdf = await PDFDocument.create();
 
-  // For demonstration, concatenate the files (replace with actual merging logic)
-  let mergedData = new Uint8Array();
-  for (const file of files) {
-    const arrayBuffer = await file.arrayBuffer();
-    const fileData = new Uint8Array(arrayBuffer);
-    const temp = new Uint8Array(mergedData.length + fileData.length);
-    temp.set(mergedData, 0);
-    temp.set(fileData, mergedData.length);
-    mergedData = temp;
+    for (const file of files) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await PDFDocument.load(arrayBuffer);
+      const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+      copiedPages.forEach((page) => mergedPdf.addPage(page));
+    }
+
+    const mergedBytes = await mergedPdf.save();
+    return mergedBytes;
+  } catch (error) {
+    console.error('PDF merge error:', error);
+    throw new Error('Failed to merge PDFs. Please ensure all files are valid PDFs.');
   }
-
-  return mergedData;
 };
 
 export const convertToGrayscale = async (file: File): Promise<Uint8Array> => {
@@ -133,17 +150,62 @@ export const splitPDF = async (file: File, options: {
   optimizeOutput?: boolean;
   detectPageBreaks?: boolean;
 }): Promise<{ files: Uint8Array[]; names: string[] }> => {
-  // Simulate splitting processing
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  // Return the original file as a single split for now
-  const arrayBuffer = await file.arrayBuffer();
-  const originalFile = new Uint8Array(arrayBuffer);
-  
-  return {
-    files: [originalFile],
-    names: [`${options.customNaming || 'split'}_1.pdf`]
-  };
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const totalPages = pdfDoc.getPageCount();
+    
+    const resultFiles: Uint8Array[] = [];
+    const resultNames: string[] = [];
+
+    if (options.mode === 'range' && options.startPage && options.endPage) {
+      const newPdf = await PDFDocument.create();
+      const start = Math.max(0, options.startPage - 1);
+      const end = Math.min(totalPages, options.endPage);
+      
+      for (let i = start; i < end; i++) {
+        const [copiedPage] = await newPdf.copyPages(pdfDoc, [i]);
+        newPdf.addPage(copiedPage);
+      }
+      
+      const pdfBytes = await newPdf.save();
+      resultFiles.push(pdfBytes);
+      resultNames.push(`${options.customNaming || 'split'}_pages_${options.startPage}-${options.endPage}.pdf`);
+      
+    } else if (options.mode === 'every' && options.everyNPages) {
+      for (let i = 0; i < totalPages; i += options.everyNPages) {
+        const newPdf = await PDFDocument.create();
+        const endPage = Math.min(i + options.everyNPages, totalPages);
+        
+        for (let j = i; j < endPage; j++) {
+          const [copiedPage] = await newPdf.copyPages(pdfDoc, [j]);
+          newPdf.addPage(copiedPage);
+        }
+        
+        const pdfBytes = await newPdf.save();
+        resultFiles.push(pdfBytes);
+        resultNames.push(`${options.customNaming || 'split'}_part_${Math.floor(i / options.everyNPages) + 1}.pdf`);
+      }
+      
+    } else if (options.mode === 'extract' && options.extractPages) {
+      for (const pageIndex of options.extractPages) {
+        if (pageIndex >= 0 && pageIndex < totalPages) {
+          const newPdf = await PDFDocument.create();
+          const [copiedPage] = await newPdf.copyPages(pdfDoc, [pageIndex]);
+          newPdf.addPage(copiedPage);
+          
+          const pdfBytes = await newPdf.save();
+          resultFiles.push(pdfBytes);
+          resultNames.push(`${options.customNaming || 'split'}_page_${pageIndex + 1}.pdf`);
+        }
+      }
+    }
+
+    return { files: resultFiles, names: resultNames };
+  } catch (error) {
+    console.error('PDF split error:', error);
+    throw new Error('Failed to split PDF. Please ensure the file is a valid PDF.');
+  }
 };
 
 export const downloadMultipleFiles = (files: { data: Uint8Array; name: string }[]) => {
@@ -172,22 +234,52 @@ export const redactPDF = async (file: File, options: any): Promise<Uint8Array> =
 
 // Update rotatePDF to match the expected signature
 export const rotatePDF = async (file: File, rotation: number, options?: { pageIndices?: number[]; rotateMode?: "all" | "even" | "odd" | "specific" }): Promise<Uint8Array> => {
-  // Simulate rotation processing
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
-  // Return the original file content as Uint8Array for now
-  const arrayBuffer = await file.arrayBuffer();
-  return new Uint8Array(arrayBuffer);
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pages = pdfDoc.getPages();
+    
+    pages.forEach((page, index) => {
+      let shouldRotate = false;
+      
+      if (!options || options.rotateMode === 'all') {
+        shouldRotate = true;
+      } else if (options.rotateMode === 'even' && index % 2 === 1) {
+        shouldRotate = true;
+      } else if (options.rotateMode === 'odd' && index % 2 === 0) {
+        shouldRotate = true;
+      } else if (options.rotateMode === 'specific' && options.pageIndices?.includes(index)) {
+        shouldRotate = true;
+      }
+      
+      if (shouldRotate) {
+        const currentRotation = page.getRotation().angle;
+        page.setRotation(degrees(currentRotation + rotation));
+      }
+    });
+    
+    const pdfBytes = await pdfDoc.save();
+    return pdfBytes;
+  } catch (error) {
+    console.error('PDF rotation error:', error);
+    throw new Error('Failed to rotate PDF. Please ensure the file is a valid PDF.');
+  }
 };
 
 // Update unlockPDF to match the expected signature (password as string)
 export const unlockPDF = async (file: File, password: string): Promise<Uint8Array> => {
-  // Simulate unlock processing
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  // Return the original file content as Uint8Array for now
-  const arrayBuffer = await file.arrayBuffer();
-  return new Uint8Array(arrayBuffer);
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer, { 
+      ignoreEncryption: true 
+    });
+    
+    const pdfBytes = await pdfDoc.save();
+    return pdfBytes;
+  } catch (error) {
+    console.error('PDF unlock error:', error);
+    throw new Error('Failed to unlock PDF. Please check the password and try again.');
+  }
 };
 
 // Update protectPDF to match the expected signature
@@ -204,12 +296,18 @@ export const protectPDF = async (file: File, options: {
     documentAssembly?: boolean; 
   }; 
 }): Promise<Uint8Array> => {
-  // Simulate protection processing
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
-  // Return the original file content as Uint8Array for now
-  const arrayBuffer = await file.arrayBuffer();
-  return new Uint8Array(arrayBuffer);
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    
+    // Note: pdf-lib has limited encryption support
+    // For production, consider using a backend service
+    const pdfBytes = await pdfDoc.save();
+    return pdfBytes;
+  } catch (error) {
+    console.error('PDF protection error:', error);
+    throw new Error('Failed to protect PDF. Please ensure the file is a valid PDF.');
+  }
 };
 
 // Update convertHtmlToPDF to match the expected signature (single string parameter)
@@ -277,14 +375,70 @@ export const addPageNumbers = async (file: File, options: {
   fontFamily?: string;
   fontWeight?: 'normal' | 'bold';
 }): Promise<Uint8Array> => {
-  // Simulate page number addition with advanced formatting
-  await new Promise(resolve => setTimeout(resolve, 1500));
-  
-  console.log('Adding page numbers with options:', options);
-  
-  // Return the original file content as Uint8Array for now
-  const arrayBuffer = await file.arrayBuffer();
-  return new Uint8Array(arrayBuffer);
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pages = pdfDoc.getPages();
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const totalPages = pages.length;
+    
+    pages.forEach((page, index) => {
+      const pageNumber = index + options.startNumber;
+      let text = '';
+      
+      if (options.format === 'page-of-total') {
+        text = `Page ${pageNumber} of ${totalPages}`;
+      } else if (options.format === 'roman') {
+        text = toRoman(pageNumber);
+      } else {
+        text = `${pageNumber}`;
+      }
+      
+      const { width, height } = page.getSize();
+      const textWidth = font.widthOfTextAtSize(text, options.fontSize);
+      
+      let x = 0, y = 0;
+      
+      // Calculate position
+      if (options.position.includes('left')) x = 50;
+      else if (options.position.includes('center')) x = (width - textWidth) / 2;
+      else if (options.position.includes('right')) x = width - textWidth - 50;
+      
+      if (options.position.includes('top')) y = height - 50;
+      else if (options.position.includes('bottom')) y = 30;
+      
+      page.drawText(text, {
+        x,
+        y,
+        size: options.fontSize,
+        font,
+        color: rgb(options.color.r / 255, options.color.g / 255, options.color.b / 255),
+      });
+    });
+    
+    const pdfBytes = await pdfDoc.save();
+    return pdfBytes;
+  } catch (error) {
+    console.error('Add page numbers error:', error);
+    throw new Error('Failed to add page numbers. Please ensure the file is a valid PDF.');
+  }
+};
+
+// Helper function to convert numbers to Roman numerals
+const toRoman = (num: number): string => {
+  const romanNumerals: [number, string][] = [
+    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
+    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],
+    [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']
+  ];
+  let result = '';
+  for (const [value, numeral] of romanNumerals) {
+    while (num >= value) {
+      result += numeral;
+      num -= value;
+    }
+  }
+  return result;
 };
 
 export const splitPDFSimple = async (file: File, startPage: number, endPage: number): Promise<Uint8Array> => {
@@ -329,14 +483,64 @@ export const addWatermark = async (file: File, text: string, options: {
   pageRange?: string;
   specificPages?: number[];
 }): Promise<Uint8Array> => {
-  // Simulate advanced watermark addition
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  console.log('Adding watermark with advanced options:', { text, options });
-  
-  // Return the original file content as Uint8Array for now
-  const arrayBuffer = await file.arrayBuffer();
-  return new Uint8Array(arrayBuffer);
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const pages = pdfDoc.getPages();
+    const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    
+    pages.forEach((page, index) => {
+      let shouldWatermark = false;
+      
+      if (options.pages === 'all') {
+        shouldWatermark = true;
+      } else if (options.pages === 'odd' && index % 2 === 0) {
+        shouldWatermark = true;
+      } else if (options.pages === 'even' && index % 2 === 1) {
+        shouldWatermark = true;
+      } else if (Array.isArray(options.pages) && options.pages.includes(index)) {
+        shouldWatermark = true;
+      }
+      
+      if (shouldWatermark) {
+        const { width, height } = page.getSize();
+        const fontSize = options.fontSize || 60;
+        const textWidth = font.widthOfTextAtSize(text, fontSize);
+        
+        let x = width / 2 - textWidth / 2;
+        let y = height / 2;
+        let rotation = options.rotation || 45;
+        
+        if (options.position === 'diagonal') {
+          x = width / 2 - textWidth / 2;
+          y = height / 2;
+          rotation = 45;
+        } else if (options.position === 'center') {
+          rotation = 0;
+        } else if (options.position === 'top-left') {
+          x = 50;
+          y = height - 50;
+          rotation = 0;
+        }
+        
+        page.drawText(text, {
+          x,
+          y,
+          size: fontSize,
+          font,
+          color: rgb(options.color.r / 255, options.color.g / 255, options.color.b / 255),
+          opacity: options.opacity,
+          rotate: degrees(rotation),
+        });
+      }
+    });
+    
+    const pdfBytes = await pdfDoc.save();
+    return pdfBytes;
+  } catch (error) {
+    console.error('Add watermark error:', error);
+    throw new Error('Failed to add watermark. Please ensure the file is a valid PDF.');
+  }
 };
 
 // Add alias for backward compatibility
