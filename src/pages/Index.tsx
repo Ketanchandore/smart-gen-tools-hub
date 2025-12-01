@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   FileText, Scissors, Minimize, FileSpreadsheet, Presentation, 
@@ -8,14 +9,13 @@ import {
   MessageSquare, Book, Lightbulb, Code, Youtube, Workflow,
   BarChart, CheckCircle, Database, Headphones, Filter, BrainCircuit,
   ArrowUpRight, Palette, AtSign, BadgeDollarSign, CircleUser, QrCode,
-  Network, Layers, Chrome, Send, FileUp, Smartphone, Lock, Star,
-  Users, TrendingUp, Clock, MousePointerClick, Sparkles, ChevronRight
+  Network, Layers, Chrome, Send, FileUp, Smartphone, Lock
 } from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import { Button } from '@/components/ui/button';
+import { TabsList, TabsTrigger, Tabs, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
 
@@ -636,595 +636,252 @@ const Index = () => {
     }
   }, []);
 
-  // Featured/Popular tools (top 6)
+  // Featured/Popular tools
   const featuredTools = [
-    allTools.find(t => t.route === '/resume-builder'),
-    allTools.find(t => t.route === '/qr-code'),
     allTools.find(t => t.route === '/password-generator'),
-    allTools.find(t => t.route === '/merge-pdf'),
-    allTools.find(t => t.route === '/blog-writer'),
+    allTools.find(t => t.route === '/qr-code'),
+    allTools.find(t => t.route === '/pdf-to-word'),
     allTools.find(t => t.route === '/image-compressor'),
+    allTools.find(t => t.route === '/text-case-converter'),
+    allTools.find(t => t.route === '/merge-pdf'),
+    allTools.find(t => t.route === '/word-counter'),
+    allTools.find(t => t.route === '/barcode-generator'),
+    allTools.find(t => t.route === '/image-converter'),
+    allTools.find(t => t.route === '/lorem-ipsum'),
+    allTools.find(t => t.route === '/compress-pdf'),
+    allTools.find(t => t.route === '/split-pdf'),
   ].filter(Boolean) as typeof allTools;
-
-  // Tool Categories with sample tools
-  const toolCategories = [
-    {
-      id: 'career',
-      name: 'Resume & Career Tools',
-      description: 'Build your professional career',
-      icon: <Briefcase className="h-8 w-8" />,
-      color: 'from-blue-500 to-blue-600',
-      tools: allTools.filter(t => t.category === 'career').slice(0, 4)
-    },
-    {
-      id: 'content',
-      name: 'Content Creation Tools',
-      description: 'Create engaging content easily',
-      icon: <FileText className="h-8 w-8" />,
-      color: 'from-purple-500 to-purple-600',
-      tools: allTools.filter(t => t.category === 'content').slice(0, 4)
-    },
-    {
-      id: 'multimedia',
-      name: 'AI & Multimedia Tools',
-      description: 'Transform media with AI',
-      icon: <Sparkles className="h-8 w-8" />,
-      color: 'from-green-500 to-green-600',
-      tools: allTools.filter(t => t.category === 'multimedia').slice(0, 4)
-    },
-    {
-      id: 'utilities',
-      name: 'Business & Utility Tools',
-      description: 'Essential tools for productivity',
-      icon: <Zap className="h-8 w-8" />,
-      color: 'from-orange-500 to-orange-600',
-      tools: allTools.filter(t => t.category === 'utilities').slice(0, 4)
-    },
-    {
-      id: 'pdf',
-      name: 'PDF & Document Tools',
-      description: 'Coming Soon - Full PDF suite',
-      icon: <FileText className="h-8 w-8" />,
-      color: 'from-gray-400 to-gray-500',
-      tools: [],
-      comingSoon: true
-    }
-  ];
-
-  // Testimonials
-  const testimonials = [
-    {
-      name: 'Sarah Johnson',
-      role: 'Content Creator',
-      comment: 'The AI blog writer saved me hours! Generated amazing content in minutes.',
-      rating: 5
-    },
-    {
-      name: 'Mike Chen',
-      role: 'Job Seeker',
-      comment: 'Resume builder helped me land my dream job. Simple and professional!',
-      rating: 5
-    },
-    {
-      name: 'Emma Davis',
-      role: 'Small Business Owner',
-      comment: 'Love the QR code and password generators. Use them daily for my business.',
-      rating: 5
-    }
-  ];
 
   return (
     <>
       <SEOHead
-        title="Free Online Tools Hub - 90+ AI-Powered Tools | PineToolsHub" 
-        description="Access 90+ free AI-powered tools including resume builders, content creators, PDF tools, and more. No registration required. Join 50K+ users today!"
-        keywords="free online tools, ai tools, resume builder, content creator, pdf tools, password generator, qr code generator, productivity tools"
+        title="Free Online Calculators & Tools - 90+ Utilities | Pine Tools Hub" 
+        description="Access 90+ free online calculators, converters, and generators. PDF tools, word counter, password generator, QR codes, text tools, and more. No registration required."
+        keywords="online calculator, free calculator tools, word counter, password generator, qr code generator, pdf tools, text converter, online tools, free utilities, calculator online, percentage calculator"
       />
       
+      {/* Structured Data for Tool Listing */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Pine Tools Hub",
-          "url": "https://pinetoolshub.com",
-          "description": "Free AI-powered online tools for productivity and creativity"
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "name": "Pine Tools Hub",
+              "url": "https://pinetoolshub.com",
+              "description": "Free online calculators, converters, and tools for every need",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://pinetoolshub.com/?search={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "ItemList",
+              "name": "Online Tools and Calculators",
+              "description": "Collection of free online tools and calculators",
+              "numberOfItems": allTools.length,
+              "itemListElement": featuredTools.slice(0, 10).map((tool, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": tool.title,
+                  "url": `https://pinetoolshub.com${tool.route}`,
+                  "description": tool.description,
+                  "applicationCategory": "UtilityApplication",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  }
+                }
+              }))
+            },
+            {
+              "@type": "Organization",
+              "name": "Pine Tools Hub",
+              "url": "https://pinetoolshub.com",
+              "logo": "https://pinetoolshub.com/logo.png",
+              "description": "Free online tools and calculators for productivity and creativity"
+            }
+          ]
         })}
       </script>
-
-      <div className="min-h-screen">
+      <div className="container py-8 md:py-16">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 py-16 md:py-24">
-          <div className="absolute inset-0 bg-grid-primary/5 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            Free Online Tools for Every Need
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            90+ Professional Tools - All Free, No Registration, Instant Results
+          </p>
           
-          <div className="container relative">
-            <div className="text-center max-w-4xl mx-auto">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 animate-fade-in">
-                <Sparkles className="h-4 w-4" />
-                <span>Trusted by 50,000+ Users Worldwide</span>
-              </div>
-              
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary animate-fade-in">
-                Free Online Tools for<br />Every Need
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in">
-                90+ AI-powered tools to boost your productivity.<br />
-                All free, no registration, instant results.
-              </p>
-              
-              {/* Search Bar */}
-              <div className="max-w-2xl mx-auto mb-8 animate-fade-in">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                    type="text"
-                    placeholder="Search tools (e.g., resume builder, PDF converter...)"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 h-14 text-base bg-background/80 backdrop-blur border-2 focus:border-primary shadow-lg"
-                  />
-                </div>
-              </div>
-
-              {/* Quick Stats */}
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm animate-fade-in">
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-primary" />
-                  <span className="font-semibold">50K+ Users</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-accent" />
-                  <span className="font-semibold">90+ Tools</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <BadgeDollarSign className="h-4 w-4 text-green-500" />
-                  <span className="font-semibold">100% Free</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                  <span className="font-semibold">4.8/5 Rating</span>
-                </div>
-              </div>
+          {/* Trust Signals */}
+          <div className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+              <span className="font-semibold">500,000+ Tools Used Daily</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>⭐ 4.8/5 Rating</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>🔒 100% Secure & Private</span>
             </div>
           </div>
-        </section>
+        </div>
+
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search tools (e.g., PDF converter, calculator, generator...)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-12 h-14 text-base bg-card border-2 focus:border-primary"
+            />
+          </div>
+        </div>
 
         {/* Benefits Section */}
-        <section className="py-12 border-b bg-card/50">
-          <div className="container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-              <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg hover:scale-105 transition-all">
-                <CardContent className="p-0">
-                  <div className="flex justify-center mb-3">
-                    <div className="p-3 rounded-full bg-primary/10">
-                      <BadgeDollarSign className="h-6 w-6 text-primary" />
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-base mb-2">Free Forever</h3>
-                  <p className="text-sm text-muted-foreground">All tools 100% free</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center p-6 bg-gradient-to-br from-green-500/10 to-transparent border-green-500/20 hover:shadow-lg hover:scale-105 transition-all">
-                <CardContent className="p-0">
-                  <div className="flex justify-center mb-3">
-                    <div className="p-3 rounded-full bg-green-500/10">
-                      <Zap className="h-6 w-6 text-green-500" />
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-base mb-2">Instant Results</h3>
-                  <p className="text-sm text-muted-foreground">Get results in seconds</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center p-6 bg-gradient-to-br from-purple-500/10 to-transparent border-purple-500/20 hover:shadow-lg hover:scale-105 transition-all">
-                <CardContent className="p-0">
-                  <div className="flex justify-center mb-3">
-                    <div className="p-3 rounded-full bg-purple-500/10">
-                      <Lock className="h-6 w-6 text-purple-500" />
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-base mb-2">No Registration</h3>
-                  <p className="text-sm text-muted-foreground">Start using instantly</p>
-                </CardContent>
-              </Card>
-              
-              <Card className="text-center p-6 bg-gradient-to-br from-orange-500/10 to-transparent border-orange-500/20 hover:shadow-lg hover:scale-105 transition-all">
-                <CardContent className="p-0">
-                  <div className="flex justify-center mb-3">
-                    <div className="p-3 rounded-full bg-orange-500/10">
-                      <Smartphone className="h-6 w-6 text-orange-500" />
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-base mb-2">Mobile Friendly</h3>
-                  <p className="text-sm text-muted-foreground">Works on all devices</p>
-                </CardContent>
-              </Card>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+          <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-primary/10">
+                  <BadgeDollarSign className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">Free to Use</h3>
+              <p className="text-sm text-muted-foreground">All tools completely free</p>
+            </CardContent>
+          </Card>
+          <Card className="text-center p-6 bg-gradient-to-br from-accent/10 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-accent/10">
+                  <Zap className="h-6 w-6 text-accent" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">Instant Results</h3>
+              <p className="text-sm text-muted-foreground">Get results in seconds</p>
+            </CardContent>
+          </Card>
+          <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-primary/10">
+                  <Lock className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">No Registration</h3>
+              <p className="text-sm text-muted-foreground">Use without signing up</p>
+            </CardContent>
+          </Card>
+          <Card className="text-center p-6 bg-gradient-to-br from-accent/10 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+            <CardContent className="p-0">
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-full bg-accent/10">
+                  <Smartphone className="h-6 w-6 text-accent" />
+                </div>
+              </div>
+              <h3 className="font-bold text-base mb-2">Mobile Friendly</h3>
+              <p className="text-sm text-muted-foreground">Works on all devices</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Featured Tools Grid */}
+        {!searchQuery && featuredTools.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold mb-6 text-center">Most Popular Tools</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {featuredTools.map((tool) => (
+                <ToolCard
+                  key={tool.id}
+                  title={tool.title}
+                  description={tool.description}
+                  icon={tool.icon}
+                  route={tool.route}
+                  category={tool.category}
+                />
+              ))}
             </div>
           </div>
-        </section>
-
-        {/* Featured Tools Showcase */}
-        {!searchQuery && (
-          <section className="py-16 md:py-24">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Most Popular Tools</h2>
-                <p className="text-lg text-muted-foreground">Try our most loved tools used by thousands daily</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {featuredTools.map((tool, index) => (
-                  <Link 
-                    key={tool.id} 
-                    to={tool.route}
-                    className="group"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <Card className="h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 hover:border-primary/50">
-                      <CardHeader>
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                            {tool.icon}
-                          </div>
-                          <TrendingUp className="h-5 w-5 text-green-500" />
-                        </div>
-                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                          {tool.title}
-                        </CardTitle>
-                        <CardDescription className="text-base mt-2">
-                          {tool.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground">
-                          Try Now
-                          <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
         )}
 
-        {/* Tool Categories Section */}
-        {!searchQuery && (
-          <section className="py-16 md:py-24 bg-gradient-to-b from-card/50 to-background">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Explore Tool Categories</h2>
-                <p className="text-lg text-muted-foreground">Browse our extensive collection organized by category</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {toolCategories.map((category, index) => (
-                  <Card 
-                    key={category.id} 
-                    className={`hover:shadow-xl transition-all duration-300 ${category.comingSoon ? 'opacity-75' : 'hover:-translate-y-1'}`}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <CardHeader>
-                      <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${category.color} text-white w-fit mb-4`}>
-                        {category.icon}
-                      </div>
-                      <CardTitle className="text-xl flex items-center gap-2">
-                        {category.name}
-                        {category.comingSoon && (
-                          <span className="text-xs bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 px-2 py-1 rounded-full">
-                            Coming Soon
-                          </span>
-                        )}
-                      </CardTitle>
-                      <CardDescription className="text-base">
-                        {category.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      {category.comingSoon ? (
-                        <div className="text-center py-4 text-muted-foreground">
-                          <Clock className="h-8 w-8 mx-auto mb-2" />
-                          <p className="text-sm">Full PDF suite coming soon!</p>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="space-y-2 mb-4">
-                            {category.tools.map((tool) => (
-                              <Link 
-                                key={tool.id} 
-                                to={tool.route}
-                                className="flex items-center gap-2 text-sm hover:text-primary transition-colors py-1 group"
-                              >
-                                <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                                <span>{tool.title}</span>
-                              </Link>
-                            ))}
-                          </div>
-                          <Button 
-                            variant="outline" 
-                            className="w-full"
-                            onClick={() => {
-                              const categoryElement = document.getElementById('all-tools');
-                              categoryElement?.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                          >
-                            View All Tools
-                          </Button>
-                        </>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+        {/* Recently Used Tools */}
+        {!searchQuery && recentTools.length > 0 && (
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold mb-4">Recently Used Tools</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {recentTools.map((tool) => (
+                <ToolCard
+                  key={tool.id}
+                  title={tool.title}
+                  description={tool.description}
+                  icon={tool.icon}
+                  route={tool.route}
+                  category={tool.category}
+                />
+              ))}
             </div>
-          </section>
+          </div>
         )}
-
-        {/* How It Works Section */}
-        {!searchQuery && (
-          <section className="py-16 md:py-24">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-                <p className="text-lg text-muted-foreground">Get started in 3 simple steps</p>
+        
+        {/* SEO Content */}
+        <div className="mt-16 max-w-4xl mx-auto">
+          <div className="bg-card rounded-lg p-6 md:p-8 border border-border">
+            <h2 className="text-2xl font-bold mb-4">Free Online Calculators and Tools for Every Need</h2>
+            <p className="text-muted-foreground mb-4">
+              Pine Tools Hub offers 90+ free online calculators, converters, and generators for all your needs. From word counters and password generators to PDF tools and QR code makers - everything you need in one place.
+            </p>
+            <p className="text-muted-foreground mb-4">
+              All our calculator tools are 100% free with no registration required. Process files securely in your browser, generate codes instantly, and get professional-quality results every time.
+            </p>
+            
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold mb-3">Popular Calculators & Tools:</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <Link to="/password-generator" className="text-primary hover:underline">Password Generator</Link>
+                <Link to="/qr-code" className="text-primary hover:underline">QR Code Generator</Link>
+                <Link to="/word-counter" className="text-primary hover:underline">Word Counter</Link>
+                <Link to="/barcode-generator" className="text-primary hover:underline">Barcode Generator</Link>
+                <Link to="/text-case-converter" className="text-primary hover:underline">Text Case Converter</Link>
+                <Link to="/lorem-ipsum" className="text-primary hover:underline">Lorem Ipsum Generator</Link>
+                <Link to="/merge-pdf" className="text-primary hover:underline">Merge PDF</Link>
+                <Link to="/compress-pdf" className="text-primary hover:underline">Compress PDF</Link>
+                <Link to="/ifsc-finder" className="text-primary hover:underline">IFSC Finder</Link>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div className="text-center group">
-                  <div className="relative mb-6">
-                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">
-                      1
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-24 h-24 rounded-full bg-blue-500/10 -z-10 group-hover:scale-125 transition-transform" />
-                  </div>
-                  <div className="p-4 rounded-lg bg-gradient-to-br from-blue-500/5 to-transparent">
-                    <MousePointerClick className="h-10 w-10 mx-auto mb-4 text-blue-500" />
-                    <h3 className="text-xl font-bold mb-2">Choose a Tool</h3>
-                    <p className="text-muted-foreground">Select from 90+ tools designed for your needs</p>
-                  </div>
-                </div>
-                
-                <div className="text-center group">
-                  <div className="relative mb-6">
-                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">
-                      2
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-24 h-24 rounded-full bg-purple-500/10 -z-10 group-hover:scale-125 transition-transform" />
-                  </div>
-                  <div className="p-4 rounded-lg bg-gradient-to-br from-purple-500/5 to-transparent">
-                    <FileUp className="h-10 w-10 mx-auto mb-4 text-purple-500" />
-                    <h3 className="text-xl font-bold mb-2">Enter Your Content</h3>
-                    <p className="text-muted-foreground">Paste text, upload files, or fill in the details</p>
-                  </div>
-                </div>
-                
-                <div className="text-center group">
-                  <div className="relative mb-6">
-                    <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform">
-                      3
-                    </div>
-                    <div className="absolute -top-2 -right-2 w-24 h-24 rounded-full bg-green-500/10 -z-10 group-hover:scale-125 transition-transform" />
-                  </div>
-                  <div className="p-4 rounded-lg bg-gradient-to-br from-green-500/5 to-transparent">
-                    <Sparkles className="h-10 w-10 mx-auto mb-4 text-green-500" />
-                    <h3 className="text-xl font-bold mb-2">Get Results Instantly</h3>
-                    <p className="text-muted-foreground">Download, copy, or use your results right away</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Trust & Testimonials Section */}
-        {!searchQuery && (
-          <section className="py-16 md:py-24 bg-gradient-to-br from-primary/5 to-accent/5">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Trusted by Thousands</h2>
-                <p className="text-lg text-muted-foreground">See what our users have to say</p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
-                {testimonials.map((testimonial, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="pt-6">
-                      <div className="flex gap-1 mb-3">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                        ))}
-                      </div>
-                      <p className="text-muted-foreground mb-4 italic">"{testimonial.comment}"</p>
-                      <div>
-                        <p className="font-semibold">{testimonial.name}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
-                <div className="p-6 rounded-lg bg-background/80 backdrop-blur">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">50K+</div>
-                  <div className="text-sm text-muted-foreground">Active Users</div>
-                </div>
-                <div className="p-6 rounded-lg bg-background/80 backdrop-blur">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">90+</div>
-                  <div className="text-sm text-muted-foreground">Tools Available</div>
-                </div>
-                <div className="p-6 rounded-lg bg-background/80 backdrop-blur">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">1M+</div>
-                  <div className="text-sm text-muted-foreground">Tools Used</div>
-                </div>
-                <div className="p-6 rounded-lg bg-background/80 backdrop-blur">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">4.8/5</div>
-                  <div className="text-sm text-muted-foreground">Average Rating</div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Search Results */}
-        {searchQuery && (
-          <section className="py-16">
-            <div className="container">
-              <h2 className="text-2xl font-bold mb-6">
-                Search Results for "{searchQuery}"
-              </h2>
-              {filteredTools.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {filteredTools.map((tool) => (
-                    <ToolCard
-                      key={tool.id}
-                      title={tool.title}
-                      description={tool.description}
-                      icon={tool.icon}
-                      route={tool.route}
-                      category={tool.category}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Search className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                  <p className="text-xl text-muted-foreground">No tools found matching "{searchQuery}"</p>
-                  <p className="text-sm text-muted-foreground mt-2">Try different keywords or browse our categories</p>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {/* FAQ Section */}
-        {!searchQuery && (
-          <section className="py-16 md:py-24">
-            <div className="container">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-                <p className="text-lg text-muted-foreground">Everything you need to know</p>
-              </div>
-              
-              <div className="max-w-3xl mx-auto">
-                <Accordion type="single" collapsible className="space-y-4">
-                  <AccordionItem value="item-1" className="border rounded-lg px-6 bg-card">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">Is PineToolsHub really free?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      Yes! All 90+ tools on PineToolsHub are completely free to use. No hidden fees, no premium plans, no paywalls. 
-                      We believe in providing accessible tools for everyone.
-                    </AccordionContent>
-                  </AccordionItem>
-                  
-                  <AccordionItem value="item-2" className="border rounded-lg px-6 bg-card">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">Do I need to create an account?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      No registration required! You can start using any tool immediately. Just select a tool and get started. 
-                      We don't require any personal information or account creation.
-                    </AccordionContent>
-                  </AccordionItem>
-                  
-                  <AccordionItem value="item-3" className="border rounded-lg px-6 bg-card">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">What tools are available?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      We offer 90+ tools across multiple categories: Resume & Career Tools (resume builder, cover letter generator), 
-                      Content Creation Tools (blog writer, social media captions), AI & Multimedia Tools (image generator, video summarizer), 
-                      Business & Utility Tools (password generator, QR codes), and more. PDF tools coming soon!
-                    </AccordionContent>
-                  </AccordionItem>
-                  
-                  <AccordionItem value="item-4" className="border rounded-lg px-6 bg-card">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">Can I use these tools for commercial purposes?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      Yes! All tools can be used for personal and commercial projects. The content you generate is yours to use 
-                      however you like. Perfect for freelancers, businesses, and professionals.
-                    </AccordionContent>
-                  </AccordionItem>
-                  
-                  <AccordionItem value="item-5" className="border rounded-lg px-6 bg-card">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <span className="font-semibold">Are my inputs saved or tracked?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      Your privacy is our priority. Most tools process data directly in your browser. We don't store your content 
-                      or track your usage. Your data stays private and secure.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* All Tools Section */}
-        <section id="all-tools" className="py-16 md:py-24 bg-gradient-to-b from-card/50 to-background">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">All Tools</h2>
-              <p className="text-lg text-muted-foreground">Browse our complete collection</p>
             </div>
             
-            {categories.map((category) => {
-              const categoryTools = allTools.filter(t => t.category === category.id);
-              if (categoryTools.length === 0) return null;
-              
-              return (
-                <div key={category.id} className="mb-12">
-                  <h3 className="text-2xl font-bold mb-6 capitalize">{category.label}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {categoryTools.map((tool) => (
-                      <ToolCard
-                        key={tool.id}
-                        title={tool.title}
-                        description={tool.description}
-                        icon={tool.icon}
-                        route={tool.route}
-                        category={tool.category}
-                      />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        {!searchQuery && (
-          <section className="py-16 md:py-24 bg-gradient-to-br from-primary via-accent to-primary">
-            <div className="container">
-              <div className="text-center text-white max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Ready to Boost Your Productivity?
-                </h2>
-                <p className="text-xl mb-8 opacity-90">
-                  Join 50,000+ users and start using our free tools today
-                </p>
-                <Button 
-                  size="lg" 
-                  variant="secondary" 
-                  className="text-lg px-8 py-6"
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                >
-                  Get Started Now
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
+            <div className="mt-8 bg-secondary/20 rounded-lg p-6">
+              <h3 className="text-xl font-semibold mb-3">Why Choose Our Calculator Tools?</h3>
+              <ul className="space-y-2 text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>No Registration:</strong> Use all tools instantly without creating an account</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>100% Free:</strong> All calculators and converters are completely free forever</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>Secure & Private:</strong> Your data is processed locally in your browser</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong>Mobile-Friendly:</strong> Works perfectly on all devices and screen sizes</span>
+                </li>
+              </ul>
             </div>
-          </section>
-        )}
+          </div>
+        </div>
       </div>
     </>
   );
