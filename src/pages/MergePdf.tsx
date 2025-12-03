@@ -8,6 +8,7 @@ import ReverseToolLink from '@/components/ReverseToolLink';
 import WhatsNextTools from '@/components/WhatsNextTools';
 import YouMightAlsoNeed from '@/components/YouMightAlsoNeed';
 import FileUploadArea from '@/components/FileUploadArea';
+import SEOKeywordContent from '@/components/SEOKeywordContent';
 import { mergePDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -265,30 +266,43 @@ const MergePdf = () => {
                 ]}
               />
 
-              <div className="mt-12 prose max-w-none">
-                <h2>What is PDF Merging?</h2>
-                <p>
-                  PDF merging combines multiple PDF documents into a single file while preserving the formatting, 
-                  layout, and quality of each original document. This is useful for organizing related documents, 
-                  creating comprehensive reports, or preparing professional presentations.
-                </p>
-                
-                <h3>Benefits of Merging PDFs</h3>
-                <ul>
-                  <li>Simplify document management and organization</li>
-                  <li>Easier sharing of related documents</li>
-                  <li>Professional presentation of information</li>
-                  <li>Reduced email attachments</li>
-                </ul>
-
-                <h3>Common Use Cases</h3>
-                <ul>
-                  <li>Combine invoice and receipt PDFs</li>
-                  <li>Merge contract documents and appendices</li>
-                  <li>Create comprehensive project reports</li>
-                  <li>Organize academic papers and references</li>
-                </ul>
-              </div>
+              <SEOKeywordContent
+                toolName="PDF Merger"
+                primaryKeyword="Merge PDF Files Online Free"
+                longTailKeywords={[
+                  "Merge multiple PDF files into one",
+                  "Combine PDF files online free",
+                  "Join PDF documents together",
+                  "Merge PDF files without software",
+                  "Combine two PDFs into one file",
+                  "Merge PDF pages in order",
+                  "Join multiple PDFs into single document",
+                  "Merge scanned PDFs into one file",
+                  "Combine PDF files on mobile phone",
+                  "Best PDF merger online 2024",
+                  "Merge PDF files and rearrange pages",
+                  "Combine PDF without losing quality"
+                ]}
+                benefits={[
+                  { title: "Unlimited Merging", description: "Merge up to 20 PDF files at once completely free. No restrictions on file combinations." },
+                  { title: "Custom Order", description: "Drag and drop to rearrange PDFs in any order before merging. Full control over final document." },
+                  { title: "Quality Preserved", description: "Original formatting, images, and text quality remain intact after merging." },
+                  { title: "No Registration", description: "Merge PDFs instantly without creating an account or providing email address." },
+                  { title: "All Devices", description: "Works on Windows, Mac, Linux, iPhone, and Android devices with any web browser." },
+                  { title: "Fast Processing", description: "Merge large PDF files in seconds with our optimized processing engine." }
+                ]}
+                useCases={[
+                  { title: "Business Reports", description: "Combine multiple department reports into a single comprehensive business document for presentations." },
+                  { title: "Legal Documents", description: "Merge contracts, appendices, and signatures into one legal document for filing and record keeping." },
+                  { title: "Academic Papers", description: "Join research papers, citations, and appendices for thesis submission or publication." },
+                  { title: "Invoice Compilation", description: "Combine monthly invoices into a single PDF for accounting and tax preparation purposes." }
+                ]}
+                howItWorks={[
+                  { step: 1, title: "Upload PDF Files", description: "Select multiple PDF files from your device. Drag and drop or click to browse." },
+                  { step: 2, title: "Arrange Order", description: "Rearrange the files in your preferred order using drag and drop." },
+                  { step: 3, title: "Merge & Download", description: "Click merge to combine all PDFs and download the single merged document." }
+                ]}
+              />
             </div>
 
             <div className="lg:col-span-1">
