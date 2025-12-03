@@ -3,6 +3,7 @@ import { RotateCcw, RotateCw, Info, Settings, FileText } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
 import ToolSEO from '@/components/ToolSEO';
+import SEOKeywordContent from '@/components/SEOKeywordContent';
 import { rotatePDF } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -267,6 +268,44 @@ const RotatePdf = () => {
             </div>
           </div>
         </div>
+
+        <SEOKeywordContent
+          toolName="PDF Rotator"
+          primaryKeyword="Rotate PDF Online Free"
+          longTailKeywords={[
+            "Rotate PDF pages 90 degrees",
+            "Rotate PDF clockwise online",
+            "Flip PDF upside down free",
+            "Rotate scanned PDF document",
+            "Rotate single page in PDF",
+            "Rotate PDF permanently free",
+            "Fix sideways PDF online",
+            "Rotate PDF without software",
+            "Rotate PDF on mobile phone",
+            "Rotate landscape to portrait PDF",
+            "Rotate all pages in PDF",
+            "Best PDF rotator online 2024"
+          ]}
+          benefits={[
+            { title: "Precise Control", description: "Rotate specific pages, all pages, or even/odd pages with exact angle control." },
+            { title: "Auto-Detection", description: "Automatically detect and correct orientation of scanned documents." },
+            { title: "Instant Processing", description: "Rotate PDFs in seconds with our fast processing engine." },
+            { title: "No Installation", description: "Works directly in your browser - no software download required." },
+            { title: "Preserves Quality", description: "Original document quality remains intact after rotation." },
+            { title: "Multiple Angles", description: "Rotate 90°, 180°, or 270° clockwise or counterclockwise." }
+          ]}
+          useCases={[
+            { title: "Scanned Documents", description: "Fix wrongly oriented pages from scanned documents or photos." },
+            { title: "Presentation Slides", description: "Rotate landscape slides to portrait or vice versa for different displays." },
+            { title: "Mobile Screenshots", description: "Correct sideways screenshots taken on mobile devices." },
+            { title: "Book Pages", description: "Fix rotated pages in e-books or digital documents for easy reading." }
+          ]}
+          howItWorks={[
+            { step: 1, title: "Upload PDF File", description: "Select the PDF with pages you need to rotate." },
+            { step: 2, title: "Choose Rotation", description: "Select rotation angle and which pages to rotate." },
+            { step: 3, title: "Download Rotated PDF", description: "Get your corrected PDF with properly oriented pages." }
+          ]}
+        />
       </div>
     </PDFToolTemplate>
     </>
