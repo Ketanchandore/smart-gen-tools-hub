@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Shield, Lock, Key, Settings, Info, FileText } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { protectPDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -97,7 +98,20 @@ const ProtectPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
+    <>
+      <AdvancedToolSEO
+        toolName="Protect PDF"
+        description="Secure your PDF documents with military-grade 256-bit AES encryption. Add password protection, set granular permissions for printing, copying, and editing. Professional PDF security tool with custom access controls."
+        keywords={['protect pdf', 'encrypt pdf', 'pdf password', 'pdf security', 'lock pdf', 'secure pdf', 'pdf encryption', 'password protect pdf']}
+        category="PDF Security"
+        features={['256-bit AES Encryption', 'Password Protection', 'Permission Control', 'Print Restriction', 'Copy Protection', 'Edit Prevention']}
+        useCases={['Protect confidential documents', 'Secure business contracts', 'Lock sensitive reports', 'Restrict document access', 'Prevent unauthorized copying']}
+        faqs={[
+          { question: 'How secure is PDF encryption?', answer: '256-bit AES encryption provides military-grade security that would take billions of years to crack with current technology.' },
+          { question: 'Can I set different permissions?', answer: 'Yes, you can control printing, copying, editing, annotations, form filling, and more independently.' }
+        ]}
+      />
+      <PDFToolTemplate
       title="Protect PDF"
       description="Advanced PDF security with encryption, permissions, watermarks, and access controls"
       icon={<Shield className="h-8 w-8 text-primary" />}
@@ -390,7 +404,8 @@ const ProtectPdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

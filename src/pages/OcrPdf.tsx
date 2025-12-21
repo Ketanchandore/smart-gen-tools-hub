@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { FileSearch, Settings, Info, Languages, Zap, Eye } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { ocrPDF } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -127,8 +127,21 @@ const OcrPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="OCR PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="OCR PDF"
+        description="Extract text from scanned PDFs and images using advanced AI-powered OCR technology. Support for 15+ languages, handwriting recognition, and table detection. Create searchable PDFs instantly."
+        keywords={['ocr pdf', 'pdf text recognition', 'extract text from pdf', 'scanned pdf to text', 'optical character recognition', 'pdf ocr online', 'searchable pdf']}
+        category="PDF OCR"
+        features={['Multi-language OCR', 'Handwriting Recognition', 'Table Detection', 'AI-powered Processing', 'Searchable PDF Output', 'Batch Processing']}
+        useCases={['Convert scanned documents', 'Extract text from images', 'Create searchable archives', 'Digitize paper documents', 'Process invoices and receipts']}
+        faqs={[
+          { question: 'What languages are supported?', answer: 'We support 15+ languages including English, Spanish, French, German, Chinese, Japanese, Arabic, and more.' },
+          { question: 'Can OCR recognize handwriting?', answer: 'Yes, our advanced AI can recognize both printed text and handwritten content with high accuracy.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="OCR PDF"
       description="Advanced OCR with multi-language support, AI-powered text recognition, and intelligent document analysis"
       icon={<FileSearch className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -533,6 +546,7 @@ const OcrPdf = () => {
         </div>
       </div>
     </PDFToolTemplate>
+    </>
   );
 };
 

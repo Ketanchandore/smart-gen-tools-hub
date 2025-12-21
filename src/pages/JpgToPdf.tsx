@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Image, Settings, Info, Grid, Palette, FileText } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { convertImagesToPdf } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -83,8 +83,21 @@ const JpgToPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="JPG to PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="JPG to PDF Converter"
+        description="Convert JPG, PNG, and other images to PDF with advanced layout options. Support for multiple images, custom page sizes, compression settings, and professional formatting."
+        keywords={['jpg to pdf', 'image to pdf', 'png to pdf', 'convert image to pdf', 'picture to pdf', 'photo to pdf', 'image pdf converter']}
+        category="PDF Conversion"
+        features={['Multiple Image Formats', 'Custom Page Sizes', 'Layout Options', 'Compression Control', 'Border and Watermark', 'Batch Processing']}
+        useCases={['Convert photos to PDF', 'Create photo albums', 'Archive images', 'Prepare presentations', 'Combine multiple images']}
+        faqs={[
+          { question: 'What image formats are supported?', answer: 'We support JPG, JPEG, PNG, GIF, BMP, WEBP, and TIFF formats.' },
+          { question: 'Can I add multiple images to one PDF?', answer: 'Yes, you can add multiple images and choose to place each on a separate page or multiple images per page.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="JPG to PDF"
       description="Professional image to PDF converter with advanced layout, compression, and customization options"
       icon={<Image className="h-8 w-8 text-primary" />}
       acceptFiles=".jpg,.jpeg,.png,.gif,.bmp,.webp,.tiff"
@@ -374,7 +387,8 @@ const JpgToPdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { FileCheck, Shield, Archive, Settings, Info } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -89,8 +89,21 @@ const PdfToPdfa = () => {
   const selectedLevel = pdfaLevels.find(level => level.value === pdfaLevel);
 
   return (
-    <PDFToolTemplate
-      title="PDF to PDF/A"
+    <>
+      <AdvancedToolSEO
+        toolName="PDF to PDF/A Converter"
+        description="Convert PDF files to ISO-compliant PDF/A archival format. Support for PDF/A-1, PDF/A-2, and PDF/A-3 standards. Perfect for long-term document preservation and legal compliance."
+        keywords={['pdf to pdfa', 'pdfa converter', 'archival pdf', 'iso pdf', 'pdf archive', 'long term preservation', 'pdf compliance']}
+        category="PDF Conversion"
+        features={['PDF/A-1 Support', 'PDF/A-2 Support', 'PDF/A-3 Support', 'Font Embedding', 'Color Space Conversion', 'Validation Check']}
+        useCases={['Archive documents', 'Legal compliance', 'Long-term preservation', 'Government submissions', 'ISO compliance']}
+        faqs={[
+          { question: 'What is PDF/A?', answer: 'PDF/A is an ISO-standardized version of PDF designed for long-term digital preservation of electronic documents.' },
+          { question: 'Which PDF/A version should I use?', answer: 'PDF/A-2b is most common for general archiving. PDF/A-3 allows embedding attachments for complete document packages.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="PDF to PDF/A"
       description="Convert PDF files to PDF/A archival format with professional compliance and customization options"
       icon={<FileCheck className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -454,6 +467,7 @@ const PdfToPdfa = () => {
         </TabsContent>
       </Tabs>
     </PDFToolTemplate>
+    </>
   );
 };
 
