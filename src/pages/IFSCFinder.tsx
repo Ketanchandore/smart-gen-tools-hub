@@ -10,8 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { banksList, statesList, searchIFSC, BankBranch } from "@/data/ifscData";
-import ToolSEO from "@/components/ToolSEO";
-import Layout from "@/components/Layout";
 
 const IFSCFinder = () => {
   const [bank, setBank] = useState("");
@@ -25,25 +23,6 @@ const IFSCFinder = () => {
   const [loading, setLoading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const { toast } = useToast();
-
-  const faqData = [
-    {
-      question: "What is an IFSC code?",
-      answer: "IFSC (Indian Financial System Code) is an 11-character alphanumeric code used to identify bank branches in India for electronic fund transfers. The first four characters represent the bank, the fifth is 0 (zero), and the last six characters identify the specific branch."
-    },
-    {
-      question: "How do I find my bank's IFSC code?",
-      answer: "You can find your IFSC code on your bank cheque book, bank passbook, or by searching on our tool using your bank name, branch, city, and state. You can also verify an IFSC code by entering it directly."
-    },
-    {
-      question: "What is a MICR code?",
-      answer: "MICR (Magnetic Ink Character Recognition) is a 9-digit code used to identify the bank and branch for clearing cheques electronically. The first three digits represent the city, next three represent the bank, and last three represent the branch."
-    },
-    {
-      question: "Can I use IFSC for international transfers?",
-      answer: "No, IFSC codes are only for domestic transfers within India (NEFT, RTGS, IMPS). For international transfers, you'll need SWIFT codes along with other banking details."
-    }
-  ];
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,42 +81,23 @@ const IFSCFinder = () => {
   };
 
   return (
-    <>
-      <ToolSEO
-        title="IFSC Code Finder - Search Bank IFSC & MICR Codes Online"
-        description="Find IFSC codes for all Indian banks instantly. Search by bank name, branch, city, state or verify IFSC codes. Get MICR codes, branch addresses, and contact details."
-        keywords="ifsc code finder, ifsc code search, bank ifsc code, micr code, rtgs code, neft code, indian bank codes, branch locator"
-        toolName="IFSC Code Finder"
-        toolType="Tool"
-        category="Financial Tools"
-        features={[
-          "Search IFSC by bank and location",
-          "Verify IFSC codes instantly",
-          "Get MICR codes and branch details",
-          "Search across all Indian banks",
-          "Export results to CSV",
-          "Free and unlimited searches"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container max-w-6xl mx-auto px-4 py-8">
-          <div className="mb-6">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                Back to Tools
-              </Button>
-            </Link>
-          </div>
+    <div className="container max-w-6xl mx-auto px-4 py-8">
+      <div className="mb-6">
+        <Link to="/">
+          <Button variant="ghost" size="sm" className="flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Tools
+          </Button>
+        </Link>
+      </div>
 
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center p-4 mb-4 rounded-full bg-primary/10">
-              <Building className="h-8 w-8 text-primary" />
-            </div>
-            <h1 className="text-3xl font-bold">Advanced IFSC Code Finder</h1>
-            <p className="text-muted-foreground mt-2">Find IFSC codes for all Indian banks with comprehensive search</p>
-          </div>
+      <div className="text-center mb-8">
+        <div className="inline-flex items-center justify-center p-4 mb-4 rounded-full bg-primary/10">
+          <Building className="h-8 w-8 text-primary" />
+        </div>
+        <h1 className="text-3xl font-bold">Advanced IFSC Code Finder</h1>
+        <p className="text-muted-foreground mt-2">Find IFSC codes for all Indian banks with comprehensive search</p>
+      </div>
 
       <Tabs defaultValue="search" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2">
@@ -372,51 +332,7 @@ const IFSCFinder = () => {
           )}
         </div>
       )}
-
-      {/* SEO Content & FAQs */}
-      <section className="mt-12 max-w-4xl mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle>About IFSC Codes</CardTitle>
-            <CardDescription>Everything you need to know about Indian bank codes</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm text-muted-foreground">
-            <p>
-              IFSC (Indian Financial System Code) is essential for all electronic fund transfers in India including NEFT, RTGS, and IMPS. Our comprehensive IFSC finder helps you locate codes for any bank branch across India instantly.
-            </p>
-            
-            <h3 className="text-lg font-bold text-foreground mt-6">Why Use Our IFSC Finder?</h3>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Complete Database:</strong> Access IFSC codes for all major Indian banks and their branches</li>
-              <li><strong>Multiple Search Options:</strong> Find codes by bank name, branch, location, or verify existing codes</li>
-              <li><strong>Detailed Information:</strong> Get MICR codes, branch addresses, contact numbers, and more</li>
-              <li><strong>Export Capability:</strong> Download search results in CSV format for record-keeping</li>
-            </ul>
-
-            <div className="mt-8 bg-secondary/30 rounded-lg p-6">
-              <h3 className="text-lg font-bold text-foreground mb-4">Frequently Asked Questions</h3>
-              <div className="space-y-4">
-                {faqData.map((faq, index) => (
-                  <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
-                    <h4 className="font-semibold text-foreground mb-2">{faq.question}</h4>
-                    <p className="text-sm">{faq.answer}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 p-4 bg-primary/10 rounded-lg">
-              <h4 className="font-semibold text-foreground mb-2">💡 Pro Tip</h4>
-              <p>
-                Always verify your IFSC code before initiating a transfer. Even a single incorrect character can cause transaction failures or delays. Use our verification tool to double-check codes.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
     </div>
-      </Layout>
-    </>
   );
 };
 

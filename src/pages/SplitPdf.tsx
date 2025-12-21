@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
 import { ToolStructuredData } from '@/components/StructuredData';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
-import SEOKeywordContent from '@/components/SEOKeywordContent';
 import { splitPDF, downloadMultipleFiles } from '@/utils/pdfUtils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -489,43 +488,30 @@ const SplitPdf = () => {
         </div>
 
         {/* SEO Content */}
-        <SEOKeywordContent
-          toolName="PDF Splitter"
-          primaryKeyword="Split PDF Online Free"
-          longTailKeywords={[
-            "Split PDF into separate pages",
-            "Extract pages from PDF online",
-            "Split PDF by page range",
-            "Divide PDF into multiple files",
-            "Split PDF every 5 pages free",
-            "Extract specific pages from PDF",
-            "Split large PDF file online",
-            "Separate PDF pages without software",
-            "Split PDF for email attachment",
-            "Best PDF splitter online 2024",
-            "Split scanned PDF documents",
-            "Extract PDF chapters separately"
-          ]}
-          benefits={[
-            { title: "Multiple Split Modes", description: "Split by page range, every N pages, specific pages, or file size - full flexibility for any need." },
-            { title: "Batch Download", description: "Download all split files at once or individually. Convenient for large splitting operations." },
-            { title: "Preserves Formatting", description: "Original document quality, bookmarks, and formatting remain intact in all split files." },
-            { title: "No File Limits", description: "Split PDFs up to 100MB with unlimited pages. No restrictions on document length." },
-            { title: "Custom Naming", description: "Add custom prefixes to split files for easy organization and identification." },
-            { title: "Size-Based Split", description: "Automatically split PDFs when they exceed a certain size - perfect for email limits." }
-          ]}
-          useCases={[
-            { title: "Extract Chapters", description: "Split a book or manual PDF into individual chapters for easier reading and sharing." },
-            { title: "Email Attachments", description: "Split large PDFs to meet email attachment size limits (typically 25MB)." },
-            { title: "Document Archival", description: "Divide large archived documents into manageable sections for organized storage." },
-            { title: "Print Specific Pages", description: "Extract only the pages you need to print, saving paper and ink." }
-          ]}
-          howItWorks={[
-            { step: 1, title: "Upload Your PDF", description: "Select the PDF file you want to split. We support files up to 100MB." },
-            { step: 2, title: "Choose Split Method", description: "Select page range, every N pages, extract specific pages, or split by file size." },
-            { step: 3, title: "Download Split Files", description: "Get all your split PDF files instantly. Download individually or all at once." }
-          ]}
-        />
+        <div className="mt-12 prose prose-invert max-w-none">
+          <h2>Advanced PDF Splitting Tool</h2>
+          <p>
+            Our PDF splitter offers multiple methods to divide your PDF documents precisely as needed. Whether you need to 
+            extract specific pages, create equal-sized chunks, or split by file size for email attachments, our tool provides 
+            the flexibility and control you need.
+          </p>
+          
+          <h3>Split Modes Explained</h3>
+          <ul>
+            <li><strong>Page Range:</strong> Extract a continuous section (e.g., pages 5-15)</li>
+            <li><strong>Every N Pages:</strong> Create equal chunks (e.g., split every 10 pages)</li>
+            <li><strong>Extract Pages:</strong> Pull out specific individual pages</li>
+            <li><strong>Size-based:</strong> Split when files exceed a certain size limit</li>
+            <li><strong>Custom Ranges:</strong> Create multiple sections with different page ranges</li>
+          </ul>
+
+          <h3>Professional Features</h3>
+          <p>
+            Our PDF splitter includes advanced features like bookmark preservation, custom file naming with prefixes, 
+            blank page detection and removal, and output optimization. Perfect for document management, creating chapter 
+            divisions, or preparing files for specific size requirements.
+          </p>
+        </div>
       </div>
     </PDFToolTemplate>
       </div>

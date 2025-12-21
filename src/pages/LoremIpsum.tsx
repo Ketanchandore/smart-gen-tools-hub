@@ -6,35 +6,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Slider } from '@/components/ui/slider';
-import { Copy, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Copy } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import ToolSEO from '@/components/ToolSEO';
 
 const LoremIpsum = () => {
   const { toast } = useToast();
   const [amount, setAmount] = useState<number[]>([3]);
   const [unit, setUnit] = useState<'paragraphs' | 'sentences' | 'words'>('paragraphs');
   const [generatedText, setGeneratedText] = useState('');
-
-  const faqData = [
-    {
-      question: "What is Lorem Ipsum text?",
-      answer: "Lorem Ipsum is placeholder text used in design and publishing. It's derived from classical Latin literature and has been used since the 1500s to fill space in layouts before final content is available."
-    },
-    {
-      question: "Why use Lorem Ipsum instead of real text?",
-      answer: "Lorem Ipsum prevents readers from being distracted by meaningful content, allowing them to focus on the visual design and layout. It maintains a natural distribution of letters similar to actual English."
-    },
-    {
-      question: "Is Lorem Ipsum copyright-free?",
-      answer: "Yes, Lorem Ipsum text is completely free to use for any purpose, personal or commercial, without any licensing requirements or attribution needed."
-    },
-    {
-      question: "Can I generate different amounts of text?",
-      answer: "Yes! Our generator allows you to create custom amounts of Lorem Ipsum text in words, sentences, or paragraphs to fit your specific design needs."
-    }
-  ];
 
   // Lorem ipsum dictionary
   const lorem = {
@@ -147,38 +126,10 @@ const LoremIpsum = () => {
   };
 
   return (
-    <>
-      <ToolSEO
-        title="Lorem Ipsum Generator - Free Placeholder Text Generator"
-        description="Generate Lorem Ipsum placeholder text instantly. Create custom amounts of dummy text in words, sentences, or paragraphs for your design mockups and prototypes."
-        keywords="lorem ipsum generator, placeholder text, dummy text generator, filler text, lorem ipsum text, design placeholder, mock text generator"
-        toolName="Lorem Ipsum Generator"
-        toolType="Generator"
-        category="Text Tools"
-        features={[
-          "Generate words, sentences, or paragraphs",
-          "Customizable text amount",
-          "Instant generation",
-          "One-click copy to clipboard",
-          "Classic Lorem Ipsum text",
-          "Perfect for design mockups"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container py-12">
-          <div className="max-w-2xl mx-auto">
-            <Link 
-              to="/" 
-              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Tools
-            </Link>
-            <h1 className="text-3xl font-bold mb-6">Lorem Ipsum Generator</h1>
-            <p className="text-muted-foreground mb-8">
-              Generate placeholder text for your design projects and mockups instantly.
-            </p>
+    <Layout>
+      <div className="container py-12">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-3xl font-bold mb-6">Lorem Ipsum Generator</h1>
           
           <Card className="mb-6">
             <CardHeader>
@@ -262,23 +213,9 @@ const LoremIpsum = () => {
               </p>
             </CardContent>
           </Card>
-
-          {/* FAQ Section */}
-          <div className="mt-8 bg-secondary/30 rounded-lg p-6">
-            <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {faqData.map((faq, index) => (
-                <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
-                  <h3 className="font-semibold mb-2">{faq.question}</h3>
-                  <p className="text-sm text-muted-foreground">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </Layout>
-    </>
   );
 };
 

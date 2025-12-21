@@ -2,50 +2,15 @@
 User-agent: *
 Allow: /
 
-# Calculator and Tool Pages - High Priority
-Allow: /password-generator
-Allow: /qr-code
-Allow: /image-compressor
-Allow: /image-converter
-Allow: /pdf-to-word
-Allow: /word-to-pdf
-Allow: /merge-pdf
-Allow: /split-pdf
-Allow: /compress-pdf
-Allow: /resume-builder
-Allow: /barcode-generator
-Allow: /text-case-converter
-Allow: /word-counter
-Allow: /lorem-ipsum
+# Important pages for crawling
+Allow: /resume-builder/
+Allow: /pdf-tools/
+Allow: /ai-generators/
+Allow: /calculator/
+Allow: /color-picker/
+Allow: /qr-code/
 
-# PDF Tools
-Allow: /pdf-to-jpg
-Allow: /jpg-to-pdf
-Allow: /pdf-to-excel
-Allow: /excel-to-pdf
-Allow: /pdf-to-powerpoint
-Allow: /powerpoint-to-pdf
-Allow: /edit-pdf
-Allow: /sign-pdf
-Allow: /watermark-pdf
-Allow: /protect-pdf
-Allow: /unlock-pdf
-
-# Career Tools
-Allow: /cover-letter
-Allow: /linkedin-bio
-Allow: /job-matcher
-Allow: /interview-coach
-Allow: /resume-score
-
-# AI Content Tools
-Allow: /blog-writer
-Allow: /blog-rewriter
-Allow: /content-detector
-Allow: /email-writer
-Allow: /product-description
-
-# Disallow Admin and Private Pages
+# Disallow admin and private pages
 Disallow: /admin/
 Disallow: /profile/
 Disallow: /login/
@@ -53,10 +18,12 @@ Disallow: /signup/
 Disallow: /forgot-password/
 Disallow: /api/
 Disallow: /*.json$
-Disallow: /*?*q=*
-Disallow: /search?*
+Disallow: /*?*
+Disallow: /search?
+Disallow: /tag/
+Disallow: /category/
 
-# Allow important static resources for performance
+# Allow important static resources
 Allow: /css/
 Allow: /js/
 Allow: /images/
@@ -68,17 +35,15 @@ Allow: /*.jpg$
 Allow: /*.jpeg$
 Allow: /*.gif$
 Allow: /*.svg$
-Allow: /*.webp$
 Allow: /*.ico$
 
-# Crawl delay to be respectful
-Crawl-delay: 0.5
+# Crawl delay
+Crawl-delay: 1
 
-# Sitemap locations
+# Sitemap location
 Sitemap: https://www.pinetoolshub.com/sitemap.xml
 Sitemap: https://www.pinetoolshub.com/sitemap-tools.xml
 Sitemap: https://www.pinetoolshub.com/sitemap-complete.xml
-Sitemap: https://www.pinetoolshub.com/sitemap-calculators.xml
 
-# Host directive for preferred domain
+# Host directive
 Host: https://www.pinetoolshub.com

@@ -93,7 +93,7 @@ const HtmlToPdf = () => {
 
   const handleDownload = () => {
     if (result) {
-      const blob = new Blob([new Uint8Array(result)], { type: 'application/pdf' });
+      const blob = new Blob([result], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;

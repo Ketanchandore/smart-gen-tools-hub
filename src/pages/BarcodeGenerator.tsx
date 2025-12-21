@@ -5,33 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Download, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Download } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import ToolSEO from '@/components/ToolSEO';
-import Layout from '@/components/Layout';
 
 const BarcodeGenerator = () => {
   const { toast } = useToast();
-
-  const faqData = [
-    {
-      question: "What's the difference between QR codes and barcodes?",
-      answer: "QR codes can store much more information (up to 4,296 characters) and can be scanned from any direction, while traditional barcodes hold less data and must be scanned linearly. QR codes can contain URLs, text, and contact info."
-    },
-    {
-      question: "Can I customize the barcode size and format?",
-      answer: "Yes! Our generator creates Code 128 barcodes which are commonly used for alphanumeric data. You can download the image and resize it as needed while maintaining the aspect ratio for proper scanning."
-    },
-    {
-      question: "Are these barcodes/QR codes free to use commercially?",
-      answer: "Yes, all generated codes are free to use for personal and commercial purposes. There's no registration required and no hidden fees."
-    },
-    {
-      question: "What can I encode in a barcode or QR code?",
-      answer: "Barcodes work best with product codes, SKUs, and short identifiers. QR codes can store URLs, plain text, contact information (vCards), WiFi passwords, email addresses, phone numbers, and much more."
-    }
-  ];
   const [text, setText] = useState('https://example.com');
   const [activeTab, setActiveTab] = useState<string>('qr');
   const qrRef = useRef<HTMLImageElement>(null);
@@ -95,38 +73,9 @@ const BarcodeGenerator = () => {
   };
 
   return (
-    <>
-      <ToolSEO
-        title="Free Barcode & QR Code Generator - Create Codes Instantly"
-        description="Generate barcodes and QR codes online for free. Create Code 128 barcodes and custom QR codes instantly. Download high-quality images for products, URLs, and text."
-        keywords="barcode generator, qr code generator, free barcode maker, code 128 generator, barcode creator, qr code maker, product barcode"
-        toolName="Barcode & QR Code Generator"
-        toolType="Generator"
-        category="Utility Tools"
-        features={[
-          "Generate QR codes and barcodes",
-          "Support for Code 128 barcodes",
-          "Customizable QR code size",
-          "Instant code generation",
-          "High-quality downloads",
-          "Free to use commercially"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container py-12">
-          <div className="max-w-2xl mx-auto">
-            <Link 
-              to="/" 
-              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Tools
-            </Link>
-            <h1 className="text-3xl font-bold mb-6">Barcode & QR Code Generator</h1>
-            <p className="text-muted-foreground mb-8">
-              Generate professional barcodes and QR codes instantly for products, URLs, and text content.
-            </p>
+    <div className="container py-12">
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Barcode & QR Code Generator</h1>
         
         <Card className="mb-6">
           <CardHeader>
@@ -209,38 +158,8 @@ const BarcodeGenerator = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* SEO Content */}
-        <section className="mt-12 prose prose-invert max-w-none">
-          <h2 className="text-2xl font-bold mb-4">About Barcode & QR Code Generation</h2>
-          <p className="text-muted-foreground mb-4">
-            Barcodes and QR codes are essential tools for modern businesses. Use our free generator to create professional codes for inventory management, product labeling, marketing campaigns, and digital content sharing. 
-          </p>
-          
-          <h3 className="text-xl font-bold mb-3 mt-6">Common Uses</h3>
-          <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-            <li><strong>Retail & Inventory:</strong> Product identification, stock management, and point-of-sale systems</li>
-            <li><strong>Marketing:</strong> Link print materials to websites, social media, and promotional content</li>
-            <li><strong>Event Management:</strong> Tickets, registration, and attendee tracking</li>
-            <li><strong>Document Tracking:</strong> File management and asset tracking systems</li>
-          </ul>
-
-          <div className="mt-8 bg-secondary/30 rounded-lg p-6">
-            <h3 className="text-xl font-bold mb-3">FAQs</h3>
-            <div className="space-y-4">
-              {faqData.map((faq, index) => (
-                <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
-                  <h4 className="font-semibold mb-2">{faq.question}</h4>
-                  <p className="text-sm text-muted-foreground">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </div>
     </div>
-      </Layout>
-    </>
   );
 };
 

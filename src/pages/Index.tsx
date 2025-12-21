@@ -1,269 +1,59 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { 
-  FileText, Scissors, Minimize, FileSpreadsheet, Presentation, 
-  Image, PenTool, Signature, Droplets, RotateCcw, Globe, Unlock, 
-  Shield, FileCheck, Hash, ScanLine, FileSearch, Eye, Crop,
-  Search, BookOpen, Zap, Briefcase, User, CreditCard, Calendar,
-  BarChart2, Binary, Mail, Mic, FileVideo, Instagram, Twitter,
-  MessageSquare, Book, Lightbulb, Code, Youtube, Workflow,
-  BarChart, CheckCircle, Database, Headphones, Filter, BrainCircuit,
-  ArrowUpRight, Palette, AtSign, BadgeDollarSign, CircleUser, QrCode,
-  Network, Layers, Chrome, Send, FileUp, Smartphone, Lock
+  Briefcase, FileText, FileUp, CreditCard, Calendar, User, 
+  Image, BarChart2, Search, Binary, Mail, Mic, FileVideo, 
+  Instagram, Twitter, MessageSquare, Book, Zap, Lightbulb,
+  Code, Globe, Youtube, Workflow, FileCheck, BarChart, 
+  PenTool, Layout, CheckCircle, Database, Headphones, 
+  Filter, BrainCircuit, ArrowUpRight, Palette, AtSign,
+  BadgeDollarSign, CircleUser, QrCode, Network, Layers,
+  Chrome, BookOpen, Send, Scissors, Minimize, FileSpreadsheet,
+  Presentation, Signature, Droplets, RotateCcw, Unlock, Shield,
+  Hash, ScanLine, FileSearch, Eye, Crop
 } from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import { Button } from '@/components/ui/button';
 import { TabsList, TabsTrigger, Tabs, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { useTheme } from '../contexts/ThemeContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
+import AdvancedSEO from '@/components/AdvancedSEO';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('pdf');
+  const { darkMode, toggleDarkMode } = useTheme();
+  const isMobile = useIsMobile();
 
-  // Categories
+  // Tool categories
   const categories = [
-    { id: 'pdf', label: 'PDF Tools' },
-    { id: 'career', label: 'Career' },
-    { id: 'content', label: 'Content' },
+    { id: 'all', label: 'All Tools' },
+    { id: 'career', label: 'Career Tools' },
+    { id: 'content', label: 'Content Creation' },
     { id: 'multimedia', label: 'Multimedia' },
+    { id: 'document', label: 'Document Tools' },
     { id: 'coding', label: 'Development' },
-    { id: 'learning', label: 'Learning' },
+    { id: 'learning', label: 'Learning Tools' },
     { id: 'marketing', label: 'Marketing' },
-    { id: 'design', label: 'Design' },
+    { id: 'design', label: 'Design Tools' },
     { id: 'utilities', label: 'Utilities' },
   ];
   
-  // All Tools
+  // All tools with their categories
   const allTools = [
-    // ========== PDF TOOLS ==========
-    { 
-      id: 'merge-pdf', 
-      title: 'Merge PDF', 
-      description: 'Combine PDFs in the order you want with the easiest PDF merger available.', 
-      icon: <FileText />, 
-      route: '/merge-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'split-pdf', 
-      title: 'Split PDF', 
-      description: 'Separate one page or a whole set for easy conversion into independent PDF files.', 
-      icon: <Scissors />, 
-      route: '/split-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'compress-pdf', 
-      title: 'Compress PDF', 
-      description: 'Reduce file size while optimizing for maximal PDF quality.', 
-      icon: <Minimize />, 
-      route: '/compress-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'pdf-to-word', 
-      title: 'PDF to Word', 
-      description: 'Easily convert your PDF files into easy to edit DOC and DOCX documents.', 
-      icon: <FileText />, 
-      route: '/pdf-to-word',
-      category: 'pdf'
-    },
-    { 
-      id: 'pdf-to-powerpoint', 
-      title: 'PDF to PowerPoint', 
-      description: 'Turn your PDF files into easy to edit PPT and PPTX slideshows.', 
-      icon: <Presentation />, 
-      route: '/pdf-to-powerpoint',
-      category: 'pdf'
-    },
-    { 
-      id: 'pdf-to-excel', 
-      title: 'PDF to Excel', 
-      description: 'Pull data straight from PDFs into Excel spreadsheets in a few short seconds.', 
-      icon: <FileSpreadsheet />, 
-      route: '/pdf-to-excel',
-      category: 'pdf'
-    },
-    { 
-      id: 'pdf-to-jpg', 
-      title: 'PDF to JPG', 
-      description: 'Convert each PDF page into a JPG or extract all images contained in a PDF.', 
-      icon: <Image />, 
-      route: '/pdf-to-jpg',
-      category: 'pdf'
-    },
-    { 
-      id: 'word-to-pdf', 
-      title: 'Word to PDF', 
-      description: 'Make DOC and DOCX files easy to read by converting them to PDF.', 
-      icon: <FileText />, 
-      route: '/word-to-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'powerpoint-to-pdf', 
-      title: 'PowerPoint to PDF', 
-      description: 'Make PPT and PPTX slideshows easy to view by converting them to PDF.', 
-      icon: <Presentation />, 
-      route: '/powerpoint-to-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'excel-to-pdf', 
-      title: 'Excel to PDF', 
-      description: 'Make Excel spreadsheets easy to read by converting them to PDF.', 
-      icon: <FileSpreadsheet />, 
-      route: '/excel-to-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'jpg-to-pdf', 
-      title: 'JPG to PDF', 
-      description: 'Convert JPG images to PDF in seconds. Easily adjust orientation and margins.', 
-      icon: <Image />, 
-      route: '/jpg-to-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'edit-pdf', 
-      title: 'Edit PDF', 
-      description: 'Add text, images, shapes or freehand annotations to a PDF document.', 
-      icon: <PenTool />, 
-      route: '/edit-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'sign-pdf', 
-      title: 'Sign PDF', 
-      description: 'Sign yourself or request electronic signatures from others.', 
-      icon: <Signature />, 
-      route: '/sign-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'watermark-pdf', 
-      title: 'Watermark PDF', 
-      description: 'Stamp an image or text over your PDF in seconds.', 
-      icon: <Droplets />, 
-      route: '/watermark-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'rotate-pdf', 
-      title: 'Rotate PDF', 
-      description: 'Rotate your PDFs the way you need them.', 
-      icon: <RotateCcw />, 
-      route: '/rotate-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'unlock-pdf', 
-      title: 'Unlock PDF', 
-      description: 'Remove PDF password security, giving you the freedom to use your PDFs.', 
-      icon: <Unlock />, 
-      route: '/unlock-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'protect-pdf', 
-      title: 'Protect PDF', 
-      description: 'Protect PDF files with a password. Encrypt PDF documents.', 
-      icon: <Shield />, 
-      route: '/protect-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'organize-pdf', 
-      title: 'Organize PDF', 
-      description: 'Sort pages of your PDF file however you like.', 
-      icon: <Layers />, 
-      route: '/organize-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'pdf-to-pdfa', 
-      title: 'PDF to PDF/A', 
-      description: 'Transform your PDF to PDF/A, the ISO-standardized version.', 
-      icon: <FileCheck />, 
-      route: '/pdf-to-pdfa',
-      category: 'pdf'
-    },
-    { 
-      id: 'repair-pdf', 
-      title: 'Repair PDF', 
-      description: 'Repair a damaged PDF and recover data from corrupted PDF.', 
-      icon: <FileCheck />, 
-      route: '/repair-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'page-numbers-pdf', 
-      title: 'Page Numbers', 
-      description: 'Add page numbers into PDFs with ease.', 
-      icon: <Hash />, 
-      route: '/page-numbers-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'scan-to-pdf', 
-      title: 'Scan to PDF', 
-      description: 'Capture document scans and send them instantly to your browser.', 
-      icon: <ScanLine />, 
-      route: '/scan-to-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'ocr-pdf', 
-      title: 'OCR PDF', 
-      description: 'Easily convert scanned PDF into searchable documents.', 
-      icon: <FileSearch />, 
-      route: '/ocr-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'compare-pdf', 
-      title: 'Compare PDF', 
-      description: 'Show side-by-side comparison and easily spot changes.', 
-      icon: <Eye />, 
-      route: '/compare-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'redact-pdf', 
-      title: 'Redact PDF', 
-      description: 'Permanently remove sensitive information from PDF.', 
-      icon: <Eye />, 
-      route: '/redact-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'crop-pdf', 
-      title: 'Crop PDF', 
-      description: 'Crop margins or select specific areas.', 
-      icon: <Crop />, 
-      route: '/crop-pdf',
-      category: 'pdf'
-    },
-    { 
-      id: 'html-to-pdf', 
-      title: 'HTML to PDF', 
-      description: 'Convert webpages to PDF with just a URL.', 
-      icon: <Globe />, 
-      route: '/html-to-pdf',
-      category: 'pdf'
-    },
-
-    // ========== CAREER TOOLS ==========
+    // Career Tools
     { 
       id: 'resume-builder', 
       title: 'AI Resume Builder', 
       description: 'Create professional resumes in minutes', 
       icon: <Briefcase />, 
       route: '/resume-builder',
-      category: 'career'
+      category: 'career',
+      isNew: true
     },
     { 
       id: 'cover-letter', 
@@ -271,301 +61,618 @@ const Index = () => {
       description: 'Generate tailored cover letters', 
       icon: <FileText />, 
       route: '/cover-letter',
-      category: 'career'
+      category: 'career',
+      isNew: true
     },
     { 
       id: 'linkedin-bio', 
-      title: 'LinkedIn Optimizer', 
+      title: 'LinkedIn Profile Optimizer', 
       description: 'Optimize your LinkedIn profile', 
       icon: <User />, 
       route: '/linkedin-bio',
-      category: 'career'
+      category: 'career',
+      isNew: true
     },
     { 
       id: 'job-matcher', 
-      title: 'Job Matcher', 
-      description: 'Find jobs matching your resume', 
+      title: 'Job Matcher by Resume', 
+      description: 'Find job matches based on your resume', 
       icon: <CheckCircle />, 
       route: '/job-matcher',
-      category: 'career'
+      category: 'career',
+      isNew: true
     },
     { 
       id: 'interview-coach', 
       title: 'Interview Coach', 
-      description: 'Prepare for interviews with AI', 
+      description: 'Prepare for interviews with AI feedback', 
       icon: <MessageSquare />, 
       route: '/interview-coach',
-      category: 'career'
+      category: 'career',
+      isNew: true
     },
     { 
       id: 'resume-score', 
       title: 'Resume Score Analyzer', 
-      description: 'Get professional resume analysis', 
+      description: 'Get professional analysis of your resume', 
       icon: <BarChart />, 
       route: '/resume-score',
-      category: 'career'
+      category: 'career',
+      isNew: true
     },
-
-    // ========== CONTENT CREATION ==========
+    
+    // Content Creation
     { 
       id: 'blog-writer', 
       title: 'AI Blog Writer', 
-      description: 'Generate full blog posts instantly', 
+      description: 'Generate full blog posts on any topic', 
       icon: <FileText />, 
       route: '/blog-writer',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'blog-rewriter', 
-      title: 'Blog Rewriter + SEO', 
-      description: 'Rewrite content for SEO', 
+      title: 'Blog Rewriter + SEO Optimizer', 
+      description: 'Rewrite content for SEO optimization', 
       icon: <FileCheck />, 
       route: '/blog-rewriter',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'twitter-thread', 
-      title: 'Twitter Thread Generator', 
+      title: 'AI Twitter Thread Generator', 
       description: 'Create engaging Twitter threads', 
       icon: <Twitter />, 
       route: '/twitter-thread',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'content-detector', 
-      title: 'AI/Plagiarism Detector', 
-      description: 'Check content authenticity', 
+      title: 'Content Detector (AI/Plagiarism)', 
+      description: 'Check content for AI or plagiarism', 
       icon: <FileCheck />, 
       route: '/content-detector',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'blog-topics', 
       title: 'Blog Topic Generator', 
-      description: 'Generate engaging topics', 
+      description: 'Generate engaging blog topics', 
       icon: <Lightbulb />, 
       route: '/blog-topics',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'smart-copy', 
-      title: 'UI/UX Copy Generator', 
-      description: 'Create compelling copy', 
+      title: 'Smart UI/UX Copy Generator', 
+      description: 'Create compelling UI/UX copy', 
       icon: <PenTool />, 
       route: '/smart-copy',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'email-writer', 
       title: 'Smart Email Writer', 
-      description: 'Draft professional emails', 
+      description: 'Draft professional emails based on goals', 
       icon: <Mail />, 
       route: '/email-writer',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'product-description', 
-      title: 'Product Description', 
-      description: 'Create product descriptions', 
+      title: 'Product Description Generator', 
+      description: 'Create compelling product descriptions', 
       icon: <FileText />, 
       route: '/product-description',
-      category: 'content'
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'social-captions', 
-      title: 'Social Captions', 
-      description: 'Generate social media captions', 
+      title: 'Social Media Caption Generator', 
+      description: 'Generate engaging social media captions', 
       icon: <MessageSquare />, 
       route: '/social-captions',
-      category: 'content'
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'script-presentation', 
+      title: 'Script + Presentation Generator', 
+      description: 'Create scripts and presentations together', 
+      icon: <Layout />, 
+      route: '/script-presentation',
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'email-sequence', 
-      title: 'Email Sequence', 
-      description: 'Create email campaigns', 
+      title: 'Email Marketing Sequence', 
+      description: 'Generate complete email marketing campaigns', 
       icon: <Send />, 
       route: '/email-sequence',
-      category: 'content'
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'article-social', 
+      title: 'Article-to-Social Package', 
+      description: 'Convert articles to social media content', 
+      icon: <ArrowUpRight />, 
+      route: '/article-social',
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'name-generator', 
+      title: 'AI Name Generator', 
+      description: 'Generate names for brands and products', 
+      icon: <Lightbulb />, 
+      route: '/name-generator',
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'tagline-generator', 
+      title: 'Tagline + Slogan Generator', 
+      description: 'Create memorable taglines and slogans', 
+      icon: <MessageSquare />, 
+      route: '/tagline-generator',
+      category: 'content',
+      isNew: true
+    },
+    { 
+      id: 'testimonial', 
+      title: 'Testimonial Generator', 
+      description: 'Create realistic customer testimonials', 
+      icon: <User />, 
+      route: '/testimonial-generator',
+      category: 'content',
+      isNew: true
     },
     { 
       id: 'lorem-ipsum', 
       title: 'Lorem Ipsum', 
-      description: 'Generate placeholder text', 
+      description: 'Generate placeholder text for your designs', 
       icon: <FileText />, 
       route: '/lorem-ipsum',
-      category: 'content'
+      category: 'content',
+      isNew: false
     },
-
-    // ========== MULTIMEDIA ==========
+    
+    // Multimedia Tools
     { 
       id: 'video-summarizer', 
-      title: 'Video Summarizer', 
-      description: 'Summarize video content', 
+      title: 'Video/Podcast Summarizer', 
+      description: 'Get concise summaries of video content', 
       icon: <FileVideo />, 
       route: '/video-summarizer',
-      category: 'multimedia'
+      category: 'multimedia',
+      isNew: true
     },
     { 
       id: 'youtube-summarizer', 
-      title: 'YouTube Summarizer', 
-      description: 'Summarize YouTube videos', 
+      title: 'YouTube Video Summarizer', 
+      description: 'Summarize any YouTube video content', 
       icon: <Youtube />, 
       route: '/youtube-summarizer',
-      category: 'multimedia'
+      category: 'multimedia',
+      isNew: true
+    },
+    { 
+      id: 'blog-to-carousel', 
+      title: 'Blog to Instagram Carousel', 
+      description: 'Convert blog posts to Instagram carousels', 
+      icon: <Instagram />, 
+      route: '/blog-to-carousel',
+      category: 'multimedia',
+      isNew: true
+    },
+    { 
+      id: 'blog-to-infographic', 
+      title: 'Blog to Infographic', 
+      description: 'Transform blog content into infographics', 
+      icon: <Image />, 
+      route: '/blog-to-infographic',
+      category: 'multimedia',
+      isNew: true
+    },
+    { 
+      id: 'youtube-shorts', 
+      title: 'YouTube Shorts Generator', 
+      description: 'Create engaging YouTube Shorts content', 
+      icon: <Youtube />, 
+      route: '/youtube-shorts',
+      category: 'multimedia',
+      isNew: true
     },
     { 
       id: 'text-to-speech', 
-      title: 'Text to Speech', 
-      description: 'Convert text to speech', 
+      title: 'Text to Speech (AI Voices)', 
+      description: 'Convert text to natural-sounding speech', 
       icon: <Headphones />, 
       route: '/text-to-speech',
-      category: 'multimedia'
+      category: 'multimedia',
+      isNew: true
     },
     { 
       id: 'voice-cloner', 
       title: 'Voice Cloner', 
-      description: 'Clone voices for audio', 
+      description: 'Clone voices for personalized audio', 
       icon: <Mic />, 
       route: '/voice-cloner',
-      category: 'multimedia'
+      category: 'multimedia',
+      isNew: true
     },
     { 
       id: 'audio-enhancer', 
       title: 'Audio Enhancer', 
-      description: 'Remove noise and enhance voice', 
+      description: 'Remove background noise and enhance voice', 
       icon: <Filter />, 
       route: '/audio-enhancer',
-      category: 'multimedia'
+      category: 'multimedia',
+      isNew: true
     },
     { 
-      id: 'image-compressor', 
-      title: 'Image Compressor', 
-      description: 'Compress images without quality loss', 
-      icon: <Image />, 
-      route: '/image-compressor',
-      category: 'multimedia'
+      id: 'chat-youtube', 
+      title: 'Chat with YouTube Video', 
+      description: 'Ask questions about any YouTube video', 
+      icon: <Youtube />, 
+      route: '/chat-youtube',
+      category: 'multimedia',
+      isNew: true
     },
-
-    // ========== DEVELOPMENT ==========
+    { 
+      id: 'youtube-description', 
+      title: 'YouTube Channel Description', 
+      description: 'Generate optimized channel descriptions', 
+      icon: <FileText />, 
+      route: '/youtube-description',
+      category: 'multimedia',
+      isNew: true
+    },
+    { 
+      id: 'pinterest-creator', 
+      title: 'Pinterest Pin Creator', 
+      description: 'Create eye-catching Pinterest pins', 
+      icon: <Image />, 
+      route: '/pinterest-creator',
+      category: 'multimedia',
+      isNew: true
+    },
+    { 
+      id: 'tiktok-script', 
+      title: 'TikTok Script Writer', 
+      description: 'Write engaging TikTok scripts', 
+      icon: <FileText />, 
+      route: '/tiktok-script',
+      category: 'multimedia',
+      isNew: true
+    },
+    
+    // Document Tools
+    { 
+      id: 'image-to-text', 
+      title: 'Image to Text Converter (OCR)', 
+      description: 'Extract text from images using OCR', 
+      icon: <Image />, 
+      route: '/image-to-text',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'document-qa', 
+      title: 'Document Q&A', 
+      description: 'Chat with your PDFs and documents', 
+      icon: <MessageSquare />, 
+      route: '/document-qa',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'word-counter', 
+      title: 'Word Counter + Keyword Extractor', 
+      description: 'Count words and extract key phrases', 
+      icon: <FileText />, 
+      route: '/word-counter',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-word', 
+      title: 'PDF to DOCX', 
+      description: 'Convert PDF documents to editable Word files', 
+      icon: <FileText />, 
+      route: '/pdf-to-word',
+      category: 'document',
+      isNew: false
+    },
+    { 
+      id: 'word-to-pdf', 
+      title: 'Word to PDF', 
+      description: 'Convert Word documents to PDF format', 
+      icon: <FileUp />, 
+      route: '/word-to-pdf',
+      category: 'document',
+      isNew: false
+    },
+    { 
+      id: 'pdf-split-merge', 
+      title: 'PDF Split & Merge', 
+      description: 'Split or merge PDF files easily', 
+      icon: <FileText />, 
+      route: '/pdf-split-merge',
+      category: 'document',
+      isNew: false
+    },
+    
+    // Coding & Development
     { 
       id: 'code-generator', 
       title: 'Code Generator', 
-      description: 'Generate code in any language', 
+      description: 'Generate code in Python, JS, HTML, etc.', 
       icon: <Code />, 
       route: '/code-generator',
-      category: 'coding'
+      category: 'coding',
+      isNew: true
     },
     { 
       id: 'code-explainer', 
       title: 'Code Explainer', 
-      description: 'Get detailed code explanations', 
+      description: 'Get detailed explanations for any code', 
       icon: <MessageSquare />, 
       route: '/code-explainer',
-      category: 'coding'
+      category: 'coding',
+      isNew: true
     },
     { 
       id: 'website-analyzer', 
       title: 'Website Analyzer', 
-      description: 'Analyze websites for SEO', 
+      description: 'Analyze websites for SEO and UX scores', 
       icon: <Globe />, 
       route: '/website-analyzer',
-      category: 'coding'
+      category: 'coding',
+      isNew: true
     },
-
-    // ========== LEARNING ==========
+    { 
+      id: 'chrome-extension', 
+      title: 'Chrome Extension Idea Generator', 
+      description: 'Generate unique Chrome extension ideas', 
+      icon: <Chrome />, 
+      route: '/chrome-extension',
+      category: 'coding',
+      isNew: true
+    },
+    { 
+      id: 'saas-name', 
+      title: 'SaaS Name & Domain Checker', 
+      description: 'Find available SaaS names and domains', 
+      icon: <Globe />, 
+      route: '/saas-name',
+      category: 'coding',
+      isNew: true
+    },
+    
+    // Learning Tools
     { 
       id: 'study-notes', 
-      title: 'Study Notes Maker', 
-      description: 'Create concise study notes', 
+      title: 'Smart Study Notes Maker', 
+      description: 'Create concise study notes from content', 
       icon: <BookOpen />, 
       route: '/study-notes',
-      category: 'learning'
+      category: 'learning',
+      isNew: true
+    },
+    { 
+      id: 'slide-generator', 
+      title: 'Slide Generator from Text', 
+      description: 'Convert text content into presentation slides', 
+      icon: <Layout />, 
+      route: '/slide-generator',
+      category: 'learning',
+      isNew: true
+    },
+    { 
+      id: 'chat-website', 
+      title: 'Chat with Website', 
+      description: 'Ask questions about any website content', 
+      icon: <Globe />, 
+      route: '/chat-website',
+      category: 'learning',
+      isNew: true
+    },
+    { 
+      id: 'mind-map', 
+      title: 'Mind Map Generator', 
+      description: 'Create visual mind maps from content', 
+      icon: <Network />, 
+      route: '/mind-map',
+      category: 'learning',
+      isNew: true
     },
     { 
       id: 'flashcard-generator', 
-      title: 'Flashcard Generator', 
-      description: 'Generate study flashcards', 
+      title: 'AI Flashcard Generator', 
+      description: 'Generate study flashcards from content', 
       icon: <Layers />, 
       route: '/flashcard-generator',
-      category: 'learning'
+      category: 'learning',
+      isNew: true
     },
     { 
       id: 'ai-translator', 
-      title: 'AI Translator', 
-      description: 'Translate between languages', 
+      title: 'AI-powered Translator', 
+      description: 'Translate between multiple languages', 
       icon: <Globe />, 
       route: '/ai-translator',
-      category: 'learning'
+      category: 'learning',
+      isNew: true
     },
-
-    // ========== MARKETING ==========
+    
+    // Marketing Tools
     { 
       id: 'business-plan', 
-      title: 'Business Plan Generator', 
-      description: 'Create comprehensive plans', 
+      title: 'AI Business Plan Generator', 
+      description: 'Create comprehensive business plans', 
       icon: <FileText />, 
       route: '/business-plan',
-      category: 'marketing'
+      category: 'marketing',
+      isNew: true
     },
     { 
       id: 'lead-magnet', 
       title: 'Lead Magnet Creator', 
-      description: 'Create lead magnets', 
+      description: 'Create lead magnets to attract customers', 
       icon: <BadgeDollarSign />, 
       route: '/lead-magnet',
-      category: 'marketing'
+      category: 'marketing',
+      isNew: true
     },
-
-    // ========== DESIGN ==========
+    { 
+      id: 'survey-creator', 
+      title: 'AI Survey Creator', 
+      description: 'Generate effective survey questions', 
+      icon: <CheckCircle />, 
+      route: '/survey-creator',
+      category: 'marketing',
+      isNew: true
+    },
+    
+    // Design Tools
     { 
       id: 'image-generator', 
       title: 'AI Image Generator', 
-      description: 'Create images from text', 
+      description: 'Create images from text prompts', 
       icon: <Image />, 
       route: '/image-generator',
-      category: 'design'
+      category: 'design',
+      isNew: true
     },
     { 
       id: 'avatar-generator', 
-      title: 'Avatar Generator', 
-      description: 'Generate avatar images', 
+      title: 'AI Avatar/Character Generator', 
+      description: 'Generate personalized avatar images', 
       icon: <CircleUser />, 
       route: '/avatar-generator',
-      category: 'design'
+      category: 'design',
+      isNew: true
+    },
+    { 
+      id: 'chat-image', 
+      title: 'Chat with Image', 
+      description: 'Upload an image and ask it questions', 
+      icon: <MessageSquare />, 
+      route: '/chat-image',
+      category: 'design',
+      isNew: true
+    },
+    { 
+      id: 'brandkit-organizer', 
+      title: 'BrandKit Organizer', 
+      description: 'Organize your brand assets and guidelines', 
+      icon: <Palette />, 
+      route: '/brandkit-organizer',
+      category: 'design',
+      isNew: true
     },
     { 
       id: 'image-enhancer', 
-      title: 'Image Enhancer', 
-      description: 'Enhance and remove backgrounds', 
+      title: 'Image Enhancer / Background Remover', 
+      description: 'Enhance images and remove backgrounds', 
       icon: <Image />, 
       route: '/image-enhancer',
-      category: 'design'
+      category: 'design',
+      isNew: true
     },
-
-    // ========== UTILITIES ==========
+    { 
+      id: 'image-compressor', 
+      title: 'Image Compressor', 
+      description: 'Compress your images without quality loss', 
+      icon: <Image />, 
+      route: '/image-compressor',
+      category: 'design',
+      isNew: false
+    },
+    
+    // Utilities
     { 
       id: 'qr-code', 
       title: 'QR Code Generator', 
       description: 'Create customizable QR codes', 
       icon: <QrCode />, 
       route: '/qr-code',
-      category: 'utilities'
-    },
-    { 
-      id: 'word-counter', 
-      title: 'Word Counter', 
-      description: 'Count words and extract keywords', 
-      icon: <FileText />, 
-      route: '/word-counter',
-      category: 'utilities'
+      category: 'utilities',
+      isNew: true
     },
     { 
       id: 'text-case-converter', 
       title: 'Text Case Converter', 
-      description: 'Convert text between cases', 
+      description: 'Convert text between different cases', 
       icon: <FileText />, 
       route: '/text-case-converter',
-      category: 'utilities'
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'barcode-generator', 
+      title: 'Barcode Generator', 
+      description: 'Generate barcodes for various products', 
+      icon: <BarChart2 />, 
+      route: '/barcode-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'credit-card-generator', 
+      title: 'Credit Card Generator', 
+      description: 'Generate test credit card numbers', 
+      icon: <CreditCard />, 
+      route: '/credit-card-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'date-generator', 
+      title: 'Date Generator', 
+      description: 'Generate random dates for testing', 
+      icon: <Calendar />, 
+      route: '/date-generator',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'fake-identity', 
+      title: 'Fake Identity', 
+      description: 'Generate realistic fake identities', 
+      icon: <User />, 
+      route: '/fake-identity',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'ifsc-finder', 
+      title: 'IFSC Finder', 
+      description: 'Find IFSC codes for Indian banks', 
+      icon: <Search />, 
+      route: '/ifsc-finder',
+      category: 'utilities',
+      isNew: false
+    },
+    { 
+      id: 'number-plate', 
+      title: 'Number Plate', 
+      description: 'Generate random vehicle number plates', 
+      icon: <Binary />, 
+      route: '/number-plate',
+      category: 'utilities',
+      isNew: false
     },
     { 
       id: 'password-generator', 
@@ -573,43 +680,259 @@ const Index = () => {
       description: 'Generate secure passwords', 
       icon: <Binary />, 
       route: '/password-generator',
-      category: 'utilities'
+      category: 'utilities',
+      isNew: false
     },
     { 
-      id: 'barcode-generator', 
-      title: 'Barcode Generator', 
-      description: 'Generate barcodes', 
-      icon: <BarChart2 />, 
-      route: '/barcode-generator',
-      category: 'utilities'
-    },
-    { 
-      id: 'credit-card-generator', 
-      title: 'Credit Card Generator', 
-      description: 'Generate test card numbers', 
-      icon: <CreditCard />, 
-      route: '/credit-card-generator',
-      category: 'utilities'
-    },
-    { 
-      id: 'ifsc-finder', 
-      title: 'IFSC Finder', 
-      description: 'Find bank IFSC codes', 
+      id: 'pin-locator', 
+      title: 'PIN Locator', 
+      description: 'Find PIN codes for locations in India', 
       icon: <Search />, 
-      route: '/ifsc-finder',
-      category: 'utilities'
+      route: '/pin-locator',
+      category: 'utilities',
+      isNew: false
     },
     { 
       id: 'temp-email', 
       title: 'Temp Email', 
-      description: 'Generate temporary emails', 
+      description: 'Generate temporary email addresses', 
       icon: <AtSign />, 
       route: '/temp-email',
-      category: 'utilities'
+      category: 'utilities',
+      isNew: false
+    },
+    
+    // Comprehensive PDF Tools
+    { 
+      id: 'merge-pdf', 
+      title: 'Merge PDF', 
+      description: 'Combine multiple PDF files into a single document', 
+      icon: <FileText />, 
+      route: '/merge-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'split-pdf', 
+      title: 'Split PDF', 
+      description: 'Separate pages or extract specific pages from a PDF file', 
+      icon: <Scissors />, 
+      route: '/split-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'compress-pdf', 
+      title: 'Compress PDF', 
+      description: 'Reduce the file size of a PDF document while maintaining quality', 
+      icon: <Minimize />, 
+      route: '/compress-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-powerpoint', 
+      title: 'PDF to PowerPoint', 
+      description: 'Convert PDF files into editable PowerPoint presentations', 
+      icon: <Presentation />, 
+      route: '/pdf-to-powerpoint',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-excel', 
+      title: 'PDF to Excel', 
+      description: 'Convert PDF files into editable Excel spreadsheets', 
+      icon: <FileSpreadsheet />, 
+      route: '/pdf-to-excel',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'powerpoint-to-pdf', 
+      title: 'PowerPoint to PDF', 
+      description: 'Convert PowerPoint presentations into PDF files', 
+      icon: <Presentation />, 
+      route: '/powerpoint-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'excel-to-pdf', 
+      title: 'Excel to PDF', 
+      description: 'Convert Excel spreadsheets into PDF files', 
+      icon: <FileSpreadsheet />, 
+      route: '/excel-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'edit-pdf', 
+      title: 'Edit PDF', 
+      description: 'Add text, images, shapes, or make annotations to a PDF document', 
+      icon: <PenTool />, 
+      route: '/edit-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-jpg', 
+      title: 'PDF to JPG', 
+      description: 'Convert each page of a PDF file into JPG images', 
+      icon: <Image />, 
+      route: '/pdf-to-jpg',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'jpg-to-pdf', 
+      title: 'JPG to PDF', 
+      description: 'Convert JPG images into a PDF file with orientation options', 
+      icon: <Image />, 
+      route: '/jpg-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'sign-pdf', 
+      title: 'Sign PDF', 
+      description: 'Allow users to sign PDF documents electronically', 
+      icon: <Signature />, 
+      route: '/sign-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'watermark-pdf', 
+      title: 'Watermark PDF', 
+      description: 'Add text or image watermark to PDF with transparency options', 
+      icon: <Droplets />, 
+      route: '/watermark-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'rotate-pdf', 
+      title: 'Rotate PDF', 
+      description: 'Rotate pages within a PDF document individually or entirely', 
+      icon: <RotateCcw />, 
+      route: '/rotate-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'html-to-pdf', 
+      title: 'HTML to PDF', 
+      description: 'Convert web pages (HTML) into PDF files', 
+      icon: <Globe />, 
+      route: '/html-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'unlock-pdf', 
+      title: 'Unlock PDF', 
+      description: 'Remove password protection and restrictions from PDF files', 
+      icon: <Unlock />, 
+      route: '/unlock-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'protect-pdf', 
+      title: 'Protect PDF', 
+      description: 'Add password protection and set permissions for PDF files', 
+      icon: <Shield />, 
+      route: '/protect-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'organize-pdf', 
+      title: 'Organize PDF', 
+      description: 'Reorder, delete, or add pages within a PDF document', 
+      icon: <Layout />, 
+      route: '/organize-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'pdf-to-pdfa', 
+      title: 'PDF to PDF/A', 
+      description: 'Convert PDF files to the PDF/A archival format', 
+      icon: <FileCheck />, 
+      route: '/pdf-to-pdfa',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'repair-pdf', 
+      title: 'Repair PDF', 
+      description: 'Attempt to repair and recover data from corrupted PDF files', 
+      icon: <FileCheck />, 
+      route: '/repair-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'page-numbers-pdf', 
+      title: 'Add Page Numbers', 
+      description: 'Add page numbers to PDF with positioning and formatting options', 
+      icon: <Hash />, 
+      route: '/page-numbers-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'scan-to-pdf', 
+      title: 'Scan to PDF', 
+      description: 'Scan documents and save them directly as PDF files', 
+      icon: <ScanLine />, 
+      route: '/scan-to-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'ocr-pdf', 
+      title: 'OCR PDF', 
+      description: 'Perform OCR on scanned PDFs to make text searchable and editable', 
+      icon: <FileSearch />, 
+      route: '/ocr-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'compare-pdf', 
+      title: 'Compare PDF', 
+      description: 'Highlight the differences between two PDF files', 
+      icon: <Eye />, 
+      route: '/compare-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'redact-pdf', 
+      title: 'Redact PDF', 
+      description: 'Permanently remove sensitive text and graphics from PDF', 
+      icon: <Eye />, 
+      route: '/redact-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'crop-pdf', 
+      title: 'Crop PDF', 
+      description: 'Crop the margins or specific areas of pages in a PDF document', 
+      icon: <Crop />, 
+      route: '/crop-pdf',
+      category: 'document',
+      isNew: true
     },
   ];
 
-  // Filter tools
+  // Filter tools based on search query and selected category
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  
   const filteredTools = allTools.filter(tool => {
     const matchesSearch = tool.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          tool.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -617,272 +940,124 @@ const Index = () => {
     return matchesSearch && matchesCategory;
   });
 
-  // Get tools for selected category
-  const categoryTools = selectedCategory === 'all' 
-    ? filteredTools 
-    : filteredTools.filter(t => t.category === selectedCategory);
-
-  // Recently used tools from localStorage
-  const [recentTools, setRecentTools] = React.useState<typeof allTools>([]);
-
-  React.useEffect(() => {
-    const recent = localStorage.getItem('recentTools');
-    if (recent) {
-      const recentIds = JSON.parse(recent);
-      const tools = recentIds.map((id: string) => 
-        allTools.find(tool => tool.route === id)
-      ).filter(Boolean).slice(0, 6);
-      setRecentTools(tools);
-    }
-  }, []);
-
-  // Featured/Popular tools
-  const featuredTools = [
-    allTools.find(t => t.route === '/password-generator'),
-    allTools.find(t => t.route === '/qr-code'),
-    allTools.find(t => t.route === '/pdf-to-word'),
-    allTools.find(t => t.route === '/image-compressor'),
-    allTools.find(t => t.route === '/text-case-converter'),
-    allTools.find(t => t.route === '/merge-pdf'),
-    allTools.find(t => t.route === '/word-counter'),
-    allTools.find(t => t.route === '/barcode-generator'),
-    allTools.find(t => t.route === '/image-converter'),
-    allTools.find(t => t.route === '/lorem-ipsum'),
-    allTools.find(t => t.route === '/compress-pdf'),
-    allTools.find(t => t.route === '/split-pdf'),
-  ].filter(Boolean) as typeof allTools;
+  // Handle category change
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <>
       <SEOHead
-        title="Free Online Calculators & Tools - 90+ Utilities | Pine Tools Hub" 
-        description="Access 90+ free online calculators, converters, and generators. PDF tools, word counter, password generator, QR codes, text tools, and more. No registration required."
-        keywords="online calculator, free calculator tools, word counter, password generator, qr code generator, pdf tools, text converter, online tools, free utilities, calculator online, percentage calculator"
+        title="Pine Tools Hub - Free AI Tools, PDF Converters & Productivity Utilities"
+        description="Access 100+ free online tools including AI resume builders, PDF converters, content generators, and productivity utilities. No registration required. Professional results instantly."
+        keywords="free online tools, AI tools, PDF converter, resume builder, content generator, productivity tools, free utilities, online converters"
+        url="https://pinetoolshub.com"
       />
       
-      {/* Structured Data for Tool Listing */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "WebSite",
-              "name": "Pine Tools Hub",
-              "url": "https://pinetoolshub.com",
-              "description": "Free online calculators, converters, and tools for every need",
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://pinetoolshub.com/?search={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            },
-            {
-              "@type": "ItemList",
-              "name": "Online Tools and Calculators",
-              "description": "Collection of free online tools and calculators",
-              "numberOfItems": allTools.length,
-              "itemListElement": featuredTools.slice(0, 10).map((tool, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "item": {
-                  "@type": "WebApplication",
-                  "name": tool.title,
-                  "url": `https://pinetoolshub.com${tool.route}`,
-                  "description": tool.description,
-                  "applicationCategory": "UtilityApplication",
-                  "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                  }
-                }
-              }))
-            },
-            {
-              "@type": "Organization",
-              "name": "Pine Tools Hub",
-              "url": "https://pinetoolshub.com",
-              "logo": "https://pinetoolshub.com/logo.png",
-              "description": "Free online tools and calculators for productivity and creativity"
-            }
-          ]
-        })}
-      </script>
-      <div className="container py-8 md:py-16">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Free Online Tools for Every Need
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            90+ Professional Tools - All Free, No Registration, Instant Results
-          </p>
-          
-          {/* Trust Signals */}
-          <div className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-              <span className="font-semibold">500,000+ Tools Used Daily</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>⭐ 4.8/5 Rating</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>🔒 100% Secure & Private</span>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
+      <div className="container mx-auto px-4 py-12">
+        <div className="text-center space-y-6 mb-12">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-6">
+              Pine Tools Hub
+            </h1>
+            <p className="text-xl sm:text-2xl text-muted-foreground mb-6">
+              Your Complete Suite of Free AI-Powered Tools & Utilities
+            </p>
+            <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Access 100+ professional tools including AI resume builders, PDF converters, content generators, 
+              and productivity utilities. All completely free with no registration required.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to="/pricing">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 transition-opacity">
+                  <Zap className="mr-2 h-5 w-5" />
+                  Explore All Free Tools
+                </Button>
+              </Link>
+              <Link to="/blog">
+                <Button size="lg" variant="outline">
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Read Success Stories
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
 
-        {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mb-12">
+        <div className="mb-6 max-w-2xl mx-auto">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
             <Input
-              type="text"
-              placeholder="Search tools (e.g., PDF converter, calculator, generator...)"
+              className="pl-10 w-full"
+              placeholder="Search for tools..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 h-14 text-base bg-card border-2 focus:border-primary"
             />
           </div>
         </div>
 
-        {/* Benefits Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
-          <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg transition-shadow">
-            <CardContent className="p-0">
-              <div className="flex justify-center mb-3">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <BadgeDollarSign className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-              <h3 className="font-bold text-base mb-2">Free to Use</h3>
-              <p className="text-sm text-muted-foreground">All tools completely free</p>
-            </CardContent>
-          </Card>
-          <Card className="text-center p-6 bg-gradient-to-br from-accent/10 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
-            <CardContent className="p-0">
-              <div className="flex justify-center mb-3">
-                <div className="p-3 rounded-full bg-accent/10">
-                  <Zap className="h-6 w-6 text-accent" />
-                </div>
-              </div>
-              <h3 className="font-bold text-base mb-2">Instant Results</h3>
-              <p className="text-sm text-muted-foreground">Get results in seconds</p>
-            </CardContent>
-          </Card>
-          <Card className="text-center p-6 bg-gradient-to-br from-primary/10 to-transparent border-primary/20 hover:shadow-lg transition-shadow">
-            <CardContent className="p-0">
-              <div className="flex justify-center mb-3">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Lock className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-              <h3 className="font-bold text-base mb-2">No Registration</h3>
-              <p className="text-sm text-muted-foreground">Use without signing up</p>
-            </CardContent>
-          </Card>
-          <Card className="text-center p-6 bg-gradient-to-br from-accent/10 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
-            <CardContent className="p-0">
-              <div className="flex justify-center mb-3">
-                <div className="p-3 rounded-full bg-accent/10">
-                  <Smartphone className="h-6 w-6 text-accent" />
-                </div>
-              </div>
-              <h3 className="font-bold text-base mb-2">Mobile Friendly</h3>
-              <p className="text-sm text-muted-foreground">Works on all devices</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Featured Tools Grid */}
-        {!searchQuery && featuredTools.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold mb-6 text-center">Most Popular Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {featuredTools.map((tool) => (
-                <ToolCard
-                  key={tool.id}
-                  title={tool.title}
-                  description={tool.description}
-                  icon={tool.icon}
-                  route={tool.route}
-                  category={tool.category}
-                />
+        <Tabs defaultValue="all" className="w-full">
+          <div className="overflow-x-auto pb-2 mb-6">
+            <TabsList className="flex w-auto min-w-fit justify-center">
+              {categories.map(category => (
+                <TabsTrigger 
+                  key={category.id} 
+                  value={category.id}
+                  onClick={() => handleCategoryChange(category.id)}
+                  className="min-w-[100px] whitespace-nowrap"
+                >
+                  {category.label}
+                </TabsTrigger>
               ))}
-            </div>
+            </TabsList>
           </div>
-        )}
 
-        {/* Recently Used Tools */}
-        {!searchQuery && recentTools.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">Recently Used Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {recentTools.map((tool) => (
-                <ToolCard
-                  key={tool.id}
-                  title={tool.title}
-                  description={tool.description}
-                  icon={tool.icon}
-                  route={tool.route}
-                  category={tool.category}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+          {categories.map(category => (
+            <TabsContent key={category.id} value={category.id}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-6">
+                {filteredTools.filter(tool => 
+                  category.id === 'all' || tool.category === category.id
+                ).map(tool => (
+                  <ToolCard
+                    key={tool.id}
+                    title={tool.title}
+                    description={tool.description}
+                    icon={tool.icon}
+                    route={tool.route}
+                    category={
+                      tool.category === 'career' ? 'Career Tools' : 
+                      tool.category === 'content' ? 'Content Creation' : 
+                      tool.category === 'multimedia' ? 'Multimedia' :
+                      tool.category === 'document' ? 'Document Tools' :
+                      tool.category === 'coding' ? 'Development' :
+                      tool.category === 'learning' ? 'Learning Tools' :
+                      tool.category === 'marketing' ? 'Marketing' :
+                      tool.category === 'design' ? 'Design Tools' : 'Utilities'
+                    }
+                    isNew={tool.isNew}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
         
-        {/* SEO Content */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="bg-card rounded-lg p-6 md:p-8 border border-border">
-            <h2 className="text-2xl font-bold mb-4">Free Online Calculators and Tools for Every Need</h2>
-            <p className="text-muted-foreground mb-4">
-              Pine Tools Hub offers 90+ free online calculators, converters, and generators for all your needs. From word counters and password generators to PDF tools and QR code makers - everything you need in one place.
-            </p>
-            <p className="text-muted-foreground mb-4">
-              All our calculator tools are 100% free with no registration required. Process files securely in your browser, generate codes instantly, and get professional-quality results every time.
-            </p>
-            
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold mb-3">Popular Calculators & Tools:</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <Link to="/password-generator" className="text-primary hover:underline">Password Generator</Link>
-                <Link to="/qr-code" className="text-primary hover:underline">QR Code Generator</Link>
-                <Link to="/word-counter" className="text-primary hover:underline">Word Counter</Link>
-                <Link to="/barcode-generator" className="text-primary hover:underline">Barcode Generator</Link>
-                <Link to="/text-case-converter" className="text-primary hover:underline">Text Case Converter</Link>
-                <Link to="/lorem-ipsum" className="text-primary hover:underline">Lorem Ipsum Generator</Link>
-                <Link to="/merge-pdf" className="text-primary hover:underline">Merge PDF</Link>
-                <Link to="/compress-pdf" className="text-primary hover:underline">Compress PDF</Link>
-                <Link to="/ifsc-finder" className="text-primary hover:underline">IFSC Finder</Link>
-              </div>
-            </div>
-            
-            <div className="mt-8 bg-secondary/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-3">Why Choose Our Calculator Tools?</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong>No Registration:</strong> Use all tools instantly without creating an account</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong>100% Free:</strong> All calculators and converters are completely free forever</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong>Secure & Private:</strong> Your data is processed locally in your browser</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong>Mobile-Friendly:</strong> Works perfectly on all devices and screen sizes</span>
-                </li>
-              </ul>
-            </div>
+        {/* SEO Content & Internal Links */}
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-bold mb-4">100% Free Professional Tools</h2>
+          <p className="text-muted-foreground mb-6 max-w-3xl mx-auto">
+            All tools completely free forever. No subscriptions, no hidden costs, unlimited usage for personal and commercial projects.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link to="/resume-builder" className="text-primary hover:underline">Resume Builder</Link> • 
+            <Link to="/blog-writer" className="text-primary hover:underline">AI Blog Writer</Link> • 
+            <Link to="/word-to-pdf" className="text-primary hover:underline">PDF Converter</Link> • 
+            <Link to="/pricing" className="text-primary hover:underline">Why Free?</Link>
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 };

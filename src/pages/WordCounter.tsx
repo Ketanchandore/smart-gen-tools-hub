@@ -11,8 +11,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { toast } from '@/hooks/use-toast';
-import ToolSEO from '@/components/ToolSEO';
-import Layout from '@/components/Layout';
 
 interface TextStats {
   characters: number;
@@ -45,25 +43,6 @@ const WordCounter = () => {
   const [maxKeywords, setMaxKeywords] = useState(20);
   const [excludeCommon, setExcludeCommon] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const faqData = [
-    {
-      question: "How accurate is the word counter?",
-      answer: "Our word counter is highly accurate and counts words the same way most word processors do. It splits text by whitespace and filters empty strings to ensure precision."
-    },
-    {
-      question: "What is reading time based on?",
-      answer: "Reading time is calculated based on an average reading speed of 200-250 words per minute, which is the standard for silent reading comprehension."
-    },
-    {
-      question: "How does keyword density help with SEO?",
-      answer: "Keyword density shows what percentage of your content is focused on specific terms. For SEO, aim for 1-2% density for your main keywords to avoid over-optimization."
-    },
-    {
-      question: "What is the Flesch Reading Ease score?",
-      answer: "The Flesch Reading Ease score measures text readability on a scale of 0-100. Higher scores indicate easier reading. Scores of 60-70 are ideal for general audiences."
-    }
-  ];
 
   const commonWords = new Set([
     'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i', 'it', 'for', 
@@ -306,47 +285,28 @@ ${text}`;
   };
 
   return (
-    <>
-      <ToolSEO
-        title="Free Word Counter Tool - Count Words, Characters & Keywords Online"
-        description="Advanced word counter and text analyzer. Count words, characters, sentences, paragraphs. Extract keywords, calculate reading time, and analyze readability. Free SEO tool."
-        keywords="word counter, character counter, keyword extractor, text analyzer, word count tool, seo word counter, readability checker, keyword density calculator"
-        toolName="Word Counter & Text Analyzer"
-        toolType="Calculator"
-        category="Text Tools"
-        features={[
-          "Real-time word and character counting",
-          "Keyword extraction and density analysis",
-          "Readability score (Flesch Reading Ease)",
-          "Reading and speaking time estimates",
-          "Sentence and paragraph counter",
-          "Export analysis reports"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container max-w-7xl mx-auto px-4 py-8">
-          <div className="mb-6">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="flex items-center gap-2"
-              onClick={() => navigate('/')}
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to Tools
-            </Button>
-          </div>
+    <div className="container max-w-7xl mx-auto px-4 py-8">
+      <div className="mb-6">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="flex items-center gap-2"
+          onClick={() => navigate('/')}
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Tools
+        </Button>
+      </div>
 
-          <div className="text-center mb-8">
-            <div className="mx-auto bg-gradient-to-r from-blue-500 to-green-500 rounded-full p-3 mb-4 w-16 h-16 flex items-center justify-center">
-              <FileText className="h-8 w-8 text-white" />
-            </div>
-            <h1 className="text-4xl font-bold mb-4">Word Counter & Keyword Extractor</h1>
-            <p className="text-xl text-muted-foreground">
-              Analyze your text with detailed statistics and extract important keywords
-            </p>
-          </div>
+      <div className="text-center mb-8">
+        <div className="mx-auto bg-gradient-to-r from-blue-500 to-green-500 rounded-full p-3 mb-4 w-16 h-16 flex items-center justify-center">
+          <FileText className="h-8 w-8 text-white" />
+        </div>
+        <h1 className="text-4xl font-bold mb-4">Word Counter & Keyword Extractor</h1>
+        <p className="text-xl text-muted-foreground">
+          Analyze your text with detailed statistics and extract important keywords
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Text Input */}
@@ -595,49 +555,7 @@ ${text}`;
           )}
         </div>
       </div>
-
-      {/* SEO Content Section */}
-      <section className="mt-12 max-w-4xl mx-auto prose prose-invert">
-        <h2 className="text-2xl font-bold mb-4">Why Use a Word Counter?</h2>
-        <p className="text-muted-foreground mb-6">
-          A word counter is essential for writers, students, marketers, and content creators who need to meet specific word count requirements. Our advanced tool goes beyond basic counting to provide keyword analysis, readability metrics, and content optimization insights.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div className="bg-secondary/20 p-4 rounded-lg">
-            <h3 className="font-semibold mb-2">For Writers & Students</h3>
-            <p className="text-sm text-muted-foreground">Meet essay requirements, track progress, and ensure proper document length for academic or professional writing.</p>
-          </div>
-          <div className="bg-secondary/20 p-4 rounded-lg">
-            <h3 className="font-semibold mb-2">For SEO & Marketing</h3>
-            <p className="text-sm text-muted-foreground">Optimize content length, analyze keyword density, and improve readability scores for better search engine rankings.</p>
-          </div>
-        </div>
-
-        <h3 className="text-xl font-bold mb-3 mt-6">Key Features</h3>
-        <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-          <li><strong>Real-time Counting:</strong> See word, character, sentence, and paragraph counts update instantly</li>
-          <li><strong>Keyword Analysis:</strong> Extract the most frequent keywords and calculate density percentages</li>
-          <li><strong>Readability Metrics:</strong> Get Flesch Reading Ease scores to ensure your content is accessible</li>
-          <li><strong>Time Estimates:</strong> Calculate reading and speaking time based on average speeds</li>
-          <li><strong>Export Reports:</strong> Download comprehensive text analysis reports</li>
-        </ul>
-
-        <div className="mt-8 bg-secondary/30 rounded-lg p-6">
-          <h3 className="text-xl font-bold mb-4">Frequently Asked Questions</h3>
-          <div className="space-y-4">
-            {faqData.map((faq, index) => (
-              <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
-                <h4 className="font-semibold mb-2">{faq.question}</h4>
-                <p className="text-sm text-muted-foreground">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
-      </Layout>
-    </>
   );
 };
 

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Droplets, Settings, Info, Type, Image as ImageIcon, Palette, Eye } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
-import SEOKeywordContent from '@/components/SEOKeywordContent';
 import { addWatermark } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -645,44 +644,6 @@ const WatermarkPdf = () => {
             </div>
           </div>
         </div>
-
-        <SEOKeywordContent
-          toolName="PDF Watermark Tool"
-          primaryKeyword="Add Watermark to PDF Online Free"
-          longTailKeywords={[
-            "Add text watermark to PDF free",
-            "Add image watermark to PDF online",
-            "Watermark PDF document confidential",
-            "Add logo watermark to PDF pages",
-            "Watermark PDF without software",
-            "Add draft watermark to PDF",
-            "Watermark multiple PDF pages at once",
-            "Best PDF watermark tool 2024",
-            "Add copyright watermark to PDF",
-            "Watermark PDF on mobile phone",
-            "Transparent watermark PDF online",
-            "Add company logo to PDF pages"
-          ]}
-          benefits={[
-            { title: "Brand Protection", description: "Add company logos and branding to protect your documents from misuse." },
-            { title: "Text & Image Support", description: "Add text watermarks or upload custom images for professional branding." },
-            { title: "Customizable Position", description: "Place watermarks anywhere - center, diagonal, corners, or custom coordinates." },
-            { title: "Opacity Control", description: "Adjust watermark transparency from subtle to prominent based on your needs." },
-            { title: "Page Selection", description: "Apply to all pages, odd/even pages, or specific page ranges." },
-            { title: "Professional Effects", description: "Add shadows, outlines, and backgrounds for advanced watermark styling." }
-          ]}
-          useCases={[
-            { title: "Confidential Documents", description: "Mark sensitive business documents with 'CONFIDENTIAL' or 'DRAFT' watermarks." },
-            { title: "Brand Protection", description: "Add company logos to PDFs before sharing with clients or partners." },
-            { title: "Copyright Protection", description: "Watermark ebooks, reports, and creative content with copyright notices." },
-            { title: "Document Tracking", description: "Add unique watermarks to track document distribution and prevent leaks." }
-          ]}
-          howItWorks={[
-            { step: 1, title: "Upload PDF File", description: "Select the PDF document you want to watermark." },
-            { step: 2, title: "Configure Watermark", description: "Enter text or upload image, set position, opacity, and styling." },
-            { step: 3, title: "Download Watermarked PDF", description: "Get your professionally watermarked PDF document." }
-          ]}
-        />
       </div>
     </PDFToolTemplate>
   );

@@ -10,8 +10,6 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import ToolSEO from '@/components/ToolSEO';
-import Layout from '@/components/Layout';
 
 const QrCode = () => {
   const [url, setUrl] = useState('https://example.com');
@@ -75,46 +73,8 @@ const QrCode = () => {
       });
   };
 
-  const faqData = [
-    {
-      question: "What is a QR code and how does it work?",
-      answer: "A QR code (Quick Response code) is a two-dimensional barcode that stores information readable by smartphones and scanners. When scanned, it instantly directs users to websites, displays text, or shares contact information."
-    },
-    {
-      question: "Can I customize my QR code colors?",
-      answer: "Yes! Our generator allows you to customize both the QR code color and background color. However, ensure sufficient contrast between colors for reliable scanning."
-    },
-    {
-      question: "What can I encode in a QR code?",
-      answer: "You can encode URLs, plain text, contact information (vCard), WiFi credentials, email addresses, phone numbers, SMS messages, and much more."
-    },
-    {
-      question: "Are the generated QR codes permanent?",
-      answer: "Yes, static QR codes are permanent. Once generated, the content cannot be changed. For dynamic content, consider using a URL shortener that allows updating the destination."
-    }
-  ];
-
   return (
-    <>
-      <ToolSEO
-        title="Free QR Code Generator - Create Custom QR Codes Online"
-        description="Generate custom QR codes instantly for free. Create QR codes for URLs, text, contact info with customizable colors and sizes. Download high-quality QR codes in seconds."
-        keywords="qr code generator, free qr code, qr code creator, custom qr code, qr code maker, barcode generator, url to qr code"
-        toolName="QR Code Generator"
-        toolType="Generator"
-        category="Marketing Tools"
-        features={[
-          "Instant QR code generation",
-          "Customizable colors and sizes",
-          "URL, text, and contact QR codes",
-          "High-quality image download",
-          "No registration required",
-          "Mobile-friendly interface"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container max-w-6xl mx-auto px-4 py-8">
+    <div className="container max-w-6xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Link to="/">
           <Button variant="ghost" size="sm" className="flex items-center gap-2">
@@ -128,10 +88,8 @@ const QrCode = () => {
         <div className="inline-flex items-center justify-center p-4 mb-4 rounded-full bg-primary/10">
           <QrIcon className="h-8 w-8 text-primary" />
         </div>
-        <h1 className="text-4xl font-bold mb-4">Free QR Code Generator</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Create custom QR codes instantly for websites, text, or contact information. Download high-quality QR codes for free.
-        </p>
+        <h1 className="text-3xl font-bold">QR Code Generator</h1>
+        <p className="text-muted-foreground mt-2">Create custom QR codes for websites, text, or contact information.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -298,58 +256,12 @@ const QrCode = () => {
         </div>
       </div>
       
-      {/* SEO Content Section */}
-      <section className="mt-16 max-w-4xl mx-auto">
-        <article className="prose prose-lg max-w-none dark:prose-invert">
-          <h2 className="text-2xl font-bold mb-4">What is a QR Code Generator?</h2>
-          <p className="text-muted-foreground mb-6">
-            A QR code generator is an online tool that creates Quick Response (QR) codes instantly. These two-dimensional 
-            barcodes can store various types of information including website URLs, plain text, contact details, WiFi credentials, 
-            and more. Our free QR code generator allows you to create professional, scannable QR codes in seconds.
-          </p>
-
-          <h2 className="text-2xl font-bold mb-4 mt-8">How to Create a QR Code</h2>
-          <ol className="list-decimal pl-6 space-y-3 text-muted-foreground mb-6">
-            <li><strong>Enter Your Content:</strong> Input the URL, text, or contact information you want to encode</li>
-            <li><strong>Customize Design:</strong> Choose your preferred size, colors, and style options</li>
-            <li><strong>Generate QR Code:</strong> Click generate to create your unique QR code instantly</li>
-            <li><strong>Download & Share:</strong> Download your high-quality QR code image and use it anywhere</li>
-          </ol>
-
-          <h2 className="text-2xl font-bold mb-4 mt-8">QR Code Use Cases</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 bg-secondary/20 rounded-lg">
-              <h3 className="font-semibold mb-2">Marketing & Advertising</h3>
-              <p className="text-sm text-muted-foreground">Add QR codes to posters, flyers, and business cards to drive traffic to your website</p>
-            </div>
-            <div className="p-4 bg-secondary/20 rounded-lg">
-              <h3 className="font-semibold mb-2">Product Packaging</h3>
-              <p className="text-sm text-muted-foreground">Link customers directly to product information, manuals, or support pages</p>
-            </div>
-            <div className="p-4 bg-secondary/20 rounded-lg">
-              <h3 className="font-semibold mb-2">Event Management</h3>
-              <p className="text-sm text-muted-foreground">Use QR codes for event tickets, check-ins, and sharing event details</p>
-            </div>
-            <div className="p-4 bg-secondary/20 rounded-lg">
-              <h3 className="font-semibold mb-2">Contact Sharing</h3>
-              <p className="text-sm text-muted-foreground">Share vCards instantly without typing - perfect for networking</p>
-            </div>
-          </div>
-
-          <h2 className="text-2xl font-bold mb-4 mt-8">Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            {faqData.map((faq, index) => (
-              <div key={index} className="border-b border-border pb-4">
-                <h3 className="font-semibold text-lg mb-2">{faq.question}</h3>
-                <p className="text-muted-foreground">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
+      <div className="mt-12 text-center">
+        <h2 className="text-xl font-semibold mb-2">Need More QR Code Features?</h2>
+        <p className="text-muted-foreground mb-4">Upgrade to Pro for advanced QR code customization, analytics, and more!</p>
+        <Button>Upgrade to Pro</Button>
+      </div>
     </div>
-      </Layout>
-    </>
   );
 };
 

@@ -7,7 +7,6 @@ import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Image, Upload, Download, Info, Trash2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import ToolSEO from '@/components/ToolSEO';
 
 const ImageCompressor = () => {
   const { toast } = useToast();
@@ -20,25 +19,6 @@ const ImageCompressor = () => {
   const [originalSize, setOriginalSize] = useState<number>(0);
 
   const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
-  const faqData = [
-    {
-      question: "How much can I compress my images?",
-      answer: "Image compression varies by format and quality settings. Typically, you can reduce file size by 40-80% while maintaining good visual quality. JPEG images compress more than PNG files."
-    },
-    {
-      question: "Does compression reduce image quality?",
-      answer: "Yes, lossy compression reduces quality slightly, but our tool optimizes the balance between file size and quality. You can adjust the quality slider to find your preferred balance."
-    },
-    {
-      question: "What image formats are supported?",
-      answer: "We support JPEG, PNG, GIF, and WebP formats. Each format has different compression characteristics - JPEG is best for photos, PNG for graphics with transparency."
-    },
-    {
-      question: "Is there a file size limit?",
-      answer: "The maximum file size is 10MB per image. For larger files, consider compressing them first with other tools or reducing the image dimensions."
-    }
-  ];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -123,31 +103,11 @@ const ImageCompressor = () => {
   };
 
   return (
-    <>
-      <ToolSEO
-        title="Free Image Compressor - Reduce Image Size Online"
-        description="Compress JPEG, PNG, GIF, and WebP images online for free. Reduce image file size up to 80% while maintaining quality. Fast, secure, and easy to use image compression tool."
-        keywords="image compressor, compress image, reduce image size, optimize images, image optimizer, shrink images, photo compressor"
-        toolName="Image Compressor"
-        toolType="Tool"
-        category="Image Tools"
-        features={[
-          "Compress JPEG, PNG, GIF, WebP",
-          "Adjustable quality settings",
-          "Up to 80% size reduction",
-          "Batch image compression",
-          "No quality loss visible",
-          "Free unlimited use"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container py-12">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl font-bold mb-4">Free Image Compressor</h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Reduce image file size up to 80% while preserving visual quality. Support for JPEG, PNG, GIF, and WebP formats.
-            </p>
+    <Layout>
+      <div className="container py-12">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl font-bold mb-2">Image Compressor</h1>
+          <p className="text-muted-foreground mb-8">Reduce image file size while preserving quality</p>
 
           <Card className="mb-6">
             <CardHeader>
@@ -277,7 +237,6 @@ const ImageCompressor = () => {
         </div>
       </div>
     </Layout>
-    </>
   );
 };
 

@@ -9,7 +9,6 @@ import { FileTextIcon, Upload, Download, Info } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { ToolStructuredData, FAQStructuredData, BreadcrumbStructuredData } from '@/components/StructuredData';
 import PrerenderedContent from '@/components/PrerenderedContent';
-import SEOKeywordContent from '@/components/SEOKeywordContent';
 
 const PdfToWord = () => {
   const { toast } = useToast();
@@ -255,44 +254,6 @@ const PdfToWord = () => {
                 </a>
               </div>
             </section>
-
-            <SEOKeywordContent
-              toolName="PDF to Word Converter"
-              primaryKeyword="Convert PDF to Word Online Free"
-              longTailKeywords={[
-                "Convert PDF to editable Word document",
-                "PDF to DOCX converter online free",
-                "Convert PDF to Word without losing formatting",
-                "PDF to Word converter for mobile",
-                "Convert scanned PDF to Word free",
-                "PDF to Word with tables preserved",
-                "Convert PDF to Word offline",
-                "Best PDF to Word converter 2024",
-                "Convert PDF to Word on iPhone",
-                "PDF to editable Word document free",
-                "Convert image PDF to Word text",
-                "PDF to Word converter no email required"
-              ]}
-              benefits={[
-                { title: "Preserves Formatting", description: "Maintains original layout, fonts, tables, and images during conversion." },
-                { title: "Editable Output", description: "Get fully editable Word documents that you can modify in Microsoft Word or Google Docs." },
-                { title: "Fast Conversion", description: "Convert PDF to Word in seconds with our high-speed processing engine." },
-                { title: "No Software Needed", description: "Works directly in browser - no downloads or installations required." },
-                { title: "Secure Processing", description: "Files are encrypted and automatically deleted after conversion." },
-                { title: "High Accuracy", description: "Advanced OCR technology ensures accurate text recognition from scanned PDFs." }
-              ]}
-              useCases={[
-                { title: "Edit Contracts", description: "Convert PDF contracts to Word for making revisions and edits before signing." },
-                { title: "Update Resumes", description: "Convert your PDF resume to Word format for updating and customizing." },
-                { title: "Modify Reports", description: "Convert business reports to editable format for analysis and modifications." },
-                { title: "Extract Content", description: "Pull text and images from PDFs for use in other documents or presentations." }
-              ]}
-              howItWorks={[
-                { step: 1, title: "Upload PDF File", description: "Select the PDF document you want to convert to Word format." },
-                { step: 2, title: "Convert Automatically", description: "Our system processes and converts your PDF while preserving formatting." },
-                { step: 3, title: "Download Word File", description: "Get your editable DOCX file ready for editing in Microsoft Word." }
-              ]}
-            />
           </div>
         </div>
       </PrerenderedContent>

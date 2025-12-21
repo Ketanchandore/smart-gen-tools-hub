@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { Sliders, Info, Settings, Zap } from 'lucide-react';
-import ToolSEO from '@/components/ToolSEO';
-import Layout from '@/components/Layout';
-import ToolBreadcrumb from '@/components/ToolBreadcrumb';
-import PopularToolsSidebar from '@/components/PopularToolsSidebar';
-import ReverseToolLink from '@/components/ReverseToolLink';
-import WhatsNextTools from '@/components/WhatsNextTools';
-import YouMightAlsoNeed from '@/components/YouMightAlsoNeed';
-import FileUploadArea from '@/components/FileUploadArea';
-import SEOKeywordContent from '@/components/SEOKeywordContent';
+import { FileDown, Info, Settings, Zap, Shield, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
+import { ToolStructuredData } from '@/components/StructuredData';
+import PDFToolTemplate from '@/components/PDFToolTemplate';
 import { compressPDF } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -21,7 +16,6 @@ import { useToast } from '@/components/ui/use-toast';
 
 const CompressPdf = () => {
   const { toast } = useToast();
-  
   const [compressionLevel, setCompressionLevel] = useState<'low' | 'medium' | 'high' | 'extreme' | 'custom'>('medium');
   const [customQuality, setCustomQuality] = useState(80);
   const [optimizeImages, setOptimizeImages] = useState(true);
@@ -98,317 +92,342 @@ const CompressPdf = () => {
 
   return (
     <>
-      <ToolSEO 
-        title="Compress PDF Online Free - Reduce PDF File Size Up to 90% | Pine Tools Hub"
-        description="Free online PDF compressor reduces file size by up to 90% while maintaining quality. Compress PDF for email, web upload, and storage. No registration required."
-        keywords="compress pdf, reduce pdf size, pdf compressor online, shrink pdf, optimize pdf, pdf file size reducer, compress pdf online free"
-        toolName="PDF Compressor"
-        toolType="Tool"
-        category="PDF Tools"
-        features={["Advanced compression", "Quality control", "Batch processing", "Password protection", "Metadata removal"]}
-        faqs={faqData}
+      <SEOHead 
+        title="Free PDF Compressor - Reduce PDF File Size Online | Pine Tools Hub"
+        description="Compress PDF files online for free. Reduce PDF size by up to 90% while maintaining quality. Professional PDF compression with advanced optimization settings."
+        keywords="PDF compressor, reduce PDF size, compress PDF online, PDF optimizer, shrink PDF, PDF file size reducer"
         url="https://pinetoolshub.com/compress-pdf"
       />
-
-      <Layout>
-        <ToolBreadcrumb 
-          category="PDF Tools" 
-          categoryPath="/tools" 
-          toolName="Compress PDF" 
-        />
-        
+      <ToolStructuredData 
+        name="PDF Compressor"
+        description="Professional online PDF compression tool with advanced optimization settings and quality control"
+        url="https://pinetoolshub.com/compress-pdf"
+        category="PDF Tools"
+        features={["Advanced compression algorithms", "Quality control settings", "Batch processing", "Password protection", "Metadata removal"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3">
-              <div className="mb-8">
-                <h1 className="text-4xl font-bold mb-4">Compress PDF Online</h1>
-                <p className="text-lg text-muted-foreground">
-                  Reduce your PDF file size up to 90% while maintaining quality. No registration needed.
-                </p>
-              </div>
-
-              <div className="bg-primary/5 p-6 rounded-lg mb-8 border border-primary/20">
-                <h2 className="text-2xl font-bold mb-4">Why Compress Your PDF?</h2>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">✓</span> Easier to share via email
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">✓</span> Saves storage space
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">✓</span> Faster upload and download
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-primary">✓</span> Better for archiving
-                  </li>
-                </ul>
-              </div>
-
-              <FileUploadArea
-                acceptFiles=".pdf"
-                multiple={false}
-                processFunction={handleCompress}
-                outputFilename="compressed.pdf"
-              />
-
-              <div className="mt-8">
-                <ReverseToolLink 
-                  reverseTool={{
-                    name: "Expand PDF",
-                    path: "/expand-pdf",
-                    description: "Need to increase PDF quality? Try our expansion tool."
-                  }}
-                />
-              </div>
-
-              <div className="space-y-6 mt-12">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Zap className="h-5 w-5" />
-                      Compression Settings
-                    </CardTitle>
-                    <CardDescription>Choose your compression level and optimization options</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Tabs defaultValue="presets" className="w-full">
-                      <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="presets">Quick Presets</TabsTrigger>
-                        <TabsTrigger value="advanced">Advanced Options</TabsTrigger>
-                      </TabsList>
-                      
-                      <TabsContent value="presets" className="space-y-4">
-                        <div>
-                          <Label htmlFor="compression-level">Compression Level</Label>
-                          <Select value={compressionLevel} onValueChange={(value: any) => setCompressionLevel(value)}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select compression level" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="low">Low Compression - 95% Quality</SelectItem>
-                              <SelectItem value="medium">Medium Compression - 75% Quality</SelectItem>
-                              <SelectItem value="high">High Compression - 50% Quality</SelectItem>
-                              <SelectItem value="extreme">Extreme Compression - 25% Quality</SelectItem>
-                              <SelectItem value="custom">Custom Settings</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {compressionPresets[compressionLevel]?.description}
-                          </p>
-                        </div>
-
-                        {compressionLevel === 'custom' && (
-                          <div>
-                            <Label htmlFor="custom-quality">Custom Quality: {customQuality}%</Label>
-                            <Slider
-                              id="custom-quality"
-                              min={10}
-                              max={100}
-                              step={5}
-                              value={[customQuality]}
-                              onValueChange={(value) => setCustomQuality(value[0])}
-                              className="mt-2"
-                            />
-                          </div>
-                        )}
-                      </TabsContent>
-
-                      <TabsContent value="advanced" className="space-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-3">
-                            <h4 className="font-medium">Image Optimization</h4>
-                            <div className="flex items-center justify-between">
-                              <Label htmlFor="optimize-images">Optimize Images</Label>
-                              <Switch
-                                id="optimize-images"
-                                checked={optimizeImages}
-                                onCheckedChange={setOptimizeImages}
-                              />
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <Label htmlFor="downscale-images">Downscale Images</Label>
-                              <Switch
-                                id="downscale-images"
-                                checked={downscaleImages}
-                                onCheckedChange={setDownscaleImages}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="space-y-3">
-                            <h4 className="font-medium">Content Optimization</h4>
-                            <div className="flex items-center justify-between">
-                              <Label htmlFor="remove-duplicates">Remove Duplicates</Label>
-                              <Switch
-                                id="remove-duplicates"
-                                checked={removeDuplicates}
-                                onCheckedChange={setRemoveDuplicates}
-                              />
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <Label htmlFor="remove-metadata">Remove Metadata</Label>
-                              <Switch
-                                id="remove-metadata"
-                                checked={removeMetadata}
-                                onCheckedChange={setRemoveMetadata}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </TabsContent>
-                    </Tabs>
-                  </CardContent>
-                </Card>
-
-                <div className="p-4 bg-secondary/30 rounded-lg">
-                  <div className="flex items-start gap-3">
-                    <Info className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-muted-foreground">
-                      <p className="font-semibold mb-2">Compression Ratio: Typically 60-90% size reduction</p>
-                      <ul className="space-y-1 ml-4">
-                        <li>• Advanced image optimization</li>
-                        <li>• Intelligent content optimization</li>
-                        <li>• Privacy-focused metadata removal</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-12 bg-muted/30 p-8 rounded-lg">
-                <h2 className="text-2xl font-bold mb-4">How to Compress PDF</h2>
-                <ol className="space-y-4">
-                  <li className="flex gap-4">
-                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">1</span>
-                    <div>
-                      <h3 className="font-bold">Upload Your PDF</h3>
-                      <p className="text-muted-foreground">Click or drag your PDF file to begin</p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">2</span>
-                    <div>
-                      <h3 className="font-bold">Adjust Quality</h3>
-                      <p className="text-muted-foreground">Choose your compression level</p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">3</span>
-                    <div>
-                      <h3 className="font-bold">Download</h3>
-                      <p className="text-muted-foreground">Get your compressed PDF instantly</p>
-                    </div>
-                  </li>
-                </ol>
-              </div>
-
-              <div className="mt-12">
-                <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-                <div className="space-y-4">
-                  {faqData.map((faq, index) => (
-                    <details key={index} className="bg-card p-4 rounded-lg cursor-pointer border">
-                      <summary className="font-bold text-lg">{faq.question}</summary>
-                      <p className="mt-2 text-muted-foreground">{faq.answer}</p>
-                    </details>
-                  ))}
-                </div>
-              </div>
-
-              <YouMightAlsoNeed 
-                tools={[
-                  {
-                    name: "Merge PDF",
-                    reason: "Combine compressed files together",
-                    path: "/merge-pdf"
-                  },
-                  {
-                    name: "Split PDF",
-                    reason: "Separate pages after compression",
-                    path: "/split-pdf"
-                  },
-                  {
-                    name: "Protect PDF",
-                    reason: "Secure your compressed file",
-                    path: "/protect-pdf"
-                  }
-                ]}
-              />
-
-              <WhatsNextTools 
-                tools={[
-                  {
-                    name: "Split PDF",
-                    description: "Extract pages into separate files",
-                    path: "/split-pdf",
-                    icon: "split"
-                  },
-                  {
-                    name: "Merge PDF",
-                    description: "Combine multiple PDFs",
-                    path: "/merge-pdf",
-                    icon: "merge"
-                  },
-                  {
-                    name: "PDF to Word",
-                    description: "Convert to editable documents",
-                    path: "/pdf-to-word",
-                    icon: "compress"
-                  },
-                  {
-                    name: "Protect PDF",
-                    description: "Add password security",
-                    path: "/protect-pdf",
-                    icon: "protect"
-                  }
-                ]}
-              />
-
-              <SEOKeywordContent
-                toolName="PDF Compressor"
-                primaryKeyword="Compress PDF Online Free"
-                longTailKeywords={[
-                  "Compress PDF without losing quality",
-                  "Reduce PDF file size for email",
-                  "Compress PDF to 100KB online free",
-                  "Compress PDF to 200KB for upload",
-                  "Compress large PDF files instantly",
-                  "Compress scanned PDF documents",
-                  "Reduce PDF size without software",
-                  "Compress PDF for WhatsApp sharing",
-                  "Compress PDF below 1MB free",
-                  "Best PDF compressor online 2024",
-                  "Compress multiple PDFs at once",
-                  "Compress PDF for government forms"
-                ]}
-                benefits={[
-                  { title: "Fast Processing", description: "Compress PDFs in seconds with our advanced compression algorithm - no waiting required." },
-                  { title: "100% Secure", description: "Your files are encrypted and automatically deleted after processing. We never store your documents." },
-                  { title: "No File Size Limit", description: "Compress PDFs up to 100MB absolutely free. No premium required for large files." },
-                  { title: "Works Everywhere", description: "Use on any device - Windows, Mac, iPhone, Android. No app installation needed." },
-                  { title: "Maintains Quality", description: "Smart compression preserves text clarity and image quality while reducing file size." },
-                  { title: "Batch Compression", description: "Compress multiple PDF files simultaneously to save time on bulk operations." }
-                ]}
-                useCases={[
-                  { title: "Email Attachments", description: "Compress PDF files to meet email attachment size limits (typically 25MB). Perfect for sending large reports and documents." },
-                  { title: "Website Upload", description: "Reduce PDF size for faster website loading. Ideal for downloadable brochures, catalogs, and documentation." },
-                  { title: "Government Forms", description: "Compress PDFs to meet size requirements for government portal submissions and official applications." },
-                  { title: "Cloud Storage", description: "Save cloud storage space by compressing archived PDFs. Reduce storage costs while keeping all your documents." }
-                ]}
-                howItWorks={[
-                  { step: 1, title: "Upload Your PDF File", description: "Drag and drop your PDF or click to browse. We support files up to 100MB." },
-                  { step: 2, title: "Choose Compression Level", description: "Select from Low, Medium, High, or Extreme compression based on your quality needs." },
-                  { step: 3, title: "Download Compressed PDF", description: "Click download to get your smaller PDF file. Original formatting is preserved." }
-                ]}
-              />
-            </div>
-
-            <div className="lg:col-span-1">
-              <PopularToolsSidebar currentPath="/compress-pdf" />
+          <div className="mb-8">
+            <Link 
+              to="/" 
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Back to Tools
+            </Link>
+            <h1 className="text-4xl font-bold mb-4">PDF Compressor - Reduce File Size</h1>
+            <p className="text-xl text-muted-foreground mb-6">
+              Compress PDF files with professional-grade optimization. Reduce file size by up to 90% while maintaining visual quality.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-6">
+              <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Merge PDF
+              </Link>
+              <Link to="/split-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Split PDF
+              </Link>
+              <Link to="/pdf-to-word" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                PDF to Word
+              </Link>
+              <Link to="/unlock-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
+                Unlock PDF
+              </Link>
             </div>
           </div>
         </div>
-      </Layout>
+    <PDFToolTemplate
+      title="Compress PDF"
+      description="Advanced PDF compression with professional-grade optimization options and batch processing"
+      icon={<FileDown className="h-8 w-8 text-primary" />}
+      acceptFiles=".pdf"
+      multiple={batchMode}
+      processFunction={handleCompress}
+      outputFilename="compressed.pdf"
+    >
+      <div className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="h-5 w-5" />
+              Compression Settings
+            </CardTitle>
+            <CardDescription>Choose your compression level and optimization options</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="presets" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="presets">Quick Presets</TabsTrigger>
+                <TabsTrigger value="advanced">Advanced Options</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="presets" className="space-y-4">
+                <div>
+                  <Label htmlFor="compression-level">Compression Level</Label>
+                  <Select value={compressionLevel} onValueChange={(value: any) => setCompressionLevel(value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select compression level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="low">
+                        <div className="flex items-center justify-between w-full">
+                          <span>Low Compression</span>
+                          <Badge variant="secondary">95% Quality</Badge>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="medium">
+                        <div className="flex items-center justify-between w-full">
+                          <span>Medium Compression</span>
+                          <Badge variant="secondary">75% Quality</Badge>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="high">
+                        <div className="flex items-center justify-between w-full">
+                          <span>High Compression</span>
+                          <Badge variant="secondary">50% Quality</Badge>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="extreme">
+                        <div className="flex items-center justify-between w-full">
+                          <span>Extreme Compression</span>
+                          <Badge variant="destructive">25% Quality</Badge>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="custom">Custom Settings</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {compressionPresets[compressionLevel]?.description}
+                  </p>
+                </div>
+
+                {compressionLevel === 'custom' && (
+                  <div>
+                    <Label htmlFor="custom-quality">Custom Quality: {customQuality}%</Label>
+                    <Slider
+                      id="custom-quality"
+                      min={10}
+                      max={100}
+                      step={5}
+                      value={[customQuality]}
+                      onValueChange={(value) => setCustomQuality(value[0])}
+                      className="mt-2"
+                    />
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="advanced" className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-3">
+                    <h4 className="font-medium">Image Optimization</h4>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="optimize-images">Optimize Images</Label>
+                      <Switch
+                        id="optimize-images"
+                        checked={optimizeImages}
+                        onCheckedChange={setOptimizeImages}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="downscale-images">Downscale Images</Label>
+                      <Switch
+                        id="downscale-images"
+                        checked={downscaleImages}
+                        onCheckedChange={setDownscaleImages}
+                      />
+                    </div>
+                    {downscaleImages && (
+                      <div>
+                        <Label htmlFor="image-resolution">Image Resolution: {imageResolution} DPI</Label>
+                        <Slider
+                          id="image-resolution"
+                          min={72}
+                          max={300}
+                          step={6}
+                          value={[imageResolution]}
+                          onValueChange={(value) => setImageResolution(value[0])}
+                          className="mt-2"
+                        />
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="grayscale">Convert to Grayscale</Label>
+                      <Switch
+                        id="grayscale"
+                        checked={convertToGrayscale}
+                        onCheckedChange={setConvertToGrayscale}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="font-medium">Content Optimization</h4>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="remove-duplicates">Remove Duplicates</Label>
+                      <Switch
+                        id="remove-duplicates"
+                        checked={removeDuplicates}
+                        onCheckedChange={setRemoveDuplicates}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="remove-metadata">Remove Metadata</Label>
+                      <Switch
+                        id="remove-metadata"
+                        checked={removeMetadata}
+                        onCheckedChange={setRemoveMetadata}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="preserve-bookmarks">Preserve Bookmarks</Label>
+                      <Switch
+                        id="preserve-bookmarks"
+                        checked={preserveBookmarks}
+                        onCheckedChange={setPreserveBookmarks}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="preserve-forms">Preserve Forms</Label>
+                      <Switch
+                        id="preserve-forms"
+                        checked={preserveForms}
+                        onCheckedChange={setPreserveForms}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              Processing Options
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="batch-mode">Batch Processing Mode</Label>
+              <Switch
+                id="batch-mode"
+                checked={batchMode}
+                onCheckedChange={setBatchMode}
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="password-protect">Password Protect Output</Label>
+              <Switch
+                id="password-protect"
+                checked={passwordProtect}
+                onCheckedChange={setPasswordProtect}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="p-4 bg-secondary/30 rounded-lg">
+          <div className="flex items-start gap-3">
+            <Info className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p><strong>Professional Compression Features:</strong></p>
+              <ul className="space-y-1 ml-4">
+                <li>• Advanced image optimization with DPI control</li>
+                <li>• Intelligent duplicate removal and content optimization</li>
+                <li>• Metadata removal for privacy protection</li>
+                <li>• Batch processing for multiple files</li>
+                <li>• Form and bookmark preservation</li>
+                <li>• Custom quality settings with real-time preview</li>
+              </ul>
+              <p className="mt-2">
+                <strong>Compression Ratio:</strong> Typically achieves 60-90% size reduction while maintaining quality.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* FAQ Section */}
+        <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {faqData.map((faq, index) => (
+              <div key={index} className="border-b border-border/30 pb-4 last:border-b-0">
+                <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Tools */}
+        <div className="mt-12 bg-secondary/30 rounded-lg p-8">
+          <h2 className="text-2xl font-bold mb-6">Related PDF Tools</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link to="/merge-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <FileDown className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Merge PDF</div>
+                <div className="text-sm text-muted-foreground">Combine multiple PDFs</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/split-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Shield className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Split PDF</div>
+                <div className="text-sm text-muted-foreground">Divide PDF into parts</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/pdf-to-word" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Settings className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">PDF to Word</div>
+                <div className="text-sm text-muted-foreground">Convert PDF to DOCX</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+            <Link to="/unlock-pdf" className="flex items-center gap-3 p-4 bg-background/50 rounded-lg hover:bg-background/70 transition-colors">
+              <Zap className="h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">Unlock PDF</div>
+                <div className="text-sm text-muted-foreground">Remove PDF passwords</div>
+              </div>
+              <ExternalLink className="h-4 w-4 ml-auto text-muted-foreground" />
+            </Link>
+          </div>
+        </div>
+
+        {/* SEO Content */}
+        <div className="mt-12 prose prose-invert max-w-none">
+          <h2>Professional PDF Compression Tool</h2>
+          <p>
+            Our advanced PDF compressor uses industry-leading algorithms to significantly reduce file sizes while preserving document quality. 
+            Whether you need to compress PDFs for email attachments, web uploads, or storage optimization, our tool provides the perfect balance 
+            between file size and visual fidelity.
+          </p>
+          
+          <h3>Key Features</h3>
+          <ul>
+            <li><strong>Smart Compression:</strong> Intelligent algorithms analyze your PDF content to apply optimal compression</li>
+            <li><strong>Quality Control:</strong> Choose from preset compression levels or create custom settings</li>
+            <li><strong>Image Optimization:</strong> Advanced image compression with DPI control and format optimization</li>
+            <li><strong>Batch Processing:</strong> Compress multiple PDF files simultaneously</li>
+            <li><strong>Security Features:</strong> Password protection and metadata removal options</li>
+          </ul>
+
+          <h3>How PDF Compression Works</h3>
+          <p>
+            PDF compression reduces file size through several techniques: image optimization, duplicate content removal, 
+            font subsetting, and metadata cleanup. Our tool intelligently applies these methods based on your document 
+            content and quality preferences, ensuring maximum size reduction with minimal quality loss.
+          </p>
+        </div>
+      </div>
+    </PDFToolTemplate>
+      </div>
     </>
   );
 };

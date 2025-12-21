@@ -9,7 +9,6 @@ import { useToast } from '@/components/ui/use-toast';
 import SEOHead from '@/components/SEOHead';
 import { ToolStructuredData } from '@/components/StructuredData';
 import { Link } from 'react-router-dom';
-import SEOKeywordContent from '@/components/SEOKeywordContent';
 
 const WordToPdf = () => {
   const { toast } = useToast();
@@ -291,44 +290,6 @@ const WordToPdf = () => {
               </p>
             </div>
           </div>
-
-          <SEOKeywordContent
-            toolName="Word to PDF Converter"
-            primaryKeyword="Convert Word to PDF Online Free"
-            longTailKeywords={[
-              "Convert DOCX to PDF free online",
-              "Word to PDF converter without losing formatting",
-              "Convert Word document to PDF on mobile",
-              "DOC to PDF converter free no watermark",
-              "Word to PDF high quality conversion",
-              "Convert Word to PDF for printing",
-              "Word to PDF converter offline",
-              "Best Word to PDF converter 2024",
-              "Convert multiple Word files to PDF",
-              "Word to PDF with hyperlinks preserved",
-              "Convert Word tables to PDF perfectly",
-              "Word to PDF converter no sign up"
-            ]}
-            benefits={[
-              { title: "Format Preservation", description: "Maintains all Word formatting including fonts, images, tables, and layouts." },
-              { title: "Universal Compatibility", description: "PDF files open consistently on any device, operating system, or browser." },
-              { title: "Print Ready", description: "Created PDFs are optimized for high-quality printing with accurate colors." },
-              { title: "Secure Documents", description: "PDFs prevent unauthorized editing and maintain document integrity." },
-              { title: "Smaller File Size", description: "Converted PDFs are often smaller than original Word documents." },
-              { title: "Professional Output", description: "Perfect for business documents, resumes, and official reports." }
-            ]}
-            useCases={[
-              { title: "Resume Submission", description: "Convert your Word resume to PDF before submitting to job applications." },
-              { title: "Contract Finalization", description: "Convert final Word contracts to PDF for secure sharing and signing." },
-              { title: "Report Distribution", description: "Share business reports as PDFs to ensure consistent viewing experience." },
-              { title: "Academic Papers", description: "Submit academic papers in PDF format as required by institutions." }
-            ]}
-            howItWorks={[
-              { step: 1, title: "Upload Word File", description: "Select your DOCX or DOC file from your device." },
-              { step: 2, title: "Automatic Conversion", description: "Our system converts your document while preserving formatting." },
-              { step: 3, title: "Download PDF", description: "Get your converted PDF file ready for sharing." }
-            ]}
-          />
         </div>
       </div>
     </Layout>

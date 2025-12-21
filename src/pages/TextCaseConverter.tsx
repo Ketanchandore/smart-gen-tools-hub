@@ -8,32 +8,12 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Copy, FileText, ArrowUp, ArrowDown, Pencil, PenLine } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import ToolSEO from '@/components/ToolSEO';
 
 const TextCaseConverter = () => {
   const { toast } = useToast();
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
   const [selectedTab, setSelectedTab] = useState('uppercase');
-
-  const faqData = [
-    {
-      question: "What is a text case converter?",
-      answer: "A text case converter is a tool that changes the capitalization of text. It can convert text to uppercase, lowercase, title case, sentence case, camelCase, PascalCase, snake_case, kebab-case, and more."
-    },
-    {
-      question: "How do I convert text to uppercase?",
-      answer: "Simply paste your text into the input field, select the 'Uppercase' tab, and click Convert. All letters will be converted to capital letters (e.g., 'hello' becomes 'HELLO')."
-    },
-    {
-      question: "What's the difference between camelCase and PascalCase?",
-      answer: "camelCase starts with a lowercase letter (e.g., 'userName'), while PascalCase starts with an uppercase letter (e.g., 'UserName'). Both remove spaces and capitalize subsequent words."
-    },
-    {
-      question: "Can I convert programming variable names?",
-      answer: "Yes! Use camelCase for JavaScript/Java variables, PascalCase for class names, snake_case for Python/Ruby, and kebab-case for CSS classes and URLs."
-    }
-  ];
 
   const handleConvert = () => {
     if (!text.trim()) {
@@ -126,31 +106,11 @@ const TextCaseConverter = () => {
   };
 
   return (
-    <>
-      <ToolSEO
-        title="Text Case Converter - Change Text Case Online Free"
-        description="Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. Free online text case converter tool for all your text transformation needs."
-        keywords="text case converter, uppercase converter, lowercase converter, title case, camelCase, PascalCase, snake_case, kebab-case, text transformer"
-        toolName="Text Case Converter"
-        toolType="Converter"
-        category="Text Tools"
-        features={[
-          "10+ case conversion types",
-          "Uppercase and lowercase",
-          "Title case and sentence case",
-          "camelCase and PascalCase",
-          "snake_case and kebab-case",
-          "Instant conversion"
-        ]}
-        faqs={faqData}
-      />
-      <Layout>
-        <div className="container py-12">
-          <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl font-bold mb-4">Text Case Converter</h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Convert text between different cases: uppercase, lowercase, title case, camelCase, snake_case, kebab-case, and more formats instantly.
-            </p>
+    <Layout>
+      <div className="container py-12">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl font-bold mb-2">Text Case Converter</h1>
+          <p className="text-muted-foreground mb-8">Convert text between different cases: uppercase, lowercase, title case, and more</p>
 
           <Card className="mb-6">
             <CardHeader>
@@ -224,7 +184,6 @@ const TextCaseConverter = () => {
         </div>
       </div>
     </Layout>
-    </>
   );
 };
 
