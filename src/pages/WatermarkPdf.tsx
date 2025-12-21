@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Droplets, Settings, Info, Type, Image as ImageIcon, Palette, Eye } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { addWatermark } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -136,8 +136,21 @@ const WatermarkPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="Add Watermark to PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Add Watermark to PDF"
+        description="Add professional text or image watermarks to your PDF documents. Customize opacity, position, rotation, and styling. Protect your documents with branded watermarks."
+        keywords={['watermark pdf', 'add watermark', 'pdf watermark', 'stamp pdf', 'brand pdf', 'logo watermark', 'text watermark', 'image watermark']}
+        category="PDF Tools"
+        features={['Text Watermarks', 'Image Watermarks', 'Custom Positioning', 'Opacity Control', 'Tiled Patterns', 'Selective Page Application']}
+        useCases={['Brand documents', 'Add confidential stamps', 'Protect intellectual property', 'Add draft marks', 'Insert company logos']}
+        faqs={[
+          { question: 'Can I add both text and image watermarks?', answer: 'Yes, you can choose between text watermarks with custom fonts or upload your own image as a watermark.' },
+          { question: 'Can I control watermark transparency?', answer: 'Yes, you can adjust opacity from 5% to 100% to make watermarks subtle or prominent.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Add Watermark to PDF"
       description="Professional watermarking with advanced text styling, image overlays, and precise positioning controls"
       icon={<Droplets className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -646,6 +659,7 @@ const WatermarkPdf = () => {
         </div>
       </div>
     </PDFToolTemplate>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Eye, GitCompare, Settings, FileText, Image, AlertCircle } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -116,8 +116,21 @@ const ComparePdf = () => {
   ];
 
   return (
-    <PDFToolTemplate
-      title="Compare PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Compare PDF"
+        description="Compare two PDF documents and highlight differences. Visual diff, text comparison, and comprehensive analysis with side-by-side view. Perfect for contract reviews and document versioning."
+        keywords={['compare pdf', 'pdf diff', 'pdf comparison', 'document comparison', 'find pdf differences', 'pdf version compare', 'pdf changes']}
+        category="PDF Tools"
+        features={['Visual Comparison', 'Text Analysis', 'Structure Comparison', 'Side-by-side View', 'Highlight Changes', 'Comprehensive Reports']}
+        useCases={['Compare contract versions', 'Review document changes', 'Track revisions', 'Legal document review', 'Quality assurance']}
+        faqs={[
+          { question: 'What types of differences are detected?', answer: 'We detect text changes, formatting differences, image modifications, and structural changes between documents.' },
+          { question: 'Can I compare specific pages only?', answer: 'Yes, you can specify page ranges for both documents to compare specific sections.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Compare PDF"
       description="Advanced PDF comparison tool with visual diff, text analysis, and comprehensive reporting"
       icon={<Eye className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -510,6 +523,7 @@ const ComparePdf = () => {
         </TabsContent>
       </Tabs>
     </PDFToolTemplate>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Layout, Move, Copy, Trash2, RotateCw, Plus } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -95,8 +95,21 @@ const OrganizePdf = () => {
   ];
 
   return (
-    <PDFToolTemplate
-      title="Organize PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Organize PDF"
+        description="Reorder, delete, extract, duplicate, and rotate pages within your PDF. Advanced page management with drag-and-drop interface and quick presets for common operations."
+        keywords={['organize pdf', 'reorder pdf pages', 'rearrange pdf', 'pdf page order', 'delete pdf pages', 'extract pdf pages', 'pdf manager']}
+        category="PDF Tools"
+        features={['Page Reordering', 'Page Deletion', 'Page Extraction', 'Page Duplication', 'Page Rotation', 'Quick Presets']}
+        useCases={['Reorganize documents', 'Remove unwanted pages', 'Extract specific pages', 'Duplicate important pages', 'Prepare presentations']}
+        faqs={[
+          { question: 'Can I reorder pages by dragging?', answer: 'Yes, our interface supports drag-and-drop page reordering for intuitive organization.' },
+          { question: 'Can I process multiple operations at once?', answer: 'Yes, you can queue multiple operations like delete, move, and rotate to apply them all at once.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Organize PDF"
       description="Reorder, delete, extract, or add pages within PDF documents with advanced organization features"
       icon={<Layout className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -400,7 +413,8 @@ const OrganizePdf = () => {
           </Card>
         </TabsContent>
       </Tabs>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

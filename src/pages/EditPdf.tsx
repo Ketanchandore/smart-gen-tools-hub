@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Edit, Info, Type, Image, Square, Circle, Minus, MousePointer } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { editPDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -113,8 +113,21 @@ const EditPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="Edit PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Edit PDF"
+        description="Professional PDF editor with advanced text editing, image insertion, shape drawing, highlighting, and annotation tools. Edit any PDF document online for free with instant download."
+        keywords={['edit pdf', 'pdf editor', 'modify pdf', 'change pdf', 'annotate pdf', 'pdf markup', 'add text to pdf', 'free pdf editor']}
+        category="PDF Editor"
+        features={['Text Editing', 'Image Insertion', 'Shape Drawing', 'Highlighting', 'Annotations', 'Real-time Preview']}
+        useCases={['Edit text in PDFs', 'Add images to documents', 'Draw shapes and diagrams', 'Highlight important text', 'Add sticky notes']}
+        faqs={[
+          { question: 'Can I edit text in a scanned PDF?', answer: 'For scanned PDFs, you need to use our OCR tool first to make the text editable.' },
+          { question: 'Are my edits saved permanently?', answer: 'Yes, all edits are embedded into the PDF and saved when you download the file.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Edit PDF"
       description="Advanced PDF editor with text, images, shapes, annotations, and professional editing tools"
       icon={<Edit className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -420,7 +433,8 @@ const EditPdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

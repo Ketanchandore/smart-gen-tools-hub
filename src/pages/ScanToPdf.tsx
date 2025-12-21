@@ -1,7 +1,7 @@
-
 import React, { useState, useRef } from 'react';
 import { ScanLine, Camera, Upload, Settings, Image, FileText, Zap } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -160,8 +160,21 @@ const ScanToPdf = () => {
   ];
 
   return (
-    <PDFToolTemplate
-      title="Scan to PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Scan to PDF"
+        description="Convert scanned images to PDF with AI-powered enhancement. Auto-crop, auto-rotate, background removal, and OCR text recognition. Create searchable PDFs from photos and scans."
+        keywords={['scan to pdf', 'image to pdf', 'photo to pdf', 'scanner pdf', 'document scanner', 'mobile scan', 'pdf scanner']}
+        category="PDF Conversion"
+        features={['Camera Capture', 'Auto Enhancement', 'Auto Crop', 'OCR Integration', 'Multi-page Support', 'Background Removal']}
+        useCases={['Digitize documents', 'Scan receipts', 'Archive papers', 'Create PDF from photos', 'Mobile document scanning']}
+        faqs={[
+          { question: 'Can I use my phone camera?', answer: 'Yes, you can use your device camera to capture documents directly, with auto-enhancement for best quality.' },
+          { question: 'Is OCR included?', answer: 'Yes, optional OCR makes your scanned PDFs searchable by extracting text from images.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Scan to PDF"
       description="Advanced document scanning with AI-powered enhancement and OCR capabilities"
       icon={<ScanLine className="h-8 w-8 text-primary" />}
       acceptFiles="image/*"
@@ -547,6 +560,7 @@ const ScanToPdf = () => {
         </TabsContent>
       </Tabs>
     </PDFToolTemplate>
+    </>
   );
 };
 

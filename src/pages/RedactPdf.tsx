@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Eye, EyeOff, Search, Settings, Shield, Info } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { redactPDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -87,8 +87,21 @@ const RedactPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="Redact PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Redact PDF"
+        description="Permanently remove sensitive information from PDF documents. AI-powered redaction with pattern recognition for SSN, credit cards, emails, and phone numbers. GDPR and HIPAA compliant."
+        keywords={['redact pdf', 'pdf redaction', 'remove sensitive data', 'black out pdf', 'censor pdf', 'hide pdf text', 'pdf privacy']}
+        category="PDF Security"
+        features={['Text Redaction', 'Pattern Recognition', 'AI Smart Detection', 'Permanent Removal', 'Audit Trail', 'Compliance Ready']}
+        useCases={['Remove personal data', 'Redact confidential info', 'GDPR compliance', 'Legal document prep', 'Privacy protection']}
+        faqs={[
+          { question: 'Is redaction permanent?', answer: 'Yes, when permanent redaction is enabled, the content is completely removed and cannot be recovered.' },
+          { question: 'Can it auto-detect sensitive data?', answer: 'Yes, our AI can automatically detect SSNs, credit cards, phone numbers, emails, and other PII patterns.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Redact PDF"
       description="Professional PDF redaction with pattern recognition, smart detection, and compliance features"
       icon={<EyeOff className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -373,7 +386,8 @@ const RedactPdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

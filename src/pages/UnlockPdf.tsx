@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Unlock, Key, Shield, Info, FileText, AlertTriangle } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { unlockPDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -82,8 +83,21 @@ const UnlockPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="Unlock PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Unlock PDF"
+        description="Remove password protection and restrictions from PDF files. Unlock PDFs to enable printing, copying, and editing. Multiple unlock methods including known password and advanced recovery options."
+        keywords={['unlock pdf', 'remove pdf password', 'pdf unlocker', 'remove pdf restrictions', 'crack pdf password', 'pdf password remover', 'unlock protected pdf']}
+        category="PDF Security"
+        features={['Password Removal', 'Restriction Removal', 'Multiple Unlock Methods', 'Batch Processing', 'Quality Preservation', 'Progress Tracking']}
+        useCases={['Remove forgotten passwords', 'Unlock restricted PDFs', 'Enable PDF printing', 'Allow PDF editing', 'Remove copy restrictions']}
+        faqs={[
+          { question: 'Can you unlock any PDF?', answer: 'We can remove owner passwords and restrictions. For user passwords, you need to know the password to unlock.' },
+          { question: 'Is PDF unlocking legal?', answer: 'Only use this tool on PDFs you own or have permission to unlock. Unauthorized unlocking may violate copyright laws.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Unlock PDF"
       description="Advanced PDF password removal with multiple unlock methods and security analysis"
       icon={<Unlock className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -312,7 +326,8 @@ const UnlockPdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

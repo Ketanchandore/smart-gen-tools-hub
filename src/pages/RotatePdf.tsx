@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { RotateCcw, RotateCw, Info, Settings, FileText } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { rotatePDF } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
@@ -63,8 +64,21 @@ const RotatePdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="Rotate PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Rotate PDF"
+        description="Rotate PDF pages 90°, 180°, or 270° with selective page control. Rotate all pages, specific pages, even/odd pages, or custom ranges. Free online PDF rotation tool with instant download."
+        keywords={['rotate pdf', 'flip pdf', 'turn pdf pages', 'pdf rotation', 'rotate pdf pages', 'pdf page orientation', 'rotate pdf online']}
+        category="PDF Tools"
+        features={['90° Rotation', '180° Flip', 'Selective Page Rotation', 'Even/Odd Page Selection', 'Batch Processing', 'Auto-orientation Detection']}
+        useCases={['Fix upside-down scans', 'Correct page orientation', 'Rotate landscape to portrait', 'Fix rotated PDFs', 'Prepare documents for printing']}
+        faqs={[
+          { question: 'Can I rotate specific pages only?', answer: 'Yes, you can select all pages, even pages, odd pages, or specify exact page numbers to rotate.' },
+          { question: 'Does rotation affect PDF quality?', answer: 'No, rotation is lossless and does not affect the quality of your PDF content.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Rotate PDF"
       description="Advanced PDF rotation with selective page control, batch processing, and orientation detection"
       icon={<RotateCw className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -231,7 +245,8 @@ const RotatePdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

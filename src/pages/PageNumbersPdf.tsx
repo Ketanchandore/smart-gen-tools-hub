@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Hash } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { addPageNumbers } from '@/utils/pdfUtils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -36,8 +36,21 @@ const PageNumbersPdf = () => {
   };
 
   return (
-    <PDFToolTemplate
-      title="Add Page Numbers"
+    <>
+      <AdvancedToolSEO
+        toolName="Add Page Numbers to PDF"
+        description="Add customizable page numbers to your PDF documents. Choose from multiple formats, positions, fonts, and colors. Support for Roman numerals and 'Page X of Y' format."
+        keywords={['add page numbers', 'pdf page numbers', 'number pdf pages', 'pdf pagination', 'insert page numbers', 'pdf numbering']}
+        category="PDF Tools"
+        features={['Multiple Formats', 'Custom Positioning', 'Font Customization', 'Color Selection', 'Roman Numerals', 'Page X of Y Format']}
+        useCases={['Number document pages', 'Add pagination', 'Prepare for printing', 'Organize reports', 'Create professional documents']}
+        faqs={[
+          { question: 'What number formats are available?', answer: 'Simple numbers (1, 2, 3), Page X of Y format, and Roman numerals (i, ii, iii).' },
+          { question: 'Can I start numbering from a specific page?', answer: 'Yes, you can set the starting page number to any value.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Add Page Numbers"
       description="Add customizable page numbers to PDF with advanced positioning and formatting options"
       icon={<Hash className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -171,7 +184,8 @@ const PageNumbersPdf = () => {
           </div>
         </div>
       </div>
-    </PDFToolTemplate>
+      </PDFToolTemplate>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { FileCheck, Wrench, AlertCircle, CheckCircle, Settings, Zap } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -102,8 +102,21 @@ const RepairPdf = () => {
   ];
 
   return (
-    <PDFToolTemplate
-      title="Repair PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Repair PDF"
+        description="Fix corrupted, damaged, or unreadable PDF files. Advanced recovery for broken cross-references, damaged objects, font issues, and image data. Multiple repair modes from conservative to aggressive."
+        keywords={['repair pdf', 'fix pdf', 'corrupted pdf', 'damaged pdf', 'pdf recovery', 'broken pdf', 'pdf repair tool']}
+        category="PDF Tools"
+        features={['Automatic Repair', 'Structure Recovery', 'Font Repair', 'Image Recovery', 'Metadata Recovery', 'Validation Check']}
+        useCases={['Fix corrupted files', 'Recover damaged PDFs', 'Repair broken documents', 'Restore lost content', 'Fix font issues']}
+        faqs={[
+          { question: 'What types of PDF damage can be repaired?', answer: 'We can fix corrupted cross-references, damaged objects, font issues, broken images, and malformed page structures.' },
+          { question: 'Will repair affect document quality?', answer: 'We prioritize preserving original quality. Conservative mode makes minimal changes while aggressive mode maximizes recovery.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Repair PDF"
       description="Advanced PDF repair tool to recover and fix corrupted, damaged, or unreadable PDF files"
       icon={<FileCheck className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -456,6 +469,7 @@ const RepairPdf = () => {
         </TabsContent>
       </Tabs>
     </PDFToolTemplate>
+    </>
   );
 };
 

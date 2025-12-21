@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Crop, Scissors, Settings, Target, Move, RotateCcw } from 'lucide-react';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -129,8 +129,21 @@ const CropPdf = () => {
   ];
 
   return (
-    <PDFToolTemplate
-      title="Crop PDF"
+    <>
+      <AdvancedToolSEO
+        toolName="Crop PDF"
+        description="Crop PDF pages with precision using margin control, custom rectangles, or intelligent content detection. Remove unwanted margins, resize pages, and optimize document layout."
+        keywords={['crop pdf', 'trim pdf', 'cut pdf margins', 'resize pdf pages', 'pdf cropper', 'remove pdf margins', 'pdf page resize']}
+        category="PDF Tools"
+        features={['Margin Cropping', 'Custom Rectangle Crop', 'Auto Content Detection', 'Multiple Crop Areas', 'Batch Processing', 'Preset Templates']}
+        useCases={['Remove white margins', 'Resize document pages', 'Extract content areas', 'Prepare for printing', 'Standardize page sizes']}
+        faqs={[
+          { question: 'Can I crop different pages differently?', answer: 'Yes, you can define multiple crop areas or apply different settings to specific page ranges.' },
+          { question: 'Will cropping reduce file quality?', answer: 'No, cropping only adjusts page boundaries and does not affect content quality.' }
+        ]}
+      />
+      <PDFToolTemplate
+        title="Crop PDF"
       description="Advanced PDF cropping tool with intelligent content detection and precision controls"
       icon={<Crop className="h-8 w-8 text-primary" />}
       acceptFiles=".pdf"
@@ -665,6 +678,7 @@ const CropPdf = () => {
         </TabsContent>
       </Tabs>
     </PDFToolTemplate>
+    </>
   );
 };
 
