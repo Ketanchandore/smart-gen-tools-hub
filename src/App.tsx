@@ -133,6 +133,8 @@ import OcrPdf from "./pages/OcrPdf";
 import ComparePdf from "./pages/ComparePdf";
 import RedactPdf from "./pages/RedactPdf";
 import CropPdf from "./pages/CropPdf";
+import RemovePages from "./pages/RemovePages";
+import ExtractPages from "./pages/ExtractPages";
 
 // New imports for legal pages and additional pages
 import About from "./pages/About";
