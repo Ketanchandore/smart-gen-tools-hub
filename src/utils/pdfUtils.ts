@@ -148,7 +148,7 @@ export const splitPDF = async (file: File, options: {
 
 export const downloadMultipleFiles = (files: { data: Uint8Array; name: string }[]) => {
   files.forEach(file => {
-    const blob = new Blob([file.data], { type: 'application/pdf' });
+    const blob = new Blob([new Uint8Array(file.data)], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -225,7 +225,7 @@ export const convertHtmlToPDF = async (htmlContent: string): Promise<Uint8Array>
 
 // Add missing functions
 export const downloadPdf = (data: Uint8Array, filename: string) => {
-  const blob = new Blob([data], { type: 'application/pdf' });
+  const blob = new Blob([new Uint8Array(data)], { type: 'application/pdf' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;

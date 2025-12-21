@@ -290,6 +290,8 @@ function App() {
                 <Route path="/compare-pdf" element={<ComparePdf />} />
                 <Route path="/redact-pdf" element={<RedactPdf />} />
                 <Route path="/crop-pdf" element={<CropPdf />} />
+                <Route path="/remove-pages" element={<RemovePages />} />
+                <Route path="/extract-pages" element={<ExtractPages />} />
                 
                 {/* Redirect all other routes to 404 */}
                 <Route path="*" element={<NotFound />} />
