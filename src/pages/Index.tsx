@@ -10,7 +10,7 @@ import {
   BadgeDollarSign, CircleUser, QrCode, Network, Layers,
   Chrome, BookOpen, Send, Scissors, Minimize, FileSpreadsheet,
   Presentation, Signature, Droplets, RotateCcw, Unlock, Shield,
-  Hash, ScanLine, FileSearch, Eye, Crop
+  Hash, ScanLine, FileSearch, Eye, Crop, Trash2, FileOutput
 } from 'lucide-react';
 import ToolCard from '@/components/ToolCard';
 import { Button } from '@/components/ui/button';
@@ -925,6 +925,24 @@ const Index = () => {
       description: 'Crop the margins or specific areas of pages in a PDF document', 
       icon: <Crop />, 
       route: '/crop-pdf',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'remove-pages', 
+      title: 'Remove Pages', 
+      description: 'Delete unwanted pages from your PDF documents instantly', 
+      icon: <Trash2 />, 
+      route: '/remove-pages',
+      category: 'document',
+      isNew: true
+    },
+    { 
+      id: 'extract-pages', 
+      title: 'Extract Pages', 
+      description: 'Pull specific pages from PDF and save as new document', 
+      icon: <FileOutput />, 
+      route: '/extract-pages',
       category: 'document',
       isNew: true
     },

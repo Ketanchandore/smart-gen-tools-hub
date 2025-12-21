@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Scissors, Info, FileText, Settings, Download, Grid, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SEOHead from '@/components/SEOHead';
-import { ToolStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
 import { splitPDF, downloadMultipleFiles } from '@/utils/pdfUtils';
 import { Input } from '@/components/ui/input';
@@ -143,18 +142,31 @@ const SplitPdf = () => {
 
   return (
     <>
-      <SEOHead 
-        title="Free PDF Splitter - Divide PDF Pages Online | Pine Tools Hub"
-        description="Split PDF files online for free. Extract pages, divide by ranges, or split into equal parts. Advanced PDF splitting with custom naming and optimization."
-        keywords="PDF splitter, split PDF online, extract PDF pages, divide PDF, PDF separator, break PDF apart"
-        url="https://pinetoolshub.com/split-pdf"
-      />
-      <ToolStructuredData 
-        name="PDF Splitter"
-        description="Advanced PDF splitting tool with multiple modes for dividing PDF files by pages, ranges, or file size"
-        url="https://pinetoolshub.com/split-pdf"
-        category="PDF Tools"
-        features={["Multiple split modes", "Page range extraction", "Size-based splitting", "Custom file naming", "Batch download"]}
+      <AdvancedToolSEO
+        toolName="Split PDF"
+        description="Split PDF files into multiple documents. Extract pages, divide by ranges, or split into equal parts. Free online PDF splitter with advanced options."
+        keywords={[
+          'split pdf', 'pdf splitter', 'divide pdf', 'extract pdf pages',
+          'split pdf online free', 'separate pdf pages', 'pdf separator'
+        ]}
+        category="Document Tools"
+        features={[
+          'Multiple split modes',
+          'Page range extraction',
+          'Size-based splitting',
+          'Custom file naming',
+          'Batch download',
+          'Preserve bookmarks'
+        ]}
+        useCases={[
+          'Upload PDF to split',
+          'Choose split method',
+          'Set page ranges',
+          'Click split button',
+          'Download all files'
+        ]}
+        faqs={faqData}
+        relatedTools={['/merge-pdf', '/extract-pages', '/remove-pages', '/organize-pdf']}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">

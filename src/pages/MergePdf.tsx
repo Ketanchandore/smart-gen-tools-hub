@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Info, ArrowUpDown, Grid, List, Settings, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SEOHead from '@/components/SEOHead';
-import { ToolStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
 import { mergePDF } from '@/utils/pdfUtils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -109,18 +108,31 @@ const MergePdf = () => {
 
   return (
     <>
-      <SEOHead 
-        title="Free PDF Merger - Combine Multiple PDFs Online | Pine Tools Hub"
-        description="Merge PDF files online for free. Combine multiple PDFs with custom ordering, page ranges, and bookmarks. Professional PDF merging tool."
-        keywords="PDF merger, combine PDF, merge PDF online, PDF joiner, PDF combiner, join PDFs"
-        url="https://pinetoolshub.com/merge-pdf"
-      />
-      <ToolStructuredData 
-        name="PDF Merger"
-        description="Professional PDF merging tool with advanced options for combining multiple PDF files with custom ordering and page selection"
-        url="https://pinetoolshub.com/merge-pdf"
-        category="PDF Tools"
-        features={["Custom file ordering", "Page range selection", "Bookmark generation", "Metadata preservation", "Batch processing"]}
+      <AdvancedToolSEO
+        toolName="Merge PDF"
+        description="Combine multiple PDF files into a single document with our free online PDF merger. Drag and drop files, reorder pages, and download instantly. No registration required."
+        keywords={[
+          'merge pdf', 'combine pdf', 'pdf merger', 'join pdf files',
+          'merge pdf online free', 'combine multiple pdfs', 'pdf joiner'
+        ]}
+        category="Document Tools"
+        features={[
+          'Merge unlimited PDF files',
+          'Drag and drop reordering',
+          'Custom page ranges',
+          'Bookmark generation',
+          'Metadata preservation',
+          'Fast batch processing'
+        ]}
+        useCases={[
+          'Upload PDF files to merge',
+          'Reorder files using drag-drop',
+          'Set custom page ranges',
+          'Click merge button',
+          'Download combined PDF'
+        ]}
+        faqs={faqData}
+        relatedTools={['/split-pdf', '/compress-pdf', '/organize-pdf', '/pdf-to-jpg']}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">

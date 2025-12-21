@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { FileDown, Info, Settings, Zap, Shield, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SEOHead from '@/components/SEOHead';
-import { ToolStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import PDFToolTemplate from '@/components/PDFToolTemplate';
 import { compressPDF } from '@/utils/pdfUtils';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -92,18 +91,31 @@ const CompressPdf = () => {
 
   return (
     <>
-      <SEOHead 
-        title="Free PDF Compressor - Reduce PDF File Size Online | Pine Tools Hub"
-        description="Compress PDF files online for free. Reduce PDF size by up to 90% while maintaining quality. Professional PDF compression with advanced optimization settings."
-        keywords="PDF compressor, reduce PDF size, compress PDF online, PDF optimizer, shrink PDF, PDF file size reducer"
-        url="https://pinetoolshub.com/compress-pdf"
-      />
-      <ToolStructuredData 
-        name="PDF Compressor"
-        description="Professional online PDF compression tool with advanced optimization settings and quality control"
-        url="https://pinetoolshub.com/compress-pdf"
-        category="PDF Tools"
-        features={["Advanced compression algorithms", "Quality control settings", "Batch processing", "Password protection", "Metadata removal"]}
+      <AdvancedToolSEO
+        toolName="Compress PDF"
+        description="Reduce PDF file size by up to 90% while maintaining quality. Free online PDF compressor with advanced optimization settings. No registration required."
+        keywords={[
+          'compress pdf', 'reduce pdf size', 'pdf compressor', 'shrink pdf',
+          'pdf file size reducer', 'optimize pdf', 'compress pdf online free'
+        ]}
+        category="Document Tools"
+        features={[
+          'Reduce file size up to 90%',
+          'Multiple compression levels',
+          'Image optimization',
+          'Batch processing',
+          'Quality preservation',
+          'Fast compression'
+        ]}
+        useCases={[
+          'Upload PDF to compress',
+          'Select compression level',
+          'Adjust quality settings',
+          'Click compress button',
+          'Download smaller PDF'
+        ]}
+        faqs={faqData}
+        relatedTools={['/merge-pdf', '/split-pdf', '/pdf-to-jpg', '/protect-pdf']}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">
