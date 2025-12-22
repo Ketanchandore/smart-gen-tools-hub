@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { FileTextIcon, Upload, Download, Info } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { ToolStructuredData, FAQStructuredData, BreadcrumbStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import PrerenderedContent from '@/components/PrerenderedContent';
 
 const PdfToWord = () => {
@@ -96,26 +96,21 @@ const PdfToWord = () => {
   };
 
   return (
+    <>
+      <AdvancedToolSEO
+        toolName="PDF to Word Converter"
+        description="Convert PDF documents to editable Microsoft Word files with our free online tool. Preserve formatting, images, and text layout while converting to DOCX format instantly."
+        keywords={['pdf to word', 'pdf to docx', 'convert pdf to word', 'pdf converter', 'document converter']}
+        category="PDF Conversion"
+        features={['Convert PDF to Word DOCX format', 'Preserve text formatting and layout', 'Support for images and tables', 'Free online conversion', 'No registration required', 'Secure file processing']}
+        useCases={['Upload your PDF file', 'Click convert button', 'Wait for processing', 'Download Word document', 'Edit in Microsoft Word']}
+        faqs={faqData}
+        relatedTools={['word-to-pdf', 'merge-pdf', 'split-pdf', 'compress-pdf']}
+      />
     <Layout 
       title={`${toolName} - Convert PDF to Word DOCX Online Free`}
       description={toolDescription}
     >
-      <ToolStructuredData
-        name={toolName}
-        description={toolDescription}
-        url={toolUrl}
-        category="ProductivityApplication"
-        features={[
-          "Convert PDF to Word DOCX format",
-          "Preserve text formatting and layout",
-          "Support for images and tables",
-          "Free online conversion",
-          "No registration required",
-          "Secure file processing"
-        ]}
-      />
-      <FAQStructuredData questions={faqData} />
-      <BreadcrumbStructuredData items={breadcrumbItems} />
       
       <PrerenderedContent
         prerenderedHtml={`
@@ -258,6 +253,7 @@ const PdfToWord = () => {
         </div>
       </PrerenderedContent>
     </Layout>
+    </>
   );
 };
 

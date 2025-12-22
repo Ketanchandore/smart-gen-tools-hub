@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { FileSpreadsheet, ArrowLeft, Upload, Download, Settings, Table } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 
 const ExcelToPdf = () => {
   const navigate = useNavigate();
@@ -142,6 +143,21 @@ const ExcelToPdf = () => {
   };
 
   return (
+    <>
+      <AdvancedToolSEO
+        toolName="Excel to PDF Converter"
+        description="Convert Excel spreadsheets into professional PDF documents with advanced formatting options. Support for XLSX and XLS files with customizable page layouts."
+        keywords={['excel to pdf', 'xlsx to pdf', 'xls to pdf', 'convert spreadsheet to pdf', 'excel converter']}
+        category="PDF Conversion"
+        features={['Worksheet selection options', 'Custom page size and orientation', 'Gridline and header controls', 'Fit to page scaling', 'Quality and compression settings', 'Custom headers and footers']}
+        useCases={['Upload Excel file', 'Select worksheets to convert', 'Configure page settings', 'Convert to PDF', 'Download PDF document']}
+        faqs={[
+          { question: 'Can I convert specific worksheets only?', answer: 'Yes, you can select all worksheets, active sheet only, or specify custom worksheet names to convert.' },
+          { question: 'Will gridlines be visible in PDF?', answer: 'You have full control over gridlines, headers, and row numbers visibility in the output PDF.' },
+          { question: 'What page sizes are supported?', answer: 'We support A4, A3, Letter, Legal, and Tabloid page sizes in both portrait and landscape orientation.' }
+        ]}
+        relatedTools={['pdf-to-excel', 'word-to-pdf', 'merge-pdf', 'compress-pdf']}
+      />
     <div className="container max-w-4xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
@@ -398,6 +414,7 @@ const ExcelToPdf = () => {
         </Button>
       </div>
     </div>
+    </>
   );
 };
 

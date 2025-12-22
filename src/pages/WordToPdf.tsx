@@ -6,8 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { FileIcon, Upload, Download, Info, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import SEOHead from '@/components/SEOHead';
-import { ToolStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Link } from 'react-router-dom';
 
 const WordToPdf = () => {
@@ -69,26 +68,20 @@ const WordToPdf = () => {
 
   return (
     <>
-      <SEOHead 
-        title="Word to PDF Converter - Free Online DOCX to PDF Converter"
+      <AdvancedToolSEO
+        toolName="Word to PDF Converter"
         description="Convert Word documents to PDF instantly. Free online tool that preserves formatting, fonts, and images. Upload DOCX or DOC files and download PDF immediately."
-        keywords="word to pdf converter, docx to pdf, doc to pdf, convert word to pdf free, online pdf converter, document converter"
-        url="https://pinetoolshub.com/word-to-pdf"
-      />
-      
-      <ToolStructuredData
-        name="Word to PDF Converter"
-        description="Convert Microsoft Word documents to PDF format while preserving all formatting and elements"
-        url="https://pinetoolshub.com/word-to-pdf"
-        category="Document Conversion"
-        features={[
-          "Supports DOCX and DOC formats",
-          "Preserves original formatting",
-          "Maintains images and tables", 
-          "Fast online conversion",
-          "No file size limits",
-          "Secure file processing"
+        keywords={['word to pdf', 'docx to pdf', 'doc to pdf', 'convert word to pdf', 'document converter']}
+        category="PDF Conversion"
+        features={['Supports DOCX and DOC formats', 'Preserves original formatting', 'Maintains images and tables', 'Fast online conversion', 'No file size limits', 'Secure file processing']}
+        useCases={['Upload Word document', 'Click convert button', 'Wait for conversion', 'Download PDF file', 'Share or print PDF']}
+        faqs={[
+          { question: 'Will my Word formatting be preserved?', answer: 'Yes, our converter maintains all formatting including fonts, images, tables, headers, footers, and complex layouts.' },
+          { question: 'What Word formats are supported?', answer: 'We support both modern DOCX format and legacy DOC files from older versions of Microsoft Word.' },
+          { question: 'Is there a file size limit?', answer: 'You can convert Word documents up to 10MB in size. For larger files, consider splitting them or removing large embedded images.' },
+          { question: 'Are my documents secure during conversion?', answer: 'Absolutely. All files are processed securely and automatically deleted after conversion. We never store or access your document content.' }
         ]}
+        relatedTools={['pdf-to-word', 'merge-pdf', 'compress-pdf', 'split-pdf']}
       />
     
     <Layout>

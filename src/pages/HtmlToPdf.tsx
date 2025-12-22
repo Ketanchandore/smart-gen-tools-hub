@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Globe, Code, Settings, FileText, Download, Eye, Info } from 'lucide-react';
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Globe, Code, Settings, FileText, Download, Eye, Info, ArrowLeft } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { convertHtmlToPDF } from '@/utils/pdfUtils';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 
 const HtmlToPdf = () => {
   const navigate = useNavigate();
@@ -110,6 +110,21 @@ const HtmlToPdf = () => {
   };
 
   return (
+    <>
+      <AdvancedToolSEO
+        toolName="HTML to PDF Converter"
+        description="Professional HTML to PDF conversion with advanced formatting and styling options. Convert web pages, HTML code, or URLs to high-quality PDF documents."
+        keywords={['html to pdf', 'convert html to pdf', 'webpage to pdf', 'url to pdf', 'web page converter']}
+        category="PDF Conversion"
+        features={['HTML content or URL input', 'Custom CSS injection', 'Page layout controls', 'Header and footer customization', 'JavaScript rendering', 'Password protection']}
+        useCases={['Enter HTML content or URL', 'Configure page settings', 'Add custom styling', 'Convert to PDF', 'Download PDF file']}
+        faqs={[
+          { question: 'Can I convert a live website?', answer: 'Yes, enter any URL and our tool will render the webpage and convert it to PDF.' },
+          { question: 'Will CSS styles be preserved?', answer: 'Yes, all CSS styles including custom CSS you add will be rendered in the PDF.' },
+          { question: 'Can I add headers and footers?', answer: 'Yes, you can add custom HTML content for page headers and footers.' }
+        ]}
+        relatedTools={['word-to-pdf', 'merge-pdf', 'compress-pdf', 'protect-pdf']}
+      />
     <div className="container max-w-6xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
@@ -442,6 +457,7 @@ const HtmlToPdf = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
