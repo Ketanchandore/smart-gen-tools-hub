@@ -89,50 +89,69 @@ const MergePdf = () => {
 
   const faqData = [
     {
-      question: "Can I merge PDFs in a specific order?",
-      answer: "Yes! You can easily reorder your PDF files using our drag-and-drop interface or the up/down arrows. The final merged PDF will follow your specified order."
+      question: "How can I merge PDF files online for free?",
+      answer: "Simply upload your PDF files to our free online PDF merger, arrange them in your desired order using drag-and-drop, and click the merge button. Your combined PDF will be ready to download instantly - no registration or software installation required."
     },
     {
-      question: "Is there a limit to how many PDFs I can merge?",
-      answer: "You can merge up to 20 PDF files at once. For larger batches, consider merging in groups and then combining the results."
+      question: "Is there a limit to how many PDFs I can combine?",
+      answer: "You can merge up to 20 PDF files at once with our free PDF combiner tool. For larger batches, we recommend merging in groups and then combining the results for best performance."
     },
     {
-      question: "Will merging PDFs affect the quality?",
-      answer: "No, merging PDFs preserves the original quality of all documents. The process combines files without recompression or quality loss."
+      question: "Will combining PDFs affect document quality?",
+      answer: "No, our PDF joiner preserves the original quality of all documents. The merge process combines files without any recompression or quality loss, ensuring your merged PDF looks exactly like the originals."
     },
     {
-      question: "Can I merge specific pages from different PDFs?",
-      answer: "Absolutely! Use our page range feature to specify exactly which pages from each PDF should be included in the merged document."
+      question: "Can I merge specific pages from different PDF documents?",
+      answer: "Absolutely! Use our advanced page range feature to specify exactly which pages from each PDF should be included in the merged document. This is perfect for creating custom compilations."
+    },
+    {
+      question: "How to merge PDF files without watermark?",
+      answer: "Our free PDF merger tool combines your documents without adding any watermark. Simply upload, arrange, and download your merged PDF - completely watermark-free."
+    },
+    {
+      question: "Can I use this PDF merge tool on mobile devices?",
+      answer: "Yes! Our online PDF merger works perfectly on all devices including smartphones, tablets, laptops, and desktop computers. No app installation needed - just use your browser."
+    },
+    {
+      question: "How to combine multiple PDFs into one document step by step?",
+      answer: "Step 1: Upload your PDF files using drag-and-drop or click to browse. Step 2: Reorder files using the up/down arrows. Step 3: Set page ranges if needed. Step 4: Click Merge. Step 5: Download your combined PDF instantly."
     }
   ];
 
   return (
     <>
       <AdvancedToolSEO
-        toolName="Merge PDF"
-        description="Combine multiple PDF files into a single document with our free online PDF merger. Drag and drop files, reorder pages, and download instantly. No registration required."
+        toolName="Merge PDF Files Free Online - Combine Multiple PDFs"
+        description="Merge PDF files free online without watermark. Combine multiple PDF documents into one with our fast, secure PDF merger tool. No registration required. Works on mobile, desktop, and laptop."
         keywords={[
-          'merge pdf', 'combine pdf', 'pdf merger', 'join pdf files',
-          'merge pdf online free', 'combine multiple pdfs', 'pdf joiner'
+          'merge pdf', 'combine pdf', 'pdf merger', 'join pdf files', 'merge pdf online free',
+          'combine multiple pdfs', 'pdf joiner', 'merge pdf files free', 'pdf combiner',
+          'merge pdf without watermark', 'how to merge pdf files', 'how can i pdf merge',
+          'pdf merge online', 'merge pdf files online free', 'combine pdf files free',
+          'best pdf merger 2025', 'merge pdf without software', 'pdf merge without login',
+          'pdf merge tool mobile', 'merge pdf on desktop'
         ]}
-        category="Document Tools"
+        category="PDF Document Tools"
         features={[
-          'Merge unlimited PDF files',
-          'Drag and drop reordering',
-          'Custom page ranges',
-          'Bookmark generation',
-          'Metadata preservation',
-          'Fast batch processing'
+          'Merge unlimited PDF files free online',
+          'Drag and drop file reordering',
+          'Custom page range selection',
+          'Automatic bookmark generation',
+          'Metadata and formatting preservation',
+          'Fast batch processing without watermark',
+          'Works on mobile, tablet, and desktop',
+          'No registration or software required',
+          'Secure file processing with auto-delete'
         ]}
         useCases={[
-          'Upload PDF files to merge',
-          'Reorder files using drag-drop',
-          'Set custom page ranges',
-          'Click merge button',
-          'Download combined PDF'
+          'Upload PDF files to merge using drag-drop',
+          'Reorder files easily with arrow controls',
+          'Set custom page ranges for each document',
+          'Click merge button to combine PDFs',
+          'Download combined PDF instantly free'
         ]}
         faqs={faqData}
-        relatedTools={['/split-pdf', '/compress-pdf', '/organize-pdf', '/pdf-to-jpg']}
+        relatedTools={['/split-pdf', '/compress-pdf', '/organize-pdf', '/pdf-to-jpg', '/pdf-to-word']}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">
@@ -144,9 +163,9 @@ const MergePdf = () => {
               <ArrowLeft className="h-4 w-4 mr-1" />
               Back to Tools
             </Link>
-            <h1 className="text-4xl font-bold mb-4">PDF Merger - Combine Multiple PDFs</h1>
+            <h1 className="text-4xl font-bold mb-4">Merge PDF Files Free Online - Combine Multiple PDFs Into One</h1>
             <p className="text-xl text-muted-foreground mb-6">
-              Combine multiple PDF files into one document with advanced ordering, page selection, and bookmark features.
+              Looking for a free way to merge PDF files online? Our PDF merger tool lets you combine multiple PDF documents into one file instantly. No watermark, no registration, and works on all devices including mobile phones, tablets, and desktop computers. Join, combine, or merge PDF files with ease using our secure online PDF combiner.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
               <Link to="/compress-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">

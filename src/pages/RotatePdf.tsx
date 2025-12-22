@@ -63,19 +63,65 @@ const RotatePdf = () => {
     }
   };
 
+  const faqData = [
+    {
+      question: "How to rotate PDF pages online for free?",
+      answer: "Upload your PDF file, select the rotation angle (90°, 180°, or 270°), choose which pages to rotate (all, specific, even, or odd pages), and click rotate. Download your corrected PDF instantly."
+    },
+    {
+      question: "Can I rotate specific pages only in a PDF?",
+      answer: "Yes! You can select all pages, even pages, odd pages, or specify exact page numbers to rotate. Perfect for fixing only the pages that are upside down or sideways."
+    },
+    {
+      question: "Does rotation affect PDF quality?",
+      answer: "No, rotation is completely lossless and does not affect the quality of your PDF content. All text, images, and formatting remain exactly as they were."
+    },
+    {
+      question: "How to fix upside-down scanned PDF documents?",
+      answer: "Simply upload your scanned PDF, select 180° rotation, and apply to all pages or specific pages. Our tool also has auto-detection to help identify incorrectly oriented pages."
+    },
+    {
+      question: "Can I rotate PDF on my mobile phone?",
+      answer: "Absolutely! Our PDF rotate tool works on all devices including smartphones, tablets, and desktop computers. No app installation required."
+    },
+    {
+      question: "How to rotate PDF from landscape to portrait?",
+      answer: "Upload your PDF, select 90° clockwise or counter-clockwise rotation, and apply. This will change landscape pages to portrait orientation or vice versa."
+    }
+  ];
+
   return (
     <>
       <AdvancedToolSEO
-        toolName="Rotate PDF"
-        description="Rotate PDF pages 90°, 180°, or 270° with selective page control. Rotate all pages, specific pages, even/odd pages, or custom ranges. Free online PDF rotation tool with instant download."
-        keywords={['rotate pdf', 'flip pdf', 'turn pdf pages', 'pdf rotation', 'rotate pdf pages', 'pdf page orientation', 'rotate pdf online']}
-        category="PDF Tools"
-        features={['90° Rotation', '180° Flip', 'Selective Page Rotation', 'Even/Odd Page Selection', 'Batch Processing', 'Auto-orientation Detection']}
-        useCases={['Fix upside-down scans', 'Correct page orientation', 'Rotate landscape to portrait', 'Fix rotated PDFs', 'Prepare documents for printing']}
-        faqs={[
-          { question: 'Can I rotate specific pages only?', answer: 'Yes, you can select all pages, even pages, odd pages, or specify exact page numbers to rotate.' },
-          { question: 'Does rotation affect PDF quality?', answer: 'No, rotation is lossless and does not affect the quality of your PDF content.' }
+        toolName="Rotate PDF Pages Online Free - Fix PDF Orientation"
+        description="Rotate PDF pages 90°, 180°, or 270° online for free. Fix upside-down scans, correct page orientation, and rotate specific pages. Works on mobile and desktop - no registration required."
+        keywords={[
+          'rotate pdf', 'flip pdf', 'turn pdf pages', 'pdf rotation', 'rotate pdf pages',
+          'pdf page orientation', 'rotate pdf online', 'rotate pdf free', 'pdf rotate tool',
+          'best pdf rotate 2025', 'rotate pdf without login', 'pdf rotate kaise use karte hain',
+          'rotate pdf pages online', 'fix upside down pdf', 'pdf rotate mobile',
+          'rotate pdf on desktop', 'pdf rotate review', 'rotate pdf generator'
         ]}
+        category="PDF Tools"
+        features={[
+          '90° clockwise and counter-clockwise rotation',
+          '180° flip for upside-down pages',
+          'Selective page rotation control',
+          'Even/odd page selection options',
+          'Batch processing for multiple files',
+          'Auto-orientation detection for scans',
+          'Lossless rotation preserves quality',
+          'Works on mobile, tablet, and desktop'
+        ]}
+        useCases={[
+          'Fix upside-down scanned documents',
+          'Correct page orientation issues',
+          'Rotate landscape to portrait pages',
+          'Fix rotated PDF files from scanners',
+          'Prepare documents for printing'
+        ]}
+        faqs={faqData}
+        relatedTools={['/compress-pdf', '/merge-pdf', '/split-pdf', '/organize-pdf', '/crop-pdf']}
       />
       <PDFToolTemplate
         title="Rotate PDF"

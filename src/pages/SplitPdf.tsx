@@ -123,50 +123,72 @@ const SplitPdf = () => {
 
   const faqData = [
     {
-      question: "Can I split PDFs by page ranges?",
-      answer: "Yes! You can specify exact page ranges like '1-5, 8, 11-13' to create multiple PDF files from specific sections of your document."
+      question: "How to split PDF document online for free?",
+      answer: "Upload your PDF file to our free online splitter, choose your split method (page range, every N pages, or specific pages), and click split. Download your separated PDF files instantly - no registration or software needed."
+    },
+    {
+      question: "Can I split PDF by page ranges?",
+      answer: "Yes! You can specify exact page ranges like '1-5, 8, 11-13' to create multiple PDF files from specific sections of your document. Perfect for extracting chapters or specific content."
     },
     {
       question: "What's the difference between split modes?",
-      answer: "Page Range extracts a specific section, Every N Pages creates equal-sized chunks, Extract Pages pulls out individual pages, and Size-based splitting creates files under a size limit."
+      answer: "Page Range extracts a specific section, Every N Pages creates equal-sized chunks, Extract Pages pulls out individual pages, and Size-based splitting creates files under your specified size limit."
     },
     {
-      question: "Will splitting preserve document quality?",
+      question: "Will splitting preserve PDF document quality?",
       answer: "Absolutely! Splitting PDFs maintains the original quality, formatting, and content. No compression or quality loss occurs during the split process."
     },
     {
-      question: "Can I split password-protected PDFs?",
-      answer: "Yes, you can split password-protected PDFs. Enter the password when uploading, and choose whether to maintain protection on the split files."
+      question: "How to extract pages from PDF for free?",
+      answer: "Use our 'Extract Specific Pages' mode - enter page numbers like '1, 3, 5, 7' and the tool will create separate PDF files for each page. Perfect for pulling out individual pages from large documents."
+    },
+    {
+      question: "Can I split PDF files on mobile devices?",
+      answer: "Yes! Our PDF splitter works perfectly on smartphones, tablets, and desktop computers. Access it through any web browser - no app installation required."
+    },
+    {
+      question: "How to divide PDF into multiple files by size?",
+      answer: "Use our 'Split by File Size' mode and set your maximum file size (1-50 MB). The tool will automatically divide your PDF into parts that don't exceed your specified limit - great for email attachments."
+    },
+    {
+      question: "Is the PDF split tool unlimited and free?",
+      answer: "Yes, our PDF splitter is completely free with no limits on file size or number of splits. Split as many PDFs as you need without watermarks or restrictions."
     }
   ];
 
   return (
     <>
       <AdvancedToolSEO
-        toolName="Split PDF"
-        description="Split PDF files into multiple documents. Extract pages, divide by ranges, or split into equal parts. Free online PDF splitter with advanced options."
+        toolName="Split PDF Online Free - Divide PDF Into Multiple Files"
+        description="Split PDF files online free without watermark. Extract pages, divide by ranges, or separate PDF documents into multiple parts. Fast PDF splitter works on mobile and desktop - no registration required."
         keywords={[
-          'split pdf', 'pdf splitter', 'divide pdf', 'extract pdf pages',
-          'split pdf online free', 'separate pdf pages', 'pdf separator'
+          'split pdf', 'pdf splitter', 'divide pdf', 'extract pdf pages', 'split pdf online free',
+          'separate pdf pages', 'pdf separator', 'split pdf document', 'pdf split generator',
+          'how to split pdf', 'extract pages from pdf', 'split pdf into multiple files',
+          'pdf split tutorial', 'best pdf split 2025', 'split pdf unlimited', 'split pdf fast',
+          'pdf split without software', 'split pdf on mobile', 'split pdf every n pages'
         ]}
-        category="Document Tools"
+        category="PDF Document Tools"
         features={[
-          'Multiple split modes',
-          'Page range extraction',
-          'Size-based splitting',
-          'Custom file naming',
-          'Batch download',
-          'Preserve bookmarks'
+          'Multiple split modes (range, every N pages, specific pages, by size)',
+          'Free page range extraction',
+          'Size-based intelligent splitting',
+          'Custom file naming options',
+          'Batch download all split files',
+          'Preserve bookmarks and formatting',
+          'No watermark or registration required',
+          'Works on mobile, tablet, and desktop',
+          'Secure processing with auto-delete'
         ]}
         useCases={[
-          'Upload PDF to split',
-          'Choose split method',
-          'Set page ranges',
-          'Click split button',
-          'Download all files'
+          'Upload your PDF file to split',
+          'Choose split method that fits your needs',
+          'Set page ranges or split intervals',
+          'Click split button to divide PDF',
+          'Download all separated files instantly'
         ]}
         faqs={faqData}
-        relatedTools={['/merge-pdf', '/extract-pages', '/remove-pages', '/organize-pdf']}
+        relatedTools={['/merge-pdf', '/extract-pages', '/remove-pages', '/organize-pdf', '/compress-pdf']}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">
@@ -178,9 +200,9 @@ const SplitPdf = () => {
               <ArrowLeft className="h-4 w-4 mr-1" />
               Back to Tools
             </Link>
-            <h1 className="text-4xl font-bold mb-4">PDF Splitter - Divide PDF Files</h1>
+            <h1 className="text-4xl font-bold mb-4">Split PDF Online Free - Divide PDF Into Multiple Files</h1>
             <p className="text-xl text-muted-foreground mb-6">
-              Split PDF files using multiple methods: page ranges, equal parts, specific pages, or file size limits.
+              Need to split PDF documents or extract specific pages? Our free online PDF splitter lets you divide PDF files using multiple methods: page ranges, equal parts, specific pages, or file size limits. Perfect for extracting chapters, creating separate documents, or reducing file size for easy sharing. Works on mobile phones, tablets, and desktop computers.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
               <Link to="/merge-pdf" className="text-sm bg-secondary/50 px-3 py-1 rounded-full hover:bg-secondary transition-colors">
