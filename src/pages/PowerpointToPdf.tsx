@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Presentation, ArrowLeft, Upload, Download, Settings, FileText, Image } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -10,6 +10,7 @@ import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 
 const PowerpointToPdf = () => {
   const navigate = useNavigate();
@@ -137,6 +138,21 @@ const PowerpointToPdf = () => {
   };
 
   return (
+    <>
+      <AdvancedToolSEO
+        toolName="PowerPoint to PDF Converter"
+        description="Convert PowerPoint presentations into high-quality PDF files with advanced options. Support for PPT and PPTX files with speaker notes and handout layouts."
+        keywords={['powerpoint to pdf', 'pptx to pdf', 'ppt to pdf', 'convert presentation to pdf', 'powerpoint converter']}
+        category="PDF Conversion"
+        features={['Multiple layout options (slides, handouts, notes)', 'Speaker notes inclusion', 'Hidden slides handling', 'Image optimization', 'Password protection', 'Custom compression levels']}
+        useCases={['Upload PowerPoint file', 'Select output layout', 'Configure options', 'Convert to PDF', 'Download and share']}
+        faqs={[
+          { question: 'Can I include speaker notes?', answer: 'Yes, you can choose to include speaker notes in the PDF output using the notes pages layout.' },
+          { question: 'What about hidden slides?', answer: 'You have the option to include or exclude hidden slides from the final PDF.' },
+          { question: 'Can I add password protection?', answer: 'Yes, you can set a password for the PDF and control printing and copying permissions.' }
+        ]}
+        relatedTools={['pdf-to-powerpoint', 'word-to-pdf', 'merge-pdf', 'compress-pdf']}
+      />
     <div className="container max-w-4xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
@@ -372,6 +388,7 @@ const PowerpointToPdf = () => {
         </Button>
       </div>
     </div>
+    </>
   );
 };
 

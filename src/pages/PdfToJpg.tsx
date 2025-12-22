@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { Image, ArrowLeft, Upload, Download, Settings, FileImage, ExternalLink } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
-import SEOHead from '@/components/SEOHead';
-import { ToolStructuredData } from '@/components/StructuredData';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -157,18 +156,15 @@ const PdfToJpg = () => {
 
   return (
     <>
-      <SEOHead 
-        title="Free PDF to JPG Converter - Convert PDF Pages to Images Online"
+      <AdvancedToolSEO
+        toolName="PDF to JPG Converter"
         description="Convert PDF pages to high-quality JPG, PNG, TIFF images online. Advanced options for resolution, quality, and batch conversion. Free PDF to image converter."
-        keywords="PDF to JPG converter, PDF to image, convert PDF to JPG, PDF to PNG, extract images from PDF, PDF page converter"
-        url="https://pinetoolshub.com/pdf-to-jpg"
-      />
-      <ToolStructuredData 
-        name="PDF to JPG Converter"
-        description="Convert PDF pages to high-quality image formats with advanced customization options"
-        url="https://pinetoolshub.com/pdf-to-jpg"
-        category="PDF Tools"
-        features={["Multiple image formats", "Custom resolution control", "Quality settings", "Page range selection", "Batch processing", "Color mode options"]}
+        keywords={['pdf to jpg', 'pdf to image', 'convert pdf to jpg', 'pdf to png', 'extract images from pdf', 'pdf page converter']}
+        category="PDF Conversion"
+        features={['Multiple image formats (JPG, PNG, TIFF, BMP)', 'Custom resolution control up to 600 DPI', 'Quality settings for file size optimization', 'Page range selection', 'Batch processing support', 'Color mode options']}
+        useCases={['Upload your PDF file', 'Select image format and quality', 'Choose page range', 'Convert to images', 'Download ZIP with all images']}
+        faqs={faqData}
+        relatedTools={['jpg-to-pdf', 'compress-pdf', 'merge-pdf', 'split-pdf']}
       />
       <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
         <div className="container mx-auto px-4 py-8">

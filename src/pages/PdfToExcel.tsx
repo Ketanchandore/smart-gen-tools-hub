@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { FileSpreadsheet, ArrowLeft, Upload, Download, Settings, Table, BarChart } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 
 const PdfToExcel = () => {
   const navigate = useNavigate();
@@ -133,6 +134,21 @@ const PdfToExcel = () => {
   };
 
   return (
+    <>
+      <AdvancedToolSEO
+        toolName="PDF to Excel Converter"
+        description="Convert PDF files into editable Excel spreadsheets with advanced table detection. Extract tables from PDF to XLSX, XLS, or CSV format with smart data recognition."
+        keywords={['pdf to excel', 'pdf to xlsx', 'convert pdf to excel', 'pdf table extractor', 'pdf to spreadsheet']}
+        category="PDF Conversion"
+        features={['Smart table detection', 'Multiple output formats (XLSX, XLS, CSV)', 'Custom page range selection', 'Date and number format recognition', 'Preserve formatting option', 'Auto-fit columns and headers']}
+        useCases={['Upload PDF with tables', 'Select extraction options', 'Choose output format', 'Convert to Excel', 'Download spreadsheet file']}
+        faqs={[
+          { question: 'Can it detect tables automatically?', answer: 'Yes, our advanced AI-powered table detection identifies and extracts tables from PDF documents accurately.' },
+          { question: 'What output formats are supported?', answer: 'We support XLSX (Excel 2007+), XLS (Legacy Excel), and CSV formats for maximum compatibility.' },
+          { question: 'Will complex tables be preserved?', answer: 'Our converter handles merged cells, multi-row headers, and complex table structures effectively.' }
+        ]}
+        relatedTools={['excel-to-pdf', 'pdf-to-word', 'merge-pdf', 'compress-pdf']}
+      />
     <div className="container max-w-4xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
@@ -357,6 +373,7 @@ const PdfToExcel = () => {
         </Button>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Presentation, ArrowLeft, Upload, Download, Settings, FileText, Image, Layers } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { downloadPdf } from '@/utils/pdfUtils';
+import AdvancedToolSEO from '@/components/AdvancedToolSEO';
 
 const PdfToPowerpoint = () => {
   const navigate = useNavigate();
@@ -143,6 +144,21 @@ const PdfToPowerpoint = () => {
   };
 
   return (
+    <>
+      <AdvancedToolSEO
+        toolName="PDF to PowerPoint Converter"
+        description="Convert PDF files into editable PowerPoint presentations with advanced features. Extract content, images, and formatting to create professional PPTX slides."
+        keywords={['pdf to powerpoint', 'pdf to pptx', 'convert pdf to presentation', 'pdf to slides', 'pdf converter']}
+        category="PDF Conversion"
+        features={['Multiple slide layouts', 'Template style options', 'Image extraction', 'Slide transition effects', 'Speaker notes support', 'Font size customization']}
+        useCases={['Upload PDF file', 'Choose slide layout', 'Select template style', 'Convert to PowerPoint', 'Download and edit presentation']}
+        faqs={[
+          { question: 'Will images be extracted from PDF?', answer: 'Yes, all images from the PDF are extracted and properly placed in the PowerPoint slides.' },
+          { question: 'Can I customize the slide layout?', answer: 'You can choose from auto-detect, title+content, two-content, content with caption, or blank layouts.' },
+          { question: 'What template styles are available?', answer: 'Choose from Modern, Classic, Minimal, Corporate, or Creative template styles.' }
+        ]}
+        relatedTools={['powerpoint-to-pdf', 'pdf-to-word', 'merge-pdf', 'compress-pdf']}
+      />
     <div className="container max-w-4xl mx-auto px-4 py-8">
       <div className="mb-6">
         <Button 
@@ -388,6 +404,7 @@ const PdfToPowerpoint = () => {
         </Button>
       </div>
     </div>
+    </>
   );
 };
 
