@@ -372,6 +372,101 @@ const PdfToExcel = () => {
           )}
         </Button>
       </div>
+
+      {/* FAQ Section */}
+      <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+        <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions About PDF to Excel Conversion</h2>
+        <div className="space-y-6">
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Can PDF to Excel converter detect tables automatically?</h3>
+            <p className="text-muted-foreground">Yes, our advanced AI-powered table detection identifies and extracts tables from PDF documents accurately, preserving rows, columns, and cell structure.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">What output formats are supported for PDF to spreadsheet conversion?</h3>
+            <p className="text-muted-foreground">We support XLSX (Excel 2007+), XLS (Legacy Excel), and CSV formats for maximum compatibility with different spreadsheet applications.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Will complex PDF tables with merged cells be preserved?</h3>
+            <p className="text-muted-foreground">Our PDF to Excel converter handles merged cells, multi-row headers, and complex table structures effectively while maintaining data integrity.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Is the PDF to Excel conversion free and secure?</h3>
+            <p className="text-muted-foreground">Yes, our PDF to Excel tool is completely free to use. All files are processed securely and automatically deleted after conversion.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Content Section */}
+      <div className="mt-12 max-w-4xl mx-auto">
+        <div className="bg-muted/30 rounded-lg p-8 mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Professional PDF to Excel Conversion Online
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Convert PDF files to Excel spreadsheets instantly with our free online PDF to Excel converter. 
+            Extract tables and data from PDF documents into editable XLSX, XLS, or CSV files without losing formatting or structure.
+          </p>
+          <p className="text-muted-foreground mb-6">
+            Our smart table detection technology identifies tables in your PDF and accurately converts them to Excel format. 
+            Whether you're extracting financial data, converting reports, or processing invoices, get precise results every time.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-foreground mb-3">Why Convert PDF to Excel?</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Extract and edit data from PDF reports and invoices</li>
+                <li>• Convert PDF tables to Excel for analysis and calculations</li>
+                <li>• Import PDF data into databases and accounting software</li>
+                <li>• Create editable spreadsheets from scanned documents</li>
+                <li>• Automate data extraction from multiple PDFs</li>
+                <li>• Preserve number formats and date recognition</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground mb-3">Advanced PDF to Excel Features:</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Smart table detection and extraction</li>
+                <li>• Multiple output formats (XLSX, XLS, CSV)</li>
+                <li>• Custom page range selection</li>
+                <li>• Date and number format recognition</li>
+                <li>• Batch PDF to Excel conversion</li>
+                <li>• Auto-fit columns and remove empty rows</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        {/* Related Tools */}
+        <div className="bg-background border border-border rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Related PDF Conversion Tools</h3>
+          <div className="grid md:grid-cols-4 gap-4">
+            <Link to="/excel-to-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Excel to PDF</h4>
+              <p className="text-sm text-muted-foreground">Convert spreadsheets to PDF</p>
+            </Link>
+            <Link to="/pdf-to-word" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">PDF to Word</h4>
+              <p className="text-sm text-muted-foreground">Convert PDF to DOCX</p>
+            </Link>
+            <Link to="/merge-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Merge PDFs</h4>
+              <p className="text-sm text-muted-foreground">Combine multiple PDFs</p>
+            </Link>
+            <Link to="/compress-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Compress PDF</h4>
+              <p className="text-sm text-muted-foreground">Reduce PDF file size</p>
+            </Link>
+          </div>
+          
+          <div className="mt-6 pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground text-center">
+              Explore our complete suite of PDF tools for all your document needs. Convert PDF to Excel, Word, PowerPoint and more - all free!
+              <Link to="/blog" className="text-primary hover:underline ml-1">Read PDF conversion tips →</Link>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     </>
   );

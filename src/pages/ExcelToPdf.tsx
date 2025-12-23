@@ -413,6 +413,101 @@ const ExcelToPdf = () => {
           )}
         </Button>
       </div>
+
+      {/* FAQ Section */}
+      <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8">
+        <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions About Excel to PDF Conversion</h2>
+        <div className="space-y-6">
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Can I convert specific worksheets from Excel to PDF?</h3>
+            <p className="text-muted-foreground">Yes, you can select all worksheets, active sheet only, or specify custom worksheet names to convert to PDF.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Will Excel gridlines be visible in the PDF?</h3>
+            <p className="text-muted-foreground">You have full control over gridlines, headers, and row numbers visibility in the output PDF document.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">What page sizes are supported for Excel to PDF conversion?</h3>
+            <p className="text-muted-foreground">We support A4, A3, Letter, Legal, and Tabloid page sizes in both portrait and landscape orientation.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Is Excel to PDF conversion free online?</h3>
+            <p className="text-muted-foreground">Yes, our Excel to PDF converter is completely free to use with no registration required. Convert XLS and XLSX files instantly.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Content Section */}
+      <div className="mt-12 max-w-4xl mx-auto">
+        <div className="bg-muted/30 rounded-lg p-8 mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Professional Excel to PDF Conversion Online
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Convert Excel spreadsheets to PDF instantly with our free online Excel to PDF converter. 
+            Transform XLS and XLSX files into professional PDF documents while preserving formatting, formulas display, and layout.
+          </p>
+          <p className="text-muted-foreground mb-6">
+            Our Excel to PDF tool offers advanced customization options including page size, orientation, gridlines control, 
+            and fit-to-page scaling. Perfect for creating print-ready documents from your spreadsheet data.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-foreground mb-3">Why Convert Excel to PDF?</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Share spreadsheets without editing permissions</li>
+                <li>• Create print-ready documents from Excel data</li>
+                <li>• Preserve formatting across different devices</li>
+                <li>• Combine multiple worksheets into single PDF</li>
+                <li>• Professional presentation of financial data</li>
+                <li>• Archive spreadsheets in universal format</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground mb-3">Advanced Excel to PDF Features:</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Worksheet selection options</li>
+                <li>• Custom page size and orientation</li>
+                <li>• Gridline and header controls</li>
+                <li>• Fit to page scaling</li>
+                <li>• Quality and compression settings</li>
+                <li>• Custom headers and footers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        {/* Related Tools */}
+        <div className="bg-background border border-border rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Related PDF Conversion Tools</h3>
+          <div className="grid md:grid-cols-4 gap-4">
+            <Link to="/pdf-to-excel" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">PDF to Excel</h4>
+              <p className="text-sm text-muted-foreground">Extract tables from PDF</p>
+            </Link>
+            <Link to="/word-to-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Word to PDF</h4>
+              <p className="text-sm text-muted-foreground">Convert Word to PDF</p>
+            </Link>
+            <Link to="/merge-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Merge PDFs</h4>
+              <p className="text-sm text-muted-foreground">Combine multiple PDFs</p>
+            </Link>
+            <Link to="/compress-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Compress PDF</h4>
+              <p className="text-sm text-muted-foreground">Reduce PDF file size</p>
+            </Link>
+          </div>
+          
+          <div className="mt-6 pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground text-center">
+              Explore our complete suite of PDF tools for all your document needs. Convert Excel, Word, PowerPoint to PDF and more!
+              <Link to="/blog" className="text-primary hover:underline ml-1">Read Excel to PDF tips →</Link>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     </>
   );
