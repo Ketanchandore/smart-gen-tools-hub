@@ -456,6 +456,101 @@ const HtmlToPdf = () => {
           </div>
         </div>
       </div>
+
+      {/* FAQ Section */}
+      <div className="mt-12 bg-white/5 backdrop-blur-sm rounded-lg p-8 max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions About HTML to PDF Conversion</h2>
+        <div className="space-y-6">
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Can I convert a live website URL to PDF?</h3>
+            <p className="text-muted-foreground">Yes, enter any website URL and our HTML to PDF tool will render the webpage and convert it to a high-quality PDF document.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Will CSS styles be preserved in HTML to PDF conversion?</h3>
+            <p className="text-muted-foreground">Yes, all CSS styles including custom CSS you add will be rendered in the PDF output. You can also inject additional CSS for fine-tuning.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Can I add custom headers and footers to the PDF?</h3>
+            <p className="text-muted-foreground">Yes, you can add custom HTML content for page headers and footers that appear on every page of the PDF.</p>
+          </div>
+          <div className="border-b border-border/30 pb-4">
+            <h3 className="text-lg font-semibold mb-2">Is the HTML to PDF converter free online?</h3>
+            <p className="text-muted-foreground">Yes, our HTML to PDF tool is completely free to use with no registration required. Convert webpages and HTML code instantly.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Content Section */}
+      <div className="mt-12 max-w-4xl mx-auto">
+        <div className="bg-muted/30 rounded-lg p-8 mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Professional HTML to PDF Conversion Online
+          </h2>
+          <p className="text-muted-foreground mb-4">
+            Convert HTML code or website URLs to PDF instantly with our free online HTML to PDF converter. 
+            Transform web pages into professional PDF documents while preserving all styling, images, and layout.
+          </p>
+          <p className="text-muted-foreground mb-6">
+            Our HTML to PDF tool offers advanced features including custom CSS injection, JavaScript rendering, 
+            page layout controls, and password protection. Perfect for generating reports, invoices, or archiving web content.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-foreground mb-3">Why Convert HTML to PDF?</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Archive web pages in printable format</li>
+                <li>• Generate PDF reports from HTML templates</li>
+                <li>• Create invoices and documents from web apps</li>
+                <li>• Save website content for offline viewing</li>
+                <li>• Share web content without browser dependency</li>
+                <li>• Print web pages with precise formatting</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground mb-3">Advanced HTML to PDF Features:</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• HTML content or URL input modes</li>
+                <li>• Custom CSS injection</li>
+                <li>• Page layout and orientation controls</li>
+                <li>• Header and footer customization</li>
+                <li>• JavaScript rendering support</li>
+                <li>• Password protection options</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        {/* Related Tools */}
+        <div className="bg-background border border-border rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Related PDF Conversion Tools</h3>
+          <div className="grid md:grid-cols-4 gap-4">
+            <Link to="/word-to-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Word to PDF</h4>
+              <p className="text-sm text-muted-foreground">Convert Word documents</p>
+            </Link>
+            <Link to="/merge-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Merge PDFs</h4>
+              <p className="text-sm text-muted-foreground">Combine multiple PDFs</p>
+            </Link>
+            <Link to="/compress-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Compress PDF</h4>
+              <p className="text-sm text-muted-foreground">Reduce PDF file size</p>
+            </Link>
+            <Link to="/protect-pdf" className="block p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors">
+              <h4 className="font-medium text-foreground mb-1">Protect PDF</h4>
+              <p className="text-sm text-muted-foreground">Add PDF password</p>
+            </Link>
+          </div>
+          
+          <div className="mt-6 pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground text-center">
+              Explore our complete suite of PDF tools. Convert HTML, Word, Excel to PDF and more - completely free!
+              <Link to="/blog" className="text-primary hover:underline ml-1">Read HTML to PDF tips →</Link>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     </>
   );
