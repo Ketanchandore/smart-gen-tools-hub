@@ -966,31 +966,54 @@ const Index = () => {
   return (
     <>
       <SEOHead
-        title="Pine Tools Hub - Free AI Tools, PDF Converters & Productivity Utilities"
-        description="Access 100+ free online tools including AI resume builders, PDF converters, content generators, and productivity utilities. No registration required. Professional results instantly."
-        keywords="free online tools, AI tools, PDF converter, resume builder, content generator, productivity tools, free utilities, online converters"
+        title="PineToolsHub - Best Free Online Tools & PDF Converters (PineTools Alternative)"
+        description="Looking for useful online utilities? PineToolsHub offers free PDF tools, image editors, and code formatters. A faster, modern alternative to Pinetools."
+        keywords="free online tools, pdf converter, pinetools alternative, utilities, online utilities, pdf tools, ai tools, resume builder"
         url="https://pinetoolshub.com"
       />
+      
+      {/* Schema Markup */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "PineToolsHub",
+          "url": "https://pinetoolshub.com/",
+          "description": "A collection of free online tools, similar to Pinetools but with a modern UI.",
+          "creator": {
+            "@type": "Organization",
+            "name": "PineToolsHub"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://pinetoolshub.com/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        })
+      }} />
       
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center space-y-6 mb-12">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-6">
-              Pine Tools Hub
+              PineToolsHub - Best Free Online Tools
             </h1>
             <p className="text-xl sm:text-2xl text-muted-foreground mb-6">
               Your Complete Suite of Free AI-Powered Tools & Utilities
             </p>
             <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
               Access 100+ professional tools including AI resume builders, PDF converters, content generators, 
-              and productivity utilities. All completely free with no registration required.
+              and productivity utilities. All completely free with no registration required. The best Pinetools alternative.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/pricing">
+              <Link to="/pdf-tools">
                 <Button size="lg" className="bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 transition-opacity">
                   <Zap className="mr-2 h-5 w-5" />
-                  Explore All Free Tools
+                  Explore PDF Tools
                 </Button>
               </Link>
               <Link to="/blog">
@@ -999,6 +1022,33 @@ const Index = () => {
                   Read Success Stories
                 </Button>
               </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Why Use PineToolsHub Section */}
+        <div className="mb-12 p-8 bg-gradient-to-r from-primary/5 to-accent/5 rounded-2xl border border-primary/10">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">Why Use PineToolsHub?</h2>
+          <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-8">
+            If you are looking for reliable utilities similar to PineTools, our platform provides faster processing for PDF merging, 
+            color picking, and string manipulation. We've built PineToolsHub to deliver the same functionality with a modern, 
+            user-friendly interface, no ads, and lightning-fast performance.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background/80 rounded-xl border border-border/50 shadow-sm">
+              <div className="text-3xl mb-3">✨</div>
+              <h3 className="font-semibold text-lg mb-2">Modern & Intuitive Interface</h3>
+              <p className="text-muted-foreground">Cleaner design than traditional tool collections. Works perfectly on all devices.</p>
+            </div>
+            <div className="p-6 bg-background/80 rounded-xl border border-border/50 shadow-sm">
+              <div className="text-3xl mb-3">⚡</div>
+              <h3 className="font-semibold text-lg mb-2">Lightning-Fast Processing</h3>
+              <p className="text-muted-foreground">Optimized for speed across all tools. No waiting, no loading screens.</p>
+            </div>
+            <div className="p-6 bg-background/80 rounded-xl border border-border/50 shadow-sm">
+              <div className="text-3xl mb-3">🛡️</div>
+              <h3 className="font-semibold text-lg mb-2">Ad-Free & Privacy-Focused</h3>
+              <p className="text-muted-foreground">No tracking, no distractions, just tools. Your data is never stored.</p>
             </div>
           </div>
         </div>

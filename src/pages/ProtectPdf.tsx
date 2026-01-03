@@ -403,6 +403,78 @@ const ProtectPdf = () => {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <div className="mt-8 p-6 bg-secondary/20 rounded-lg">
+          <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions - PDF Password Protection</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-medium text-foreground">How do I password protect a PDF file online free?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Upload your PDF, set a user password for opening and/or owner password for permissions, choose encryption level, and click protect. Our free PDF password protector works online without registration.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">What is the difference between user password and owner password in PDF?</h3>
+              <p className="text-muted-foreground text-sm mt-1">User password is required to open the PDF. Owner password controls permissions like printing, copying, and editing. You can set both for maximum PDF security protection.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">How secure is 256-bit AES encryption for PDF files?</h3>
+              <p className="text-muted-foreground text-sm mt-1">256-bit AES encryption is military-grade security used by governments and banks. It would take billions of years to crack with current technology. Best for confidential PDF documents.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">Can I restrict printing and copying in protected PDF?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Yes! Our PDF protection tool lets you control printing (high/low quality), copying text/images, editing, annotations, form filling, and more with granular permission settings.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">Is PDF encryption free online without watermark?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Yes, our PDF encrypt tool is completely free with no watermarks added. Protect unlimited PDFs with password encryption at no cost.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* SEO Content Section */}
+        <div className="mt-8 grid md:grid-cols-2 gap-6">
+          <div className="p-6 bg-muted/30 rounded-lg">
+            <h2 className="text-lg font-semibold mb-3">Why Protect PDF with Password?</h2>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>✓ Prevent unauthorized access to sensitive documents</li>
+              <li>✓ Control who can print, copy, or edit your PDFs</li>
+              <li>✓ Secure confidential business contracts and reports</li>
+              <li>✓ Protect intellectual property and copyrighted content</li>
+              <li>✓ Meet compliance requirements for document security</li>
+              <li>✓ Share files safely via email or cloud storage</li>
+            </ul>
+          </div>
+          <div className="p-6 bg-muted/30 rounded-lg">
+            <h2 className="text-lg font-semibold mb-3">PDF Protection Features</h2>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>🔐 256-bit AES military-grade encryption</li>
+              <li>🔑 User & owner password protection</li>
+              <li>🖨️ Print restriction with quality control</li>
+              <li>📋 Copy protection for text and images</li>
+              <li>✏️ Edit and annotation restrictions</li>
+              <li>📝 Form filling and assembly controls</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Related Tools */}
+        <div className="mt-8 p-6 border rounded-lg">
+          <h2 className="text-lg font-semibold mb-4">Related PDF Security Tools</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="/unlock-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Unlock PDF</span>
+            </a>
+            <a href="/watermark-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Add Watermark</span>
+            </a>
+            <a href="/sign-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Sign PDF</span>
+            </a>
+            <a href="/redact-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Redact PDF</span>
+            </a>
+          </div>
+        </div>
       </div>
       </PDFToolTemplate>
     </>
