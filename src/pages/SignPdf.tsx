@@ -627,6 +627,78 @@ const SignPdf = () => {
           )}
         </Button>
       </div>
+
+      {/* FAQ Section */}
+      <div className="mt-8 p-6 bg-secondary/20 rounded-lg">
+        <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions - Electronic PDF Signature</h2>
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-medium text-foreground">How do I add electronic signature to PDF online free?</h3>
+            <p className="text-muted-foreground text-sm mt-1">Upload your PDF, draw your signature with mouse/touchscreen, type it, or upload a signature image. Position it on the page and download your signed PDF instantly - completely free.</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-foreground">Is electronic signature on PDF legally binding?</h3>
+            <p className="text-muted-foreground text-sm mt-1">Yes! Electronic signatures are legally valid in most countries under laws like ESIGN Act (USA), eIDAS (EU), and IT Act (India). Our tool creates legally binding e-signatures for contracts and agreements.</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-foreground">Can I add digital certificate to my PDF signature?</h3>
+            <p className="text-muted-foreground text-sm mt-1">Yes, our advanced PDF signature tool supports digital certificates with signer name, reason, location, and timestamp for enhanced authenticity and legal compliance.</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-foreground">How to sign PDF without Adobe Acrobat?</h3>
+            <p className="text-muted-foreground text-sm mt-1">Our free online PDF signer is the best Adobe alternative. No software installation needed - sign PDFs directly in your browser on any device.</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-foreground">Can I sign multiple pages in PDF?</h3>
+            <p className="text-muted-foreground text-sm mt-1">Yes! Choose specific page numbers or apply your signature to all pages. Control exact position, size, and opacity for professional document signing.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Content Section */}
+      <div className="mt-8 grid md:grid-cols-2 gap-6">
+        <div className="p-6 bg-muted/30 rounded-lg">
+          <h2 className="text-lg font-semibold mb-3">Why Sign PDF Documents Online?</h2>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li>✓ Sign contracts and agreements instantly</li>
+            <li>✓ No printing, scanning, or mailing required</li>
+            <li>✓ Legally binding electronic signatures</li>
+            <li>✓ Works on desktop, tablet, and mobile</li>
+            <li>✓ Faster document processing and approvals</li>
+            <li>✓ Eco-friendly paperless workflow</li>
+          </ul>
+        </div>
+        <div className="p-6 bg-muted/30 rounded-lg">
+          <h2 className="text-lg font-semibold mb-3">PDF Signature Features</h2>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li>✍️ Draw, type, or upload signature</li>
+            <li>📍 Precise positioning on any page</li>
+            <li>🔒 Digital certificate support</li>
+            <li>📅 Automatic timestamp option</li>
+            <li>🎨 Custom signature styling</li>
+            <li>📱 Touch-friendly for mobile signing</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Related Tools */}
+      <div className="mt-8 p-6 border rounded-lg">
+        <h2 className="text-lg font-semibold mb-4">Related PDF Tools</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="/protect-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+            <span className="text-sm font-medium">Protect PDF</span>
+          </a>
+          <a href="/watermark-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+            <span className="text-sm font-medium">Add Watermark</span>
+          </a>
+          <a href="/edit-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+            <span className="text-sm font-medium">Edit PDF</span>
+          </a>
+          <a href="/merge-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+            <span className="text-sm font-medium">Merge PDF</span>
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

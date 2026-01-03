@@ -135,6 +135,7 @@ import RedactPdf from "./pages/RedactPdf";
 import CropPdf from "./pages/CropPdf";
 import RemovePages from "./pages/RemovePages";
 import ExtractPages from "./pages/ExtractPages";
+import PdfTools from "./pages/PdfTools";
 
 // New imports for legal pages and additional pages
 import About from "./pages/About";
@@ -170,6 +171,7 @@ function App() {
                 {/* Additional Pages */}
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/pdf-tools" element={<PdfTools />} />
                 
                 {/* Protected Routes */}
                 <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />

@@ -657,6 +657,78 @@ const WatermarkPdf = () => {
             </div>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <div className="mt-8 p-6 bg-secondary/20 rounded-lg">
+          <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions - PDF Watermark</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-medium text-foreground">How do I add watermark to PDF online free?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Upload your PDF, choose text or image watermark, customize appearance (opacity, position, rotation), select pages, and download. Our free PDF watermark tool works without registration.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">Can I add company logo as watermark to PDF?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Yes! Upload your logo image (PNG, JPG with transparent background works best), adjust size and opacity, position it anywhere on the page. Perfect for branding documents.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">How to add CONFIDENTIAL stamp to PDF?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Use text watermark with "CONFIDENTIAL" text, set red color, choose diagonal position, adjust opacity to 30-50%. Apply to all pages for professional confidential document marking.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">Can I add watermark to specific pages only?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Yes! Choose from all pages, odd pages only, even pages only, page range (e.g., 1-5), or specific pages (e.g., 1,3,7). Full control over watermark placement.</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-foreground">Is PDF watermark permanent or can it be removed?</h3>
+              <p className="text-muted-foreground text-sm mt-1">Our watermarks are embedded into the PDF and difficult to remove without specialized tools. For maximum security, combine with password protection using our Protect PDF tool.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* SEO Content Section */}
+        <div className="mt-8 grid md:grid-cols-2 gap-6">
+          <div className="p-6 bg-muted/30 rounded-lg">
+            <h2 className="text-lg font-semibold mb-3">Why Add Watermark to PDF?</h2>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>✓ Protect documents from unauthorized use</li>
+              <li>✓ Brand documents with company logo</li>
+              <li>✓ Mark confidential or draft documents</li>
+              <li>✓ Add copyright notices to protect content</li>
+              <li>✓ Track document distribution</li>
+              <li>✓ Professional document presentation</li>
+            </ul>
+          </div>
+          <div className="p-6 bg-muted/30 rounded-lg">
+            <h2 className="text-lg font-semibold mb-3">Watermark Features</h2>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>📝 Text watermarks with custom fonts</li>
+              <li>🖼️ Image/logo watermarks</li>
+              <li>🎨 Full opacity and color control</li>
+              <li>📐 Precise positioning options</li>
+              <li>🔄 Rotation and tiled patterns</li>
+              <li>📄 Page-specific application</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Related Tools */}
+        <div className="mt-8 p-6 border rounded-lg">
+          <h2 className="text-lg font-semibold mb-4">Related PDF Tools</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="/protect-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Protect PDF</span>
+            </a>
+            <a href="/sign-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Sign PDF</span>
+            </a>
+            <a href="/edit-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Edit PDF</span>
+            </a>
+            <a href="/page-numbers-pdf" className="p-3 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors text-center">
+              <span className="text-sm font-medium">Add Page Numbers</span>
+            </a>
+          </div>
+        </div>
       </div>
     </PDFToolTemplate>
     </>
